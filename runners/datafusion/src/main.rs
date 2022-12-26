@@ -1,10 +1,12 @@
 use datafusion::common::{DataFusionError, Result};
+use datafusion::datasource::MemTable;
 use datafusion::prelude::{ParquetReadOptions, SessionConfig, SessionContext};
 use qpml::from_datafusion;
 use std::fs;
 use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 use structopt::StructOpt;
 use tokio::time::Instant;
 
@@ -73,9 +75,10 @@ pub async fn main() -> Result<()> {
         }
         _ => {
             for query in 1..=99 {
-                let x =
+                println!("Executing query {}", query);
+                let result =
                     execute_query(&query_path, query, &data_path, opt.concurrency, opt.debug).await;
-                match x {
+                match result {
                     Ok(_) => {}
                     Err(e) => println!("Fail: {}", e),
                 }
@@ -149,9 +152,17 @@ pub async fn execute_query(
         serde_yaml::to_writer(&mut file, &qpml).unwrap();
 
         let start = Instant::now();
-        let _ = df.collect().await?;
+        let batches = df.collect().await?;
         let duration = start.elapsed();
         println!("Query {} executed in: {:?}", query_no, duration);
+
+        // write results to disk
+        if !batches.is_empty() {
+            let filename = format!("q{}{}.csv", query_no, file_suffix);
+            let t = MemTable::try_new(batches[0].schema(), vec![batches])?;
+            let df = ctx.read_table(Arc::new(t))?;
+            df.write_csv(&filename).await?;
+        }
     }
 
     Ok(())
