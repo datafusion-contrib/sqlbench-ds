@@ -1,2 +1,4 @@
+.idea
 target
-*.qpml
+q*.qpml
+q*.txt
