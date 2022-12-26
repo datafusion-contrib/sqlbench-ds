@@ -1,4 +1,4 @@
-package io.andygrove.sqlbenchds
+package io.sqlbenchmarks.sqlbenchds
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.internal.SQLConf

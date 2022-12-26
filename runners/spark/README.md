@@ -27,7 +27,7 @@ $SPARK_HOME/sbin/start-worker.sh spark://ripper:7077
 
 ```bash
 $SPARK_HOME/bin/spark-submit --master spark://ripper:7077 \
-    --class io.andygrove.sqlbenchds.Main \
+    --class io.sqlbenchmarks.sqlbenchds.Main \
     --conf spark.driver.memory=8G \
     --conf spark.executor.memory=32G \
     --conf spark.executor.cores=24 \
