@@ -53,6 +53,10 @@ struct Opt {
     #[structopt(short, long, parse(from_os_str))]
     data_path: PathBuf,
 
+    /// Output path
+    #[structopt(short, long, parse(from_os_str))]
+    output: PathBuf,
+
     /// Query number. If no query number specified then all queries will be executed.
     #[structopt(short, long)]
     query: Option<u8>,
@@ -68,41 +72,13 @@ pub async fn main() -> Result<()> {
 
     let query_path = format!("{}", opt.query_path.display());
     let data_path = format!("{}", opt.data_path.display());
+    let output_path = format!("{}", opt.output.display());
 
-    match opt.query {
-        Some(query) => {
-            execute_query(&query_path, query, &data_path, opt.concurrency, opt.debug).await?;
-        }
-        _ => {
-            for query in 1..=99 {
-                println!("Executing query {}", query);
-                let result =
-                    execute_query(&query_path, query, &data_path, opt.concurrency, opt.debug).await;
-                match result {
-                    Ok(_) => {}
-                    Err(e) => println!("Fail: {}", e),
-                }
-            }
-        }
-    }
-
-    Ok(())
-}
-
-pub async fn execute_query(
-    query_path: &str,
-    query_no: u8,
-    data_path: &str,
-    target_partitions: u8,
-    debug: bool,
-) -> Result<()> {
-    let filename = format!("{}/{query_no}.sql", query_path);
-    let sql = fs::read_to_string(filename).expect("Could not read query sql");
-
-    let config = SessionConfig::from_env().with_target_partitions(target_partitions as usize);
-
+    // create context
+    let config = SessionConfig::from_env().with_target_partitions(opt.concurrency as usize);
     let ctx = SessionContext::with_config(config);
 
+    // register tables
     for table in TABLES {
         // let path = format!("{}/{}", &data_path, table.name);
         let path = format!("{}/{}.parquet", &data_path, table);
@@ -117,6 +93,36 @@ pub async fn execute_query(
             )));
         }
     }
+
+    match opt.query {
+        Some(query) => {
+            execute_query(&ctx, &query_path, query, opt.debug, &output_path).await?;
+        }
+        _ => {
+            for query in 1..=99 {
+                let result = execute_query(&ctx, &query_path, query, opt.debug, &output_path).await;
+                match result {
+                    Ok(_) => {}
+                    Err(e) => println!("Fail: {}", e),
+                }
+            }
+        }
+    }
+
+    Ok(())
+}
+
+pub async fn execute_query(
+    ctx: &SessionContext,
+    query_path: &str,
+    query_no: u8,
+    debug: bool,
+    output_path: &str,
+) -> Result<()> {
+    println!("Executing query {}", query_no);
+
+    let filename = format!("{}/{query_no}.sql", query_path);
+    let sql = fs::read_to_string(filename).expect("Could not read query sql");
 
     // some queries have multiple statements
     let sql = sql
@@ -137,28 +143,31 @@ pub async fn execute_query(
             "".to_owned()
         };
 
+        let start = Instant::now();
         let df = ctx.sql(sql).await?;
+        let batches = df.collect().await?;
+        let duration = start.elapsed();
+        println!("Query {} executed in: {:?}", query_no, duration);
+
         let plan = df.to_logical_plan()?;
         let formatted_query_plan = format!("{}", plan.display_indent());
-        let filename = format!("q{}{}-logical-plan.txt", query_no, file_suffix);
+        let filename = format!(
+            "{}/q{}{}-logical-plan.txt",
+            output_path, query_no, file_suffix
+        );
         let mut file = File::create(&filename)?;
         write!(file, "{}", formatted_query_plan)?;
 
         // write QPML
         let qpml = from_datafusion(&plan);
-        let filename = format!("q{}{}.qpml", query_no, file_suffix);
+        let filename = format!("{}/q{}{}.qpml", output_path, query_no, file_suffix);
         let file = File::create(&filename)?;
         let mut file = BufWriter::new(file);
         serde_yaml::to_writer(&mut file, &qpml).unwrap();
 
-        let start = Instant::now();
-        let batches = df.collect().await?;
-        let duration = start.elapsed();
-        println!("Query {} executed in: {:?}", query_no, duration);
-
         // write results to disk
         if !batches.is_empty() {
-            let filename = format!("q{}{}.csv", query_no, file_suffix);
+            let filename = format!("{}/q{}{}.csv", output_path, query_no, file_suffix);
             let t = MemTable::try_new(batches[0].schema(), vec![batches])?;
             let df = ctx.read_table(Arc::new(t))?;
             df.write_csv(&filename).await?;
