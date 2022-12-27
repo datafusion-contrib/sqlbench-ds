@@ -1,0 +1,518 @@
+AdaptiveSparkPlan isFinalPlan=true
++- == Final Plan ==
+   CartesianProduct
+   :- CartesianProduct
+   :  :- CartesianProduct
+   :  :  :- CartesianProduct
+   :  :  :  :- CartesianProduct
+   :  :  :  :  :- CartesianProduct
+   :  :  :  :  :  :- CartesianProduct
+   :  :  :  :  :  :  :- *(105) HashAggregate(keys=[], functions=[count(1)], output=[h8_30_to_9#18816L])
+   :  :  :  :  :  :  :  +- ShuffleQueryStage 76
+   :  :  :  :  :  :  :     +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#199404]
+   :  :  :  :  :  :  :        +- *(83) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19310L])
+   :  :  :  :  :  :  :           +- *(83) Project
+   :  :  :  :  :  :  :              +- *(83) SortMergeJoin [ss_store_sk#259], [s_store_sk#712], Inner
+   :  :  :  :  :  :  :                 :- *(81) Sort [ss_store_sk#259 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :                 :  +- AQEShuffleRead coalesced
+   :  :  :  :  :  :  :                 :     +- ShuffleQueryStage 68
+   :  :  :  :  :  :  :                 :        +- Exchange hashpartitioning(ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#198696]
+   :  :  :  :  :  :  :                 :           +- *(59) Project [ss_store_sk#259]
+   :  :  :  :  :  :  :                 :              +- *(59) SortMergeJoin [ss_sold_time_sk#253], [t_time_sk#456], Inner
+   :  :  :  :  :  :  :                 :                 :- *(57) Sort [ss_sold_time_sk#253 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :                 :                 :  +- AQEShuffleRead coalesced
+   :  :  :  :  :  :  :                 :                 :     +- ShuffleQueryStage 53
+   :  :  :  :  :  :  :                 :                 :        +- Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+   :  :  :  :  :  :  :                 :                 :           +- *(35) Project [ss_sold_time_sk#253, ss_store_sk#259]
+   :  :  :  :  :  :  :                 :                 :              +- *(35) SortMergeJoin [ss_hdemo_sk#257], [hd_demo_sk#88], Inner
+   :  :  :  :  :  :  :                 :                 :                 :- *(33) Sort [ss_hdemo_sk#257 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :                 :                 :                 :  +- AQEShuffleRead coalesced
+   :  :  :  :  :  :  :                 :                 :                 :     +- ShuffleQueryStage 0
+   :  :  :  :  :  :  :                 :                 :                 :        +- Exchange hashpartitioning(ss_hdemo_sk#257, 200), ENSURE_REQUIREMENTS, [id=#192361]
+   :  :  :  :  :  :  :                 :                 :                 :           +- *(1) Filter ((isnotnull(ss_hdemo_sk#257) AND isnotnull(ss_sold_time_sk#253)) AND isnotnull(ss_store_sk#259))
+   :  :  :  :  :  :  :                 :                 :                 :              +- *(1) ColumnarToRow
+   :  :  :  :  :  :  :                 :                 :                 :                 +- FileScan parquet [ss_sold_time_sk#253,ss_hdemo_sk#257,ss_store_sk#259] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#257), isnotnull(ss_sold_time_sk#253), isnotnull(ss_store_sk#259)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :  :  :  :  :  :  :                 :                 :                 +- *(34) Sort [hd_demo_sk#88 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :                 :                 :                    +- AQEShuffleRead coalesced
+   :  :  :  :  :  :  :                 :                 :                       +- ShuffleQueryStage 1
+   :  :  :  :  :  :  :                 :                 :                          +- Exchange hashpartitioning(hd_demo_sk#88, 200), ENSURE_REQUIREMENTS, [id=#192380]
+   :  :  :  :  :  :  :                 :                 :                             +- *(2) Project [hd_demo_sk#88]
+   :  :  :  :  :  :  :                 :                 :                                +- *(2) Filter (((((hd_dep_count#91 = 3) AND (hd_vehicle_count#92 <= 5)) OR ((hd_dep_count#91 = 0) AND (hd_vehicle_count#92 <= 2))) OR ((hd_dep_count#91 = 1) AND (hd_vehicle_count#92 <= 3))) AND isnotnull(hd_demo_sk#88))
+   :  :  :  :  :  :  :                 :                 :                                   +- *(2) ColumnarToRow
+   :  :  :  :  :  :  :                 :                 :                                      +- FileScan parquet [hd_demo_sk#88,hd_dep_count#91,hd_vehicle_count#92] Batched: true, DataFilters: [((((hd_dep_count#91 = 3) AND (hd_vehicle_count#92 <= 5)) OR ((hd_dep_count#91 = 0) AND (hd_vehic..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :  :  :  :  :  :  :                 :                 +- *(58) Sort [t_time_sk#456 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :                 :                    +- AQEShuffleRead coalesced
+   :  :  :  :  :  :  :                 :                       +- ShuffleQueryStage 2
+   :  :  :  :  :  :  :                 :                          +- Exchange hashpartitioning(t_time_sk#456, 200), ENSURE_REQUIREMENTS, [id=#192405]
+   :  :  :  :  :  :  :                 :                             +- *(3) Project [t_time_sk#456]
+   :  :  :  :  :  :  :                 :                                +- *(3) Filter ((((isnotnull(t_hour#459) AND isnotnull(t_minute#460)) AND (t_hour#459 = 8)) AND (t_minute#460 >= 30)) AND isnotnull(t_time_sk#456))
+   :  :  :  :  :  :  :                 :                                   +- *(3) ColumnarToRow
+   :  :  :  :  :  :  :                 :                                      +- FileScan parquet [t_time_sk#456,t_hour#459,t_minute#460] Batched: true, DataFilters: [isnotnull(t_hour#459), isnotnull(t_minute#460), (t_hour#459 = 8), (t_minute#460 >= 30), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,8), GreaterThanOrEqual(t_minute,30), IsNo..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :  :  :  :                 +- *(82) Sort [s_store_sk#712 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :                    +- AQEShuffleRead coalesced
+   :  :  :  :  :  :  :                       +- ShuffleQueryStage 3
+   :  :  :  :  :  :  :                          +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
+   :  :  :  :  :  :  :                             +- *(4) Project [s_store_sk#712]
+   :  :  :  :  :  :  :                                +- *(4) Filter ((isnotnull(s_store_name#717) AND (s_store_name#717 = ese)) AND isnotnull(s_store_sk#712))
+   :  :  :  :  :  :  :                                   +- *(4) ColumnarToRow
+   :  :  :  :  :  :  :                                      +- FileScan parquet [s_store_sk#712,s_store_name#717] Batched: true, DataFilters: [isnotnull(s_store_name#717), (s_store_name#717 = ese), isnotnull(s_store_sk#712)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   :  :  :  :  :  :  +- *(106) HashAggregate(keys=[], functions=[count(1)], output=[h9_to_9_30#18817L])
+   :  :  :  :  :  :     +- ShuffleQueryStage 77
+   :  :  :  :  :  :        +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#199706]
+   :  :  :  :  :  :           +- *(86) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19312L])
+   :  :  :  :  :  :              +- *(86) Project
+   :  :  :  :  :  :                 +- *(86) SortMergeJoin [ss_store_sk#18831], [s_store_sk#18862], Inner
+   :  :  :  :  :  :                    :- *(84) Sort [ss_store_sk#18831 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                    :  +- AQEShuffleRead coalesced
+   :  :  :  :  :  :                    :     +- ShuffleQueryStage 69
+   :  :  :  :  :  :                    :        +- Exchange hashpartitioning(ss_store_sk#18831, 200), ENSURE_REQUIREMENTS, [id=#198757]
+   :  :  :  :  :  :                    :           +- *(62) Project [ss_store_sk#18831]
+   :  :  :  :  :  :                    :              +- *(62) SortMergeJoin [ss_sold_time_sk#18825], [t_time_sk#18852], Inner
+   :  :  :  :  :  :                    :                 :- *(60) Sort [ss_sold_time_sk#18825 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                    :                 :  +- AQEShuffleRead coalesced
+   :  :  :  :  :  :                    :                 :     +- ShuffleQueryStage 55
+   :  :  :  :  :  :                    :                 :        +- ReusedExchange [ss_sold_time_sk#18825, ss_store_sk#18831], Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+   :  :  :  :  :  :                    :                 +- *(61) Sort [t_time_sk#18852 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                    :                    +- AQEShuffleRead coalesced
+   :  :  :  :  :  :                    :                       +- ShuffleQueryStage 8
+   :  :  :  :  :  :                    :                          +- Exchange hashpartitioning(t_time_sk#18852, 200), ENSURE_REQUIREMENTS, [id=#192558]
+   :  :  :  :  :  :                    :                             +- *(7) Project [t_time_sk#18852]
+   :  :  :  :  :  :                    :                                +- *(7) Filter ((((isnotnull(t_hour#18855) AND isnotnull(t_minute#18856)) AND (t_hour#18855 = 9)) AND (t_minute#18856 < 30)) AND isnotnull(t_time_sk#18852))
+   :  :  :  :  :  :                    :                                   +- *(7) ColumnarToRow
+   :  :  :  :  :  :                    :                                      +- FileScan parquet [t_time_sk#18852,t_hour#18855,t_minute#18856] Batched: true, DataFilters: [isnotnull(t_hour#18855), isnotnull(t_minute#18856), (t_hour#18855 = 9), (t_minute#18856 < 30), i..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,9), LessThan(t_minute,30), IsNotNull(t_ti..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :  :  :                    +- *(85) Sort [s_store_sk#18862 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                       +- AQEShuffleRead coalesced
+   :  :  :  :  :  :                          +- ShuffleQueryStage 10
+   :  :  :  :  :  :                             +- ReusedExchange [s_store_sk#18862], Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
+   :  :  :  :  :  +- *(107) HashAggregate(keys=[], functions=[count(1)], output=[h9_30_to_10#18818L])
+   :  :  :  :  :     +- ShuffleQueryStage 78
+   :  :  :  :  :        +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#199929]
+   :  :  :  :  :           +- *(89) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19314L])
+   :  :  :  :  :              +- *(89) Project
+   :  :  :  :  :                 +- *(89) SortMergeJoin [ss_store_sk#18898], [s_store_sk#18929], Inner
+   :  :  :  :  :                    :- *(87) Sort [ss_store_sk#18898 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                    :  +- AQEShuffleRead coalesced
+   :  :  :  :  :                    :     +- ShuffleQueryStage 70
+   :  :  :  :  :                    :        +- Exchange hashpartitioning(ss_store_sk#18898, 200), ENSURE_REQUIREMENTS, [id=#198819]
+   :  :  :  :  :                    :           +- *(65) Project [ss_store_sk#18898]
+   :  :  :  :  :                    :              +- *(65) SortMergeJoin [ss_sold_time_sk#18892], [t_time_sk#18919], Inner
+   :  :  :  :  :                    :                 :- *(63) Sort [ss_sold_time_sk#18892 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                    :                 :  +- AQEShuffleRead coalesced
+   :  :  :  :  :                    :                 :     +- ShuffleQueryStage 57
+   :  :  :  :  :                    :                 :        +- ReusedExchange [ss_sold_time_sk#18892, ss_store_sk#18898], Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+   :  :  :  :  :                    :                 +- *(64) Sort [t_time_sk#18919 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                    :                    +- AQEShuffleRead coalesced
+   :  :  :  :  :                    :                       +- ShuffleQueryStage 15
+   :  :  :  :  :                    :                          +- Exchange hashpartitioning(t_time_sk#18919, 200), ENSURE_REQUIREMENTS, [id=#192714]
+   :  :  :  :  :                    :                             +- *(11) Project [t_time_sk#18919]
+   :  :  :  :  :                    :                                +- *(11) Filter ((((isnotnull(t_hour#18922) AND isnotnull(t_minute#18923)) AND (t_hour#18922 = 9)) AND (t_minute#18923 >= 30)) AND isnotnull(t_time_sk#18919))
+   :  :  :  :  :                    :                                   +- *(11) ColumnarToRow
+   :  :  :  :  :                    :                                      +- FileScan parquet [t_time_sk#18919,t_hour#18922,t_minute#18923] Batched: true, DataFilters: [isnotnull(t_hour#18922), isnotnull(t_minute#18923), (t_hour#18922 = 9), (t_minute#18923 >= 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,9), GreaterThanOrEqual(t_minute,30), IsNo..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :  :                    +- *(88) Sort [s_store_sk#18929 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                       +- AQEShuffleRead coalesced
+   :  :  :  :  :                          +- ShuffleQueryStage 17
+   :  :  :  :  :                             +- ReusedExchange [s_store_sk#18929], Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
+   :  :  :  :  +- *(108) HashAggregate(keys=[], functions=[count(1)], output=[h10_to_10_30#18819L])
+   :  :  :  :     +- ShuffleQueryStage 79
+   :  :  :  :        +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#200128]
+   :  :  :  :           +- *(92) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19316L])
+   :  :  :  :              +- *(92) Project
+   :  :  :  :                 +- *(92) SortMergeJoin [ss_store_sk#18965], [s_store_sk#18996], Inner
+   :  :  :  :                    :- *(90) Sort [ss_store_sk#18965 ASC NULLS FIRST], false, 0
+   :  :  :  :                    :  +- AQEShuffleRead coalesced
+   :  :  :  :                    :     +- ShuffleQueryStage 71
+   :  :  :  :                    :        +- Exchange hashpartitioning(ss_store_sk#18965, 200), ENSURE_REQUIREMENTS, [id=#198881]
+   :  :  :  :                    :           +- *(68) Project [ss_store_sk#18965]
+   :  :  :  :                    :              +- *(68) SortMergeJoin [ss_sold_time_sk#18959], [t_time_sk#18986], Inner
+   :  :  :  :                    :                 :- *(66) Sort [ss_sold_time_sk#18959 ASC NULLS FIRST], false, 0
+   :  :  :  :                    :                 :  +- AQEShuffleRead coalesced
+   :  :  :  :                    :                 :     +- ShuffleQueryStage 59
+   :  :  :  :                    :                 :        +- ReusedExchange [ss_sold_time_sk#18959, ss_store_sk#18965], Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+   :  :  :  :                    :                 +- *(67) Sort [t_time_sk#18986 ASC NULLS FIRST], false, 0
+   :  :  :  :                    :                    +- AQEShuffleRead coalesced
+   :  :  :  :                    :                       +- ShuffleQueryStage 22
+   :  :  :  :                    :                          +- Exchange hashpartitioning(t_time_sk#18986, 200), ENSURE_REQUIREMENTS, [id=#192870]
+   :  :  :  :                    :                             +- *(15) Project [t_time_sk#18986]
+   :  :  :  :                    :                                +- *(15) Filter ((((isnotnull(t_hour#18989) AND isnotnull(t_minute#18990)) AND (t_hour#18989 = 10)) AND (t_minute#18990 < 30)) AND isnotnull(t_time_sk#18986))
+   :  :  :  :                    :                                   +- *(15) ColumnarToRow
+   :  :  :  :                    :                                      +- FileScan parquet [t_time_sk#18986,t_hour#18989,t_minute#18990] Batched: true, DataFilters: [isnotnull(t_hour#18989), isnotnull(t_minute#18990), (t_hour#18989 = 10), (t_minute#18990 < 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,10), LessThan(t_minute,30), IsNotNull(t_t..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :                    +- *(91) Sort [s_store_sk#18996 ASC NULLS FIRST], false, 0
+   :  :  :  :                       +- AQEShuffleRead coalesced
+   :  :  :  :                          +- ShuffleQueryStage 24
+   :  :  :  :                             +- ReusedExchange [s_store_sk#18996], Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
+   :  :  :  +- *(109) HashAggregate(keys=[], functions=[count(1)], output=[h10_30_to_11#18820L])
+   :  :  :     +- ShuffleQueryStage 80
+   :  :  :        +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#200303]
+   :  :  :           +- *(95) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19318L])
+   :  :  :              +- *(95) Project
+   :  :  :                 +- *(95) SortMergeJoin [ss_store_sk#19032], [s_store_sk#19063], Inner
+   :  :  :                    :- *(93) Sort [ss_store_sk#19032 ASC NULLS FIRST], false, 0
+   :  :  :                    :  +- AQEShuffleRead coalesced
+   :  :  :                    :     +- ShuffleQueryStage 72
+   :  :  :                    :        +- Exchange hashpartitioning(ss_store_sk#19032, 200), ENSURE_REQUIREMENTS, [id=#198943]
+   :  :  :                    :           +- *(71) Project [ss_store_sk#19032]
+   :  :  :                    :              +- *(71) SortMergeJoin [ss_sold_time_sk#19026], [t_time_sk#19053], Inner
+   :  :  :                    :                 :- *(69) Sort [ss_sold_time_sk#19026 ASC NULLS FIRST], false, 0
+   :  :  :                    :                 :  +- AQEShuffleRead coalesced
+   :  :  :                    :                 :     +- ShuffleQueryStage 61
+   :  :  :                    :                 :        +- ReusedExchange [ss_sold_time_sk#19026, ss_store_sk#19032], Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+   :  :  :                    :                 +- *(70) Sort [t_time_sk#19053 ASC NULLS FIRST], false, 0
+   :  :  :                    :                    +- AQEShuffleRead coalesced
+   :  :  :                    :                       +- ShuffleQueryStage 29
+   :  :  :                    :                          +- Exchange hashpartitioning(t_time_sk#19053, 200), ENSURE_REQUIREMENTS, [id=#193026]
+   :  :  :                    :                             +- *(19) Project [t_time_sk#19053]
+   :  :  :                    :                                +- *(19) Filter ((((isnotnull(t_hour#19056) AND isnotnull(t_minute#19057)) AND (t_hour#19056 = 10)) AND (t_minute#19057 >= 30)) AND isnotnull(t_time_sk#19053))
+   :  :  :                    :                                   +- *(19) ColumnarToRow
+   :  :  :                    :                                      +- FileScan parquet [t_time_sk#19053,t_hour#19056,t_minute#19057] Batched: true, DataFilters: [isnotnull(t_hour#19056), isnotnull(t_minute#19057), (t_hour#19056 = 10), (t_minute#19057 >= 30),..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,10), GreaterThanOrEqual(t_minute,30), IsN..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :                    +- *(94) Sort [s_store_sk#19063 ASC NULLS FIRST], false, 0
+   :  :  :                       +- AQEShuffleRead coalesced
+   :  :  :                          +- ShuffleQueryStage 31
+   :  :  :                             +- ReusedExchange [s_store_sk#19063], Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
+   :  :  +- *(110) HashAggregate(keys=[], functions=[count(1)], output=[h11_to_11_30#18821L])
+   :  :     +- ShuffleQueryStage 81
+   :  :        +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#200454]
+   :  :           +- *(98) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19320L])
+   :  :              +- *(98) Project
+   :  :                 +- *(98) SortMergeJoin [ss_store_sk#19099], [s_store_sk#19130], Inner
+   :  :                    :- *(96) Sort [ss_store_sk#19099 ASC NULLS FIRST], false, 0
+   :  :                    :  +- AQEShuffleRead coalesced
+   :  :                    :     +- ShuffleQueryStage 73
+   :  :                    :        +- Exchange hashpartitioning(ss_store_sk#19099, 200), ENSURE_REQUIREMENTS, [id=#199005]
+   :  :                    :           +- *(74) Project [ss_store_sk#19099]
+   :  :                    :              +- *(74) SortMergeJoin [ss_sold_time_sk#19093], [t_time_sk#19120], Inner
+   :  :                    :                 :- *(72) Sort [ss_sold_time_sk#19093 ASC NULLS FIRST], false, 0
+   :  :                    :                 :  +- AQEShuffleRead coalesced
+   :  :                    :                 :     +- ShuffleQueryStage 63
+   :  :                    :                 :        +- ReusedExchange [ss_sold_time_sk#19093, ss_store_sk#19099], Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+   :  :                    :                 +- *(73) Sort [t_time_sk#19120 ASC NULLS FIRST], false, 0
+   :  :                    :                    +- AQEShuffleRead coalesced
+   :  :                    :                       +- ShuffleQueryStage 36
+   :  :                    :                          +- Exchange hashpartitioning(t_time_sk#19120, 200), ENSURE_REQUIREMENTS, [id=#193182]
+   :  :                    :                             +- *(23) Project [t_time_sk#19120]
+   :  :                    :                                +- *(23) Filter ((((isnotnull(t_hour#19123) AND isnotnull(t_minute#19124)) AND (t_hour#19123 = 11)) AND (t_minute#19124 < 30)) AND isnotnull(t_time_sk#19120))
+   :  :                    :                                   +- *(23) ColumnarToRow
+   :  :                    :                                      +- FileScan parquet [t_time_sk#19120,t_hour#19123,t_minute#19124] Batched: true, DataFilters: [isnotnull(t_hour#19123), isnotnull(t_minute#19124), (t_hour#19123 = 11), (t_minute#19124 < 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,11), LessThan(t_minute,30), IsNotNull(t_t..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :                    +- *(97) Sort [s_store_sk#19130 ASC NULLS FIRST], false, 0
+   :  :                       +- AQEShuffleRead coalesced
+   :  :                          +- ShuffleQueryStage 38
+   :  :                             +- ReusedExchange [s_store_sk#19130], Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
+   :  +- *(111) HashAggregate(keys=[], functions=[count(1)], output=[h11_30_to_12#18822L])
+   :     +- ShuffleQueryStage 82
+   :        +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#200581]
+   :           +- *(101) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19322L])
+   :              +- *(101) Project
+   :                 +- *(101) SortMergeJoin [ss_store_sk#19166], [s_store_sk#19197], Inner
+   :                    :- *(99) Sort [ss_store_sk#19166 ASC NULLS FIRST], false, 0
+   :                    :  +- AQEShuffleRead coalesced
+   :                    :     +- ShuffleQueryStage 74
+   :                    :        +- Exchange hashpartitioning(ss_store_sk#19166, 200), ENSURE_REQUIREMENTS, [id=#199067]
+   :                    :           +- *(77) Project [ss_store_sk#19166]
+   :                    :              +- *(77) SortMergeJoin [ss_sold_time_sk#19160], [t_time_sk#19187], Inner
+   :                    :                 :- *(75) Sort [ss_sold_time_sk#19160 ASC NULLS FIRST], false, 0
+   :                    :                 :  +- AQEShuffleRead coalesced
+   :                    :                 :     +- ShuffleQueryStage 65
+   :                    :                 :        +- ReusedExchange [ss_sold_time_sk#19160, ss_store_sk#19166], Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+   :                    :                 +- *(76) Sort [t_time_sk#19187 ASC NULLS FIRST], false, 0
+   :                    :                    +- AQEShuffleRead coalesced
+   :                    :                       +- ShuffleQueryStage 43
+   :                    :                          +- Exchange hashpartitioning(t_time_sk#19187, 200), ENSURE_REQUIREMENTS, [id=#193338]
+   :                    :                             +- *(27) Project [t_time_sk#19187]
+   :                    :                                +- *(27) Filter ((((isnotnull(t_hour#19190) AND isnotnull(t_minute#19191)) AND (t_hour#19190 = 11)) AND (t_minute#19191 >= 30)) AND isnotnull(t_time_sk#19187))
+   :                    :                                   +- *(27) ColumnarToRow
+   :                    :                                      +- FileScan parquet [t_time_sk#19187,t_hour#19190,t_minute#19191] Batched: true, DataFilters: [isnotnull(t_hour#19190), isnotnull(t_minute#19191), (t_hour#19190 = 11), (t_minute#19191 >= 30),..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,11), GreaterThanOrEqual(t_minute,30), IsN..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :                    +- *(100) Sort [s_store_sk#19197 ASC NULLS FIRST], false, 0
+   :                       +- AQEShuffleRead coalesced
+   :                          +- ShuffleQueryStage 45
+   :                             +- ReusedExchange [s_store_sk#19197], Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
+   +- *(112) HashAggregate(keys=[], functions=[count(1)], output=[h12_to_12_30#18823L])
+      +- ShuffleQueryStage 83
+         +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#200684]
+            +- *(104) HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19324L])
+               +- *(104) Project
+                  +- *(104) SortMergeJoin [ss_store_sk#19233], [s_store_sk#19264], Inner
+                     :- *(102) Sort [ss_store_sk#19233 ASC NULLS FIRST], false, 0
+                     :  +- AQEShuffleRead coalesced
+                     :     +- ShuffleQueryStage 75
+                     :        +- Exchange hashpartitioning(ss_store_sk#19233, 200), ENSURE_REQUIREMENTS, [id=#199129]
+                     :           +- *(80) Project [ss_store_sk#19233]
+                     :              +- *(80) SortMergeJoin [ss_sold_time_sk#19227], [t_time_sk#19254], Inner
+                     :                 :- *(78) Sort [ss_sold_time_sk#19227 ASC NULLS FIRST], false, 0
+                     :                 :  +- AQEShuffleRead coalesced
+                     :                 :     +- ShuffleQueryStage 67
+                     :                 :        +- ReusedExchange [ss_sold_time_sk#19227, ss_store_sk#19233], Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#197928]
+                     :                 +- *(79) Sort [t_time_sk#19254 ASC NULLS FIRST], false, 0
+                     :                    +- AQEShuffleRead coalesced
+                     :                       +- ShuffleQueryStage 50
+                     :                          +- Exchange hashpartitioning(t_time_sk#19254, 200), ENSURE_REQUIREMENTS, [id=#193494]
+                     :                             +- *(31) Project [t_time_sk#19254]
+                     :                                +- *(31) Filter ((((isnotnull(t_hour#19257) AND isnotnull(t_minute#19258)) AND (t_hour#19257 = 12)) AND (t_minute#19258 < 30)) AND isnotnull(t_time_sk#19254))
+                     :                                   +- *(31) ColumnarToRow
+                     :                                      +- FileScan parquet [t_time_sk#19254,t_hour#19257,t_minute#19258] Batched: true, DataFilters: [isnotnull(t_hour#19257), isnotnull(t_minute#19258), (t_hour#19257 = 12), (t_minute#19258 < 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,12), LessThan(t_minute,30), IsNotNull(t_t..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+                     +- *(103) Sort [s_store_sk#19264 ASC NULLS FIRST], false, 0
+                        +- AQEShuffleRead coalesced
+                           +- ShuffleQueryStage 52
+                              +- ReusedExchange [s_store_sk#19264], Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192430]
++- == Initial Plan ==
+   CartesianProduct
+   :- CartesianProduct
+   :  :- CartesianProduct
+   :  :  :- CartesianProduct
+   :  :  :  :- CartesianProduct
+   :  :  :  :  :- CartesianProduct
+   :  :  :  :  :  :- CartesianProduct
+   :  :  :  :  :  :  :- HashAggregate(keys=[], functions=[count(1)], output=[h8_30_to_9#18816L])
+   :  :  :  :  :  :  :  +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192100]
+   :  :  :  :  :  :  :     +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19310L])
+   :  :  :  :  :  :  :        +- Project
+   :  :  :  :  :  :  :           +- SortMergeJoin [ss_store_sk#259], [s_store_sk#712], Inner
+   :  :  :  :  :  :  :              :- Sort [ss_store_sk#259 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :              :  +- Exchange hashpartitioning(ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#192092]
+   :  :  :  :  :  :  :              :     +- Project [ss_store_sk#259]
+   :  :  :  :  :  :  :              :        +- SortMergeJoin [ss_sold_time_sk#253], [t_time_sk#456], Inner
+   :  :  :  :  :  :  :              :           :- Sort [ss_sold_time_sk#253 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :              :           :  +- Exchange hashpartitioning(ss_sold_time_sk#253, 200), ENSURE_REQUIREMENTS, [id=#192084]
+   :  :  :  :  :  :  :              :           :     +- Project [ss_sold_time_sk#253, ss_store_sk#259]
+   :  :  :  :  :  :  :              :           :        +- SortMergeJoin [ss_hdemo_sk#257], [hd_demo_sk#88], Inner
+   :  :  :  :  :  :  :              :           :           :- Sort [ss_hdemo_sk#257 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :              :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#257, 200), ENSURE_REQUIREMENTS, [id=#192076]
+   :  :  :  :  :  :  :              :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#257) AND isnotnull(ss_sold_time_sk#253)) AND isnotnull(ss_store_sk#259))
+   :  :  :  :  :  :  :              :           :           :        +- FileScan parquet [ss_sold_time_sk#253,ss_hdemo_sk#257,ss_store_sk#259] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#257), isnotnull(ss_sold_time_sk#253), isnotnull(ss_store_sk#259)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :  :  :  :  :  :  :              :           :           +- Sort [hd_demo_sk#88 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :              :           :              +- Exchange hashpartitioning(hd_demo_sk#88, 200), ENSURE_REQUIREMENTS, [id=#192077]
+   :  :  :  :  :  :  :              :           :                 +- Project [hd_demo_sk#88]
+   :  :  :  :  :  :  :              :           :                    +- Filter (((((hd_dep_count#91 = 3) AND (hd_vehicle_count#92 <= 5)) OR ((hd_dep_count#91 = 0) AND (hd_vehicle_count#92 <= 2))) OR ((hd_dep_count#91 = 1) AND (hd_vehicle_count#92 <= 3))) AND isnotnull(hd_demo_sk#88))
+   :  :  :  :  :  :  :              :           :                       +- FileScan parquet [hd_demo_sk#88,hd_dep_count#91,hd_vehicle_count#92] Batched: true, DataFilters: [((((hd_dep_count#91 = 3) AND (hd_vehicle_count#92 <= 5)) OR ((hd_dep_count#91 = 0) AND (hd_vehic..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :  :  :  :  :  :  :              :           +- Sort [t_time_sk#456 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :              :              +- Exchange hashpartitioning(t_time_sk#456, 200), ENSURE_REQUIREMENTS, [id=#192085]
+   :  :  :  :  :  :  :              :                 +- Project [t_time_sk#456]
+   :  :  :  :  :  :  :              :                    +- Filter ((((isnotnull(t_hour#459) AND isnotnull(t_minute#460)) AND (t_hour#459 = 8)) AND (t_minute#460 >= 30)) AND isnotnull(t_time_sk#456))
+   :  :  :  :  :  :  :              :                       +- FileScan parquet [t_time_sk#456,t_hour#459,t_minute#460] Batched: true, DataFilters: [isnotnull(t_hour#459), isnotnull(t_minute#460), (t_hour#459 = 8), (t_minute#460 >= 30), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,8), GreaterThanOrEqual(t_minute,30), IsNo..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :  :  :  :              +- Sort [s_store_sk#712 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :  :                 +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#192093]
+   :  :  :  :  :  :  :                    +- Project [s_store_sk#712]
+   :  :  :  :  :  :  :                       +- Filter ((isnotnull(s_store_name#717) AND (s_store_name#717 = ese)) AND isnotnull(s_store_sk#712))
+   :  :  :  :  :  :  :                          +- FileScan parquet [s_store_sk#712,s_store_name#717] Batched: true, DataFilters: [isnotnull(s_store_name#717), (s_store_name#717 = ese), isnotnull(s_store_sk#712)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   :  :  :  :  :  :  +- HashAggregate(keys=[], functions=[count(1)], output=[h9_to_9_30#18817L])
+   :  :  :  :  :  :     +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192127]
+   :  :  :  :  :  :        +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19312L])
+   :  :  :  :  :  :           +- Project
+   :  :  :  :  :  :              +- SortMergeJoin [ss_store_sk#18831], [s_store_sk#18862], Inner
+   :  :  :  :  :  :                 :- Sort [ss_store_sk#18831 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                 :  +- Exchange hashpartitioning(ss_store_sk#18831, 200), ENSURE_REQUIREMENTS, [id=#192119]
+   :  :  :  :  :  :                 :     +- Project [ss_store_sk#18831]
+   :  :  :  :  :  :                 :        +- SortMergeJoin [ss_sold_time_sk#18825], [t_time_sk#18852], Inner
+   :  :  :  :  :  :                 :           :- Sort [ss_sold_time_sk#18825 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                 :           :  +- Exchange hashpartitioning(ss_sold_time_sk#18825, 200), ENSURE_REQUIREMENTS, [id=#192111]
+   :  :  :  :  :  :                 :           :     +- Project [ss_sold_time_sk#18825, ss_store_sk#18831]
+   :  :  :  :  :  :                 :           :        +- SortMergeJoin [ss_hdemo_sk#18829], [hd_demo_sk#18847], Inner
+   :  :  :  :  :  :                 :           :           :- Sort [ss_hdemo_sk#18829 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                 :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#18829, 200), ENSURE_REQUIREMENTS, [id=#192103]
+   :  :  :  :  :  :                 :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#18829) AND isnotnull(ss_sold_time_sk#18825)) AND isnotnull(ss_store_sk#18831))
+   :  :  :  :  :  :                 :           :           :        +- FileScan parquet [ss_sold_time_sk#18825,ss_hdemo_sk#18829,ss_store_sk#18831] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#18829), isnotnull(ss_sold_time_sk#18825), isnotnull(ss_store_sk#18831)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :  :  :  :  :  :                 :           :           +- Sort [hd_demo_sk#18847 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                 :           :              +- Exchange hashpartitioning(hd_demo_sk#18847, 200), ENSURE_REQUIREMENTS, [id=#192104]
+   :  :  :  :  :  :                 :           :                 +- Project [hd_demo_sk#18847]
+   :  :  :  :  :  :                 :           :                    +- Filter (((((hd_dep_count#18850 = 3) AND (hd_vehicle_count#18851 <= 5)) OR ((hd_dep_count#18850 = 0) AND (hd_vehicle_count#18851 <= 2))) OR ((hd_dep_count#18850 = 1) AND (hd_vehicle_count#18851 <= 3))) AND isnotnull(hd_demo_sk#18847))
+   :  :  :  :  :  :                 :           :                       +- FileScan parquet [hd_demo_sk#18847,hd_dep_count#18850,hd_vehicle_count#18851] Batched: true, DataFilters: [((((hd_dep_count#18850 = 3) AND (hd_vehicle_count#18851 <= 5)) OR ((hd_dep_count#18850 = 0) AND ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :  :  :  :  :  :                 :           +- Sort [t_time_sk#18852 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                 :              +- Exchange hashpartitioning(t_time_sk#18852, 200), ENSURE_REQUIREMENTS, [id=#192112]
+   :  :  :  :  :  :                 :                 +- Project [t_time_sk#18852]
+   :  :  :  :  :  :                 :                    +- Filter ((((isnotnull(t_hour#18855) AND isnotnull(t_minute#18856)) AND (t_hour#18855 = 9)) AND (t_minute#18856 < 30)) AND isnotnull(t_time_sk#18852))
+   :  :  :  :  :  :                 :                       +- FileScan parquet [t_time_sk#18852,t_hour#18855,t_minute#18856] Batched: true, DataFilters: [isnotnull(t_hour#18855), isnotnull(t_minute#18856), (t_hour#18855 = 9), (t_minute#18856 < 30), i..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,9), LessThan(t_minute,30), IsNotNull(t_ti..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :  :  :                 +- Sort [s_store_sk#18862 ASC NULLS FIRST], false, 0
+   :  :  :  :  :  :                    +- Exchange hashpartitioning(s_store_sk#18862, 200), ENSURE_REQUIREMENTS, [id=#192120]
+   :  :  :  :  :  :                       +- Project [s_store_sk#18862]
+   :  :  :  :  :  :                          +- Filter ((isnotnull(s_store_name#18867) AND (s_store_name#18867 = ese)) AND isnotnull(s_store_sk#18862))
+   :  :  :  :  :  :                             +- FileScan parquet [s_store_sk#18862,s_store_name#18867] Batched: true, DataFilters: [isnotnull(s_store_name#18867), (s_store_name#18867 = ese), isnotnull(s_store_sk#18862)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   :  :  :  :  :  +- HashAggregate(keys=[], functions=[count(1)], output=[h9_30_to_10#18818L])
+   :  :  :  :  :     +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192155]
+   :  :  :  :  :        +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19314L])
+   :  :  :  :  :           +- Project
+   :  :  :  :  :              +- SortMergeJoin [ss_store_sk#18898], [s_store_sk#18929], Inner
+   :  :  :  :  :                 :- Sort [ss_store_sk#18898 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                 :  +- Exchange hashpartitioning(ss_store_sk#18898, 200), ENSURE_REQUIREMENTS, [id=#192147]
+   :  :  :  :  :                 :     +- Project [ss_store_sk#18898]
+   :  :  :  :  :                 :        +- SortMergeJoin [ss_sold_time_sk#18892], [t_time_sk#18919], Inner
+   :  :  :  :  :                 :           :- Sort [ss_sold_time_sk#18892 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                 :           :  +- Exchange hashpartitioning(ss_sold_time_sk#18892, 200), ENSURE_REQUIREMENTS, [id=#192139]
+   :  :  :  :  :                 :           :     +- Project [ss_sold_time_sk#18892, ss_store_sk#18898]
+   :  :  :  :  :                 :           :        +- SortMergeJoin [ss_hdemo_sk#18896], [hd_demo_sk#18914], Inner
+   :  :  :  :  :                 :           :           :- Sort [ss_hdemo_sk#18896 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                 :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#18896, 200), ENSURE_REQUIREMENTS, [id=#192131]
+   :  :  :  :  :                 :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#18896) AND isnotnull(ss_sold_time_sk#18892)) AND isnotnull(ss_store_sk#18898))
+   :  :  :  :  :                 :           :           :        +- FileScan parquet [ss_sold_time_sk#18892,ss_hdemo_sk#18896,ss_store_sk#18898] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#18896), isnotnull(ss_sold_time_sk#18892), isnotnull(ss_store_sk#18898)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :  :  :  :  :                 :           :           +- Sort [hd_demo_sk#18914 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                 :           :              +- Exchange hashpartitioning(hd_demo_sk#18914, 200), ENSURE_REQUIREMENTS, [id=#192132]
+   :  :  :  :  :                 :           :                 +- Project [hd_demo_sk#18914]
+   :  :  :  :  :                 :           :                    +- Filter (((((hd_dep_count#18917 = 3) AND (hd_vehicle_count#18918 <= 5)) OR ((hd_dep_count#18917 = 0) AND (hd_vehicle_count#18918 <= 2))) OR ((hd_dep_count#18917 = 1) AND (hd_vehicle_count#18918 <= 3))) AND isnotnull(hd_demo_sk#18914))
+   :  :  :  :  :                 :           :                       +- FileScan parquet [hd_demo_sk#18914,hd_dep_count#18917,hd_vehicle_count#18918] Batched: true, DataFilters: [((((hd_dep_count#18917 = 3) AND (hd_vehicle_count#18918 <= 5)) OR ((hd_dep_count#18917 = 0) AND ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :  :  :  :  :                 :           +- Sort [t_time_sk#18919 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                 :              +- Exchange hashpartitioning(t_time_sk#18919, 200), ENSURE_REQUIREMENTS, [id=#192140]
+   :  :  :  :  :                 :                 +- Project [t_time_sk#18919]
+   :  :  :  :  :                 :                    +- Filter ((((isnotnull(t_hour#18922) AND isnotnull(t_minute#18923)) AND (t_hour#18922 = 9)) AND (t_minute#18923 >= 30)) AND isnotnull(t_time_sk#18919))
+   :  :  :  :  :                 :                       +- FileScan parquet [t_time_sk#18919,t_hour#18922,t_minute#18923] Batched: true, DataFilters: [isnotnull(t_hour#18922), isnotnull(t_minute#18923), (t_hour#18922 = 9), (t_minute#18923 >= 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,9), GreaterThanOrEqual(t_minute,30), IsNo..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :  :                 +- Sort [s_store_sk#18929 ASC NULLS FIRST], false, 0
+   :  :  :  :  :                    +- Exchange hashpartitioning(s_store_sk#18929, 200), ENSURE_REQUIREMENTS, [id=#192148]
+   :  :  :  :  :                       +- Project [s_store_sk#18929]
+   :  :  :  :  :                          +- Filter ((isnotnull(s_store_name#18934) AND (s_store_name#18934 = ese)) AND isnotnull(s_store_sk#18929))
+   :  :  :  :  :                             +- FileScan parquet [s_store_sk#18929,s_store_name#18934] Batched: true, DataFilters: [isnotnull(s_store_name#18934), (s_store_name#18934 = ese), isnotnull(s_store_sk#18929)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   :  :  :  :  +- HashAggregate(keys=[], functions=[count(1)], output=[h10_to_10_30#18819L])
+   :  :  :  :     +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192183]
+   :  :  :  :        +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19316L])
+   :  :  :  :           +- Project
+   :  :  :  :              +- SortMergeJoin [ss_store_sk#18965], [s_store_sk#18996], Inner
+   :  :  :  :                 :- Sort [ss_store_sk#18965 ASC NULLS FIRST], false, 0
+   :  :  :  :                 :  +- Exchange hashpartitioning(ss_store_sk#18965, 200), ENSURE_REQUIREMENTS, [id=#192175]
+   :  :  :  :                 :     +- Project [ss_store_sk#18965]
+   :  :  :  :                 :        +- SortMergeJoin [ss_sold_time_sk#18959], [t_time_sk#18986], Inner
+   :  :  :  :                 :           :- Sort [ss_sold_time_sk#18959 ASC NULLS FIRST], false, 0
+   :  :  :  :                 :           :  +- Exchange hashpartitioning(ss_sold_time_sk#18959, 200), ENSURE_REQUIREMENTS, [id=#192167]
+   :  :  :  :                 :           :     +- Project [ss_sold_time_sk#18959, ss_store_sk#18965]
+   :  :  :  :                 :           :        +- SortMergeJoin [ss_hdemo_sk#18963], [hd_demo_sk#18981], Inner
+   :  :  :  :                 :           :           :- Sort [ss_hdemo_sk#18963 ASC NULLS FIRST], false, 0
+   :  :  :  :                 :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#18963, 200), ENSURE_REQUIREMENTS, [id=#192159]
+   :  :  :  :                 :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#18963) AND isnotnull(ss_sold_time_sk#18959)) AND isnotnull(ss_store_sk#18965))
+   :  :  :  :                 :           :           :        +- FileScan parquet [ss_sold_time_sk#18959,ss_hdemo_sk#18963,ss_store_sk#18965] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#18963), isnotnull(ss_sold_time_sk#18959), isnotnull(ss_store_sk#18965)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :  :  :  :                 :           :           +- Sort [hd_demo_sk#18981 ASC NULLS FIRST], false, 0
+   :  :  :  :                 :           :              +- Exchange hashpartitioning(hd_demo_sk#18981, 200), ENSURE_REQUIREMENTS, [id=#192160]
+   :  :  :  :                 :           :                 +- Project [hd_demo_sk#18981]
+   :  :  :  :                 :           :                    +- Filter (((((hd_dep_count#18984 = 3) AND (hd_vehicle_count#18985 <= 5)) OR ((hd_dep_count#18984 = 0) AND (hd_vehicle_count#18985 <= 2))) OR ((hd_dep_count#18984 = 1) AND (hd_vehicle_count#18985 <= 3))) AND isnotnull(hd_demo_sk#18981))
+   :  :  :  :                 :           :                       +- FileScan parquet [hd_demo_sk#18981,hd_dep_count#18984,hd_vehicle_count#18985] Batched: true, DataFilters: [((((hd_dep_count#18984 = 3) AND (hd_vehicle_count#18985 <= 5)) OR ((hd_dep_count#18984 = 0) AND ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :  :  :  :                 :           +- Sort [t_time_sk#18986 ASC NULLS FIRST], false, 0
+   :  :  :  :                 :              +- Exchange hashpartitioning(t_time_sk#18986, 200), ENSURE_REQUIREMENTS, [id=#192168]
+   :  :  :  :                 :                 +- Project [t_time_sk#18986]
+   :  :  :  :                 :                    +- Filter ((((isnotnull(t_hour#18989) AND isnotnull(t_minute#18990)) AND (t_hour#18989 = 10)) AND (t_minute#18990 < 30)) AND isnotnull(t_time_sk#18986))
+   :  :  :  :                 :                       +- FileScan parquet [t_time_sk#18986,t_hour#18989,t_minute#18990] Batched: true, DataFilters: [isnotnull(t_hour#18989), isnotnull(t_minute#18990), (t_hour#18989 = 10), (t_minute#18990 < 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,10), LessThan(t_minute,30), IsNotNull(t_t..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :  :                 +- Sort [s_store_sk#18996 ASC NULLS FIRST], false, 0
+   :  :  :  :                    +- Exchange hashpartitioning(s_store_sk#18996, 200), ENSURE_REQUIREMENTS, [id=#192176]
+   :  :  :  :                       +- Project [s_store_sk#18996]
+   :  :  :  :                          +- Filter ((isnotnull(s_store_name#19001) AND (s_store_name#19001 = ese)) AND isnotnull(s_store_sk#18996))
+   :  :  :  :                             +- FileScan parquet [s_store_sk#18996,s_store_name#19001] Batched: true, DataFilters: [isnotnull(s_store_name#19001), (s_store_name#19001 = ese), isnotnull(s_store_sk#18996)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   :  :  :  +- HashAggregate(keys=[], functions=[count(1)], output=[h10_30_to_11#18820L])
+   :  :  :     +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192211]
+   :  :  :        +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19318L])
+   :  :  :           +- Project
+   :  :  :              +- SortMergeJoin [ss_store_sk#19032], [s_store_sk#19063], Inner
+   :  :  :                 :- Sort [ss_store_sk#19032 ASC NULLS FIRST], false, 0
+   :  :  :                 :  +- Exchange hashpartitioning(ss_store_sk#19032, 200), ENSURE_REQUIREMENTS, [id=#192203]
+   :  :  :                 :     +- Project [ss_store_sk#19032]
+   :  :  :                 :        +- SortMergeJoin [ss_sold_time_sk#19026], [t_time_sk#19053], Inner
+   :  :  :                 :           :- Sort [ss_sold_time_sk#19026 ASC NULLS FIRST], false, 0
+   :  :  :                 :           :  +- Exchange hashpartitioning(ss_sold_time_sk#19026, 200), ENSURE_REQUIREMENTS, [id=#192195]
+   :  :  :                 :           :     +- Project [ss_sold_time_sk#19026, ss_store_sk#19032]
+   :  :  :                 :           :        +- SortMergeJoin [ss_hdemo_sk#19030], [hd_demo_sk#19048], Inner
+   :  :  :                 :           :           :- Sort [ss_hdemo_sk#19030 ASC NULLS FIRST], false, 0
+   :  :  :                 :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#19030, 200), ENSURE_REQUIREMENTS, [id=#192187]
+   :  :  :                 :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#19030) AND isnotnull(ss_sold_time_sk#19026)) AND isnotnull(ss_store_sk#19032))
+   :  :  :                 :           :           :        +- FileScan parquet [ss_sold_time_sk#19026,ss_hdemo_sk#19030,ss_store_sk#19032] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#19030), isnotnull(ss_sold_time_sk#19026), isnotnull(ss_store_sk#19032)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :  :  :                 :           :           +- Sort [hd_demo_sk#19048 ASC NULLS FIRST], false, 0
+   :  :  :                 :           :              +- Exchange hashpartitioning(hd_demo_sk#19048, 200), ENSURE_REQUIREMENTS, [id=#192188]
+   :  :  :                 :           :                 +- Project [hd_demo_sk#19048]
+   :  :  :                 :           :                    +- Filter (((((hd_dep_count#19051 = 3) AND (hd_vehicle_count#19052 <= 5)) OR ((hd_dep_count#19051 = 0) AND (hd_vehicle_count#19052 <= 2))) OR ((hd_dep_count#19051 = 1) AND (hd_vehicle_count#19052 <= 3))) AND isnotnull(hd_demo_sk#19048))
+   :  :  :                 :           :                       +- FileScan parquet [hd_demo_sk#19048,hd_dep_count#19051,hd_vehicle_count#19052] Batched: true, DataFilters: [((((hd_dep_count#19051 = 3) AND (hd_vehicle_count#19052 <= 5)) OR ((hd_dep_count#19051 = 0) AND ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :  :  :                 :           +- Sort [t_time_sk#19053 ASC NULLS FIRST], false, 0
+   :  :  :                 :              +- Exchange hashpartitioning(t_time_sk#19053, 200), ENSURE_REQUIREMENTS, [id=#192196]
+   :  :  :                 :                 +- Project [t_time_sk#19053]
+   :  :  :                 :                    +- Filter ((((isnotnull(t_hour#19056) AND isnotnull(t_minute#19057)) AND (t_hour#19056 = 10)) AND (t_minute#19057 >= 30)) AND isnotnull(t_time_sk#19053))
+   :  :  :                 :                       +- FileScan parquet [t_time_sk#19053,t_hour#19056,t_minute#19057] Batched: true, DataFilters: [isnotnull(t_hour#19056), isnotnull(t_minute#19057), (t_hour#19056 = 10), (t_minute#19057 >= 30),..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,10), GreaterThanOrEqual(t_minute,30), IsN..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :  :                 +- Sort [s_store_sk#19063 ASC NULLS FIRST], false, 0
+   :  :  :                    +- Exchange hashpartitioning(s_store_sk#19063, 200), ENSURE_REQUIREMENTS, [id=#192204]
+   :  :  :                       +- Project [s_store_sk#19063]
+   :  :  :                          +- Filter ((isnotnull(s_store_name#19068) AND (s_store_name#19068 = ese)) AND isnotnull(s_store_sk#19063))
+   :  :  :                             +- FileScan parquet [s_store_sk#19063,s_store_name#19068] Batched: true, DataFilters: [isnotnull(s_store_name#19068), (s_store_name#19068 = ese), isnotnull(s_store_sk#19063)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   :  :  +- HashAggregate(keys=[], functions=[count(1)], output=[h11_to_11_30#18821L])
+   :  :     +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192239]
+   :  :        +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19320L])
+   :  :           +- Project
+   :  :              +- SortMergeJoin [ss_store_sk#19099], [s_store_sk#19130], Inner
+   :  :                 :- Sort [ss_store_sk#19099 ASC NULLS FIRST], false, 0
+   :  :                 :  +- Exchange hashpartitioning(ss_store_sk#19099, 200), ENSURE_REQUIREMENTS, [id=#192231]
+   :  :                 :     +- Project [ss_store_sk#19099]
+   :  :                 :        +- SortMergeJoin [ss_sold_time_sk#19093], [t_time_sk#19120], Inner
+   :  :                 :           :- Sort [ss_sold_time_sk#19093 ASC NULLS FIRST], false, 0
+   :  :                 :           :  +- Exchange hashpartitioning(ss_sold_time_sk#19093, 200), ENSURE_REQUIREMENTS, [id=#192223]
+   :  :                 :           :     +- Project [ss_sold_time_sk#19093, ss_store_sk#19099]
+   :  :                 :           :        +- SortMergeJoin [ss_hdemo_sk#19097], [hd_demo_sk#19115], Inner
+   :  :                 :           :           :- Sort [ss_hdemo_sk#19097 ASC NULLS FIRST], false, 0
+   :  :                 :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#19097, 200), ENSURE_REQUIREMENTS, [id=#192215]
+   :  :                 :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#19097) AND isnotnull(ss_sold_time_sk#19093)) AND isnotnull(ss_store_sk#19099))
+   :  :                 :           :           :        +- FileScan parquet [ss_sold_time_sk#19093,ss_hdemo_sk#19097,ss_store_sk#19099] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#19097), isnotnull(ss_sold_time_sk#19093), isnotnull(ss_store_sk#19099)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :  :                 :           :           +- Sort [hd_demo_sk#19115 ASC NULLS FIRST], false, 0
+   :  :                 :           :              +- Exchange hashpartitioning(hd_demo_sk#19115, 200), ENSURE_REQUIREMENTS, [id=#192216]
+   :  :                 :           :                 +- Project [hd_demo_sk#19115]
+   :  :                 :           :                    +- Filter (((((hd_dep_count#19118 = 3) AND (hd_vehicle_count#19119 <= 5)) OR ((hd_dep_count#19118 = 0) AND (hd_vehicle_count#19119 <= 2))) OR ((hd_dep_count#19118 = 1) AND (hd_vehicle_count#19119 <= 3))) AND isnotnull(hd_demo_sk#19115))
+   :  :                 :           :                       +- FileScan parquet [hd_demo_sk#19115,hd_dep_count#19118,hd_vehicle_count#19119] Batched: true, DataFilters: [((((hd_dep_count#19118 = 3) AND (hd_vehicle_count#19119 <= 5)) OR ((hd_dep_count#19118 = 0) AND ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :  :                 :           +- Sort [t_time_sk#19120 ASC NULLS FIRST], false, 0
+   :  :                 :              +- Exchange hashpartitioning(t_time_sk#19120, 200), ENSURE_REQUIREMENTS, [id=#192224]
+   :  :                 :                 +- Project [t_time_sk#19120]
+   :  :                 :                    +- Filter ((((isnotnull(t_hour#19123) AND isnotnull(t_minute#19124)) AND (t_hour#19123 = 11)) AND (t_minute#19124 < 30)) AND isnotnull(t_time_sk#19120))
+   :  :                 :                       +- FileScan parquet [t_time_sk#19120,t_hour#19123,t_minute#19124] Batched: true, DataFilters: [isnotnull(t_hour#19123), isnotnull(t_minute#19124), (t_hour#19123 = 11), (t_minute#19124 < 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,11), LessThan(t_minute,30), IsNotNull(t_t..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :  :                 +- Sort [s_store_sk#19130 ASC NULLS FIRST], false, 0
+   :  :                    +- Exchange hashpartitioning(s_store_sk#19130, 200), ENSURE_REQUIREMENTS, [id=#192232]
+   :  :                       +- Project [s_store_sk#19130]
+   :  :                          +- Filter ((isnotnull(s_store_name#19135) AND (s_store_name#19135 = ese)) AND isnotnull(s_store_sk#19130))
+   :  :                             +- FileScan parquet [s_store_sk#19130,s_store_name#19135] Batched: true, DataFilters: [isnotnull(s_store_name#19135), (s_store_name#19135 = ese), isnotnull(s_store_sk#19130)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   :  +- HashAggregate(keys=[], functions=[count(1)], output=[h11_30_to_12#18822L])
+   :     +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192267]
+   :        +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19322L])
+   :           +- Project
+   :              +- SortMergeJoin [ss_store_sk#19166], [s_store_sk#19197], Inner
+   :                 :- Sort [ss_store_sk#19166 ASC NULLS FIRST], false, 0
+   :                 :  +- Exchange hashpartitioning(ss_store_sk#19166, 200), ENSURE_REQUIREMENTS, [id=#192259]
+   :                 :     +- Project [ss_store_sk#19166]
+   :                 :        +- SortMergeJoin [ss_sold_time_sk#19160], [t_time_sk#19187], Inner
+   :                 :           :- Sort [ss_sold_time_sk#19160 ASC NULLS FIRST], false, 0
+   :                 :           :  +- Exchange hashpartitioning(ss_sold_time_sk#19160, 200), ENSURE_REQUIREMENTS, [id=#192251]
+   :                 :           :     +- Project [ss_sold_time_sk#19160, ss_store_sk#19166]
+   :                 :           :        +- SortMergeJoin [ss_hdemo_sk#19164], [hd_demo_sk#19182], Inner
+   :                 :           :           :- Sort [ss_hdemo_sk#19164 ASC NULLS FIRST], false, 0
+   :                 :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#19164, 200), ENSURE_REQUIREMENTS, [id=#192243]
+   :                 :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#19164) AND isnotnull(ss_sold_time_sk#19160)) AND isnotnull(ss_store_sk#19166))
+   :                 :           :           :        +- FileScan parquet [ss_sold_time_sk#19160,ss_hdemo_sk#19164,ss_store_sk#19166] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#19164), isnotnull(ss_sold_time_sk#19160), isnotnull(ss_store_sk#19166)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+   :                 :           :           +- Sort [hd_demo_sk#19182 ASC NULLS FIRST], false, 0
+   :                 :           :              +- Exchange hashpartitioning(hd_demo_sk#19182, 200), ENSURE_REQUIREMENTS, [id=#192244]
+   :                 :           :                 +- Project [hd_demo_sk#19182]
+   :                 :           :                    +- Filter (((((hd_dep_count#19185 = 3) AND (hd_vehicle_count#19186 <= 5)) OR ((hd_dep_count#19185 = 0) AND (hd_vehicle_count#19186 <= 2))) OR ((hd_dep_count#19185 = 1) AND (hd_vehicle_count#19186 <= 3))) AND isnotnull(hd_demo_sk#19182))
+   :                 :           :                       +- FileScan parquet [hd_demo_sk#19182,hd_dep_count#19185,hd_vehicle_count#19186] Batched: true, DataFilters: [((((hd_dep_count#19185 = 3) AND (hd_vehicle_count#19186 <= 5)) OR ((hd_dep_count#19185 = 0) AND ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+   :                 :           +- Sort [t_time_sk#19187 ASC NULLS FIRST], false, 0
+   :                 :              +- Exchange hashpartitioning(t_time_sk#19187, 200), ENSURE_REQUIREMENTS, [id=#192252]
+   :                 :                 +- Project [t_time_sk#19187]
+   :                 :                    +- Filter ((((isnotnull(t_hour#19190) AND isnotnull(t_minute#19191)) AND (t_hour#19190 = 11)) AND (t_minute#19191 >= 30)) AND isnotnull(t_time_sk#19187))
+   :                 :                       +- FileScan parquet [t_time_sk#19187,t_hour#19190,t_minute#19191] Batched: true, DataFilters: [isnotnull(t_hour#19190), isnotnull(t_minute#19191), (t_hour#19190 = 11), (t_minute#19191 >= 30),..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,11), GreaterThanOrEqual(t_minute,30), IsN..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+   :                 +- Sort [s_store_sk#19197 ASC NULLS FIRST], false, 0
+   :                    +- Exchange hashpartitioning(s_store_sk#19197, 200), ENSURE_REQUIREMENTS, [id=#192260]
+   :                       +- Project [s_store_sk#19197]
+   :                          +- Filter ((isnotnull(s_store_name#19202) AND (s_store_name#19202 = ese)) AND isnotnull(s_store_sk#19197))
+   :                             +- FileScan parquet [s_store_sk#19197,s_store_name#19202] Batched: true, DataFilters: [isnotnull(s_store_name#19202), (s_store_name#19202 = ese), isnotnull(s_store_sk#19197)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>
+   +- HashAggregate(keys=[], functions=[count(1)], output=[h12_to_12_30#18823L])
+      +- Exchange SinglePartition, ENSURE_REQUIREMENTS, [id=#192295]
+         +- HashAggregate(keys=[], functions=[partial_count(1)], output=[count#19324L])
+            +- Project
+               +- SortMergeJoin [ss_store_sk#19233], [s_store_sk#19264], Inner
+                  :- Sort [ss_store_sk#19233 ASC NULLS FIRST], false, 0
+                  :  +- Exchange hashpartitioning(ss_store_sk#19233, 200), ENSURE_REQUIREMENTS, [id=#192287]
+                  :     +- Project [ss_store_sk#19233]
+                  :        +- SortMergeJoin [ss_sold_time_sk#19227], [t_time_sk#19254], Inner
+                  :           :- Sort [ss_sold_time_sk#19227 ASC NULLS FIRST], false, 0
+                  :           :  +- Exchange hashpartitioning(ss_sold_time_sk#19227, 200), ENSURE_REQUIREMENTS, [id=#192279]
+                  :           :     +- Project [ss_sold_time_sk#19227, ss_store_sk#19233]
+                  :           :        +- SortMergeJoin [ss_hdemo_sk#19231], [hd_demo_sk#19249], Inner
+                  :           :           :- Sort [ss_hdemo_sk#19231 ASC NULLS FIRST], false, 0
+                  :           :           :  +- Exchange hashpartitioning(ss_hdemo_sk#19231, 200), ENSURE_REQUIREMENTS, [id=#192271]
+                  :           :           :     +- Filter ((isnotnull(ss_hdemo_sk#19231) AND isnotnull(ss_sold_time_sk#19227)) AND isnotnull(ss_store_sk#19233))
+                  :           :           :        +- FileScan parquet [ss_sold_time_sk#19227,ss_hdemo_sk#19231,ss_store_sk#19233] Batched: true, DataFilters: [isnotnull(ss_hdemo_sk#19231), isnotnull(ss_sold_time_sk#19227), isnotnull(ss_store_sk#19233)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_hdemo_sk), IsNotNull(ss_sold_time_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_time_sk:int,ss_hdemo_sk:int,ss_store_sk:int>
+                  :           :           +- Sort [hd_demo_sk#19249 ASC NULLS FIRST], false, 0
+                  :           :              +- Exchange hashpartitioning(hd_demo_sk#19249, 200), ENSURE_REQUIREMENTS, [id=#192272]
+                  :           :                 +- Project [hd_demo_sk#19249]
+                  :           :                    +- Filter (((((hd_dep_count#19252 = 3) AND (hd_vehicle_count#19253 <= 5)) OR ((hd_dep_count#19252 = 0) AND (hd_vehicle_count#19253 <= 2))) OR ((hd_dep_count#19252 = 1) AND (hd_vehicle_count#19253 <= 3))) AND isnotnull(hd_demo_sk#19249))
+                  :           :                       +- FileScan parquet [hd_demo_sk#19249,hd_dep_count#19252,hd_vehicle_count#19253] Batched: true, DataFilters: [((((hd_dep_count#19252 = 3) AND (hd_vehicle_count#19253 <= 5)) OR ((hd_dep_count#19252 = 0) AND ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(hd_dep_count,3),LessThanOrEqual(hd_vehicle_count,5)),And(EqualTo(hd_dep_count,..., ReadSchema: struct<hd_demo_sk:int,hd_dep_count:int,hd_vehicle_count:int>
+                  :           +- Sort [t_time_sk#19254 ASC NULLS FIRST], false, 0
+                  :              +- Exchange hashpartitioning(t_time_sk#19254, 200), ENSURE_REQUIREMENTS, [id=#192280]
+                  :                 +- Project [t_time_sk#19254]
+                  :                    +- Filter ((((isnotnull(t_hour#19257) AND isnotnull(t_minute#19258)) AND (t_hour#19257 = 12)) AND (t_minute#19258 < 30)) AND isnotnull(t_time_sk#19254))
+                  :                       +- FileScan parquet [t_time_sk#19254,t_hour#19257,t_minute#19258] Batched: true, DataFilters: [isnotnull(t_hour#19257), isnotnull(t_minute#19258), (t_hour#19257 = 12), (t_minute#19258 < 30), ..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/time_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(t_hour), IsNotNull(t_minute), EqualTo(t_hour,12), LessThan(t_minute,30), IsNotNull(t_t..., ReadSchema: struct<t_time_sk:int,t_hour:int,t_minute:int>
+                  +- Sort [s_store_sk#19264 ASC NULLS FIRST], false, 0
+                     +- Exchange hashpartitioning(s_store_sk#19264, 200), ENSURE_REQUIREMENTS, [id=#192288]
+                        +- Project [s_store_sk#19264]
+                           +- Filter ((isnotnull(s_store_name#19269) AND (s_store_name#19269 = ese)) AND isnotnull(s_store_sk#19264))
+                              +- FileScan parquet [s_store_sk#19264,s_store_name#19269] Batched: true, DataFilters: [isnotnull(s_store_name#19269), (s_store_name#19269 = ese), isnotnull(s_store_sk#19264)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_name), EqualTo(s_store_name,ese), IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_name:string>

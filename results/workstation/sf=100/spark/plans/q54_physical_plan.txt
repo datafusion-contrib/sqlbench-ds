@@ -1,0 +1,266 @@
+AdaptiveSparkPlan isFinalPlan=true
++- == Final Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[segment#10291 ASC NULLS FIRST,num_customers#10280L ASC NULLS FIRST], output=[segment#10291,num_customers#10280L,segment_base#10281])
+   +- *(31) HashAggregate(keys=[segment#10291], functions=[count(1)], output=[segment#10291, num_customers#10280L, segment_base#10281])
+      +- AQEShuffleRead coalesced
+         +- ShuffleQueryStage 14
+            +- Exchange hashpartitioning(segment#10291, 200), ENSURE_REQUIREMENTS, [id=#86854]
+               +- *(30) HashAggregate(keys=[segment#10291], functions=[partial_count(1)], output=[segment#10291, count#10384L])
+                  +- *(30) HashAggregate(keys=[c_customer_sk#400], functions=[sum(UnscaledValue(ss_ext_sales_price#267))], output=[segment#10291])
+                     +- AQEShuffleRead coalesced
+                        +- ShuffleQueryStage 13
+                           +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#86801]
+                              +- *(29) HashAggregate(keys=[c_customer_sk#400], functions=[partial_sum(UnscaledValue(ss_ext_sales_price#267))], output=[c_customer_sk#400, sum#10386L])
+                                 +- *(29) Project [c_customer_sk#400, ss_ext_sales_price#267]
+                                    +- *(29) SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#10292], Inner
+                                       :- *(27) Sort [ss_sold_date_sk#252 ASC NULLS FIRST], false, 0
+                                       :  +- AQEShuffleRead coalesced
+                                       :     +- ShuffleQueryStage 12
+                                       :        +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#86699]
+                                       :           +- *(26) Project [c_customer_sk#400, ss_sold_date_sk#252, ss_ext_sales_price#267]
+                                       :              +- *(26) SortMergeJoin [ca_county#69, ca_state#70], [s_county#735, s_state#736], Inner
+                                       :                 :- *(24) Sort [ca_county#69 ASC NULLS FIRST, ca_state#70 ASC NULLS FIRST], false, 0
+                                       :                 :  +- AQEShuffleRead coalesced
+                                       :                 :     +- ShuffleQueryStage 11
+                                       :                 :        +- Exchange hashpartitioning(ca_county#69, ca_state#70, 200), ENSURE_REQUIREMENTS, [id=#86572]
+                                       :                 :           +- *(23) Project [c_customer_sk#400, ss_sold_date_sk#252, ss_ext_sales_price#267, ca_county#69, ca_state#70]
+                                       :                 :              +- *(23) SortMergeJoin [c_current_addr_sk#404], [ca_address_sk#62], Inner
+                                       :                 :                 :- *(21) Sort [c_current_addr_sk#404 ASC NULLS FIRST], false, 0
+                                       :                 :                 :  +- AQEShuffleRead coalesced
+                                       :                 :                 :     +- ShuffleQueryStage 10
+                                       :                 :                 :        +- Exchange hashpartitioning(c_current_addr_sk#404, 200), ENSURE_REQUIREMENTS, [id=#86400]
+                                       :                 :                 :           +- *(20) Project [c_customer_sk#400, c_current_addr_sk#404, ss_sold_date_sk#252, ss_ext_sales_price#267]
+                                       :                 :                 :              +- *(20) SortMergeJoin [c_customer_sk#400], [ss_customer_sk#255], Inner
+                                       :                 :                 :                 :- *(18) Sort [c_customer_sk#400 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                 :  +- *(18) HashAggregate(keys=[c_customer_sk#400, c_current_addr_sk#404], functions=[], output=[c_customer_sk#400, c_current_addr_sk#404])
+                                       :                 :                 :                 :     +- *(18) HashAggregate(keys=[c_customer_sk#400, c_current_addr_sk#404], functions=[], output=[c_customer_sk#400, c_current_addr_sk#404])
+                                       :                 :                 :                 :        +- *(18) Project [c_customer_sk#400, c_current_addr_sk#404]
+                                       :                 :                 :                 :           +- *(18) SortMergeJoin [customer_sk#10283], [c_customer_sk#400], Inner
+                                       :                 :                 :                 :              :- *(16) Sort [customer_sk#10283 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                 :              :  +- AQEShuffleRead coalesced
+                                       :                 :                 :                 :              :     +- ShuffleQueryStage 9
+                                       :                 :                 :                 :              :        +- Exchange hashpartitioning(customer_sk#10283, 200), ENSURE_REQUIREMENTS, [id=#86165]
+                                       :                 :                 :                 :              :           +- *(15) Project [customer_sk#10283]
+                                       :                 :                 :                 :              :              +- *(15) SortMergeJoin [sold_date_sk#10282], [d_date_sk#612], Inner
+                                       :                 :                 :                 :              :                 :- *(13) Sort [sold_date_sk#10282 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                 :              :                 :  +- AQEShuffleRead coalesced
+                                       :                 :                 :                 :              :                 :     +- ShuffleQueryStage 8
+                                       :                 :                 :                 :              :                 :        +- Exchange hashpartitioning(sold_date_sk#10282, 200), ENSURE_REQUIREMENTS, [id=#85689]
+                                       :                 :                 :                 :              :                 :           +- *(12) Project [sold_date_sk#10282, customer_sk#10283]
+                                       :                 :                 :                 :              :                 :              +- *(12) SortMergeJoin [item_sk#10284], [i_item_sk#668], Inner
+                                       :                 :                 :                 :              :                 :                 :- *(10) Sort [item_sk#10284 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                 :              :                 :                 :  +- AQEShuffleRead coalesced
+                                       :                 :                 :                 :              :                 :                 :     +- ShuffleQueryStage 0
+                                       :                 :                 :                 :              :                 :                 :        +- Exchange hashpartitioning(item_sk#10284, 200), ENSURE_REQUIREMENTS, [id=#85209]
+                                       :                 :                 :                 :              :                 :                 :           +- Union
+                                       :                 :                 :                 :              :                 :                 :              :- *(1) Project [cs_sold_date_sk#544 AS sold_date_sk#10282, cs_bill_customer_sk#547 AS customer_sk#10283, cs_item_sk#559 AS item_sk#10284]
+                                       :                 :                 :                 :              :                 :                 :              :  +- *(1) Filter ((isnotnull(cs_item_sk#559) AND isnotnull(cs_sold_date_sk#544)) AND isnotnull(cs_bill_customer_sk#547))
+                                       :                 :                 :                 :              :                 :                 :              :     +- *(1) ColumnarToRow
+                                       :                 :                 :                 :              :                 :                 :              :        +- FileScan parquet [cs_sold_date_sk#544,cs_bill_customer_sk#547,cs_item_sk#559] Batched: true, DataFilters: [isnotnull(cs_item_sk#559), isnotnull(cs_sold_date_sk#544), isnotnull(cs_bill_customer_sk#547)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/catalog_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cs_item_sk), IsNotNull(cs_sold_date_sk), IsNotNull(cs_bill_customer_sk)], ReadSchema: struct<cs_sold_date_sk:int,cs_bill_customer_sk:int,cs_item_sk:int>
+                                       :                 :                 :                 :              :                 :                 :              +- *(2) Project [ws_sold_date_sk#476 AS sold_date_sk#10285, ws_bill_customer_sk#480 AS customer_sk#10286, ws_item_sk#479 AS item_sk#10287]
+                                       :                 :                 :                 :              :                 :                 :                 +- *(2) Filter ((isnotnull(ws_item_sk#479) AND isnotnull(ws_sold_date_sk#476)) AND isnotnull(ws_bill_customer_sk#480))
+                                       :                 :                 :                 :              :                 :                 :                    +- *(2) ColumnarToRow
+                                       :                 :                 :                 :              :                 :                 :                       +- FileScan parquet [ws_sold_date_sk#476,ws_item_sk#479,ws_bill_customer_sk#480] Batched: true, DataFilters: [isnotnull(ws_item_sk#479), isnotnull(ws_sold_date_sk#476), isnotnull(ws_bill_customer_sk#480)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_item_sk), IsNotNull(ws_sold_date_sk), IsNotNull(ws_bill_customer_sk)], ReadSchema: struct<ws_sold_date_sk:int,ws_item_sk:int,ws_bill_customer_sk:int>
+                                       :                 :                 :                 :              :                 :                 +- *(11) Sort [i_item_sk#668 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                 :              :                 :                    +- AQEShuffleRead coalesced
+                                       :                 :                 :                 :              :                 :                       +- ShuffleQueryStage 1
+                                       :                 :                 :                 :              :                 :                          +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#85238]
+                                       :                 :                 :                 :              :                 :                             +- *(3) Project [i_item_sk#668]
+                                       :                 :                 :                 :              :                 :                                +- *(3) Filter ((((isnotnull(i_category#680) AND isnotnull(i_class#678)) AND (i_category#680 = Jewelry)) AND (i_class#678 = consignment)) AND isnotnull(i_item_sk#668))
+                                       :                 :                 :                 :              :                 :                                   +- *(3) ColumnarToRow
+                                       :                 :                 :                 :              :                 :                                      +- FileScan parquet [i_item_sk#668,i_class#678,i_category#680] Batched: true, DataFilters: [isnotnull(i_category#680), isnotnull(i_class#678), (i_category#680 = Jewelry), (i_class#678 = co..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_category), IsNotNull(i_class), EqualTo(i_category,Jewelry), EqualTo(i_class,consignm..., ReadSchema: struct<i_item_sk:int,i_class:string,i_category:string>
+                                       :                 :                 :                 :              :                 +- *(14) Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                 :              :                    +- AQEShuffleRead coalesced
+                                       :                 :                 :                 :              :                       +- ShuffleQueryStage 2
+                                       :                 :                 :                 :              :                          +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#85263]
+                                       :                 :                 :                 :              :                             +- *(4) Project [d_date_sk#612]
+                                       :                 :                 :                 :              :                                +- *(4) Filter ((((isnotnull(d_moy#620) AND isnotnull(d_year#618)) AND (d_moy#620 = 3)) AND (d_year#618 = 1999)) AND isnotnull(d_date_sk#612))
+                                       :                 :                 :                 :              :                                   +- *(4) ColumnarToRow
+                                       :                 :                 :                 :              :                                      +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_moy#620), isnotnull(d_year#618), (d_moy#620 = 3), (d_year#618 = 1999), isnotnull(d_d..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_moy), IsNotNull(d_year), EqualTo(d_moy,3), EqualTo(d_year,1999), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+                                       :                 :                 :                 :              +- *(17) Sort [c_customer_sk#400 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                 :                 +- AQEShuffleRead coalesced
+                                       :                 :                 :                 :                    +- ShuffleQueryStage 3
+                                       :                 :                 :                 :                       +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#85286]
+                                       :                 :                 :                 :                          +- *(5) Filter (isnotnull(c_customer_sk#400) AND isnotnull(c_current_addr_sk#404))
+                                       :                 :                 :                 :                             +- *(5) ColumnarToRow
+                                       :                 :                 :                 :                                +- FileScan parquet [c_customer_sk#400,c_current_addr_sk#404] Batched: true, DataFilters: [isnotnull(c_customer_sk#400), isnotnull(c_current_addr_sk#404)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(c_customer_sk), IsNotNull(c_current_addr_sk)], ReadSchema: struct<c_customer_sk:int,c_current_addr_sk:int>
+                                       :                 :                 :                 +- *(19) Sort [ss_customer_sk#255 ASC NULLS FIRST], false, 0
+                                       :                 :                 :                    +- AQEShuffleRead coalesced
+                                       :                 :                 :                       +- ShuffleQueryStage 4
+                                       :                 :                 :                          +- Exchange hashpartitioning(ss_customer_sk#255, 200), ENSURE_REQUIREMENTS, [id=#85308]
+                                       :                 :                 :                             +- *(6) Filter (isnotnull(ss_customer_sk#255) AND isnotnull(ss_sold_date_sk#252))
+                                       :                 :                 :                                +- *(6) ColumnarToRow
+                                       :                 :                 :                                   +- FileScan parquet [ss_sold_date_sk#252,ss_customer_sk#255,ss_ext_sales_price#267] Batched: true, DataFilters: [isnotnull(ss_customer_sk#255), isnotnull(ss_sold_date_sk#252)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_customer_sk), IsNotNull(ss_sold_date_sk)], ReadSchema: struct<ss_sold_date_sk:int,ss_customer_sk:int,ss_ext_sales_price:decimal(7,2)>
+                                       :                 :                 +- *(22) Sort [ca_address_sk#62 ASC NULLS FIRST], false, 0
+                                       :                 :                    +- AQEShuffleRead coalesced
+                                       :                 :                       +- ShuffleQueryStage 5
+                                       :                 :                          +- Exchange hashpartitioning(ca_address_sk#62, 200), ENSURE_REQUIREMENTS, [id=#85329]
+                                       :                 :                             +- *(7) Filter ((isnotnull(ca_address_sk#62) AND isnotnull(ca_county#69)) AND isnotnull(ca_state#70))
+                                       :                 :                                +- *(7) ColumnarToRow
+                                       :                 :                                   +- FileScan parquet [ca_address_sk#62,ca_county#69,ca_state#70] Batched: true, DataFilters: [isnotnull(ca_address_sk#62), isnotnull(ca_county#69), isnotnull(ca_state#70)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_address.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ca_address_sk), IsNotNull(ca_county), IsNotNull(ca_state)], ReadSchema: struct<ca_address_sk:int,ca_county:string,ca_state:string>
+                                       :                 +- *(25) Sort [s_county#735 ASC NULLS FIRST, s_state#736 ASC NULLS FIRST], false, 0
+                                       :                    +- AQEShuffleRead coalesced
+                                       :                       +- ShuffleQueryStage 6
+                                       :                          +- Exchange hashpartitioning(s_county#735, s_state#736, 200), ENSURE_REQUIREMENTS, [id=#85350]
+                                       :                             +- *(8) Filter (isnotnull(s_county#735) AND isnotnull(s_state#736))
+                                       :                                +- *(8) ColumnarToRow
+                                       :                                   +- FileScan parquet [s_county#735,s_state#736] Batched: true, DataFilters: [isnotnull(s_county#735), isnotnull(s_state#736)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_county), IsNotNull(s_state)], ReadSchema: struct<s_county:string,s_state:string>
+                                       +- *(28) Sort [d_date_sk#10292 ASC NULLS FIRST], false, 0
+                                          +- AQEShuffleRead coalesced
+                                             +- ShuffleQueryStage 7
+                                                +- Exchange hashpartitioning(d_date_sk#10292, 200), ENSURE_REQUIREMENTS, [id=#85373]
+                                                   +- *(9) Project [d_date_sk#10292]
+                                                      +- *(9) Filter (((isnotnull(d_month_seq#10295) AND (d_month_seq#10295 >= Subquery subquery#10289, [id=#84930])) AND (d_month_seq#10295 <= Subquery subquery#10290, [id=#84943])) AND isnotnull(d_date_sk#10292))
+                                                         :  :- Subquery subquery#10289, [id=#84930]
+                                                         :  :  +- AdaptiveSparkPlan isFinalPlan=true
+                                                               +- == Final Plan ==
+                                                                  *(2) HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                                  +- AQEShuffleRead coalesced
+                                                                     +- ShuffleQueryStage 0
+                                                                        +- Exchange hashpartitioning((d_month_seq + 1)#10321, 200), ENSURE_REQUIREMENTS, [id=#85407]
+                                                                           +- *(1) HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                                              +- *(1) Project [(d_month_seq#10326 + 1) AS (d_month_seq + 1)#10321]
+                                                                                 +- *(1) Filter (((isnotnull(d_year#10329) AND isnotnull(d_moy#10331)) AND (d_year#10329 = 1999)) AND (d_moy#10331 = 3))
+                                                                                    +- *(1) ColumnarToRow
+                                                                                       +- FileScan parquet [d_month_seq#10326,d_year#10329,d_moy#10331] Batched: true, DataFilters: [isnotnull(d_year#10329), isnotnull(d_moy#10331), (d_year#10329 = 1999), (d_moy#10331 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                                               +- == Initial Plan ==
+                                                                  HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                                  +- Exchange hashpartitioning((d_month_seq + 1)#10321, 200), ENSURE_REQUIREMENTS, [id=#84928]
+                                                                     +- HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                                        +- Project [(d_month_seq#10326 + 1) AS (d_month_seq + 1)#10321]
+                                                                           +- Filter (((isnotnull(d_year#10329) AND isnotnull(d_moy#10331)) AND (d_year#10329 = 1999)) AND (d_moy#10331 = 3))
+                                                                              +- FileScan parquet [d_month_seq#10326,d_year#10329,d_moy#10331] Batched: true, DataFilters: [isnotnull(d_year#10329), isnotnull(d_moy#10331), (d_year#10329 = 1999), (d_moy#10331 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                                         :  +- Subquery subquery#10290, [id=#84943]
+                                                         :     +- AdaptiveSparkPlan isFinalPlan=true
+                                                               +- == Final Plan ==
+                                                                  *(2) HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                                  +- AQEShuffleRead coalesced
+                                                                     +- ShuffleQueryStage 0
+                                                                        +- Exchange hashpartitioning((d_month_seq + 3)#10322, 200), ENSURE_REQUIREMENTS, [id=#85434]
+                                                                           +- *(1) HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                                              +- *(1) Project [(d_month_seq#10354 + 3) AS (d_month_seq + 3)#10322]
+                                                                                 +- *(1) Filter (((isnotnull(d_year#10357) AND isnotnull(d_moy#10359)) AND (d_year#10357 = 1999)) AND (d_moy#10359 = 3))
+                                                                                    +- *(1) ColumnarToRow
+                                                                                       +- FileScan parquet [d_month_seq#10354,d_year#10357,d_moy#10359] Batched: true, DataFilters: [isnotnull(d_year#10357), isnotnull(d_moy#10359), (d_year#10357 = 1999), (d_moy#10359 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                                               +- == Initial Plan ==
+                                                                  HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                                  +- Exchange hashpartitioning((d_month_seq + 3)#10322, 200), ENSURE_REQUIREMENTS, [id=#84941]
+                                                                     +- HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                                        +- Project [(d_month_seq#10354 + 3) AS (d_month_seq + 3)#10322]
+                                                                           +- Filter (((isnotnull(d_year#10357) AND isnotnull(d_moy#10359)) AND (d_year#10357 = 1999)) AND (d_moy#10359 = 3))
+                                                                              +- FileScan parquet [d_month_seq#10354,d_year#10357,d_moy#10359] Batched: true, DataFilters: [isnotnull(d_year#10357), isnotnull(d_moy#10359), (d_year#10357 = 1999), (d_moy#10359 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                                         +- *(9) ColumnarToRow
+                                                            +- FileScan parquet [d_date_sk#10292,d_month_seq#10295] Batched: true, DataFilters: [isnotnull(d_month_seq#10295), isnotnull(d_date_sk#10292)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_month_seq:int>
++- == Initial Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[segment#10291 ASC NULLS FIRST,num_customers#10280L ASC NULLS FIRST], output=[segment#10291,num_customers#10280L,segment_base#10281])
+   +- HashAggregate(keys=[segment#10291], functions=[count(1)], output=[segment#10291, num_customers#10280L, segment_base#10281])
+      +- Exchange hashpartitioning(segment#10291, 200), ENSURE_REQUIREMENTS, [id=#85033]
+         +- HashAggregate(keys=[segment#10291], functions=[partial_count(1)], output=[segment#10291, count#10384L])
+            +- HashAggregate(keys=[c_customer_sk#400], functions=[sum(UnscaledValue(ss_ext_sales_price#267))], output=[segment#10291])
+               +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#85029]
+                  +- HashAggregate(keys=[c_customer_sk#400], functions=[partial_sum(UnscaledValue(ss_ext_sales_price#267))], output=[c_customer_sk#400, sum#10386L])
+                     +- Project [c_customer_sk#400, ss_ext_sales_price#267]
+                        +- SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#10292], Inner
+                           :- Sort [ss_sold_date_sk#252 ASC NULLS FIRST], false, 0
+                           :  +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#85021]
+                           :     +- Project [c_customer_sk#400, ss_sold_date_sk#252, ss_ext_sales_price#267]
+                           :        +- SortMergeJoin [ca_county#69, ca_state#70], [s_county#735, s_state#736], Inner
+                           :           :- Sort [ca_county#69 ASC NULLS FIRST, ca_state#70 ASC NULLS FIRST], false, 0
+                           :           :  +- Exchange hashpartitioning(ca_county#69, ca_state#70, 200), ENSURE_REQUIREMENTS, [id=#85013]
+                           :           :     +- Project [c_customer_sk#400, ss_sold_date_sk#252, ss_ext_sales_price#267, ca_county#69, ca_state#70]
+                           :           :        +- SortMergeJoin [c_current_addr_sk#404], [ca_address_sk#62], Inner
+                           :           :           :- Sort [c_current_addr_sk#404 ASC NULLS FIRST], false, 0
+                           :           :           :  +- Exchange hashpartitioning(c_current_addr_sk#404, 200), ENSURE_REQUIREMENTS, [id=#85005]
+                           :           :           :     +- Project [c_customer_sk#400, c_current_addr_sk#404, ss_sold_date_sk#252, ss_ext_sales_price#267]
+                           :           :           :        +- SortMergeJoin [c_customer_sk#400], [ss_customer_sk#255], Inner
+                           :           :           :           :- Sort [c_customer_sk#400 ASC NULLS FIRST], false, 0
+                           :           :           :           :  +- HashAggregate(keys=[c_customer_sk#400, c_current_addr_sk#404], functions=[], output=[c_customer_sk#400, c_current_addr_sk#404])
+                           :           :           :           :     +- HashAggregate(keys=[c_customer_sk#400, c_current_addr_sk#404], functions=[], output=[c_customer_sk#400, c_current_addr_sk#404])
+                           :           :           :           :        +- Project [c_customer_sk#400, c_current_addr_sk#404]
+                           :           :           :           :           +- SortMergeJoin [customer_sk#10283], [c_customer_sk#400], Inner
+                           :           :           :           :              :- Sort [customer_sk#10283 ASC NULLS FIRST], false, 0
+                           :           :           :           :              :  +- Exchange hashpartitioning(customer_sk#10283, 200), ENSURE_REQUIREMENTS, [id=#84988]
+                           :           :           :           :              :     +- Project [customer_sk#10283]
+                           :           :           :           :              :        +- SortMergeJoin [sold_date_sk#10282], [d_date_sk#612], Inner
+                           :           :           :           :              :           :- Sort [sold_date_sk#10282 ASC NULLS FIRST], false, 0
+                           :           :           :           :              :           :  +- Exchange hashpartitioning(sold_date_sk#10282, 200), ENSURE_REQUIREMENTS, [id=#84980]
+                           :           :           :           :              :           :     +- Project [sold_date_sk#10282, customer_sk#10283]
+                           :           :           :           :              :           :        +- SortMergeJoin [item_sk#10284], [i_item_sk#668], Inner
+                           :           :           :           :              :           :           :- Sort [item_sk#10284 ASC NULLS FIRST], false, 0
+                           :           :           :           :              :           :           :  +- Exchange hashpartitioning(item_sk#10284, 200), ENSURE_REQUIREMENTS, [id=#84972]
+                           :           :           :           :              :           :           :     +- Union
+                           :           :           :           :              :           :           :        :- Project [cs_sold_date_sk#544 AS sold_date_sk#10282, cs_bill_customer_sk#547 AS customer_sk#10283, cs_item_sk#559 AS item_sk#10284]
+                           :           :           :           :              :           :           :        :  +- Filter ((isnotnull(cs_item_sk#559) AND isnotnull(cs_sold_date_sk#544)) AND isnotnull(cs_bill_customer_sk#547))
+                           :           :           :           :              :           :           :        :     +- FileScan parquet [cs_sold_date_sk#544,cs_bill_customer_sk#547,cs_item_sk#559] Batched: true, DataFilters: [isnotnull(cs_item_sk#559), isnotnull(cs_sold_date_sk#544), isnotnull(cs_bill_customer_sk#547)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/catalog_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cs_item_sk), IsNotNull(cs_sold_date_sk), IsNotNull(cs_bill_customer_sk)], ReadSchema: struct<cs_sold_date_sk:int,cs_bill_customer_sk:int,cs_item_sk:int>
+                           :           :           :           :              :           :           :        +- Project [ws_sold_date_sk#476 AS sold_date_sk#10285, ws_bill_customer_sk#480 AS customer_sk#10286, ws_item_sk#479 AS item_sk#10287]
+                           :           :           :           :              :           :           :           +- Filter ((isnotnull(ws_item_sk#479) AND isnotnull(ws_sold_date_sk#476)) AND isnotnull(ws_bill_customer_sk#480))
+                           :           :           :           :              :           :           :              +- FileScan parquet [ws_sold_date_sk#476,ws_item_sk#479,ws_bill_customer_sk#480] Batched: true, DataFilters: [isnotnull(ws_item_sk#479), isnotnull(ws_sold_date_sk#476), isnotnull(ws_bill_customer_sk#480)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_item_sk), IsNotNull(ws_sold_date_sk), IsNotNull(ws_bill_customer_sk)], ReadSchema: struct<ws_sold_date_sk:int,ws_item_sk:int,ws_bill_customer_sk:int>
+                           :           :           :           :              :           :           +- Sort [i_item_sk#668 ASC NULLS FIRST], false, 0
+                           :           :           :           :              :           :              +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#84973]
+                           :           :           :           :              :           :                 +- Project [i_item_sk#668]
+                           :           :           :           :              :           :                    +- Filter ((((isnotnull(i_category#680) AND isnotnull(i_class#678)) AND (i_category#680 = Jewelry)) AND (i_class#678 = consignment)) AND isnotnull(i_item_sk#668))
+                           :           :           :           :              :           :                       +- FileScan parquet [i_item_sk#668,i_class#678,i_category#680] Batched: true, DataFilters: [isnotnull(i_category#680), isnotnull(i_class#678), (i_category#680 = Jewelry), (i_class#678 = co..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_category), IsNotNull(i_class), EqualTo(i_category,Jewelry), EqualTo(i_class,consignm..., ReadSchema: struct<i_item_sk:int,i_class:string,i_category:string>
+                           :           :           :           :              :           +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
+                           :           :           :           :              :              +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#84981]
+                           :           :           :           :              :                 +- Project [d_date_sk#612]
+                           :           :           :           :              :                    +- Filter ((((isnotnull(d_moy#620) AND isnotnull(d_year#618)) AND (d_moy#620 = 3)) AND (d_year#618 = 1999)) AND isnotnull(d_date_sk#612))
+                           :           :           :           :              :                       +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_moy#620), isnotnull(d_year#618), (d_moy#620 = 3), (d_year#618 = 1999), isnotnull(d_d..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_moy), IsNotNull(d_year), EqualTo(d_moy,3), EqualTo(d_year,1999), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+                           :           :           :           :              +- Sort [c_customer_sk#400 ASC NULLS FIRST], false, 0
+                           :           :           :           :                 +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#84989]
+                           :           :           :           :                    +- Filter (isnotnull(c_customer_sk#400) AND isnotnull(c_current_addr_sk#404))
+                           :           :           :           :                       +- FileScan parquet [c_customer_sk#400,c_current_addr_sk#404] Batched: true, DataFilters: [isnotnull(c_customer_sk#400), isnotnull(c_current_addr_sk#404)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(c_customer_sk), IsNotNull(c_current_addr_sk)], ReadSchema: struct<c_customer_sk:int,c_current_addr_sk:int>
+                           :           :           :           +- Sort [ss_customer_sk#255 ASC NULLS FIRST], false, 0
+                           :           :           :              +- Exchange hashpartitioning(ss_customer_sk#255, 200), ENSURE_REQUIREMENTS, [id=#84998]
+                           :           :           :                 +- Filter (isnotnull(ss_customer_sk#255) AND isnotnull(ss_sold_date_sk#252))
+                           :           :           :                    +- FileScan parquet [ss_sold_date_sk#252,ss_customer_sk#255,ss_ext_sales_price#267] Batched: true, DataFilters: [isnotnull(ss_customer_sk#255), isnotnull(ss_sold_date_sk#252)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_customer_sk), IsNotNull(ss_sold_date_sk)], ReadSchema: struct<ss_sold_date_sk:int,ss_customer_sk:int,ss_ext_sales_price:decimal(7,2)>
+                           :           :           +- Sort [ca_address_sk#62 ASC NULLS FIRST], false, 0
+                           :           :              +- Exchange hashpartitioning(ca_address_sk#62, 200), ENSURE_REQUIREMENTS, [id=#85006]
+                           :           :                 +- Filter ((isnotnull(ca_address_sk#62) AND isnotnull(ca_county#69)) AND isnotnull(ca_state#70))
+                           :           :                    +- FileScan parquet [ca_address_sk#62,ca_county#69,ca_state#70] Batched: true, DataFilters: [isnotnull(ca_address_sk#62), isnotnull(ca_county#69), isnotnull(ca_state#70)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_address.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ca_address_sk), IsNotNull(ca_county), IsNotNull(ca_state)], ReadSchema: struct<ca_address_sk:int,ca_county:string,ca_state:string>
+                           :           +- Sort [s_county#735 ASC NULLS FIRST, s_state#736 ASC NULLS FIRST], false, 0
+                           :              +- Exchange hashpartitioning(s_county#735, s_state#736, 200), ENSURE_REQUIREMENTS, [id=#85014]
+                           :                 +- Filter (isnotnull(s_county#735) AND isnotnull(s_state#736))
+                           :                    +- FileScan parquet [s_county#735,s_state#736] Batched: true, DataFilters: [isnotnull(s_county#735), isnotnull(s_state#736)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_county), IsNotNull(s_state)], ReadSchema: struct<s_county:string,s_state:string>
+                           +- Sort [d_date_sk#10292 ASC NULLS FIRST], false, 0
+                              +- Exchange hashpartitioning(d_date_sk#10292, 200), ENSURE_REQUIREMENTS, [id=#85022]
+                                 +- Project [d_date_sk#10292]
+                                    +- Filter (((isnotnull(d_month_seq#10295) AND (d_month_seq#10295 >= Subquery subquery#10289, [id=#84930])) AND (d_month_seq#10295 <= Subquery subquery#10290, [id=#84943])) AND isnotnull(d_date_sk#10292))
+                                       :  :- Subquery subquery#10289, [id=#84930]
+                                       :  :  +- AdaptiveSparkPlan isFinalPlan=true
+                                             +- == Final Plan ==
+                                                *(2) HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                +- AQEShuffleRead coalesced
+                                                   +- ShuffleQueryStage 0
+                                                      +- Exchange hashpartitioning((d_month_seq + 1)#10321, 200), ENSURE_REQUIREMENTS, [id=#85407]
+                                                         +- *(1) HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                            +- *(1) Project [(d_month_seq#10326 + 1) AS (d_month_seq + 1)#10321]
+                                                               +- *(1) Filter (((isnotnull(d_year#10329) AND isnotnull(d_moy#10331)) AND (d_year#10329 = 1999)) AND (d_moy#10331 = 3))
+                                                                  +- *(1) ColumnarToRow
+                                                                     +- FileScan parquet [d_month_seq#10326,d_year#10329,d_moy#10331] Batched: true, DataFilters: [isnotnull(d_year#10329), isnotnull(d_moy#10331), (d_year#10329 = 1999), (d_moy#10331 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                             +- == Initial Plan ==
+                                                HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                +- Exchange hashpartitioning((d_month_seq + 1)#10321, 200), ENSURE_REQUIREMENTS, [id=#84928]
+                                                   +- HashAggregate(keys=[(d_month_seq + 1)#10321], functions=[], output=[(d_month_seq + 1)#10321])
+                                                      +- Project [(d_month_seq#10326 + 1) AS (d_month_seq + 1)#10321]
+                                                         +- Filter (((isnotnull(d_year#10329) AND isnotnull(d_moy#10331)) AND (d_year#10329 = 1999)) AND (d_moy#10331 = 3))
+                                                            +- FileScan parquet [d_month_seq#10326,d_year#10329,d_moy#10331] Batched: true, DataFilters: [isnotnull(d_year#10329), isnotnull(d_moy#10331), (d_year#10329 = 1999), (d_moy#10331 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                       :  +- Subquery subquery#10290, [id=#84943]
+                                       :     +- AdaptiveSparkPlan isFinalPlan=true
+                                             +- == Final Plan ==
+                                                *(2) HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                +- AQEShuffleRead coalesced
+                                                   +- ShuffleQueryStage 0
+                                                      +- Exchange hashpartitioning((d_month_seq + 3)#10322, 200), ENSURE_REQUIREMENTS, [id=#85434]
+                                                         +- *(1) HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                            +- *(1) Project [(d_month_seq#10354 + 3) AS (d_month_seq + 3)#10322]
+                                                               +- *(1) Filter (((isnotnull(d_year#10357) AND isnotnull(d_moy#10359)) AND (d_year#10357 = 1999)) AND (d_moy#10359 = 3))
+                                                                  +- *(1) ColumnarToRow
+                                                                     +- FileScan parquet [d_month_seq#10354,d_year#10357,d_moy#10359] Batched: true, DataFilters: [isnotnull(d_year#10357), isnotnull(d_moy#10359), (d_year#10357 = 1999), (d_moy#10359 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                             +- == Initial Plan ==
+                                                HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                +- Exchange hashpartitioning((d_month_seq + 3)#10322, 200), ENSURE_REQUIREMENTS, [id=#84941]
+                                                   +- HashAggregate(keys=[(d_month_seq + 3)#10322], functions=[], output=[(d_month_seq + 3)#10322])
+                                                      +- Project [(d_month_seq#10354 + 3) AS (d_month_seq + 3)#10322]
+                                                         +- Filter (((isnotnull(d_year#10357) AND isnotnull(d_moy#10359)) AND (d_year#10357 = 1999)) AND (d_moy#10359 = 3))
+                                                            +- FileScan parquet [d_month_seq#10354,d_year#10357,d_moy#10359] Batched: true, DataFilters: [isnotnull(d_year#10357), isnotnull(d_moy#10359), (d_year#10357 = 1999), (d_moy#10359 = 3)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,3)], ReadSchema: struct<d_month_seq:int,d_year:int,d_moy:int>
+                                       +- FileScan parquet [d_date_sk#10292,d_month_seq#10295] Batched: true, DataFilters: [isnotnull(d_month_seq#10295), isnotnull(d_date_sk#10292)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_month_seq:int>

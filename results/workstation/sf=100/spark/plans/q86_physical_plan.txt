@@ -1,0 +1,74 @@
+AdaptiveSparkPlan isFinalPlan=true
++- == Final Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[lochierarchy#18666 DESC NULLS LAST,CASE WHEN (lochierarchy#18666 = 0) THEN i_category#18675 END ASC NULLS FIRST,rank_within_parent#18667 ASC NULLS FIRST], output=[total_sum#18665,i_category#18675,i_class#18676,lochierarchy#18666,rank_within_parent#18667])
+   +- *(12) Project [total_sum#18665, i_category#18675, i_class#18676, lochierarchy#18666, rank_within_parent#18667]
+      +- Window [rank(_w3#18691) windowspecdefinition(_w1#18689, _w2#18690, _w3#18691 DESC NULLS LAST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS rank_within_parent#18667], [_w1#18689, _w2#18690], [_w3#18691 DESC NULLS LAST]
+         +- *(11) Sort [_w1#18689 ASC NULLS FIRST, _w2#18690 ASC NULLS FIRST, _w3#18691 DESC NULLS LAST], false, 0
+            +- AQEShuffleRead coalesced
+               +- ShuffleQueryStage 5
+                  +- Exchange hashpartitioning(_w1#18689, _w2#18690, 200), ENSURE_REQUIREMENTS, [id=#188410]
+                     +- *(10) HashAggregate(keys=[i_category#18675, i_class#18676, spark_grouping_id#18674L], functions=[sum(UnscaledValue(ws_net_paid#505))], output=[total_sum#18665, i_category#18675, i_class#18676, lochierarchy#18666, _w1#18689, _w2#18690, _w3#18691])
+                        +- AQEShuffleRead coalesced
+                           +- ShuffleQueryStage 4
+                              +- Exchange hashpartitioning(i_category#18675, i_class#18676, spark_grouping_id#18674L, 200), ENSURE_REQUIREMENTS, [id=#188355]
+                                 +- *(9) HashAggregate(keys=[i_category#18675, i_class#18676, spark_grouping_id#18674L], functions=[partial_sum(UnscaledValue(ws_net_paid#505))], output=[i_category#18675, i_class#18676, spark_grouping_id#18674L, sum#18704L])
+                                    +- *(9) Expand [[ws_net_paid#505, i_category#680, i_class#678, 0], [ws_net_paid#505, i_category#680, null, 1], [ws_net_paid#505, null, null, 3]], [ws_net_paid#505, i_category#18675, i_class#18676, spark_grouping_id#18674L]
+                                       +- *(9) Project [ws_net_paid#505, i_category#680, i_class#678]
+                                          +- *(9) SortMergeJoin [ws_item_sk#479], [i_item_sk#668], Inner
+                                             :- *(7) Sort [ws_item_sk#479 ASC NULLS FIRST], false, 0
+                                             :  +- AQEShuffleRead coalesced
+                                             :     +- ShuffleQueryStage 3
+                                             :        +- Exchange hashpartitioning(ws_item_sk#479, 200), ENSURE_REQUIREMENTS, [id=#188243]
+                                             :           +- *(6) Project [ws_item_sk#479, ws_net_paid#505]
+                                             :              +- *(6) SortMergeJoin [ws_sold_date_sk#476], [d_date_sk#612], Inner
+                                             :                 :- *(4) Sort [ws_sold_date_sk#476 ASC NULLS FIRST], false, 0
+                                             :                 :  +- AQEShuffleRead coalesced
+                                             :                 :     +- ShuffleQueryStage 0
+                                             :                 :        +- Exchange hashpartitioning(ws_sold_date_sk#476, 200), ENSURE_REQUIREMENTS, [id=#187966]
+                                             :                 :           +- *(1) Filter (isnotnull(ws_sold_date_sk#476) AND isnotnull(ws_item_sk#479))
+                                             :                 :              +- *(1) ColumnarToRow
+                                             :                 :                 +- FileScan parquet [ws_sold_date_sk#476,ws_item_sk#479,ws_net_paid#505] Batched: true, DataFilters: [isnotnull(ws_sold_date_sk#476), isnotnull(ws_item_sk#479)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_sold_date_sk), IsNotNull(ws_item_sk)], ReadSchema: struct<ws_sold_date_sk:int,ws_item_sk:int,ws_net_paid:decimal(7,2)>
+                                             :                 +- *(5) Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
+                                             :                    +- AQEShuffleRead coalesced
+                                             :                       +- ShuffleQueryStage 1
+                                             :                          +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#187985]
+                                             :                             +- *(2) Project [d_date_sk#612]
+                                             :                                +- *(2) Filter (((isnotnull(d_month_seq#615) AND (d_month_seq#615 >= 1212)) AND (d_month_seq#615 <= 1223)) AND isnotnull(d_date_sk#612))
+                                             :                                   +- *(2) ColumnarToRow
+                                             :                                      +- FileScan parquet [d_date_sk#612,d_month_seq#615] Batched: true, DataFilters: [isnotnull(d_month_seq#615), (d_month_seq#615 >= 1212), (d_month_seq#615 <= 1223), isnotnull(d_da..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1212), LessThanOrEqual(d_month_seq,1223),..., ReadSchema: struct<d_date_sk:int,d_month_seq:int>
+                                             +- *(8) Sort [i_item_sk#668 ASC NULLS FIRST], false, 0
+                                                +- AQEShuffleRead coalesced
+                                                   +- ShuffleQueryStage 2
+                                                      +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#188008]
+                                                         +- *(3) Filter isnotnull(i_item_sk#668)
+                                                            +- *(3) ColumnarToRow
+                                                               +- FileScan parquet [i_item_sk#668,i_class#678,i_category#680] Batched: true, DataFilters: [isnotnull(i_item_sk#668)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_item_sk)], ReadSchema: struct<i_item_sk:int,i_class:string,i_category:string>
++- == Initial Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[lochierarchy#18666 DESC NULLS LAST,CASE WHEN (lochierarchy#18666 = 0) THEN i_category#18675 END ASC NULLS FIRST,rank_within_parent#18667 ASC NULLS FIRST], output=[total_sum#18665,i_category#18675,i_class#18676,lochierarchy#18666,rank_within_parent#18667])
+   +- Project [total_sum#18665, i_category#18675, i_class#18676, lochierarchy#18666, rank_within_parent#18667]
+      +- Window [rank(_w3#18691) windowspecdefinition(_w1#18689, _w2#18690, _w3#18691 DESC NULLS LAST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS rank_within_parent#18667], [_w1#18689, _w2#18690], [_w3#18691 DESC NULLS LAST]
+         +- Sort [_w1#18689 ASC NULLS FIRST, _w2#18690 ASC NULLS FIRST, _w3#18691 DESC NULLS LAST], false, 0
+            +- Exchange hashpartitioning(_w1#18689, _w2#18690, 200), ENSURE_REQUIREMENTS, [id=#187909]
+               +- HashAggregate(keys=[i_category#18675, i_class#18676, spark_grouping_id#18674L], functions=[sum(UnscaledValue(ws_net_paid#505))], output=[total_sum#18665, i_category#18675, i_class#18676, lochierarchy#18666, _w1#18689, _w2#18690, _w3#18691])
+                  +- Exchange hashpartitioning(i_category#18675, i_class#18676, spark_grouping_id#18674L, 200), ENSURE_REQUIREMENTS, [id=#187906]
+                     +- HashAggregate(keys=[i_category#18675, i_class#18676, spark_grouping_id#18674L], functions=[partial_sum(UnscaledValue(ws_net_paid#505))], output=[i_category#18675, i_class#18676, spark_grouping_id#18674L, sum#18704L])
+                        +- Expand [[ws_net_paid#505, i_category#680, i_class#678, 0], [ws_net_paid#505, i_category#680, null, 1], [ws_net_paid#505, null, null, 3]], [ws_net_paid#505, i_category#18675, i_class#18676, spark_grouping_id#18674L]
+                           +- Project [ws_net_paid#505, i_category#680, i_class#678]
+                              +- SortMergeJoin [ws_item_sk#479], [i_item_sk#668], Inner
+                                 :- Sort [ws_item_sk#479 ASC NULLS FIRST], false, 0
+                                 :  +- Exchange hashpartitioning(ws_item_sk#479, 200), ENSURE_REQUIREMENTS, [id=#187897]
+                                 :     +- Project [ws_item_sk#479, ws_net_paid#505]
+                                 :        +- SortMergeJoin [ws_sold_date_sk#476], [d_date_sk#612], Inner
+                                 :           :- Sort [ws_sold_date_sk#476 ASC NULLS FIRST], false, 0
+                                 :           :  +- Exchange hashpartitioning(ws_sold_date_sk#476, 200), ENSURE_REQUIREMENTS, [id=#187889]
+                                 :           :     +- Filter (isnotnull(ws_sold_date_sk#476) AND isnotnull(ws_item_sk#479))
+                                 :           :        +- FileScan parquet [ws_sold_date_sk#476,ws_item_sk#479,ws_net_paid#505] Batched: true, DataFilters: [isnotnull(ws_sold_date_sk#476), isnotnull(ws_item_sk#479)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_sold_date_sk), IsNotNull(ws_item_sk)], ReadSchema: struct<ws_sold_date_sk:int,ws_item_sk:int,ws_net_paid:decimal(7,2)>
+                                 :           +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
+                                 :              +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#187890]
+                                 :                 +- Project [d_date_sk#612]
+                                 :                    +- Filter (((isnotnull(d_month_seq#615) AND (d_month_seq#615 >= 1212)) AND (d_month_seq#615 <= 1223)) AND isnotnull(d_date_sk#612))
+                                 :                       +- FileScan parquet [d_date_sk#612,d_month_seq#615] Batched: true, DataFilters: [isnotnull(d_month_seq#615), (d_month_seq#615 >= 1212), (d_month_seq#615 <= 1223), isnotnull(d_da..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1212), LessThanOrEqual(d_month_seq,1223),..., ReadSchema: struct<d_date_sk:int,d_month_seq:int>
+                                 +- Sort [i_item_sk#668 ASC NULLS FIRST], false, 0
+                                    +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#187898]
+                                       +- Filter isnotnull(i_item_sk#668)
+                                          +- FileScan parquet [i_item_sk#668,i_class#678,i_category#680] Batched: true, DataFilters: [isnotnull(i_item_sk#668)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_item_sk)], ReadSchema: struct<i_item_sk:int,i_class:string,i_category:string>

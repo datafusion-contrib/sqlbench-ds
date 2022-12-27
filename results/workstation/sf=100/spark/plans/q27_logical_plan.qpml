@@ -1,0 +1,97 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Expand (unknown)"
+        operator: "Expand"
+        inputs:
+        - title: "Projection: ss_quantity#262, ss_list_price#264, ss_sales_price#265,\
+            \ ss_coupon_amt#271, i_item_id#669, s_state#736"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((ss_item_sk#254 = i_item_sk#668))"
+            operator: "join"
+            inputs:
+            - title: "Projection: ss_item_sk#254, ss_quantity#262, ss_list_price#264,\
+                \ ss_sales_price#265, ss_coupon_amt#271, s_state#736"
+              operator: "projection"
+              inputs:
+              - title: "Inner Join: Some((ss_store_sk#259 = s_store_sk#712))"
+                operator: "join"
+                inputs:
+                - title: "Projection: ss_item_sk#254, ss_store_sk#259, ss_quantity#262,\
+                    \ ss_list_price#264, ss_sales_price#265, ss_coupon_amt#271"
+                  operator: "projection"
+                  inputs:
+                  - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#612))"
+                    operator: "join"
+                    inputs:
+                    - title: "Projection: ss_sold_date_sk#252, ss_item_sk#254, ss_store_sk#259,\
+                        \ ss_quantity#262, ss_list_price#264, ss_sales_price#265,\
+                        \ ss_coupon_amt#271"
+                      operator: "projection"
+                      inputs:
+                      - title: "Inner Join: Some((ss_cdemo_sk#256 = cd_demo_sk#222))"
+                        operator: "join"
+                        inputs:
+                        - title: "Projection: ss_sold_date_sk#252, ss_item_sk#254,\
+                            \ ss_cdemo_sk#256, ss_store_sk#259, ss_quantity#262, ss_list_price#264,\
+                            \ ss_sales_price#265, ss_coupon_amt#271"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: ((isnotnull(ss_cdemo_sk#256) AND isnotnull(ss_sold_date_sk#252))\
+                              \ AND (isnotnull(ss_store_sk#259) AND isnotnull(ss_item_sk#254)))"
+                            operator: "filter"
+                            inputs:
+                            - title: "store_sales.parquet"
+                              operator: "scan"
+                              inputs: []
+                        - title: "Projection: cd_demo_sk#222"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: ((((isnotnull(cd_gender#223) AND isnotnull(cd_marital_status#224))\
+                              \ AND isnotnull(cd_education_status#225)) AND (((cd_gender#223\
+                              \ = M) AND (cd_marital_status#224 = W)) AND (cd_education_status#225\
+                              \ = College))) AND isnotnull(cd_demo_sk#222))"
+                            operator: "filter"
+                            inputs:
+                            - title: "customer_demographics.parquet"
+                              operator: "scan"
+                              inputs: []
+                    - title: "Projection: d_date_sk#612"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 =\
+                          \ 2002)) AND isnotnull(d_date_sk#612))"
+                        operator: "filter"
+                        inputs:
+                        - title: "date_dim.parquet"
+                          operator: "scan"
+                          inputs: []
+                - title: "Projection: s_store_sk#712, s_state#736"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: (s_state#736 IN (MO,LA,GA,MI,SC,OH) AND isnotnull(s_store_sk#712))"
+                    operator: "filter"
+                    inputs:
+                    - title: "store.parquet"
+                      operator: "scan"
+                      inputs: []
+            - title: "Projection: i_item_sk#668, i_item_id#669"
+              operator: "projection"
+              inputs:
+              - title: "Filter: isnotnull(i_item_sk#668)"
+                operator: "filter"
+                inputs:
+                - title: "item.parquet"
+                  operator: "scan"
+                  inputs: []

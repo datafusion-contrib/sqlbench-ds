@@ -1,0 +1,94 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Projection: cs_quantity#562, cs_list_price#564, cs_sales_price#565,\
+          \ cs_coupon_amt#571, i_item_id#669"
+        operator: "projection"
+        inputs:
+        - title: "Inner Join: Some((cs_promo_sk#560 = p_promo_sk#98))"
+          operator: "join"
+          inputs:
+          - title: "Projection: cs_promo_sk#560, cs_quantity#562, cs_list_price#564,\
+              \ cs_sales_price#565, cs_coupon_amt#571, i_item_id#669"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#668))"
+              operator: "join"
+              inputs:
+              - title: "Projection: cs_item_sk#559, cs_promo_sk#560, cs_quantity#562,\
+                  \ cs_list_price#564, cs_sales_price#565, cs_coupon_amt#571"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#612))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: cs_sold_date_sk#544, cs_item_sk#559, cs_promo_sk#560,\
+                      \ cs_quantity#562, cs_list_price#564, cs_sales_price#565, cs_coupon_amt#571"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((cs_bill_cdemo_sk#548 = cd_demo_sk#222))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: cs_sold_date_sk#544, cs_bill_cdemo_sk#548,\
+                          \ cs_item_sk#559, cs_promo_sk#560, cs_quantity#562, cs_list_price#564,\
+                          \ cs_sales_price#565, cs_coupon_amt#571"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: ((isnotnull(cs_bill_cdemo_sk#548) AND isnotnull(cs_sold_date_sk#544))\
+                            \ AND (isnotnull(cs_item_sk#559) AND isnotnull(cs_promo_sk#560)))"
+                          operator: "filter"
+                          inputs:
+                          - title: "catalog_sales.parquet"
+                            operator: "scan"
+                            inputs: []
+                      - title: "Projection: cd_demo_sk#222"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: ((((isnotnull(cd_gender#223) AND isnotnull(cd_marital_status#224))\
+                            \ AND isnotnull(cd_education_status#225)) AND (((cd_gender#223\
+                            \ = F) AND (cd_marital_status#224 = W)) AND (cd_education_status#225\
+                            \ = Primary))) AND isnotnull(cd_demo_sk#222))"
+                          operator: "filter"
+                          inputs:
+                          - title: "customer_demographics.parquet"
+                            operator: "scan"
+                            inputs: []
+                  - title: "Projection: d_date_sk#612"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 = 1998))\
+                        \ AND isnotnull(d_date_sk#612))"
+                      operator: "filter"
+                      inputs:
+                      - title: "date_dim.parquet"
+                        operator: "scan"
+                        inputs: []
+              - title: "Projection: i_item_sk#668, i_item_id#669"
+                operator: "projection"
+                inputs:
+                - title: "Filter: isnotnull(i_item_sk#668)"
+                  operator: "filter"
+                  inputs:
+                  - title: "item.parquet"
+                    operator: "scan"
+                    inputs: []
+          - title: "Projection: p_promo_sk#98"
+            operator: "projection"
+            inputs:
+            - title: "Filter: (((p_channel_email#107 = N) OR (p_channel_event#112\
+                \ = N)) AND isnotnull(p_promo_sk#98))"
+              operator: "filter"
+              inputs:
+              - title: "promotion.parquet"
+                operator: "scan"
+                inputs: []

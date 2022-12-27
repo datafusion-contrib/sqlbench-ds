@@ -1,0 +1,112 @@
+---
+title: "Inner Join: None"
+operator: "join"
+inputs:
+- title: "Inner Join: None"
+  operator: "join"
+  inputs:
+  - title: "Inner Join: None"
+    operator: "join"
+    inputs:
+    - title: "Inner Join: None"
+      operator: "join"
+      inputs:
+      - title: "Inner Join: None"
+        operator: "join"
+        inputs:
+        - title: "Aggregate (unknown)"
+          operator: "Aggregate"
+          inputs:
+          - title: "Projection: ss_list_price#264"
+            operator: "projection"
+            inputs:
+            - title: "Filter: (isnotnull(ss_quantity#262) AND (((ss_quantity#262 >=\
+                \ 0) AND (ss_quantity#262 <= 5)) AND ((((ss_list_price#264 >= 11.00)\
+                \ AND (ss_list_price#264 <= 21.00)) OR ((ss_coupon_amt#271 >= 460.00)\
+                \ AND (ss_coupon_amt#271 <= 1460.00))) OR ((ss_wholesale_cost#263\
+                \ >= 14.00) AND (ss_wholesale_cost#263 <= 34.00)))))"
+              operator: "filter"
+              inputs:
+              - title: "store_sales.parquet"
+                operator: "scan"
+                inputs: []
+        - title: "Aggregate (unknown)"
+          operator: "Aggregate"
+          inputs:
+          - title: "Projection: ss_list_price#6107"
+            operator: "projection"
+            inputs:
+            - title: "Filter: (isnotnull(ss_quantity#6105) AND (((ss_quantity#6105\
+                \ >= 6) AND (ss_quantity#6105 <= 10)) AND ((((ss_list_price#6107 >=\
+                \ 91.00) AND (ss_list_price#6107 <= 101.00)) OR ((ss_coupon_amt#6114\
+                \ >= 1430.00) AND (ss_coupon_amt#6114 <= 2430.00))) OR ((ss_wholesale_cost#6106\
+                \ >= 32.00) AND (ss_wholesale_cost#6106 <= 52.00)))))"
+              operator: "filter"
+              inputs:
+              - title: "store_sales.parquet"
+                operator: "scan"
+                inputs: []
+      - title: "Aggregate (unknown)"
+        operator: "Aggregate"
+        inputs:
+        - title: "Projection: ss_list_price#6130"
+          operator: "projection"
+          inputs:
+          - title: "Filter: (isnotnull(ss_quantity#6128) AND (((ss_quantity#6128 >=\
+              \ 11) AND (ss_quantity#6128 <= 15)) AND ((((ss_list_price#6130 >= 66.00)\
+              \ AND (ss_list_price#6130 <= 76.00)) OR ((ss_coupon_amt#6137 >= 920.00)\
+              \ AND (ss_coupon_amt#6137 <= 1920.00))) OR ((ss_wholesale_cost#6129\
+              \ >= 4.00) AND (ss_wholesale_cost#6129 <= 24.00)))))"
+            operator: "filter"
+            inputs:
+            - title: "store_sales.parquet"
+              operator: "scan"
+              inputs: []
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Projection: ss_list_price#6153"
+        operator: "projection"
+        inputs:
+        - title: "Filter: (isnotnull(ss_quantity#6151) AND (((ss_quantity#6151 >=\
+            \ 16) AND (ss_quantity#6151 <= 20)) AND ((((ss_list_price#6153 >= 142.00)\
+            \ AND (ss_list_price#6153 <= 152.00)) OR ((ss_coupon_amt#6160 >= 3054.00)\
+            \ AND (ss_coupon_amt#6160 <= 4054.00))) OR ((ss_wholesale_cost#6152 >=\
+            \ 80.00) AND (ss_wholesale_cost#6152 <= 100.00)))))"
+          operator: "filter"
+          inputs:
+          - title: "store_sales.parquet"
+            operator: "scan"
+            inputs: []
+  - title: "Aggregate (unknown)"
+    operator: "Aggregate"
+    inputs:
+    - title: "Projection: ss_list_price#6176"
+      operator: "projection"
+      inputs:
+      - title: "Filter: (isnotnull(ss_quantity#6174) AND (((ss_quantity#6174 >= 21)\
+          \ AND (ss_quantity#6174 <= 25)) AND ((((ss_list_price#6176 >= 135.00) AND\
+          \ (ss_list_price#6176 <= 145.00)) OR ((ss_coupon_amt#6183 >= 14180.00) AND\
+          \ (ss_coupon_amt#6183 <= 15180.00))) OR ((ss_wholesale_cost#6175 >= 38.00)\
+          \ AND (ss_wholesale_cost#6175 <= 58.00)))))"
+        operator: "filter"
+        inputs:
+        - title: "store_sales.parquet"
+          operator: "scan"
+          inputs: []
+- title: "Aggregate (unknown)"
+  operator: "Aggregate"
+  inputs:
+  - title: "Projection: ss_list_price#6199"
+    operator: "projection"
+    inputs:
+    - title: "Filter: (isnotnull(ss_quantity#6197) AND (((ss_quantity#6197 >= 26)\
+        \ AND (ss_quantity#6197 <= 30)) AND ((((ss_list_price#6199 >= 28.00) AND (ss_list_price#6199\
+        \ <= 38.00)) OR ((ss_coupon_amt#6206 >= 2513.00) AND (ss_coupon_amt#6206 <=\
+        \ 3513.00))) OR ((ss_wholesale_cost#6198 >= 42.00) AND (ss_wholesale_cost#6198\
+        \ <= 62.00)))))"
+      operator: "filter"
+      inputs:
+      - title: "store_sales.parquet"
+        operator: "scan"
+        inputs: []

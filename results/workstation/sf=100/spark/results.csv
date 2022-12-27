@@ -1,0 +1,115 @@
+Register call_center,4863
+Register customer_address,5160
+Register household_demographics,5270
+Register promotion,5401
+Register store_returns,5542
+Register web_page,5667
+Register catalog_page,6653
+Register customer_demographics,6891
+Register income_band,6993
+Register reason,7110
+Register store_sales,7266
+Register web_returns,7383
+Register catalog_returns,7491
+Register customer,7598
+Register inventory,7693
+Register ship_mode,7799
+Register time_dim,7896
+Register web_sales,8007
+Register catalog_sales,8098
+Register date_dim,8204
+Register item,8295
+Register store,8388
+Register warehouse,8473
+Register web_site,8567
+Register All Tables,8567
+q1,17661
+q2,16929
+q3,16939
+q4,352496
+q5,32105
+q6,30643
+q7,29085
+q8,19748
+q9,11924
+q10,20036
+q11,78490
+q12,8817
+q13,15613
+q15,23415
+q17,36635
+q18,25795
+q19,14594
+q20,15891
+q21,41178
+q22,31797
+q25,37841
+q26,15729
+q27,25581
+q28,16328
+q29,35196
+q30,7332
+q31,29708
+q33,19912
+q34,20008
+q35,19845
+q36,27703
+q37,9917
+q38,26109
+q39_part_1,84068
+q39_part_2,89030
+q40,45250
+q41,440
+q42,10194
+q43,17932
+q44,4485
+q45,17764
+q46,26162
+q47,45193
+q48,21785
+q49,18671
+q51,37099
+q52,9871
+q53,15973
+q54,27454
+q55,10221
+q56,20106
+q57,26917
+q58,40639
+q59,22176
+q60,21432
+q61,16815
+q62,18903
+q63,17245
+q64,120795
+q65,38466
+q66,53624
+q67,115199
+q68,24410
+q69,20811
+q70,43937
+q71,22170
+q72,3895653
+q73,14460
+q74,59346
+q75,48262
+q76,7778
+q77,26449
+q78,85560
+q79,24714
+q80,81306
+q81,6959
+q82,15635
+q83,7412
+q84,3851
+q85,8747
+q86,6702
+q87,34401
+q88,31080
+q89,22337
+q90,5807
+q91,5930
+q93,32179
+q96,18228
+q97,26101
+q98,23993

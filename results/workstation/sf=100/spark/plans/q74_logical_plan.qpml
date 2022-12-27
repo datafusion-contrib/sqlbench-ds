@@ -1,0 +1,233 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Projection: customer_id#15877, customer_first_name#15878, customer_last_name#15879"
+      operator: "projection"
+      inputs:
+      - title: "Inner Join: Some(((customer_id#15817 = customer_id#15889) AND (CASE\
+          \ WHEN (year_total#16206 > 0.00) THEN CheckOverflow((promote_precision(year_total#15893)\
+          \ / promote_precision(year_total#16206)), DecimalType(17,10), true) END\
+          \ > CASE WHEN (year_total#15821 > 0.00) THEN CheckOverflow((promote_precision(year_total#15881)\
+          \ / promote_precision(year_total#15821)), DecimalType(17,10), true) END)))"
+        operator: "join"
+        inputs:
+        - title: "Projection: customer_id#15817, year_total#15821, customer_id#15877,\
+            \ customer_first_name#15878, customer_last_name#15879, year_total#15881,\
+            \ year_total#16206"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((customer_id#15817 = customer_id#16202))"
+            operator: "join"
+            inputs:
+            - title: "Inner Join: Some((customer_id#15877 = customer_id#15817))"
+              operator: "join"
+              inputs:
+              - title: "Filter: (isnotnull(year_total#15821) AND (year_total#15821\
+                  \ > 0.00))"
+                operator: "filter"
+                inputs:
+                - title: "Aggregate (unknown)"
+                  operator: "Aggregate"
+                  inputs:
+                  - title: "Projection: c_customer_id#401, c_first_name#408, c_last_name#409,\
+                      \ ss_net_paid#272, d_year#618"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#612))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: c_customer_id#401, c_first_name#408, c_last_name#409,\
+                          \ ss_sold_date_sk#252, ss_net_paid#272"
+                        operator: "projection"
+                        inputs:
+                        - title: "Inner Join: Some((c_customer_sk#400 = ss_customer_sk#255))"
+                          operator: "join"
+                          inputs:
+                          - title: "Projection: c_customer_sk#400, c_customer_id#401,\
+                              \ c_first_name#408, c_last_name#409"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (isnotnull(c_customer_sk#400) AND isnotnull(c_customer_id#401))"
+                              operator: "filter"
+                              inputs:
+                              - title: "customer.parquet"
+                                operator: "scan"
+                                inputs: []
+                          - title: "Projection: ss_sold_date_sk#252, ss_customer_sk#255,\
+                              \ ss_net_paid#272"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (isnotnull(ss_customer_sk#255) AND isnotnull(ss_sold_date_sk#252))"
+                              operator: "filter"
+                              inputs:
+                              - title: "store_sales.parquet"
+                                operator: "scan"
+                                inputs: []
+                      - title: "Projection: d_date_sk#612, d_year#618"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: ((isnotnull(d_year#618) AND ((d_year#618\
+                            \ = 2001) AND d_year#618 IN (2001,2002))) AND isnotnull(d_date_sk#612))"
+                          operator: "filter"
+                          inputs:
+                          - title: "date_dim.parquet"
+                            operator: "scan"
+                            inputs: []
+              - title: "Aggregate (unknown)"
+                operator: "Aggregate"
+                inputs:
+                - title: "Projection: c_customer_id#15899, c_first_name#15906, c_last_name#15907,\
+                    \ ss_net_paid#15936, d_year#15945"
+                  operator: "projection"
+                  inputs:
+                  - title: "Inner Join: Some((ss_sold_date_sk#15916 = d_date_sk#15939))"
+                    operator: "join"
+                    inputs:
+                    - title: "Projection: c_customer_id#15899, c_first_name#15906,\
+                        \ c_last_name#15907, ss_sold_date_sk#15916, ss_net_paid#15936"
+                      operator: "projection"
+                      inputs:
+                      - title: "Inner Join: Some((c_customer_sk#15898 = ss_customer_sk#15919))"
+                        operator: "join"
+                        inputs:
+                        - title: "Projection: c_customer_sk#15898, c_customer_id#15899,\
+                            \ c_first_name#15906, c_last_name#15907"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: (isnotnull(c_customer_sk#15898) AND isnotnull(c_customer_id#15899))"
+                            operator: "filter"
+                            inputs:
+                            - title: "customer.parquet"
+                              operator: "scan"
+                              inputs: []
+                        - title: "Projection: ss_sold_date_sk#15916, ss_customer_sk#15919,\
+                            \ ss_net_paid#15936"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: (isnotnull(ss_customer_sk#15919) AND isnotnull(ss_sold_date_sk#15916))"
+                            operator: "filter"
+                            inputs:
+                            - title: "store_sales.parquet"
+                              operator: "scan"
+                              inputs: []
+                    - title: "Projection: d_date_sk#15939, d_year#15945"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: ((isnotnull(d_year#15945) AND ((d_year#15945\
+                          \ = 2002) AND d_year#15945 IN (2001,2002))) AND isnotnull(d_date_sk#15939))"
+                        operator: "filter"
+                        inputs:
+                        - title: "date_dim.parquet"
+                          operator: "scan"
+                          inputs: []
+            - title: "Projection: customer_id#15823 AS customer_id#16202, year_total#15827\
+                \ AS year_total#16206"
+              operator: "projection"
+              inputs:
+              - title: "Filter: (isnotnull(year_total#15827) AND (year_total#15827\
+                  \ > 0.00))"
+                operator: "filter"
+                inputs:
+                - title: "Aggregate (unknown)"
+                  operator: "Aggregate"
+                  inputs:
+                  - title: "Projection: c_customer_id#16123, c_first_name#16130, c_last_name#16131,\
+                      \ ws_net_paid#16169, d_year#16180"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((ws_sold_date_sk#16140 = d_date_sk#16174))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: c_customer_id#16123, c_first_name#16130,\
+                          \ c_last_name#16131, ws_sold_date_sk#16140, ws_net_paid#16169"
+                        operator: "projection"
+                        inputs:
+                        - title: "Inner Join: Some((c_customer_sk#16122 = ws_bill_customer_sk#16144))"
+                          operator: "join"
+                          inputs:
+                          - title: "Projection: c_customer_sk#16122, c_customer_id#16123,\
+                              \ c_first_name#16130, c_last_name#16131"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (isnotnull(c_customer_sk#16122) AND\
+                                \ isnotnull(c_customer_id#16123))"
+                              operator: "filter"
+                              inputs:
+                              - title: "customer.parquet"
+                                operator: "scan"
+                                inputs: []
+                          - title: "Projection: ws_sold_date_sk#16140, ws_bill_customer_sk#16144,\
+                              \ ws_net_paid#16169"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (isnotnull(ws_bill_customer_sk#16144)\
+                                \ AND isnotnull(ws_sold_date_sk#16140))"
+                              operator: "filter"
+                              inputs:
+                              - title: "web_sales.parquet"
+                                operator: "scan"
+                                inputs: []
+                      - title: "Projection: d_date_sk#16174, d_year#16180"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: ((isnotnull(d_year#16180) AND ((d_year#16180\
+                            \ = 2001) AND d_year#16180 IN (2001,2002))) AND isnotnull(d_date_sk#16174))"
+                          operator: "filter"
+                          inputs:
+                          - title: "date_dim.parquet"
+                            operator: "scan"
+                            inputs: []
+        - title: "Aggregate (unknown)"
+          operator: "Aggregate"
+          inputs:
+          - title: "Projection: c_customer_id#16278, c_first_name#16285, c_last_name#16286,\
+              \ ws_net_paid#16324, d_year#16335"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((ws_sold_date_sk#16295 = d_date_sk#16329))"
+              operator: "join"
+              inputs:
+              - title: "Projection: c_customer_id#16278, c_first_name#16285, c_last_name#16286,\
+                  \ ws_sold_date_sk#16295, ws_net_paid#16324"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((c_customer_sk#16277 = ws_bill_customer_sk#16299))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: c_customer_sk#16277, c_customer_id#16278,\
+                      \ c_first_name#16285, c_last_name#16286"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (isnotnull(c_customer_sk#16277) AND isnotnull(c_customer_id#16278))"
+                      operator: "filter"
+                      inputs:
+                      - title: "customer.parquet"
+                        operator: "scan"
+                        inputs: []
+                  - title: "Projection: ws_sold_date_sk#16295, ws_bill_customer_sk#16299,\
+                      \ ws_net_paid#16324"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (isnotnull(ws_bill_customer_sk#16299) AND isnotnull(ws_sold_date_sk#16295))"
+                      operator: "filter"
+                      inputs:
+                      - title: "web_sales.parquet"
+                        operator: "scan"
+                        inputs: []
+              - title: "Projection: d_date_sk#16329, d_year#16335"
+                operator: "projection"
+                inputs:
+                - title: "Filter: ((isnotnull(d_year#16335) AND ((d_year#16335 = 2002)\
+                    \ AND d_year#16335 IN (2001,2002))) AND isnotnull(d_date_sk#16329))"
+                  operator: "filter"
+                  inputs:
+                  - title: "date_dim.parquet"
+                    operator: "scan"
+                    inputs: []

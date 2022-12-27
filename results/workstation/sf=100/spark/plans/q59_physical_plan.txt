@@ -1,0 +1,156 @@
+AdaptiveSparkPlan isFinalPlan=true
++- == Final Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[s_store_name1#11496 ASC NULLS FIRST,s_store_id1#11498 ASC NULLS FIRST,d_week_seq1#11497 ASC NULLS FIRST], output=[s_store_name1#11496,s_store_id1#11498,d_week_seq1#11497,(sun_sales1 / sun_sales2)#11615,(mon_sales1 / mon_sales2)#11616,(tue_sales1 / tue_sales2)#11617,(wed_sales1 / wed_sales2)#11618,(thu_sales1 / thu_sales2)#11619,(fri_sales1 / fri_sales2)#11620,(sat_sales1 / sat_sales2)#11621])
+   +- *(31) Project [s_store_name1#11496, s_store_id1#11498, d_week_seq1#11497, CheckOverflow((promote_precision(sun_sales1#11499) / promote_precision(sun_sales2#11509)), DecimalType(37,20), true) AS (sun_sales1 / sun_sales2)#11615, CheckOverflow((promote_precision(mon_sales1#11500) / promote_precision(mon_sales2#11510)), DecimalType(37,20), true) AS (mon_sales1 / mon_sales2)#11616, CheckOverflow((promote_precision(tue_sales1#11501) / promote_precision(tue_sales2#11511)), DecimalType(37,20), true) AS (tue_sales1 / tue_sales2)#11617, CheckOverflow((promote_precision(wed_sales1#11502) / promote_precision(wed_sales2#11512)), DecimalType(37,20), true) AS (wed_sales1 / wed_sales2)#11618, CheckOverflow((promote_precision(thu_sales1#11503) / promote_precision(thu_sales2#11513)), DecimalType(37,20), true) AS (thu_sales1 / thu_sales2)#11619, CheckOverflow((promote_precision(fri_sales1#11504) / promote_precision(fri_sales2#11514)), DecimalType(37,20), true) AS (fri_sales1 / fri_sales2)#11620, CheckOverflow((promote_precision(sat_sales1#11505) / promote_precision(sat_sales2#11515)), DecimalType(37,20), true) AS (sat_sales1 / sat_sales2)#11621]
+      +- *(31) SortMergeJoin [s_store_id1#11498, d_week_seq1#11497], [s_store_id2#11508, (d_week_seq2#11507 - 52)], Inner
+         :- *(29) Sort [s_store_id1#11498 ASC NULLS FIRST, d_week_seq1#11497 ASC NULLS FIRST], false, 0
+         :  +- AQEShuffleRead coalesced
+         :     +- ShuffleQueryStage 18
+         :        +- Exchange hashpartitioning(s_store_id1#11498, d_week_seq1#11497, 200), ENSURE_REQUIREMENTS, [id=#99852]
+         :           +- *(25) Project [s_store_name#717 AS s_store_name1#11496, d_week_seq#616 AS d_week_seq1#11497, s_store_id#713 AS s_store_id1#11498, sun_sales#11516 AS sun_sales1#11499, mon_sales#11517 AS mon_sales1#11500, tue_sales#11518 AS tue_sales1#11501, wed_sales#11519 AS wed_sales1#11502, thu_sales#11520 AS thu_sales1#11503, fri_sales#11521 AS fri_sales1#11504, sat_sales#11522 AS sat_sales1#11505]
+         :              +- *(25) SortMergeJoin [d_week_seq#616], [d_week_seq#11527], Inner
+         :                 :- *(23) Sort [d_week_seq#616 ASC NULLS FIRST], false, 0
+         :                 :  +- AQEShuffleRead coalesced
+         :                 :     +- ShuffleQueryStage 16
+         :                 :        +- Exchange hashpartitioning(d_week_seq#616, 200), ENSURE_REQUIREMENTS, [id=#99691]
+         :                 :           +- *(19) Project [d_week_seq#616, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522, s_store_id#713, s_store_name#717]
+         :                 :              +- *(19) SortMergeJoin [ss_store_sk#259], [s_store_sk#712], Inner
+         :                 :                 :- *(17) Sort [ss_store_sk#259 ASC NULLS FIRST], false, 0
+         :                 :                 :  +- AQEShuffleRead coalesced
+         :                 :                 :     +- ShuffleQueryStage 13
+         :                 :                 :        +- Exchange hashpartitioning(ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#99534]
+         :                 :                 :           +- *(15) HashAggregate(keys=[d_week_seq#616, ss_store_sk#259], functions=[sum(UnscaledValue(CASE WHEN (d_day_name#626 = Sunday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Monday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Tuesday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Wednesday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Thursday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Friday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Saturday) THEN ss_sales_price#265 END))], output=[d_week_seq#616, ss_store_sk#259, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522])
+         :                 :                 :              +- AQEShuffleRead coalesced
+         :                 :                 :                 +- ShuffleQueryStage 10
+         :                 :                 :                    +- Exchange hashpartitioning(d_week_seq#616, ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#99239]
+         :                 :                 :                       +- *(11) HashAggregate(keys=[d_week_seq#616, ss_store_sk#259], functions=[partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Sunday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Monday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Tuesday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Wednesday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Thursday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Friday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Saturday) THEN ss_sales_price#265 END))], output=[d_week_seq#616, ss_store_sk#259, sum#11639L, sum#11640L, sum#11641L, sum#11642L, sum#11643L, sum#11644L, sum#11645L])
+         :                 :                 :                          +- *(11) Project [ss_store_sk#259, ss_sales_price#265, d_week_seq#616, d_day_name#626]
+         :                 :                 :                             +- *(11) SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#612], Inner
+         :                 :                 :                                :- *(9) Sort [ss_sold_date_sk#252 ASC NULLS FIRST], false, 0
+         :                 :                 :                                :  +- AQEShuffleRead coalesced
+         :                 :                 :                                :     +- ShuffleQueryStage 0
+         :                 :                 :                                :        +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#98171]
+         :                 :                 :                                :           +- *(1) Filter (isnotnull(ss_sold_date_sk#252) AND isnotnull(ss_store_sk#259))
+         :                 :                 :                                :              +- *(1) ColumnarToRow
+         :                 :                 :                                :                 +- FileScan parquet [ss_sold_date_sk#252,ss_store_sk#259,ss_sales_price#265] Batched: true, DataFilters: [isnotnull(ss_sold_date_sk#252), isnotnull(ss_store_sk#259)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_sold_date_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_date_sk:int,ss_store_sk:int,ss_sales_price:decimal(7,2)>
+         :                 :                 :                                +- *(10) Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
+         :                 :                 :                                   +- AQEShuffleRead coalesced
+         :                 :                 :                                      +- ShuffleQueryStage 1
+         :                 :                 :                                         +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#98188]
+         :                 :                 :                                            +- *(2) Filter (isnotnull(d_date_sk#612) AND isnotnull(d_week_seq#616))
+         :                 :                 :                                               +- *(2) ColumnarToRow
+         :                 :                 :                                                  +- FileScan parquet [d_date_sk#612,d_week_seq#616,d_day_name#626] Batched: true, DataFilters: [isnotnull(d_date_sk#612), isnotnull(d_week_seq#616)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_date_sk), IsNotNull(d_week_seq)], ReadSchema: struct<d_date_sk:int,d_week_seq:int,d_day_name:string>
+         :                 :                 +- *(18) Sort [s_store_sk#712 ASC NULLS FIRST], false, 0
+         :                 :                    +- AQEShuffleRead coalesced
+         :                 :                       +- ShuffleQueryStage 2
+         :                 :                          +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#98212]
+         :                 :                             +- *(3) Filter (isnotnull(s_store_sk#712) AND isnotnull(s_store_id#713))
+         :                 :                                +- *(3) ColumnarToRow
+         :                 :                                   +- FileScan parquet [s_store_sk#712,s_store_id#713,s_store_name#717] Batched: true, DataFilters: [isnotnull(s_store_sk#712), isnotnull(s_store_id#713)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_sk), IsNotNull(s_store_id)], ReadSchema: struct<s_store_sk:int,s_store_id:string,s_store_name:string>
+         :                 +- *(24) Sort [d_week_seq#11527 ASC NULLS FIRST], false, 0
+         :                    +- AQEShuffleRead coalesced
+         :                       +- ShuffleQueryStage 3
+         :                          +- Exchange hashpartitioning(d_week_seq#11527, 200), ENSURE_REQUIREMENTS, [id=#98235]
+         :                             +- *(4) Project [d_week_seq#11527]
+         :                                +- *(4) Filter (((isnotnull(d_month_seq#11526) AND (d_month_seq#11526 >= 1185)) AND (d_month_seq#11526 <= 1196)) AND isnotnull(d_week_seq#11527))
+         :                                   +- *(4) ColumnarToRow
+         :                                      +- FileScan parquet [d_month_seq#11526,d_week_seq#11527] Batched: true, DataFilters: [isnotnull(d_month_seq#11526), (d_month_seq#11526 >= 1185), (d_month_seq#11526 <= 1196), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1185), LessThanOrEqual(d_month_seq,1196),..., ReadSchema: struct<d_month_seq:int,d_week_seq:int>
+         +- *(30) Sort [s_store_id2#11508 ASC NULLS FIRST, (d_week_seq2#11507 - 52) ASC NULLS FIRST], false, 0
+            +- AQEShuffleRead coalesced
+               +- ShuffleQueryStage 19
+                  +- Exchange hashpartitioning(s_store_id2#11508, (d_week_seq2#11507 - 52), 200), ENSURE_REQUIREMENTS, [id=#99935]
+                     +- *(28) Project [d_week_seq#616 AS d_week_seq2#11507, s_store_id#11552 AS s_store_id2#11508, sun_sales#11516 AS sun_sales2#11509, mon_sales#11517 AS mon_sales2#11510, tue_sales#11518 AS tue_sales2#11511, wed_sales#11519 AS wed_sales2#11512, thu_sales#11520 AS thu_sales2#11513, fri_sales#11521 AS fri_sales2#11514, sat_sales#11522 AS sat_sales2#11515]
+                        +- *(28) SortMergeJoin [d_week_seq#616], [d_week_seq#11584], Inner
+                           :- *(26) Sort [d_week_seq#616 ASC NULLS FIRST], false, 0
+                           :  +- AQEShuffleRead coalesced
+                           :     +- ShuffleQueryStage 17
+                           :        +- Exchange hashpartitioning(d_week_seq#616, 200), ENSURE_REQUIREMENTS, [id=#99751]
+                           :           +- *(22) Project [d_week_seq#616, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522, s_store_id#11552]
+                           :              +- *(22) SortMergeJoin [ss_store_sk#259], [s_store_sk#11551], Inner
+                           :                 :- *(20) Sort [ss_store_sk#259 ASC NULLS FIRST], false, 0
+                           :                 :  +- AQEShuffleRead coalesced
+                           :                 :     +- ShuffleQueryStage 15
+                           :                 :        +- ReusedExchange [d_week_seq#616, ss_store_sk#259, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522], Exchange hashpartitioning(ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#99534]
+                           :                 +- *(21) Sort [s_store_sk#11551 ASC NULLS FIRST], false, 0
+                           :                    +- AQEShuffleRead coalesced
+                           :                       +- ShuffleQueryStage 8
+                           :                          +- Exchange hashpartitioning(s_store_sk#11551, 200), ENSURE_REQUIREMENTS, [id=#98361]
+                           :                             +- *(7) Filter (isnotnull(s_store_sk#11551) AND isnotnull(s_store_id#11552))
+                           :                                +- *(7) ColumnarToRow
+                           :                                   +- FileScan parquet [s_store_sk#11551,s_store_id#11552] Batched: true, DataFilters: [isnotnull(s_store_sk#11551), isnotnull(s_store_id#11552)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_sk), IsNotNull(s_store_id)], ReadSchema: struct<s_store_sk:int,s_store_id:string>
+                           +- *(27) Sort [d_week_seq#11584 ASC NULLS FIRST], false, 0
+                              +- AQEShuffleRead coalesced
+                                 +- ShuffleQueryStage 9
+                                    +- Exchange hashpartitioning(d_week_seq#11584, 200), ENSURE_REQUIREMENTS, [id=#98384]
+                                       +- *(8) Project [d_week_seq#11584]
+                                          +- *(8) Filter (((isnotnull(d_month_seq#11583) AND (d_month_seq#11583 >= 1197)) AND (d_month_seq#11583 <= 1208)) AND isnotnull(d_week_seq#11584))
+                                             +- *(8) ColumnarToRow
+                                                +- FileScan parquet [d_month_seq#11583,d_week_seq#11584] Batched: true, DataFilters: [isnotnull(d_month_seq#11583), (d_month_seq#11583 >= 1197), (d_month_seq#11583 <= 1208), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1197), LessThanOrEqual(d_month_seq,1208),..., ReadSchema: struct<d_month_seq:int,d_week_seq:int>
++- == Initial Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[s_store_name1#11496 ASC NULLS FIRST,s_store_id1#11498 ASC NULLS FIRST,d_week_seq1#11497 ASC NULLS FIRST], output=[s_store_name1#11496,s_store_id1#11498,d_week_seq1#11497,(sun_sales1 / sun_sales2)#11615,(mon_sales1 / mon_sales2)#11616,(tue_sales1 / tue_sales2)#11617,(wed_sales1 / wed_sales2)#11618,(thu_sales1 / thu_sales2)#11619,(fri_sales1 / fri_sales2)#11620,(sat_sales1 / sat_sales2)#11621])
+   +- Project [s_store_name1#11496, s_store_id1#11498, d_week_seq1#11497, CheckOverflow((promote_precision(sun_sales1#11499) / promote_precision(sun_sales2#11509)), DecimalType(37,20), true) AS (sun_sales1 / sun_sales2)#11615, CheckOverflow((promote_precision(mon_sales1#11500) / promote_precision(mon_sales2#11510)), DecimalType(37,20), true) AS (mon_sales1 / mon_sales2)#11616, CheckOverflow((promote_precision(tue_sales1#11501) / promote_precision(tue_sales2#11511)), DecimalType(37,20), true) AS (tue_sales1 / tue_sales2)#11617, CheckOverflow((promote_precision(wed_sales1#11502) / promote_precision(wed_sales2#11512)), DecimalType(37,20), true) AS (wed_sales1 / wed_sales2)#11618, CheckOverflow((promote_precision(thu_sales1#11503) / promote_precision(thu_sales2#11513)), DecimalType(37,20), true) AS (thu_sales1 / thu_sales2)#11619, CheckOverflow((promote_precision(fri_sales1#11504) / promote_precision(fri_sales2#11514)), DecimalType(37,20), true) AS (fri_sales1 / fri_sales2)#11620, CheckOverflow((promote_precision(sat_sales1#11505) / promote_precision(sat_sales2#11515)), DecimalType(37,20), true) AS (sat_sales1 / sat_sales2)#11621]
+      +- SortMergeJoin [s_store_id1#11498, d_week_seq1#11497], [s_store_id2#11508, (d_week_seq2#11507 - 52)], Inner
+         :- Sort [s_store_id1#11498 ASC NULLS FIRST, d_week_seq1#11497 ASC NULLS FIRST], false, 0
+         :  +- Exchange hashpartitioning(s_store_id1#11498, d_week_seq1#11497, 200), ENSURE_REQUIREMENTS, [id=#98099]
+         :     +- Project [s_store_name#717 AS s_store_name1#11496, d_week_seq#616 AS d_week_seq1#11497, s_store_id#713 AS s_store_id1#11498, sun_sales#11516 AS sun_sales1#11499, mon_sales#11517 AS mon_sales1#11500, tue_sales#11518 AS tue_sales1#11501, wed_sales#11519 AS wed_sales1#11502, thu_sales#11520 AS thu_sales1#11503, fri_sales#11521 AS fri_sales1#11504, sat_sales#11522 AS sat_sales1#11505]
+         :        +- SortMergeJoin [d_week_seq#616], [d_week_seq#11527], Inner
+         :           :- Sort [d_week_seq#616 ASC NULLS FIRST], false, 0
+         :           :  +- Exchange hashpartitioning(d_week_seq#616, 200), ENSURE_REQUIREMENTS, [id=#98064]
+         :           :     +- Project [d_week_seq#616, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522, s_store_id#713, s_store_name#717]
+         :           :        +- SortMergeJoin [ss_store_sk#259], [s_store_sk#712], Inner
+         :           :           :- Sort [ss_store_sk#259 ASC NULLS FIRST], false, 0
+         :           :           :  +- Exchange hashpartitioning(ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#98056]
+         :           :           :     +- HashAggregate(keys=[d_week_seq#616, ss_store_sk#259], functions=[sum(UnscaledValue(CASE WHEN (d_day_name#626 = Sunday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Monday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Tuesday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Wednesday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Thursday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Friday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Saturday) THEN ss_sales_price#265 END))], output=[d_week_seq#616, ss_store_sk#259, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522])
+         :           :           :        +- Exchange hashpartitioning(d_week_seq#616, ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#98052]
+         :           :           :           +- HashAggregate(keys=[d_week_seq#616, ss_store_sk#259], functions=[partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Sunday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Monday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Tuesday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Wednesday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Thursday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Friday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Saturday) THEN ss_sales_price#265 END))], output=[d_week_seq#616, ss_store_sk#259, sum#11639L, sum#11640L, sum#11641L, sum#11642L, sum#11643L, sum#11644L, sum#11645L])
+         :           :           :              +- Project [ss_store_sk#259, ss_sales_price#265, d_week_seq#616, d_day_name#626]
+         :           :           :                 +- SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#612], Inner
+         :           :           :                    :- Sort [ss_sold_date_sk#252 ASC NULLS FIRST], false, 0
+         :           :           :                    :  +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#98044]
+         :           :           :                    :     +- Filter (isnotnull(ss_sold_date_sk#252) AND isnotnull(ss_store_sk#259))
+         :           :           :                    :        +- FileScan parquet [ss_sold_date_sk#252,ss_store_sk#259,ss_sales_price#265] Batched: true, DataFilters: [isnotnull(ss_sold_date_sk#252), isnotnull(ss_store_sk#259)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_sold_date_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_date_sk:int,ss_store_sk:int,ss_sales_price:decimal(7,2)>
+         :           :           :                    +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
+         :           :           :                       +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#98045]
+         :           :           :                          +- Filter (isnotnull(d_date_sk#612) AND isnotnull(d_week_seq#616))
+         :           :           :                             +- FileScan parquet [d_date_sk#612,d_week_seq#616,d_day_name#626] Batched: true, DataFilters: [isnotnull(d_date_sk#612), isnotnull(d_week_seq#616)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_date_sk), IsNotNull(d_week_seq)], ReadSchema: struct<d_date_sk:int,d_week_seq:int,d_day_name:string>
+         :           :           +- Sort [s_store_sk#712 ASC NULLS FIRST], false, 0
+         :           :              +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#98057]
+         :           :                 +- Filter (isnotnull(s_store_sk#712) AND isnotnull(s_store_id#713))
+         :           :                    +- FileScan parquet [s_store_sk#712,s_store_id#713,s_store_name#717] Batched: true, DataFilters: [isnotnull(s_store_sk#712), isnotnull(s_store_id#713)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_sk), IsNotNull(s_store_id)], ReadSchema: struct<s_store_sk:int,s_store_id:string,s_store_name:string>
+         :           +- Sort [d_week_seq#11527 ASC NULLS FIRST], false, 0
+         :              +- Exchange hashpartitioning(d_week_seq#11527, 200), ENSURE_REQUIREMENTS, [id=#98065]
+         :                 +- Project [d_week_seq#11527]
+         :                    +- Filter (((isnotnull(d_month_seq#11526) AND (d_month_seq#11526 >= 1185)) AND (d_month_seq#11526 <= 1196)) AND isnotnull(d_week_seq#11527))
+         :                       +- FileScan parquet [d_month_seq#11526,d_week_seq#11527] Batched: true, DataFilters: [isnotnull(d_month_seq#11526), (d_month_seq#11526 >= 1185), (d_month_seq#11526 <= 1196), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1185), LessThanOrEqual(d_month_seq,1196),..., ReadSchema: struct<d_month_seq:int,d_week_seq:int>
+         +- Sort [s_store_id2#11508 ASC NULLS FIRST, (d_week_seq2#11507 - 52) ASC NULLS FIRST], false, 0
+            +- Exchange hashpartitioning(s_store_id2#11508, (d_week_seq2#11507 - 52), 200), ENSURE_REQUIREMENTS, [id=#98100]
+               +- Project [d_week_seq#616 AS d_week_seq2#11507, s_store_id#11552 AS s_store_id2#11508, sun_sales#11516 AS sun_sales2#11509, mon_sales#11517 AS mon_sales2#11510, tue_sales#11518 AS tue_sales2#11511, wed_sales#11519 AS wed_sales2#11512, thu_sales#11520 AS thu_sales2#11513, fri_sales#11521 AS fri_sales2#11514, sat_sales#11522 AS sat_sales2#11515]
+                  +- SortMergeJoin [d_week_seq#616], [d_week_seq#11584], Inner
+                     :- Sort [d_week_seq#616 ASC NULLS FIRST], false, 0
+                     :  +- Exchange hashpartitioning(d_week_seq#616, 200), ENSURE_REQUIREMENTS, [id=#98091]
+                     :     +- Project [d_week_seq#616, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522, s_store_id#11552]
+                     :        +- SortMergeJoin [ss_store_sk#259], [s_store_sk#11551], Inner
+                     :           :- Sort [ss_store_sk#259 ASC NULLS FIRST], false, 0
+                     :           :  +- Exchange hashpartitioning(ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#98083]
+                     :           :     +- HashAggregate(keys=[d_week_seq#616, ss_store_sk#259], functions=[sum(UnscaledValue(CASE WHEN (d_day_name#626 = Sunday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Monday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Tuesday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Wednesday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Thursday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Friday) THEN ss_sales_price#265 END)), sum(UnscaledValue(CASE WHEN (d_day_name#626 = Saturday) THEN ss_sales_price#265 END))], output=[d_week_seq#616, ss_store_sk#259, sun_sales#11516, mon_sales#11517, tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521, sat_sales#11522])
+                     :           :        +- Exchange hashpartitioning(d_week_seq#616, ss_store_sk#259, 200), ENSURE_REQUIREMENTS, [id=#98079]
+                     :           :           +- HashAggregate(keys=[d_week_seq#616, ss_store_sk#259], functions=[partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Sunday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Monday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Tuesday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Wednesday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Thursday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Friday) THEN ss_sales_price#265 END)), partial_sum(UnscaledValue(CASE WHEN (d_day_name#626 = Saturday) THEN ss_sales_price#265 END))], output=[d_week_seq#616, ss_store_sk#259, sum#11653L, sum#11654L, sum#11655L, sum#11656L, sum#11657L, sum#11658L, sum#11659L])
+                     :           :              +- Project [ss_store_sk#259, ss_sales_price#265, d_week_seq#616, d_day_name#626]
+                     :           :                 +- SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#612], Inner
+                     :           :                    :- Sort [ss_sold_date_sk#252 ASC NULLS FIRST], false, 0
+                     :           :                    :  +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#98071]
+                     :           :                    :     +- Filter (isnotnull(ss_sold_date_sk#252) AND isnotnull(ss_store_sk#259))
+                     :           :                    :        +- FileScan parquet [ss_sold_date_sk#252,ss_store_sk#259,ss_sales_price#265] Batched: true, DataFilters: [isnotnull(ss_sold_date_sk#252), isnotnull(ss_store_sk#259)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_sold_date_sk), IsNotNull(ss_store_sk)], ReadSchema: struct<ss_sold_date_sk:int,ss_store_sk:int,ss_sales_price:decimal(7,2)>
+                     :           :                    +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
+                     :           :                       +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#98072]
+                     :           :                          +- Filter (isnotnull(d_date_sk#612) AND isnotnull(d_week_seq#616))
+                     :           :                             +- FileScan parquet [d_date_sk#612,d_week_seq#616,d_day_name#626] Batched: true, DataFilters: [isnotnull(d_date_sk#612), isnotnull(d_week_seq#616)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_date_sk), IsNotNull(d_week_seq)], ReadSchema: struct<d_date_sk:int,d_week_seq:int,d_day_name:string>
+                     :           +- Sort [s_store_sk#11551 ASC NULLS FIRST], false, 0
+                     :              +- Exchange hashpartitioning(s_store_sk#11551, 200), ENSURE_REQUIREMENTS, [id=#98084]
+                     :                 +- Filter (isnotnull(s_store_sk#11551) AND isnotnull(s_store_id#11552))
+                     :                    +- FileScan parquet [s_store_sk#11551,s_store_id#11552] Batched: true, DataFilters: [isnotnull(s_store_sk#11551), isnotnull(s_store_id#11552)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_sk), IsNotNull(s_store_id)], ReadSchema: struct<s_store_sk:int,s_store_id:string>
+                     +- Sort [d_week_seq#11584 ASC NULLS FIRST], false, 0
+                        +- Exchange hashpartitioning(d_week_seq#11584, 200), ENSURE_REQUIREMENTS, [id=#98092]
+                           +- Project [d_week_seq#11584]
+                              +- Filter (((isnotnull(d_month_seq#11583) AND (d_month_seq#11583 >= 1197)) AND (d_month_seq#11583 <= 1208)) AND isnotnull(d_week_seq#11584))
+                                 +- FileScan parquet [d_month_seq#11583,d_week_seq#11584] Batched: true, DataFilters: [isnotnull(d_month_seq#11583), (d_month_seq#11583 >= 1197), (d_month_seq#11583 <= 1208), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1197), LessThanOrEqual(d_month_seq,1208),..., ReadSchema: struct<d_month_seq:int,d_week_seq:int>

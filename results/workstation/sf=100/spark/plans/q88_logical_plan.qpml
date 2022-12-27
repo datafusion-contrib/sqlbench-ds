@@ -1,0 +1,537 @@
+---
+title: "Inner Join: None"
+operator: "join"
+inputs:
+- title: "Inner Join: None"
+  operator: "join"
+  inputs:
+  - title: "Inner Join: None"
+    operator: "join"
+    inputs:
+    - title: "Inner Join: None"
+      operator: "join"
+      inputs:
+      - title: "Inner Join: None"
+        operator: "join"
+        inputs:
+        - title: "Inner Join: None"
+          operator: "join"
+          inputs:
+          - title: "Inner Join: None"
+            operator: "join"
+            inputs:
+            - title: "Aggregate (unknown)"
+              operator: "Aggregate"
+              inputs:
+              - title: "Projection: "
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((ss_store_sk#259 = s_store_sk#712))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: ss_store_sk#259"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((ss_sold_time_sk#253 = t_time_sk#456))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: ss_sold_time_sk#253, ss_store_sk#259"
+                        operator: "projection"
+                        inputs:
+                        - title: "Inner Join: Some((ss_hdemo_sk#257 = hd_demo_sk#88))"
+                          operator: "join"
+                          inputs:
+                          - title: "Projection: ss_sold_time_sk#253, ss_hdemo_sk#257,\
+                              \ ss_store_sk#259"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (isnotnull(ss_hdemo_sk#257) AND (isnotnull(ss_sold_time_sk#253)\
+                                \ AND isnotnull(ss_store_sk#259)))"
+                              operator: "filter"
+                              inputs:
+                              - title: "store_sales.parquet"
+                                operator: "scan"
+                                inputs: []
+                          - title: "Projection: hd_demo_sk#88"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (((((hd_dep_count#91 = 3) AND (hd_vehicle_count#92\
+                                \ <= 5)) OR ((hd_dep_count#91 = 0) AND (hd_vehicle_count#92\
+                                \ <= 2))) OR ((hd_dep_count#91 = 1) AND (hd_vehicle_count#92\
+                                \ <= 3))) AND isnotnull(hd_demo_sk#88))"
+                              operator: "filter"
+                              inputs:
+                              - title: "household_demographics.parquet"
+                                operator: "scan"
+                                inputs: []
+                      - title: "Projection: t_time_sk#456"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (((isnotnull(t_hour#459) AND isnotnull(t_minute#460))\
+                            \ AND ((t_hour#459 = 8) AND (t_minute#460 >= 30))) AND\
+                            \ isnotnull(t_time_sk#456))"
+                          operator: "filter"
+                          inputs:
+                          - title: "time_dim.parquet"
+                            operator: "scan"
+                            inputs: []
+                  - title: "Projection: s_store_sk#712"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: ((isnotnull(s_store_name#717) AND (s_store_name#717\
+                        \ = ese)) AND isnotnull(s_store_sk#712))"
+                      operator: "filter"
+                      inputs:
+                      - title: "store.parquet"
+                        operator: "scan"
+                        inputs: []
+            - title: "Aggregate (unknown)"
+              operator: "Aggregate"
+              inputs:
+              - title: "Projection: "
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((ss_store_sk#18831 = s_store_sk#18862))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: ss_store_sk#18831"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((ss_sold_time_sk#18825 = t_time_sk#18852))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: ss_sold_time_sk#18825, ss_store_sk#18831"
+                        operator: "projection"
+                        inputs:
+                        - title: "Inner Join: Some((ss_hdemo_sk#18829 = hd_demo_sk#18847))"
+                          operator: "join"
+                          inputs:
+                          - title: "Projection: ss_sold_time_sk#18825, ss_hdemo_sk#18829,\
+                              \ ss_store_sk#18831"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (isnotnull(ss_hdemo_sk#18829) AND (isnotnull(ss_sold_time_sk#18825)\
+                                \ AND isnotnull(ss_store_sk#18831)))"
+                              operator: "filter"
+                              inputs:
+                              - title: "store_sales.parquet"
+                                operator: "scan"
+                                inputs: []
+                          - title: "Projection: hd_demo_sk#18847"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (((((hd_dep_count#18850 = 3) AND (hd_vehicle_count#18851\
+                                \ <= 5)) OR ((hd_dep_count#18850 = 0) AND (hd_vehicle_count#18851\
+                                \ <= 2))) OR ((hd_dep_count#18850 = 1) AND (hd_vehicle_count#18851\
+                                \ <= 3))) AND isnotnull(hd_demo_sk#18847))"
+                              operator: "filter"
+                              inputs:
+                              - title: "household_demographics.parquet"
+                                operator: "scan"
+                                inputs: []
+                      - title: "Projection: t_time_sk#18852"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (((isnotnull(t_hour#18855) AND isnotnull(t_minute#18856))\
+                            \ AND ((t_hour#18855 = 9) AND (t_minute#18856 < 30)))\
+                            \ AND isnotnull(t_time_sk#18852))"
+                          operator: "filter"
+                          inputs:
+                          - title: "time_dim.parquet"
+                            operator: "scan"
+                            inputs: []
+                  - title: "Projection: s_store_sk#18862"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: ((isnotnull(s_store_name#18867) AND (s_store_name#18867\
+                        \ = ese)) AND isnotnull(s_store_sk#18862))"
+                      operator: "filter"
+                      inputs:
+                      - title: "store.parquet"
+                        operator: "scan"
+                        inputs: []
+          - title: "Aggregate (unknown)"
+            operator: "Aggregate"
+            inputs:
+            - title: "Projection: "
+              operator: "projection"
+              inputs:
+              - title: "Inner Join: Some((ss_store_sk#18898 = s_store_sk#18929))"
+                operator: "join"
+                inputs:
+                - title: "Projection: ss_store_sk#18898"
+                  operator: "projection"
+                  inputs:
+                  - title: "Inner Join: Some((ss_sold_time_sk#18892 = t_time_sk#18919))"
+                    operator: "join"
+                    inputs:
+                    - title: "Projection: ss_sold_time_sk#18892, ss_store_sk#18898"
+                      operator: "projection"
+                      inputs:
+                      - title: "Inner Join: Some((ss_hdemo_sk#18896 = hd_demo_sk#18914))"
+                        operator: "join"
+                        inputs:
+                        - title: "Projection: ss_sold_time_sk#18892, ss_hdemo_sk#18896,\
+                            \ ss_store_sk#18898"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: (isnotnull(ss_hdemo_sk#18896) AND (isnotnull(ss_sold_time_sk#18892)\
+                              \ AND isnotnull(ss_store_sk#18898)))"
+                            operator: "filter"
+                            inputs:
+                            - title: "store_sales.parquet"
+                              operator: "scan"
+                              inputs: []
+                        - title: "Projection: hd_demo_sk#18914"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: (((((hd_dep_count#18917 = 3) AND (hd_vehicle_count#18918\
+                              \ <= 5)) OR ((hd_dep_count#18917 = 0) AND (hd_vehicle_count#18918\
+                              \ <= 2))) OR ((hd_dep_count#18917 = 1) AND (hd_vehicle_count#18918\
+                              \ <= 3))) AND isnotnull(hd_demo_sk#18914))"
+                            operator: "filter"
+                            inputs:
+                            - title: "household_demographics.parquet"
+                              operator: "scan"
+                              inputs: []
+                    - title: "Projection: t_time_sk#18919"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: (((isnotnull(t_hour#18922) AND isnotnull(t_minute#18923))\
+                          \ AND ((t_hour#18922 = 9) AND (t_minute#18923 >= 30))) AND\
+                          \ isnotnull(t_time_sk#18919))"
+                        operator: "filter"
+                        inputs:
+                        - title: "time_dim.parquet"
+                          operator: "scan"
+                          inputs: []
+                - title: "Projection: s_store_sk#18929"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: ((isnotnull(s_store_name#18934) AND (s_store_name#18934\
+                      \ = ese)) AND isnotnull(s_store_sk#18929))"
+                    operator: "filter"
+                    inputs:
+                    - title: "store.parquet"
+                      operator: "scan"
+                      inputs: []
+        - title: "Aggregate (unknown)"
+          operator: "Aggregate"
+          inputs:
+          - title: "Projection: "
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((ss_store_sk#18965 = s_store_sk#18996))"
+              operator: "join"
+              inputs:
+              - title: "Projection: ss_store_sk#18965"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((ss_sold_time_sk#18959 = t_time_sk#18986))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: ss_sold_time_sk#18959, ss_store_sk#18965"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((ss_hdemo_sk#18963 = hd_demo_sk#18981))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: ss_sold_time_sk#18959, ss_hdemo_sk#18963,\
+                          \ ss_store_sk#18965"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (isnotnull(ss_hdemo_sk#18963) AND (isnotnull(ss_sold_time_sk#18959)\
+                            \ AND isnotnull(ss_store_sk#18965)))"
+                          operator: "filter"
+                          inputs:
+                          - title: "store_sales.parquet"
+                            operator: "scan"
+                            inputs: []
+                      - title: "Projection: hd_demo_sk#18981"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (((((hd_dep_count#18984 = 3) AND (hd_vehicle_count#18985\
+                            \ <= 5)) OR ((hd_dep_count#18984 = 0) AND (hd_vehicle_count#18985\
+                            \ <= 2))) OR ((hd_dep_count#18984 = 1) AND (hd_vehicle_count#18985\
+                            \ <= 3))) AND isnotnull(hd_demo_sk#18981))"
+                          operator: "filter"
+                          inputs:
+                          - title: "household_demographics.parquet"
+                            operator: "scan"
+                            inputs: []
+                  - title: "Projection: t_time_sk#18986"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (((isnotnull(t_hour#18989) AND isnotnull(t_minute#18990))\
+                        \ AND ((t_hour#18989 = 10) AND (t_minute#18990 < 30))) AND\
+                        \ isnotnull(t_time_sk#18986))"
+                      operator: "filter"
+                      inputs:
+                      - title: "time_dim.parquet"
+                        operator: "scan"
+                        inputs: []
+              - title: "Projection: s_store_sk#18996"
+                operator: "projection"
+                inputs:
+                - title: "Filter: ((isnotnull(s_store_name#19001) AND (s_store_name#19001\
+                    \ = ese)) AND isnotnull(s_store_sk#18996))"
+                  operator: "filter"
+                  inputs:
+                  - title: "store.parquet"
+                    operator: "scan"
+                    inputs: []
+      - title: "Aggregate (unknown)"
+        operator: "Aggregate"
+        inputs:
+        - title: "Projection: "
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((ss_store_sk#19032 = s_store_sk#19063))"
+            operator: "join"
+            inputs:
+            - title: "Projection: ss_store_sk#19032"
+              operator: "projection"
+              inputs:
+              - title: "Inner Join: Some((ss_sold_time_sk#19026 = t_time_sk#19053))"
+                operator: "join"
+                inputs:
+                - title: "Projection: ss_sold_time_sk#19026, ss_store_sk#19032"
+                  operator: "projection"
+                  inputs:
+                  - title: "Inner Join: Some((ss_hdemo_sk#19030 = hd_demo_sk#19048))"
+                    operator: "join"
+                    inputs:
+                    - title: "Projection: ss_sold_time_sk#19026, ss_hdemo_sk#19030,\
+                        \ ss_store_sk#19032"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: (isnotnull(ss_hdemo_sk#19030) AND (isnotnull(ss_sold_time_sk#19026)\
+                          \ AND isnotnull(ss_store_sk#19032)))"
+                        operator: "filter"
+                        inputs:
+                        - title: "store_sales.parquet"
+                          operator: "scan"
+                          inputs: []
+                    - title: "Projection: hd_demo_sk#19048"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: (((((hd_dep_count#19051 = 3) AND (hd_vehicle_count#19052\
+                          \ <= 5)) OR ((hd_dep_count#19051 = 0) AND (hd_vehicle_count#19052\
+                          \ <= 2))) OR ((hd_dep_count#19051 = 1) AND (hd_vehicle_count#19052\
+                          \ <= 3))) AND isnotnull(hd_demo_sk#19048))"
+                        operator: "filter"
+                        inputs:
+                        - title: "household_demographics.parquet"
+                          operator: "scan"
+                          inputs: []
+                - title: "Projection: t_time_sk#19053"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: (((isnotnull(t_hour#19056) AND isnotnull(t_minute#19057))\
+                      \ AND ((t_hour#19056 = 10) AND (t_minute#19057 >= 30))) AND\
+                      \ isnotnull(t_time_sk#19053))"
+                    operator: "filter"
+                    inputs:
+                    - title: "time_dim.parquet"
+                      operator: "scan"
+                      inputs: []
+            - title: "Projection: s_store_sk#19063"
+              operator: "projection"
+              inputs:
+              - title: "Filter: ((isnotnull(s_store_name#19068) AND (s_store_name#19068\
+                  \ = ese)) AND isnotnull(s_store_sk#19063))"
+                operator: "filter"
+                inputs:
+                - title: "store.parquet"
+                  operator: "scan"
+                  inputs: []
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Projection: "
+        operator: "projection"
+        inputs:
+        - title: "Inner Join: Some((ss_store_sk#19099 = s_store_sk#19130))"
+          operator: "join"
+          inputs:
+          - title: "Projection: ss_store_sk#19099"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((ss_sold_time_sk#19093 = t_time_sk#19120))"
+              operator: "join"
+              inputs:
+              - title: "Projection: ss_sold_time_sk#19093, ss_store_sk#19099"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((ss_hdemo_sk#19097 = hd_demo_sk#19115))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: ss_sold_time_sk#19093, ss_hdemo_sk#19097,\
+                      \ ss_store_sk#19099"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (isnotnull(ss_hdemo_sk#19097) AND (isnotnull(ss_sold_time_sk#19093)\
+                        \ AND isnotnull(ss_store_sk#19099)))"
+                      operator: "filter"
+                      inputs:
+                      - title: "store_sales.parquet"
+                        operator: "scan"
+                        inputs: []
+                  - title: "Projection: hd_demo_sk#19115"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (((((hd_dep_count#19118 = 3) AND (hd_vehicle_count#19119\
+                        \ <= 5)) OR ((hd_dep_count#19118 = 0) AND (hd_vehicle_count#19119\
+                        \ <= 2))) OR ((hd_dep_count#19118 = 1) AND (hd_vehicle_count#19119\
+                        \ <= 3))) AND isnotnull(hd_demo_sk#19115))"
+                      operator: "filter"
+                      inputs:
+                      - title: "household_demographics.parquet"
+                        operator: "scan"
+                        inputs: []
+              - title: "Projection: t_time_sk#19120"
+                operator: "projection"
+                inputs:
+                - title: "Filter: (((isnotnull(t_hour#19123) AND isnotnull(t_minute#19124))\
+                    \ AND ((t_hour#19123 = 11) AND (t_minute#19124 < 30))) AND isnotnull(t_time_sk#19120))"
+                  operator: "filter"
+                  inputs:
+                  - title: "time_dim.parquet"
+                    operator: "scan"
+                    inputs: []
+          - title: "Projection: s_store_sk#19130"
+            operator: "projection"
+            inputs:
+            - title: "Filter: ((isnotnull(s_store_name#19135) AND (s_store_name#19135\
+                \ = ese)) AND isnotnull(s_store_sk#19130))"
+              operator: "filter"
+              inputs:
+              - title: "store.parquet"
+                operator: "scan"
+                inputs: []
+  - title: "Aggregate (unknown)"
+    operator: "Aggregate"
+    inputs:
+    - title: "Projection: "
+      operator: "projection"
+      inputs:
+      - title: "Inner Join: Some((ss_store_sk#19166 = s_store_sk#19197))"
+        operator: "join"
+        inputs:
+        - title: "Projection: ss_store_sk#19166"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((ss_sold_time_sk#19160 = t_time_sk#19187))"
+            operator: "join"
+            inputs:
+            - title: "Projection: ss_sold_time_sk#19160, ss_store_sk#19166"
+              operator: "projection"
+              inputs:
+              - title: "Inner Join: Some((ss_hdemo_sk#19164 = hd_demo_sk#19182))"
+                operator: "join"
+                inputs:
+                - title: "Projection: ss_sold_time_sk#19160, ss_hdemo_sk#19164, ss_store_sk#19166"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: (isnotnull(ss_hdemo_sk#19164) AND (isnotnull(ss_sold_time_sk#19160)\
+                      \ AND isnotnull(ss_store_sk#19166)))"
+                    operator: "filter"
+                    inputs:
+                    - title: "store_sales.parquet"
+                      operator: "scan"
+                      inputs: []
+                - title: "Projection: hd_demo_sk#19182"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: (((((hd_dep_count#19185 = 3) AND (hd_vehicle_count#19186\
+                      \ <= 5)) OR ((hd_dep_count#19185 = 0) AND (hd_vehicle_count#19186\
+                      \ <= 2))) OR ((hd_dep_count#19185 = 1) AND (hd_vehicle_count#19186\
+                      \ <= 3))) AND isnotnull(hd_demo_sk#19182))"
+                    operator: "filter"
+                    inputs:
+                    - title: "household_demographics.parquet"
+                      operator: "scan"
+                      inputs: []
+            - title: "Projection: t_time_sk#19187"
+              operator: "projection"
+              inputs:
+              - title: "Filter: (((isnotnull(t_hour#19190) AND isnotnull(t_minute#19191))\
+                  \ AND ((t_hour#19190 = 11) AND (t_minute#19191 >= 30))) AND isnotnull(t_time_sk#19187))"
+                operator: "filter"
+                inputs:
+                - title: "time_dim.parquet"
+                  operator: "scan"
+                  inputs: []
+        - title: "Projection: s_store_sk#19197"
+          operator: "projection"
+          inputs:
+          - title: "Filter: ((isnotnull(s_store_name#19202) AND (s_store_name#19202\
+              \ = ese)) AND isnotnull(s_store_sk#19197))"
+            operator: "filter"
+            inputs:
+            - title: "store.parquet"
+              operator: "scan"
+              inputs: []
+- title: "Aggregate (unknown)"
+  operator: "Aggregate"
+  inputs:
+  - title: "Projection: "
+    operator: "projection"
+    inputs:
+    - title: "Inner Join: Some((ss_store_sk#19233 = s_store_sk#19264))"
+      operator: "join"
+      inputs:
+      - title: "Projection: ss_store_sk#19233"
+        operator: "projection"
+        inputs:
+        - title: "Inner Join: Some((ss_sold_time_sk#19227 = t_time_sk#19254))"
+          operator: "join"
+          inputs:
+          - title: "Projection: ss_sold_time_sk#19227, ss_store_sk#19233"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((ss_hdemo_sk#19231 = hd_demo_sk#19249))"
+              operator: "join"
+              inputs:
+              - title: "Projection: ss_sold_time_sk#19227, ss_hdemo_sk#19231, ss_store_sk#19233"
+                operator: "projection"
+                inputs:
+                - title: "Filter: (isnotnull(ss_hdemo_sk#19231) AND (isnotnull(ss_sold_time_sk#19227)\
+                    \ AND isnotnull(ss_store_sk#19233)))"
+                  operator: "filter"
+                  inputs:
+                  - title: "store_sales.parquet"
+                    operator: "scan"
+                    inputs: []
+              - title: "Projection: hd_demo_sk#19249"
+                operator: "projection"
+                inputs:
+                - title: "Filter: (((((hd_dep_count#19252 = 3) AND (hd_vehicle_count#19253\
+                    \ <= 5)) OR ((hd_dep_count#19252 = 0) AND (hd_vehicle_count#19253\
+                    \ <= 2))) OR ((hd_dep_count#19252 = 1) AND (hd_vehicle_count#19253\
+                    \ <= 3))) AND isnotnull(hd_demo_sk#19249))"
+                  operator: "filter"
+                  inputs:
+                  - title: "household_demographics.parquet"
+                    operator: "scan"
+                    inputs: []
+          - title: "Projection: t_time_sk#19254"
+            operator: "projection"
+            inputs:
+            - title: "Filter: (((isnotnull(t_hour#19257) AND isnotnull(t_minute#19258))\
+                \ AND ((t_hour#19257 = 12) AND (t_minute#19258 < 30))) AND isnotnull(t_time_sk#19254))"
+              operator: "filter"
+              inputs:
+              - title: "time_dim.parquet"
+                operator: "scan"
+                inputs: []
+      - title: "Projection: s_store_sk#19264"
+        operator: "projection"
+        inputs:
+        - title: "Filter: ((isnotnull(s_store_name#19269) AND (s_store_name#19269\
+            \ = ese)) AND isnotnull(s_store_sk#19264))"
+          operator: "filter"
+          inputs:
+          - title: "store.parquet"
+            operator: "scan"
+            inputs: []

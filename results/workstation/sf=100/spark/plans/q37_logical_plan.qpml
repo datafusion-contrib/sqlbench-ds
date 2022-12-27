@@ -1,0 +1,74 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Projection: i_item_id#669, i_item_desc#672, i_current_price#673"
+        operator: "projection"
+        inputs:
+        - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#668))"
+          operator: "join"
+          inputs:
+          - title: "Projection: i_item_sk#668, i_item_id#669, i_item_desc#672, i_current_price#673"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((d_date_sk#612 = inv_date_sk#436))"
+              operator: "join"
+              inputs:
+              - title: "Projection: i_item_sk#668, i_item_id#669, i_item_desc#672,\
+                  \ i_current_price#673, inv_date_sk#436"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((inv_item_sk#437 = i_item_sk#668))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: i_item_sk#668, i_item_id#669, i_item_desc#672,\
+                      \ i_current_price#673"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: ((isnotnull(i_current_price#673) AND (((i_current_price#673\
+                        \ >= 22.00) AND (i_current_price#673 <= 52.00)) AND i_manufact_id#681\
+                        \ IN (678,964,918,849))) AND isnotnull(i_item_sk#668))"
+                      operator: "filter"
+                      inputs:
+                      - title: "item.parquet"
+                        operator: "scan"
+                        inputs: []
+                  - title: "Projection: inv_date_sk#436, inv_item_sk#437"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: ((isnotnull(inv_quantity_on_hand#439) AND ((inv_quantity_on_hand#439\
+                        \ >= 100) AND (inv_quantity_on_hand#439 <= 500))) AND (isnotnull(inv_item_sk#437)\
+                        \ AND isnotnull(inv_date_sk#436)))"
+                      operator: "filter"
+                      inputs:
+                      - title: "inventory.parquet"
+                        operator: "scan"
+                        inputs: []
+              - title: "Projection: d_date_sk#612"
+                operator: "projection"
+                inputs:
+                - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2001-06-02)\
+                    \ AND (d_date#614 <= 2001-08-01))) AND isnotnull(d_date_sk#612))"
+                  operator: "filter"
+                  inputs:
+                  - title: "date_dim.parquet"
+                    operator: "scan"
+                    inputs: []
+          - title: "Projection: cs_item_sk#559"
+            operator: "projection"
+            inputs:
+            - title: "Filter: isnotnull(cs_item_sk#559)"
+              operator: "filter"
+              inputs:
+              - title: "catalog_sales.parquet"
+                operator: "scan"
+                inputs: []

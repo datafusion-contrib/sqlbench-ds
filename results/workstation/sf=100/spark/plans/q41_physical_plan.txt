@@ -1,0 +1,51 @@
+AdaptiveSparkPlan isFinalPlan=true
++- == Final Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[i_product_name#689 ASC NULLS FIRST], output=[i_product_name#689])
+   +- *(6) HashAggregate(keys=[i_product_name#689], functions=[], output=[i_product_name#689])
+      +- AQEShuffleRead coalesced
+         +- ShuffleQueryStage 2
+            +- Exchange hashpartitioning(i_product_name#689, 200), ENSURE_REQUIREMENTS, [id=#68282]
+               +- *(5) HashAggregate(keys=[i_product_name#689], functions=[], output=[i_product_name#689])
+                  +- *(5) Project [i_product_name#689]
+                     +- *(5) SortMergeJoin [i_manufact#682], [i_manufact#8712], Inner
+                        :- *(3) Sort [i_manufact#682 ASC NULLS FIRST], false, 0
+                        :  +- AQEShuffleRead coalesced
+                        :     +- ShuffleQueryStage 0
+                        :        +- Exchange hashpartitioning(i_manufact#682, 200), ENSURE_REQUIREMENTS, [id=#68128]
+                        :           +- *(1) Project [i_manufact#682, i_product_name#689]
+                        :              +- *(1) Filter (((isnotnull(i_manufact_id#681) AND (i_manufact_id#681 >= 742)) AND (i_manufact_id#681 <= 782)) AND isnotnull(i_manufact#682))
+                        :                 +- *(1) ColumnarToRow
+                        :                    +- FileScan parquet [i_manufact_id#681,i_manufact#682,i_product_name#689] Batched: true, DataFilters: [isnotnull(i_manufact_id#681), (i_manufact_id#681 >= 742), (i_manufact_id#681 <= 782), isnotnull(..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_manufact_id), GreaterThanOrEqual(i_manufact_id,742), LessThanOrEqual(i_manufact_id,7..., ReadSchema: struct<i_manufact_id:int,i_manufact:string,i_product_name:string>
+                        +- *(4) Sort [i_manufact#8712 ASC NULLS FIRST], false, 0
+                           +- *(4) Project [i_manufact#8712]
+                              +- *(4) Filter (item_cnt#8695L > 0)
+                                 +- *(4) HashAggregate(keys=[i_manufact#8712], functions=[count(1)], output=[item_cnt#8695L, i_manufact#8712])
+                                    +- AQEShuffleRead coalesced
+                                       +- ShuffleQueryStage 1
+                                          +- Exchange hashpartitioning(i_manufact#8712, 200), ENSURE_REQUIREMENTS, [id=#68151]
+                                             +- *(2) HashAggregate(keys=[i_manufact#8712], functions=[partial_count(1)], output=[i_manufact#8712, count#8724L])
+                                                +- *(2) Project [i_manufact#8712]
+                                                   +- *(2) Filter (((((i_category#8710 = Women) AND (((((i_color#8715 = orchid) OR (i_color#8715 = papaya)) AND ((i_units#8716 = Pound) OR (i_units#8716 = Lb))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium))) OR ((((i_color#8715 = burlywood) OR (i_color#8715 = navy)) AND ((i_units#8716 = Bundle) OR (i_units#8716 = Each))) AND ((i_size#8713 = N/A) OR (i_size#8713 = extra large))))) OR ((i_category#8710 = Men) AND (((((i_color#8715 = bisque) OR (i_color#8715 = azure)) AND ((i_units#8716 = N/A) OR (i_units#8716 = Tsp))) AND ((i_size#8713 = small) OR (i_size#8713 = large))) OR ((((i_color#8715 = chocolate) OR (i_color#8715 = cornflower)) AND ((i_units#8716 = Bunch) OR (i_units#8716 = Gross))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium)))))) OR (((i_category#8710 = Women) AND (((((i_color#8715 = salmon) OR (i_color#8715 = midnight)) AND ((i_units#8716 = Oz) OR (i_units#8716 = Box))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium))) OR ((((i_color#8715 = snow) OR (i_color#8715 = steel)) AND ((i_units#8716 = Carton) OR (i_units#8716 = Tbl))) AND ((i_size#8713 = N/A) OR (i_size#8713 = extra large))))) OR ((i_category#8710 = Men) AND (((((i_color#8715 = purple) OR (i_color#8715 = gainsboro)) AND ((i_units#8716 = Dram) OR (i_units#8716 = Unknown))) AND ((i_size#8713 = small) OR (i_size#8713 = large))) OR ((((i_color#8715 = metallic) OR (i_color#8715 = forest)) AND ((i_units#8716 = Gram) OR (i_units#8716 = Ounce))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium))))))) AND isnotnull(i_manufact#8712))
+                                                      +- *(2) ColumnarToRow
+                                                         +- FileScan parquet [i_category#8710,i_manufact#8712,i_size#8713,i_color#8715,i_units#8716] Batched: true, DataFilters: [((((i_category#8710 = Women) AND (((((i_color#8715 = orchid) OR (i_color#8715 = papaya)) AND ((i..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(i_category,Women),Or(And(And(Or(EqualTo(i_color,orchid),EqualTo(i_color,papaya..., ReadSchema: struct<i_category:string,i_manufact:string,i_size:string,i_color:string,i_units:string>
++- == Initial Plan ==
+   TakeOrderedAndProject(limit=100, orderBy=[i_product_name#689 ASC NULLS FIRST], output=[i_product_name#689])
+   +- HashAggregate(keys=[i_product_name#689], functions=[], output=[i_product_name#689])
+      +- Exchange hashpartitioning(i_product_name#689, 200), ENSURE_REQUIREMENTS, [id=#68082]
+         +- HashAggregate(keys=[i_product_name#689], functions=[], output=[i_product_name#689])
+            +- Project [i_product_name#689]
+               +- SortMergeJoin [i_manufact#682], [i_manufact#8712], Inner
+                  :- Sort [i_manufact#682 ASC NULLS FIRST], false, 0
+                  :  +- Exchange hashpartitioning(i_manufact#682, 200), ENSURE_REQUIREMENTS, [id=#68075]
+                  :     +- Project [i_manufact#682, i_product_name#689]
+                  :        +- Filter (((isnotnull(i_manufact_id#681) AND (i_manufact_id#681 >= 742)) AND (i_manufact_id#681 <= 782)) AND isnotnull(i_manufact#682))
+                  :           +- FileScan parquet [i_manufact_id#681,i_manufact#682,i_product_name#689] Batched: true, DataFilters: [isnotnull(i_manufact_id#681), (i_manufact_id#681 >= 742), (i_manufact_id#681 <= 782), isnotnull(..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_manufact_id), GreaterThanOrEqual(i_manufact_id,742), LessThanOrEqual(i_manufact_id,7..., ReadSchema: struct<i_manufact_id:int,i_manufact:string,i_product_name:string>
+                  +- Sort [i_manufact#8712 ASC NULLS FIRST], false, 0
+                     +- Project [i_manufact#8712]
+                        +- Filter (item_cnt#8695L > 0)
+                           +- HashAggregate(keys=[i_manufact#8712], functions=[count(1)], output=[item_cnt#8695L, i_manufact#8712])
+                              +- Exchange hashpartitioning(i_manufact#8712, 200), ENSURE_REQUIREMENTS, [id=#68069]
+                                 +- HashAggregate(keys=[i_manufact#8712], functions=[partial_count(1)], output=[i_manufact#8712, count#8724L])
+                                    +- Project [i_manufact#8712]
+                                       +- Filter (((((i_category#8710 = Women) AND (((((i_color#8715 = orchid) OR (i_color#8715 = papaya)) AND ((i_units#8716 = Pound) OR (i_units#8716 = Lb))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium))) OR ((((i_color#8715 = burlywood) OR (i_color#8715 = navy)) AND ((i_units#8716 = Bundle) OR (i_units#8716 = Each))) AND ((i_size#8713 = N/A) OR (i_size#8713 = extra large))))) OR ((i_category#8710 = Men) AND (((((i_color#8715 = bisque) OR (i_color#8715 = azure)) AND ((i_units#8716 = N/A) OR (i_units#8716 = Tsp))) AND ((i_size#8713 = small) OR (i_size#8713 = large))) OR ((((i_color#8715 = chocolate) OR (i_color#8715 = cornflower)) AND ((i_units#8716 = Bunch) OR (i_units#8716 = Gross))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium)))))) OR (((i_category#8710 = Women) AND (((((i_color#8715 = salmon) OR (i_color#8715 = midnight)) AND ((i_units#8716 = Oz) OR (i_units#8716 = Box))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium))) OR ((((i_color#8715 = snow) OR (i_color#8715 = steel)) AND ((i_units#8716 = Carton) OR (i_units#8716 = Tbl))) AND ((i_size#8713 = N/A) OR (i_size#8713 = extra large))))) OR ((i_category#8710 = Men) AND (((((i_color#8715 = purple) OR (i_color#8715 = gainsboro)) AND ((i_units#8716 = Dram) OR (i_units#8716 = Unknown))) AND ((i_size#8713 = small) OR (i_size#8713 = large))) OR ((((i_color#8715 = metallic) OR (i_color#8715 = forest)) AND ((i_units#8716 = Gram) OR (i_units#8716 = Ounce))) AND ((i_size#8713 = petite) OR (i_size#8713 = medium))))))) AND isnotnull(i_manufact#8712))
+                                          +- FileScan parquet [i_category#8710,i_manufact#8712,i_size#8713,i_color#8715,i_units#8716] Batched: true, DataFilters: [((((i_category#8710 = Women) AND (((((i_color#8715 = orchid) OR (i_color#8715 = papaya)) AND ((i..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [Or(Or(And(EqualTo(i_category,Women),Or(And(And(Or(EqualTo(i_color,orchid),EqualTo(i_color,papaya..., ReadSchema: struct<i_category:string,i_manufact:string,i_size:string,i_color:string,i_units:string>
