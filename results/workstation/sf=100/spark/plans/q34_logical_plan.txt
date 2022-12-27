@@ -1,0 +1,26 @@
+Sort [c_last_name#409 ASC NULLS FIRST, c_first_name#408 ASC NULLS FIRST, c_salutation#407 ASC NULLS FIRST, c_preferred_cust_flag#410 DESC NULLS LAST, ss_ticket_number#261L ASC NULLS FIRST], true
++- Project [c_last_name#409, c_first_name#408, c_salutation#407, c_preferred_cust_flag#410, ss_ticket_number#261L, cnt#7463L]
+   +- Join Inner, (ss_customer_sk#255 = c_customer_sk#400)
+      :- Filter ((cnt#7463L >= 15) AND (cnt#7463L <= 20))
+      :  +- Aggregate [ss_ticket_number#261L, ss_customer_sk#255], [ss_ticket_number#261L, ss_customer_sk#255, count(1) AS cnt#7463L]
+      :     +- Project [ss_customer_sk#255, ss_ticket_number#261L]
+      :        +- Join Inner, (ss_hdemo_sk#257 = hd_demo_sk#88)
+      :           :- Project [ss_customer_sk#255, ss_hdemo_sk#257, ss_ticket_number#261L]
+      :           :  +- Join Inner, (ss_store_sk#259 = s_store_sk#712)
+      :           :     :- Project [ss_customer_sk#255, ss_hdemo_sk#257, ss_store_sk#259, ss_ticket_number#261L]
+      :           :     :  +- Join Inner, (ss_sold_date_sk#252 = d_date_sk#612)
+      :           :     :     :- Project [ss_sold_date_sk#252, ss_customer_sk#255, ss_hdemo_sk#257, ss_store_sk#259, ss_ticket_number#261L]
+      :           :     :     :  +- Filter (isnotnull(ss_sold_date_sk#252) AND ((isnotnull(ss_store_sk#259) AND isnotnull(ss_hdemo_sk#257)) AND isnotnull(ss_customer_sk#255)))
+      :           :     :     :     +- Relation [ss_sold_date_sk#252,ss_sold_time_sk#253,ss_item_sk#254,ss_customer_sk#255,ss_cdemo_sk#256,ss_hdemo_sk#257,ss_addr_sk#258,ss_store_sk#259,ss_promo_sk#260,ss_ticket_number#261L,ss_quantity#262,ss_wholesale_cost#263,ss_list_price#264,ss_sales_price#265,ss_ext_discount_amt#266,ss_ext_sales_price#267,ss_ext_wholesale_cost#268,ss_ext_list_price#269,ss_ext_tax#270,ss_coupon_amt#271,ss_net_paid#272,ss_net_paid_inc_tax#273,ss_net_profit#274] parquet
+      :           :     :     +- Project [d_date_sk#612]
+      :           :     :        +- Filter (((((d_dom#621 >= 1) AND (d_dom#621 <= 3)) OR ((d_dom#621 >= 25) AND (d_dom#621 <= 28))) AND d_year#618 IN (1999,2000,2001)) AND isnotnull(d_date_sk#612))
+      :           :     :           +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
+      :           :     +- Project [s_store_sk#712]
+      :           :        +- Filter (s_county#735 IN (Daviess County,Franklin Parish,Barrow County,Luce County,Fairfield County,Richland County,Ziebach County,Walker County) AND isnotnull(s_store_sk#712))
+      :           :           +- Relation [s_store_sk#712,s_store_id#713,s_rec_start_date#714,s_rec_end_date#715,s_closed_date_sk#716,s_store_name#717,s_number_employees#718,s_floor_space#719,s_hours#720,s_manager#721,s_market_id#722,s_geography_class#723,s_market_desc#724,s_market_manager#725,s_division_id#726,s_division_name#727,s_company_id#728,s_company_name#729,s_street_number#730,s_street_name#731,s_street_type#732,s_suite_number#733,s_city#734,s_county#735,... 5 more fields] parquet
+      :           +- Project [hd_demo_sk#88]
+      :              +- Filter (((isnotnull(hd_vehicle_count#92) AND isnotnull(hd_dep_count#91)) AND ((((hd_buy_potential#90 = >10000) OR (hd_buy_potential#90 = 5001-10000)) AND (hd_vehicle_count#92 > 0)) AND ((cast(hd_dep_count#91 as double) / cast(hd_vehicle_count#92 as double)) > 1.2))) AND isnotnull(hd_demo_sk#88))
+      :                 +- Relation [hd_demo_sk#88,hd_income_band_sk#89,hd_buy_potential#90,hd_dep_count#91,hd_vehicle_count#92] parquet
+      +- Project [c_customer_sk#400, c_salutation#407, c_first_name#408, c_last_name#409, c_preferred_cust_flag#410]
+         +- Filter isnotnull(c_customer_sk#400)
+            +- Relation [c_customer_sk#400,c_customer_id#401,c_current_cdemo_sk#402,c_current_hdemo_sk#403,c_current_addr_sk#404,c_first_shipto_date_sk#405,c_first_sales_date_sk#406,c_salutation#407,c_first_name#408,c_last_name#409,c_preferred_cust_flag#410,c_birth_day#411,c_birth_month#412,c_birth_year#413,c_birth_country#414,c_login#415,c_email_address#416,c_last_review_date_sk#417] parquet

@@ -1,0 +1,27 @@
+GlobalLimit 100
++- LocalLimit 100
+   +- Sort [w_state#780 ASC NULLS FIRST, i_item_id#669 ASC NULLS FIRST], true
+      +- Aggregate [w_state#780, i_item_id#669], [w_state#780, i_item_id#669, sum(CASE WHEN (d_date#614 < 1998-04-08) THEN CheckOverflow((promote_precision(cast(cs_sales_price#565 as decimal(13,2))) - promote_precision(cast(coalesce(cast(cr_refunded_cash#369 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true) ELSE 0.00 END) AS sales_before#8650, sum(CASE WHEN (d_date#614 >= 1998-04-08) THEN CheckOverflow((promote_precision(cast(cs_sales_price#565 as decimal(13,2))) - promote_precision(cast(coalesce(cast(cr_refunded_cash#369 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true) ELSE 0.00 END) AS sales_after#8651]
+         +- Project [cs_sales_price#565, cr_refunded_cash#369, w_state#780, i_item_id#669, d_date#614]
+            +- Join Inner, (cs_sold_date_sk#544 = d_date_sk#612)
+               :- Project [cs_sold_date_sk#544, cs_sales_price#565, cr_refunded_cash#369, w_state#780, i_item_id#669]
+               :  +- Join Inner, (i_item_sk#668 = cs_item_sk#559)
+               :     :- Project [cs_sold_date_sk#544, cs_item_sk#559, cs_sales_price#565, cr_refunded_cash#369, w_state#780]
+               :     :  +- Join Inner, (cs_warehouse_sk#558 = w_warehouse_sk#770)
+               :     :     :- Project [cs_sold_date_sk#544, cs_warehouse_sk#558, cs_item_sk#559, cs_sales_price#565, cr_refunded_cash#369]
+               :     :     :  +- Join LeftOuter, ((cs_order_number#561L = cr_order_number#362L) AND (cs_item_sk#559 = cr_item_sk#348))
+               :     :     :     :- Project [cs_sold_date_sk#544, cs_warehouse_sk#558, cs_item_sk#559, cs_order_number#561L, cs_sales_price#565]
+               :     :     :     :  +- Filter (isnotnull(cs_warehouse_sk#558) AND (isnotnull(cs_item_sk#559) AND isnotnull(cs_sold_date_sk#544)))
+               :     :     :     :     +- Relation [cs_sold_date_sk#544,cs_sold_time_sk#545,cs_ship_date_sk#546,cs_bill_customer_sk#547,cs_bill_cdemo_sk#548,cs_bill_hdemo_sk#549,cs_bill_addr_sk#550,cs_ship_customer_sk#551,cs_ship_cdemo_sk#552,cs_ship_hdemo_sk#553,cs_ship_addr_sk#554,cs_call_center_sk#555,cs_catalog_page_sk#556,cs_ship_mode_sk#557,cs_warehouse_sk#558,cs_item_sk#559,cs_promo_sk#560,cs_order_number#561L,cs_quantity#562,cs_wholesale_cost#563,cs_list_price#564,cs_sales_price#565,cs_ext_discount_amt#566,cs_ext_sales_price#567,... 10 more fields] parquet
+               :     :     :     +- Project [cr_item_sk#348, cr_order_number#362L, cr_refunded_cash#369]
+               :     :     :        +- Filter (isnotnull(cr_order_number#362L) AND isnotnull(cr_item_sk#348))
+               :     :     :           +- Relation [cr_returned_date_sk#346,cr_returned_time_sk#347,cr_item_sk#348,cr_refunded_customer_sk#349,cr_refunded_cdemo_sk#350,cr_refunded_hdemo_sk#351,cr_refunded_addr_sk#352,cr_returning_customer_sk#353,cr_returning_cdemo_sk#354,cr_returning_hdemo_sk#355,cr_returning_addr_sk#356,cr_call_center_sk#357,cr_catalog_page_sk#358,cr_ship_mode_sk#359,cr_warehouse_sk#360,cr_reason_sk#361,cr_order_number#362L,cr_return_quantity#363,cr_return_amount#364,cr_return_tax#365,cr_return_amt_inc_tax#366,cr_fee#367,cr_return_ship_cost#368,cr_refunded_cash#369,... 3 more fields] parquet
+               :     :     +- Project [w_warehouse_sk#770, w_state#780]
+               :     :        +- Filter isnotnull(w_warehouse_sk#770)
+               :     :           +- Relation [w_warehouse_sk#770,w_warehouse_id#771,w_warehouse_name#772,w_warehouse_sq_ft#773,w_street_number#774,w_street_name#775,w_street_type#776,w_suite_number#777,w_city#778,w_county#779,w_state#780,w_zip#781,w_country#782,w_gmt_offset#783] parquet
+               :     +- Project [i_item_sk#668, i_item_id#669]
+               :        +- Filter ((isnotnull(i_current_price#673) AND ((i_current_price#673 >= 0.99) AND (i_current_price#673 <= 1.49))) AND isnotnull(i_item_sk#668))
+               :           +- Relation [i_item_sk#668,i_item_id#669,i_rec_start_date#670,i_rec_end_date#671,i_item_desc#672,i_current_price#673,i_wholesale_cost#674,i_brand_id#675,i_brand#676,i_class_id#677,i_class#678,i_category_id#679,i_category#680,i_manufact_id#681,i_manufact#682,i_size#683,i_formulation#684,i_color#685,i_units#686,i_container#687,i_manager_id#688,i_product_name#689] parquet
+               +- Project [d_date_sk#612, d_date#614]
+                  +- Filter ((isnotnull(d_date#614) AND ((d_date#614 >= 1998-03-09) AND (d_date#614 <= 1998-05-08))) AND isnotnull(d_date_sk#612))
+                     +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet

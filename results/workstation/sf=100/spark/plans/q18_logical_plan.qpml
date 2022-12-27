@@ -1,0 +1,145 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Expand (unknown)"
+        operator: "Expand"
+        inputs:
+        - title: "Projection: cs_quantity#562, cs_list_price#564, cs_sales_price#565,\
+            \ cs_coupon_amt#571, cs_net_profit#577, cd_dep_count#228, c_birth_year#413,\
+            \ i_item_id#669, ca_country#72, ca_state#70, ca_county#69"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#668))"
+            operator: "join"
+            inputs:
+            - title: "Projection: cs_item_sk#559, cs_quantity#562, cs_list_price#564,\
+                \ cs_sales_price#565, cs_coupon_amt#571, cs_net_profit#577, cd_dep_count#228,\
+                \ c_birth_year#413, ca_county#69, ca_state#70, ca_country#72"
+              operator: "projection"
+              inputs:
+              - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#612))"
+                operator: "join"
+                inputs:
+                - title: "Projection: cs_sold_date_sk#544, cs_item_sk#559, cs_quantity#562,\
+                    \ cs_list_price#564, cs_sales_price#565, cs_coupon_amt#571, cs_net_profit#577,\
+                    \ cd_dep_count#228, c_birth_year#413, ca_county#69, ca_state#70,\
+                    \ ca_country#72"
+                  operator: "projection"
+                  inputs:
+                  - title: "Inner Join: Some((c_current_addr_sk#404 = ca_address_sk#62))"
+                    operator: "join"
+                    inputs:
+                    - title: "Projection: cs_sold_date_sk#544, cs_item_sk#559, cs_quantity#562,\
+                        \ cs_list_price#564, cs_sales_price#565, cs_coupon_amt#571,\
+                        \ cs_net_profit#577, cd_dep_count#228, c_current_addr_sk#404,\
+                        \ c_birth_year#413"
+                      operator: "projection"
+                      inputs:
+                      - title: "Inner Join: Some((c_current_cdemo_sk#402 = cd_demo_sk#5485))"
+                        operator: "join"
+                        inputs:
+                        - title: "Projection: cs_sold_date_sk#544, cs_item_sk#559,\
+                            \ cs_quantity#562, cs_list_price#564, cs_sales_price#565,\
+                            \ cs_coupon_amt#571, cs_net_profit#577, cd_dep_count#228,\
+                            \ c_current_cdemo_sk#402, c_current_addr_sk#404, c_birth_year#413"
+                          operator: "projection"
+                          inputs:
+                          - title: "Inner Join: Some((cs_bill_customer_sk#547 = c_customer_sk#400))"
+                            operator: "join"
+                            inputs:
+                            - title: "Projection: cs_sold_date_sk#544, cs_bill_customer_sk#547,\
+                                \ cs_item_sk#559, cs_quantity#562, cs_list_price#564,\
+                                \ cs_sales_price#565, cs_coupon_amt#571, cs_net_profit#577,\
+                                \ cd_dep_count#228"
+                              operator: "projection"
+                              inputs:
+                              - title: "Inner Join: Some((cs_bill_cdemo_sk#548 = cd_demo_sk#222))"
+                                operator: "join"
+                                inputs:
+                                - title: "Projection: cs_sold_date_sk#544, cs_bill_customer_sk#547,\
+                                    \ cs_bill_cdemo_sk#548, cs_item_sk#559, cs_quantity#562,\
+                                    \ cs_list_price#564, cs_sales_price#565, cs_coupon_amt#571,\
+                                    \ cs_net_profit#577"
+                                  operator: "projection"
+                                  inputs:
+                                  - title: "Filter: ((isnotnull(cs_bill_cdemo_sk#548)\
+                                      \ AND isnotnull(cs_bill_customer_sk#547)) AND\
+                                      \ (isnotnull(cs_sold_date_sk#544) AND isnotnull(cs_item_sk#559)))"
+                                    operator: "filter"
+                                    inputs:
+                                    - title: "catalog_sales.parquet"
+                                      operator: "scan"
+                                      inputs: []
+                                - title: "Projection: cd_demo_sk#222, cd_dep_count#228"
+                                  operator: "projection"
+                                  inputs:
+                                  - title: "Filter: (((isnotnull(cd_gender#223) AND\
+                                      \ isnotnull(cd_education_status#225)) AND ((cd_gender#223\
+                                      \ = M) AND (cd_education_status#225 = College)))\
+                                      \ AND isnotnull(cd_demo_sk#222))"
+                                    operator: "filter"
+                                    inputs:
+                                    - title: "customer_demographics.parquet"
+                                      operator: "scan"
+                                      inputs: []
+                            - title: "Projection: c_customer_sk#400, c_current_cdemo_sk#402,\
+                                \ c_current_addr_sk#404, c_birth_year#413"
+                              operator: "projection"
+                              inputs:
+                              - title: "Filter: ((c_birth_month#412 IN (9,5,12,4,1,10)\
+                                  \ AND isnotnull(c_customer_sk#400)) AND (isnotnull(c_current_cdemo_sk#402)\
+                                  \ AND isnotnull(c_current_addr_sk#404)))"
+                                operator: "filter"
+                                inputs:
+                                - title: "customer.parquet"
+                                  operator: "scan"
+                                  inputs: []
+                        - title: "Projection: cd_demo_sk#5485"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: isnotnull(cd_demo_sk#5485)"
+                            operator: "filter"
+                            inputs:
+                            - title: "customer_demographics.parquet"
+                              operator: "scan"
+                              inputs: []
+                    - title: "Projection: ca_address_sk#62, ca_county#69, ca_state#70,\
+                        \ ca_country#72"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: (ca_state#70 IN (ND,WI,AL,NC,OK,MS,TN) AND\
+                          \ isnotnull(ca_address_sk#62))"
+                        operator: "filter"
+                        inputs:
+                        - title: "customer_address.parquet"
+                          operator: "scan"
+                          inputs: []
+                - title: "Projection: d_date_sk#612"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 = 2001))\
+                      \ AND isnotnull(d_date_sk#612))"
+                    operator: "filter"
+                    inputs:
+                    - title: "date_dim.parquet"
+                      operator: "scan"
+                      inputs: []
+            - title: "Projection: i_item_sk#668, i_item_id#669"
+              operator: "projection"
+              inputs:
+              - title: "Filter: isnotnull(i_item_sk#668)"
+                operator: "filter"
+                inputs:
+                - title: "item.parquet"
+                  operator: "scan"
+                  inputs: []

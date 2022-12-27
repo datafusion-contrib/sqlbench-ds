@@ -1,0 +1,58 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Expand (unknown)"
+        operator: "Expand"
+        inputs:
+        - title: "Projection: inv_quantity_on_hand#439, i_product_name#689, i_brand#676,\
+            \ i_class#678, i_category#680"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((inv_item_sk#437 = i_item_sk#668))"
+            operator: "join"
+            inputs:
+            - title: "Projection: inv_item_sk#437, inv_quantity_on_hand#439"
+              operator: "projection"
+              inputs:
+              - title: "Inner Join: Some((inv_date_sk#436 = d_date_sk#612))"
+                operator: "join"
+                inputs:
+                - title: "Projection: inv_date_sk#436, inv_item_sk#437, inv_quantity_on_hand#439"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: (isnotnull(inv_date_sk#436) AND isnotnull(inv_item_sk#437))"
+                    operator: "filter"
+                    inputs:
+                    - title: "inventory.parquet"
+                      operator: "scan"
+                      inputs: []
+                - title: "Projection: d_date_sk#612"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: ((isnotnull(d_month_seq#615) AND ((d_month_seq#615\
+                      \ >= 1212) AND (d_month_seq#615 <= 1223))) AND isnotnull(d_date_sk#612))"
+                    operator: "filter"
+                    inputs:
+                    - title: "date_dim.parquet"
+                      operator: "scan"
+                      inputs: []
+            - title: "Projection: i_item_sk#668, i_brand#676, i_class#678, i_category#680,\
+                \ i_product_name#689"
+              operator: "projection"
+              inputs:
+              - title: "Filter: isnotnull(i_item_sk#668)"
+                operator: "filter"
+                inputs:
+                - title: "item.parquet"
+                  operator: "scan"
+                  inputs: []

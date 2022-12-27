@@ -1,0 +1,60 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Projection: ss_customer_sk#255, CASE WHEN isnotnull(sr_return_quantity#146)\
+          \ THEN CheckOverflow((promote_precision(cast(cast((ss_quantity#262 - sr_return_quantity#146)\
+          \ as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265\
+          \ as decimal(12,2)))), DecimalType(18,2), true) ELSE CheckOverflow((promote_precision(cast(cast(ss_quantity#262\
+          \ as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265\
+          \ as decimal(12,2)))), DecimalType(18,2), true) END AS act_sales#19468"
+        operator: "projection"
+        inputs:
+        - title: "Inner Join: Some((sr_reason_sk#144 = r_reason_sk#246))"
+          operator: "join"
+          inputs:
+          - title: "Projection: ss_customer_sk#255, ss_quantity#262, ss_sales_price#265,\
+              \ sr_reason_sk#144, sr_return_quantity#146"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some(((sr_item_sk#138 = ss_item_sk#254) AND (sr_ticket_number#145L\
+                \ = ss_ticket_number#261L)))"
+              operator: "join"
+              inputs:
+              - title: "Projection: ss_item_sk#254, ss_customer_sk#255, ss_ticket_number#261L,\
+                  \ ss_quantity#262, ss_sales_price#265"
+                operator: "projection"
+                inputs:
+                - title: "store_sales.parquet"
+                  operator: "scan"
+                  inputs: []
+              - title: "Projection: sr_item_sk#138, sr_reason_sk#144, sr_ticket_number#145L,\
+                  \ sr_return_quantity#146"
+                operator: "projection"
+                inputs:
+                - title: "Filter: ((isnotnull(sr_item_sk#138) AND isnotnull(sr_ticket_number#145L))\
+                    \ AND isnotnull(sr_reason_sk#144))"
+                  operator: "filter"
+                  inputs:
+                  - title: "store_returns.parquet"
+                    operator: "scan"
+                    inputs: []
+          - title: "Projection: r_reason_sk#246"
+            operator: "projection"
+            inputs:
+            - title: "Filter: ((isnotnull(r_reason_desc#248) AND (r_reason_desc#248\
+                \ = Did not like the warranty)) AND isnotnull(r_reason_sk#246))"
+              operator: "filter"
+              inputs:
+              - title: "reason.parquet"
+                operator: "scan"
+                inputs: []

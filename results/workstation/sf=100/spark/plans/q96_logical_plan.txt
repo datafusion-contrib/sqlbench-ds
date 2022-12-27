@@ -1,0 +1,19 @@
+Aggregate [count(1) AS count(1)#19490L]
++- Project
+   +- Join Inner, (ss_store_sk#259 = s_store_sk#712)
+      :- Project [ss_store_sk#259]
+      :  +- Join Inner, (ss_sold_time_sk#253 = t_time_sk#456)
+      :     :- Project [ss_sold_time_sk#253, ss_store_sk#259]
+      :     :  +- Join Inner, (ss_hdemo_sk#257 = hd_demo_sk#88)
+      :     :     :- Project [ss_sold_time_sk#253, ss_hdemo_sk#257, ss_store_sk#259]
+      :     :     :  +- Filter (isnotnull(ss_hdemo_sk#257) AND (isnotnull(ss_sold_time_sk#253) AND isnotnull(ss_store_sk#259)))
+      :     :     :     +- Relation [ss_sold_date_sk#252,ss_sold_time_sk#253,ss_item_sk#254,ss_customer_sk#255,ss_cdemo_sk#256,ss_hdemo_sk#257,ss_addr_sk#258,ss_store_sk#259,ss_promo_sk#260,ss_ticket_number#261L,ss_quantity#262,ss_wholesale_cost#263,ss_list_price#264,ss_sales_price#265,ss_ext_discount_amt#266,ss_ext_sales_price#267,ss_ext_wholesale_cost#268,ss_ext_list_price#269,ss_ext_tax#270,ss_coupon_amt#271,ss_net_paid#272,ss_net_paid_inc_tax#273,ss_net_profit#274] parquet
+      :     :     +- Project [hd_demo_sk#88]
+      :     :        +- Filter ((isnotnull(hd_dep_count#91) AND (hd_dep_count#91 = 5)) AND isnotnull(hd_demo_sk#88))
+      :     :           +- Relation [hd_demo_sk#88,hd_income_band_sk#89,hd_buy_potential#90,hd_dep_count#91,hd_vehicle_count#92] parquet
+      :     +- Project [t_time_sk#456]
+      :        +- Filter (((isnotnull(t_hour#459) AND isnotnull(t_minute#460)) AND ((t_hour#459 = 8) AND (t_minute#460 >= 30))) AND isnotnull(t_time_sk#456))
+      :           +- Relation [t_time_sk#456,t_time_id#457,t_time#458,t_hour#459,t_minute#460,t_second#461,t_am_pm#462,t_shift#463,t_sub_shift#464,t_meal_time#465] parquet
+      +- Project [s_store_sk#712]
+         +- Filter ((isnotnull(s_store_name#717) AND (s_store_name#717 = ese)) AND isnotnull(s_store_sk#712))
+            +- Relation [s_store_sk#712,s_store_id#713,s_rec_start_date#714,s_rec_end_date#715,s_closed_date_sk#716,s_store_name#717,s_number_employees#718,s_floor_space#719,s_hours#720,s_manager#721,s_market_id#722,s_geography_class#723,s_market_desc#724,s_market_manager#725,s_division_id#726,s_division_name#727,s_company_id#728,s_company_name#729,s_street_number#730,s_street_name#731,s_street_type#732,s_suite_number#733,s_city#734,s_county#735,... 5 more fields] parquet

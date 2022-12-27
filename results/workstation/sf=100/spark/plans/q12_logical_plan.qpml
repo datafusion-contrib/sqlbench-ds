@@ -1,0 +1,66 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Projection: i_item_id#669, i_item_desc#672, i_category#680, i_class#678,\
+        \ i_current_price#673, itemrevenue#4515, CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(_w0#4521)\
+        \ * 100.00), DecimalType(21,2), true) as decimal(27,2))) / promote_precision(_we0#4523)),\
+        \ DecimalType(38,17), true) AS revenueratio#4516"
+      operator: "projection"
+      inputs:
+      - title: "Window (unknown)"
+        operator: "Window"
+        inputs:
+        - title: "Aggregate (unknown)"
+          operator: "Aggregate"
+          inputs:
+          - title: "Projection: ws_ext_sales_price#499, i_item_id#669, i_item_desc#672,\
+              \ i_current_price#673, i_class#678, i_category#680"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#612))"
+              operator: "join"
+              inputs:
+              - title: "Projection: ws_sold_date_sk#476, ws_ext_sales_price#499, i_item_id#669,\
+                  \ i_item_desc#672, i_current_price#673, i_class#678, i_category#680"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#668))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: ws_sold_date_sk#476, ws_item_sk#479, ws_ext_sales_price#499"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (isnotnull(ws_item_sk#479) AND isnotnull(ws_sold_date_sk#476))"
+                      operator: "filter"
+                      inputs:
+                      - title: "web_sales.parquet"
+                        operator: "scan"
+                        inputs: []
+                  - title: "Projection: i_item_sk#668, i_item_id#669, i_item_desc#672,\
+                      \ i_current_price#673, i_class#678, i_category#680"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (i_category#680 IN (Jewelry,Sports,Books) AND\
+                        \ isnotnull(i_item_sk#668))"
+                      operator: "filter"
+                      inputs:
+                      - title: "item.parquet"
+                        operator: "scan"
+                        inputs: []
+              - title: "Projection: d_date_sk#612"
+                operator: "projection"
+                inputs:
+                - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2001-01-12)\
+                    \ AND (d_date#614 <= 2001-02-11))) AND isnotnull(d_date_sk#612))"
+                  operator: "filter"
+                  inputs:
+                  - title: "date_dim.parquet"
+                    operator: "scan"
+                    inputs: []

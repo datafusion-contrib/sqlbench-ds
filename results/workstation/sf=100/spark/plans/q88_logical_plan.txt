@@ -1,0 +1,159 @@
+Join Inner
+:- Join Inner
+:  :- Join Inner
+:  :  :- Join Inner
+:  :  :  :- Join Inner
+:  :  :  :  :- Join Inner
+:  :  :  :  :  :- Join Inner
+:  :  :  :  :  :  :- Aggregate [count(1) AS h8_30_to_9#18816L]
+:  :  :  :  :  :  :  +- Project
+:  :  :  :  :  :  :     +- Join Inner, (ss_store_sk#259 = s_store_sk#712)
+:  :  :  :  :  :  :        :- Project [ss_store_sk#259]
+:  :  :  :  :  :  :        :  +- Join Inner, (ss_sold_time_sk#253 = t_time_sk#456)
+:  :  :  :  :  :  :        :     :- Project [ss_sold_time_sk#253, ss_store_sk#259]
+:  :  :  :  :  :  :        :     :  +- Join Inner, (ss_hdemo_sk#257 = hd_demo_sk#88)
+:  :  :  :  :  :  :        :     :     :- Project [ss_sold_time_sk#253, ss_hdemo_sk#257, ss_store_sk#259]
+:  :  :  :  :  :  :        :     :     :  +- Filter (isnotnull(ss_hdemo_sk#257) AND (isnotnull(ss_sold_time_sk#253) AND isnotnull(ss_store_sk#259)))
+:  :  :  :  :  :  :        :     :     :     +- Relation [ss_sold_date_sk#252,ss_sold_time_sk#253,ss_item_sk#254,ss_customer_sk#255,ss_cdemo_sk#256,ss_hdemo_sk#257,ss_addr_sk#258,ss_store_sk#259,ss_promo_sk#260,ss_ticket_number#261L,ss_quantity#262,ss_wholesale_cost#263,ss_list_price#264,ss_sales_price#265,ss_ext_discount_amt#266,ss_ext_sales_price#267,ss_ext_wholesale_cost#268,ss_ext_list_price#269,ss_ext_tax#270,ss_coupon_amt#271,ss_net_paid#272,ss_net_paid_inc_tax#273,ss_net_profit#274] parquet
+:  :  :  :  :  :  :        :     :     +- Project [hd_demo_sk#88]
+:  :  :  :  :  :  :        :     :        +- Filter (((((hd_dep_count#91 = 3) AND (hd_vehicle_count#92 <= 5)) OR ((hd_dep_count#91 = 0) AND (hd_vehicle_count#92 <= 2))) OR ((hd_dep_count#91 = 1) AND (hd_vehicle_count#92 <= 3))) AND isnotnull(hd_demo_sk#88))
+:  :  :  :  :  :  :        :     :           +- Relation [hd_demo_sk#88,hd_income_band_sk#89,hd_buy_potential#90,hd_dep_count#91,hd_vehicle_count#92] parquet
+:  :  :  :  :  :  :        :     +- Project [t_time_sk#456]
+:  :  :  :  :  :  :        :        +- Filter (((isnotnull(t_hour#459) AND isnotnull(t_minute#460)) AND ((t_hour#459 = 8) AND (t_minute#460 >= 30))) AND isnotnull(t_time_sk#456))
+:  :  :  :  :  :  :        :           +- Relation [t_time_sk#456,t_time_id#457,t_time#458,t_hour#459,t_minute#460,t_second#461,t_am_pm#462,t_shift#463,t_sub_shift#464,t_meal_time#465] parquet
+:  :  :  :  :  :  :        +- Project [s_store_sk#712]
+:  :  :  :  :  :  :           +- Filter ((isnotnull(s_store_name#717) AND (s_store_name#717 = ese)) AND isnotnull(s_store_sk#712))
+:  :  :  :  :  :  :              +- Relation [s_store_sk#712,s_store_id#713,s_rec_start_date#714,s_rec_end_date#715,s_closed_date_sk#716,s_store_name#717,s_number_employees#718,s_floor_space#719,s_hours#720,s_manager#721,s_market_id#722,s_geography_class#723,s_market_desc#724,s_market_manager#725,s_division_id#726,s_division_name#727,s_company_id#728,s_company_name#729,s_street_number#730,s_street_name#731,s_street_type#732,s_suite_number#733,s_city#734,s_county#735,... 5 more fields] parquet
+:  :  :  :  :  :  +- Aggregate [count(1) AS h9_to_9_30#18817L]
+:  :  :  :  :  :     +- Project
+:  :  :  :  :  :        +- Join Inner, (ss_store_sk#18831 = s_store_sk#18862)
+:  :  :  :  :  :           :- Project [ss_store_sk#18831]
+:  :  :  :  :  :           :  +- Join Inner, (ss_sold_time_sk#18825 = t_time_sk#18852)
+:  :  :  :  :  :           :     :- Project [ss_sold_time_sk#18825, ss_store_sk#18831]
+:  :  :  :  :  :           :     :  +- Join Inner, (ss_hdemo_sk#18829 = hd_demo_sk#18847)
+:  :  :  :  :  :           :     :     :- Project [ss_sold_time_sk#18825, ss_hdemo_sk#18829, ss_store_sk#18831]
+:  :  :  :  :  :           :     :     :  +- Filter (isnotnull(ss_hdemo_sk#18829) AND (isnotnull(ss_sold_time_sk#18825) AND isnotnull(ss_store_sk#18831)))
+:  :  :  :  :  :           :     :     :     +- Relation [ss_sold_date_sk#18824,ss_sold_time_sk#18825,ss_item_sk#18826,ss_customer_sk#18827,ss_cdemo_sk#18828,ss_hdemo_sk#18829,ss_addr_sk#18830,ss_store_sk#18831,ss_promo_sk#18832,ss_ticket_number#18833L,ss_quantity#18834,ss_wholesale_cost#18835,ss_list_price#18836,ss_sales_price#18837,ss_ext_discount_amt#18838,ss_ext_sales_price#18839,ss_ext_wholesale_cost#18840,ss_ext_list_price#18841,ss_ext_tax#18842,ss_coupon_amt#18843,ss_net_paid#18844,ss_net_paid_inc_tax#18845,ss_net_profit#18846] parquet
+:  :  :  :  :  :           :     :     +- Project [hd_demo_sk#18847]
+:  :  :  :  :  :           :     :        +- Filter (((((hd_dep_count#18850 = 3) AND (hd_vehicle_count#18851 <= 5)) OR ((hd_dep_count#18850 = 0) AND (hd_vehicle_count#18851 <= 2))) OR ((hd_dep_count#18850 = 1) AND (hd_vehicle_count#18851 <= 3))) AND isnotnull(hd_demo_sk#18847))
+:  :  :  :  :  :           :     :           +- Relation [hd_demo_sk#18847,hd_income_band_sk#18848,hd_buy_potential#18849,hd_dep_count#18850,hd_vehicle_count#18851] parquet
+:  :  :  :  :  :           :     +- Project [t_time_sk#18852]
+:  :  :  :  :  :           :        +- Filter (((isnotnull(t_hour#18855) AND isnotnull(t_minute#18856)) AND ((t_hour#18855 = 9) AND (t_minute#18856 < 30))) AND isnotnull(t_time_sk#18852))
+:  :  :  :  :  :           :           +- Relation [t_time_sk#18852,t_time_id#18853,t_time#18854,t_hour#18855,t_minute#18856,t_second#18857,t_am_pm#18858,t_shift#18859,t_sub_shift#18860,t_meal_time#18861] parquet
+:  :  :  :  :  :           +- Project [s_store_sk#18862]
+:  :  :  :  :  :              +- Filter ((isnotnull(s_store_name#18867) AND (s_store_name#18867 = ese)) AND isnotnull(s_store_sk#18862))
+:  :  :  :  :  :                 +- Relation [s_store_sk#18862,s_store_id#18863,s_rec_start_date#18864,s_rec_end_date#18865,s_closed_date_sk#18866,s_store_name#18867,s_number_employees#18868,s_floor_space#18869,s_hours#18870,s_manager#18871,s_market_id#18872,s_geography_class#18873,s_market_desc#18874,s_market_manager#18875,s_division_id#18876,s_division_name#18877,s_company_id#18878,s_company_name#18879,s_street_number#18880,s_street_name#18881,s_street_type#18882,s_suite_number#18883,s_city#18884,s_county#18885,... 5 more fields] parquet
+:  :  :  :  :  +- Aggregate [count(1) AS h9_30_to_10#18818L]
+:  :  :  :  :     +- Project
+:  :  :  :  :        +- Join Inner, (ss_store_sk#18898 = s_store_sk#18929)
+:  :  :  :  :           :- Project [ss_store_sk#18898]
+:  :  :  :  :           :  +- Join Inner, (ss_sold_time_sk#18892 = t_time_sk#18919)
+:  :  :  :  :           :     :- Project [ss_sold_time_sk#18892, ss_store_sk#18898]
+:  :  :  :  :           :     :  +- Join Inner, (ss_hdemo_sk#18896 = hd_demo_sk#18914)
+:  :  :  :  :           :     :     :- Project [ss_sold_time_sk#18892, ss_hdemo_sk#18896, ss_store_sk#18898]
+:  :  :  :  :           :     :     :  +- Filter (isnotnull(ss_hdemo_sk#18896) AND (isnotnull(ss_sold_time_sk#18892) AND isnotnull(ss_store_sk#18898)))
+:  :  :  :  :           :     :     :     +- Relation [ss_sold_date_sk#18891,ss_sold_time_sk#18892,ss_item_sk#18893,ss_customer_sk#18894,ss_cdemo_sk#18895,ss_hdemo_sk#18896,ss_addr_sk#18897,ss_store_sk#18898,ss_promo_sk#18899,ss_ticket_number#18900L,ss_quantity#18901,ss_wholesale_cost#18902,ss_list_price#18903,ss_sales_price#18904,ss_ext_discount_amt#18905,ss_ext_sales_price#18906,ss_ext_wholesale_cost#18907,ss_ext_list_price#18908,ss_ext_tax#18909,ss_coupon_amt#18910,ss_net_paid#18911,ss_net_paid_inc_tax#18912,ss_net_profit#18913] parquet
+:  :  :  :  :           :     :     +- Project [hd_demo_sk#18914]
+:  :  :  :  :           :     :        +- Filter (((((hd_dep_count#18917 = 3) AND (hd_vehicle_count#18918 <= 5)) OR ((hd_dep_count#18917 = 0) AND (hd_vehicle_count#18918 <= 2))) OR ((hd_dep_count#18917 = 1) AND (hd_vehicle_count#18918 <= 3))) AND isnotnull(hd_demo_sk#18914))
+:  :  :  :  :           :     :           +- Relation [hd_demo_sk#18914,hd_income_band_sk#18915,hd_buy_potential#18916,hd_dep_count#18917,hd_vehicle_count#18918] parquet
+:  :  :  :  :           :     +- Project [t_time_sk#18919]
+:  :  :  :  :           :        +- Filter (((isnotnull(t_hour#18922) AND isnotnull(t_minute#18923)) AND ((t_hour#18922 = 9) AND (t_minute#18923 >= 30))) AND isnotnull(t_time_sk#18919))
+:  :  :  :  :           :           +- Relation [t_time_sk#18919,t_time_id#18920,t_time#18921,t_hour#18922,t_minute#18923,t_second#18924,t_am_pm#18925,t_shift#18926,t_sub_shift#18927,t_meal_time#18928] parquet
+:  :  :  :  :           +- Project [s_store_sk#18929]
+:  :  :  :  :              +- Filter ((isnotnull(s_store_name#18934) AND (s_store_name#18934 = ese)) AND isnotnull(s_store_sk#18929))
+:  :  :  :  :                 +- Relation [s_store_sk#18929,s_store_id#18930,s_rec_start_date#18931,s_rec_end_date#18932,s_closed_date_sk#18933,s_store_name#18934,s_number_employees#18935,s_floor_space#18936,s_hours#18937,s_manager#18938,s_market_id#18939,s_geography_class#18940,s_market_desc#18941,s_market_manager#18942,s_division_id#18943,s_division_name#18944,s_company_id#18945,s_company_name#18946,s_street_number#18947,s_street_name#18948,s_street_type#18949,s_suite_number#18950,s_city#18951,s_county#18952,... 5 more fields] parquet
+:  :  :  :  +- Aggregate [count(1) AS h10_to_10_30#18819L]
+:  :  :  :     +- Project
+:  :  :  :        +- Join Inner, (ss_store_sk#18965 = s_store_sk#18996)
+:  :  :  :           :- Project [ss_store_sk#18965]
+:  :  :  :           :  +- Join Inner, (ss_sold_time_sk#18959 = t_time_sk#18986)
+:  :  :  :           :     :- Project [ss_sold_time_sk#18959, ss_store_sk#18965]
+:  :  :  :           :     :  +- Join Inner, (ss_hdemo_sk#18963 = hd_demo_sk#18981)
+:  :  :  :           :     :     :- Project [ss_sold_time_sk#18959, ss_hdemo_sk#18963, ss_store_sk#18965]
+:  :  :  :           :     :     :  +- Filter (isnotnull(ss_hdemo_sk#18963) AND (isnotnull(ss_sold_time_sk#18959) AND isnotnull(ss_store_sk#18965)))
+:  :  :  :           :     :     :     +- Relation [ss_sold_date_sk#18958,ss_sold_time_sk#18959,ss_item_sk#18960,ss_customer_sk#18961,ss_cdemo_sk#18962,ss_hdemo_sk#18963,ss_addr_sk#18964,ss_store_sk#18965,ss_promo_sk#18966,ss_ticket_number#18967L,ss_quantity#18968,ss_wholesale_cost#18969,ss_list_price#18970,ss_sales_price#18971,ss_ext_discount_amt#18972,ss_ext_sales_price#18973,ss_ext_wholesale_cost#18974,ss_ext_list_price#18975,ss_ext_tax#18976,ss_coupon_amt#18977,ss_net_paid#18978,ss_net_paid_inc_tax#18979,ss_net_profit#18980] parquet
+:  :  :  :           :     :     +- Project [hd_demo_sk#18981]
+:  :  :  :           :     :        +- Filter (((((hd_dep_count#18984 = 3) AND (hd_vehicle_count#18985 <= 5)) OR ((hd_dep_count#18984 = 0) AND (hd_vehicle_count#18985 <= 2))) OR ((hd_dep_count#18984 = 1) AND (hd_vehicle_count#18985 <= 3))) AND isnotnull(hd_demo_sk#18981))
+:  :  :  :           :     :           +- Relation [hd_demo_sk#18981,hd_income_band_sk#18982,hd_buy_potential#18983,hd_dep_count#18984,hd_vehicle_count#18985] parquet
+:  :  :  :           :     +- Project [t_time_sk#18986]
+:  :  :  :           :        +- Filter (((isnotnull(t_hour#18989) AND isnotnull(t_minute#18990)) AND ((t_hour#18989 = 10) AND (t_minute#18990 < 30))) AND isnotnull(t_time_sk#18986))
+:  :  :  :           :           +- Relation [t_time_sk#18986,t_time_id#18987,t_time#18988,t_hour#18989,t_minute#18990,t_second#18991,t_am_pm#18992,t_shift#18993,t_sub_shift#18994,t_meal_time#18995] parquet
+:  :  :  :           +- Project [s_store_sk#18996]
+:  :  :  :              +- Filter ((isnotnull(s_store_name#19001) AND (s_store_name#19001 = ese)) AND isnotnull(s_store_sk#18996))
+:  :  :  :                 +- Relation [s_store_sk#18996,s_store_id#18997,s_rec_start_date#18998,s_rec_end_date#18999,s_closed_date_sk#19000,s_store_name#19001,s_number_employees#19002,s_floor_space#19003,s_hours#19004,s_manager#19005,s_market_id#19006,s_geography_class#19007,s_market_desc#19008,s_market_manager#19009,s_division_id#19010,s_division_name#19011,s_company_id#19012,s_company_name#19013,s_street_number#19014,s_street_name#19015,s_street_type#19016,s_suite_number#19017,s_city#19018,s_county#19019,... 5 more fields] parquet
+:  :  :  +- Aggregate [count(1) AS h10_30_to_11#18820L]
+:  :  :     +- Project
+:  :  :        +- Join Inner, (ss_store_sk#19032 = s_store_sk#19063)
+:  :  :           :- Project [ss_store_sk#19032]
+:  :  :           :  +- Join Inner, (ss_sold_time_sk#19026 = t_time_sk#19053)
+:  :  :           :     :- Project [ss_sold_time_sk#19026, ss_store_sk#19032]
+:  :  :           :     :  +- Join Inner, (ss_hdemo_sk#19030 = hd_demo_sk#19048)
+:  :  :           :     :     :- Project [ss_sold_time_sk#19026, ss_hdemo_sk#19030, ss_store_sk#19032]
+:  :  :           :     :     :  +- Filter (isnotnull(ss_hdemo_sk#19030) AND (isnotnull(ss_sold_time_sk#19026) AND isnotnull(ss_store_sk#19032)))
+:  :  :           :     :     :     +- Relation [ss_sold_date_sk#19025,ss_sold_time_sk#19026,ss_item_sk#19027,ss_customer_sk#19028,ss_cdemo_sk#19029,ss_hdemo_sk#19030,ss_addr_sk#19031,ss_store_sk#19032,ss_promo_sk#19033,ss_ticket_number#19034L,ss_quantity#19035,ss_wholesale_cost#19036,ss_list_price#19037,ss_sales_price#19038,ss_ext_discount_amt#19039,ss_ext_sales_price#19040,ss_ext_wholesale_cost#19041,ss_ext_list_price#19042,ss_ext_tax#19043,ss_coupon_amt#19044,ss_net_paid#19045,ss_net_paid_inc_tax#19046,ss_net_profit#19047] parquet
+:  :  :           :     :     +- Project [hd_demo_sk#19048]
+:  :  :           :     :        +- Filter (((((hd_dep_count#19051 = 3) AND (hd_vehicle_count#19052 <= 5)) OR ((hd_dep_count#19051 = 0) AND (hd_vehicle_count#19052 <= 2))) OR ((hd_dep_count#19051 = 1) AND (hd_vehicle_count#19052 <= 3))) AND isnotnull(hd_demo_sk#19048))
+:  :  :           :     :           +- Relation [hd_demo_sk#19048,hd_income_band_sk#19049,hd_buy_potential#19050,hd_dep_count#19051,hd_vehicle_count#19052] parquet
+:  :  :           :     +- Project [t_time_sk#19053]
+:  :  :           :        +- Filter (((isnotnull(t_hour#19056) AND isnotnull(t_minute#19057)) AND ((t_hour#19056 = 10) AND (t_minute#19057 >= 30))) AND isnotnull(t_time_sk#19053))
+:  :  :           :           +- Relation [t_time_sk#19053,t_time_id#19054,t_time#19055,t_hour#19056,t_minute#19057,t_second#19058,t_am_pm#19059,t_shift#19060,t_sub_shift#19061,t_meal_time#19062] parquet
+:  :  :           +- Project [s_store_sk#19063]
+:  :  :              +- Filter ((isnotnull(s_store_name#19068) AND (s_store_name#19068 = ese)) AND isnotnull(s_store_sk#19063))
+:  :  :                 +- Relation [s_store_sk#19063,s_store_id#19064,s_rec_start_date#19065,s_rec_end_date#19066,s_closed_date_sk#19067,s_store_name#19068,s_number_employees#19069,s_floor_space#19070,s_hours#19071,s_manager#19072,s_market_id#19073,s_geography_class#19074,s_market_desc#19075,s_market_manager#19076,s_division_id#19077,s_division_name#19078,s_company_id#19079,s_company_name#19080,s_street_number#19081,s_street_name#19082,s_street_type#19083,s_suite_number#19084,s_city#19085,s_county#19086,... 5 more fields] parquet
+:  :  +- Aggregate [count(1) AS h11_to_11_30#18821L]
+:  :     +- Project
+:  :        +- Join Inner, (ss_store_sk#19099 = s_store_sk#19130)
+:  :           :- Project [ss_store_sk#19099]
+:  :           :  +- Join Inner, (ss_sold_time_sk#19093 = t_time_sk#19120)
+:  :           :     :- Project [ss_sold_time_sk#19093, ss_store_sk#19099]
+:  :           :     :  +- Join Inner, (ss_hdemo_sk#19097 = hd_demo_sk#19115)
+:  :           :     :     :- Project [ss_sold_time_sk#19093, ss_hdemo_sk#19097, ss_store_sk#19099]
+:  :           :     :     :  +- Filter (isnotnull(ss_hdemo_sk#19097) AND (isnotnull(ss_sold_time_sk#19093) AND isnotnull(ss_store_sk#19099)))
+:  :           :     :     :     +- Relation [ss_sold_date_sk#19092,ss_sold_time_sk#19093,ss_item_sk#19094,ss_customer_sk#19095,ss_cdemo_sk#19096,ss_hdemo_sk#19097,ss_addr_sk#19098,ss_store_sk#19099,ss_promo_sk#19100,ss_ticket_number#19101L,ss_quantity#19102,ss_wholesale_cost#19103,ss_list_price#19104,ss_sales_price#19105,ss_ext_discount_amt#19106,ss_ext_sales_price#19107,ss_ext_wholesale_cost#19108,ss_ext_list_price#19109,ss_ext_tax#19110,ss_coupon_amt#19111,ss_net_paid#19112,ss_net_paid_inc_tax#19113,ss_net_profit#19114] parquet
+:  :           :     :     +- Project [hd_demo_sk#19115]
+:  :           :     :        +- Filter (((((hd_dep_count#19118 = 3) AND (hd_vehicle_count#19119 <= 5)) OR ((hd_dep_count#19118 = 0) AND (hd_vehicle_count#19119 <= 2))) OR ((hd_dep_count#19118 = 1) AND (hd_vehicle_count#19119 <= 3))) AND isnotnull(hd_demo_sk#19115))
+:  :           :     :           +- Relation [hd_demo_sk#19115,hd_income_band_sk#19116,hd_buy_potential#19117,hd_dep_count#19118,hd_vehicle_count#19119] parquet
+:  :           :     +- Project [t_time_sk#19120]
+:  :           :        +- Filter (((isnotnull(t_hour#19123) AND isnotnull(t_minute#19124)) AND ((t_hour#19123 = 11) AND (t_minute#19124 < 30))) AND isnotnull(t_time_sk#19120))
+:  :           :           +- Relation [t_time_sk#19120,t_time_id#19121,t_time#19122,t_hour#19123,t_minute#19124,t_second#19125,t_am_pm#19126,t_shift#19127,t_sub_shift#19128,t_meal_time#19129] parquet
+:  :           +- Project [s_store_sk#19130]
+:  :              +- Filter ((isnotnull(s_store_name#19135) AND (s_store_name#19135 = ese)) AND isnotnull(s_store_sk#19130))
+:  :                 +- Relation [s_store_sk#19130,s_store_id#19131,s_rec_start_date#19132,s_rec_end_date#19133,s_closed_date_sk#19134,s_store_name#19135,s_number_employees#19136,s_floor_space#19137,s_hours#19138,s_manager#19139,s_market_id#19140,s_geography_class#19141,s_market_desc#19142,s_market_manager#19143,s_division_id#19144,s_division_name#19145,s_company_id#19146,s_company_name#19147,s_street_number#19148,s_street_name#19149,s_street_type#19150,s_suite_number#19151,s_city#19152,s_county#19153,... 5 more fields] parquet
+:  +- Aggregate [count(1) AS h11_30_to_12#18822L]
+:     +- Project
+:        +- Join Inner, (ss_store_sk#19166 = s_store_sk#19197)
+:           :- Project [ss_store_sk#19166]
+:           :  +- Join Inner, (ss_sold_time_sk#19160 = t_time_sk#19187)
+:           :     :- Project [ss_sold_time_sk#19160, ss_store_sk#19166]
+:           :     :  +- Join Inner, (ss_hdemo_sk#19164 = hd_demo_sk#19182)
+:           :     :     :- Project [ss_sold_time_sk#19160, ss_hdemo_sk#19164, ss_store_sk#19166]
+:           :     :     :  +- Filter (isnotnull(ss_hdemo_sk#19164) AND (isnotnull(ss_sold_time_sk#19160) AND isnotnull(ss_store_sk#19166)))
+:           :     :     :     +- Relation [ss_sold_date_sk#19159,ss_sold_time_sk#19160,ss_item_sk#19161,ss_customer_sk#19162,ss_cdemo_sk#19163,ss_hdemo_sk#19164,ss_addr_sk#19165,ss_store_sk#19166,ss_promo_sk#19167,ss_ticket_number#19168L,ss_quantity#19169,ss_wholesale_cost#19170,ss_list_price#19171,ss_sales_price#19172,ss_ext_discount_amt#19173,ss_ext_sales_price#19174,ss_ext_wholesale_cost#19175,ss_ext_list_price#19176,ss_ext_tax#19177,ss_coupon_amt#19178,ss_net_paid#19179,ss_net_paid_inc_tax#19180,ss_net_profit#19181] parquet
+:           :     :     +- Project [hd_demo_sk#19182]
+:           :     :        +- Filter (((((hd_dep_count#19185 = 3) AND (hd_vehicle_count#19186 <= 5)) OR ((hd_dep_count#19185 = 0) AND (hd_vehicle_count#19186 <= 2))) OR ((hd_dep_count#19185 = 1) AND (hd_vehicle_count#19186 <= 3))) AND isnotnull(hd_demo_sk#19182))
+:           :     :           +- Relation [hd_demo_sk#19182,hd_income_band_sk#19183,hd_buy_potential#19184,hd_dep_count#19185,hd_vehicle_count#19186] parquet
+:           :     +- Project [t_time_sk#19187]
+:           :        +- Filter (((isnotnull(t_hour#19190) AND isnotnull(t_minute#19191)) AND ((t_hour#19190 = 11) AND (t_minute#19191 >= 30))) AND isnotnull(t_time_sk#19187))
+:           :           +- Relation [t_time_sk#19187,t_time_id#19188,t_time#19189,t_hour#19190,t_minute#19191,t_second#19192,t_am_pm#19193,t_shift#19194,t_sub_shift#19195,t_meal_time#19196] parquet
+:           +- Project [s_store_sk#19197]
+:              +- Filter ((isnotnull(s_store_name#19202) AND (s_store_name#19202 = ese)) AND isnotnull(s_store_sk#19197))
+:                 +- Relation [s_store_sk#19197,s_store_id#19198,s_rec_start_date#19199,s_rec_end_date#19200,s_closed_date_sk#19201,s_store_name#19202,s_number_employees#19203,s_floor_space#19204,s_hours#19205,s_manager#19206,s_market_id#19207,s_geography_class#19208,s_market_desc#19209,s_market_manager#19210,s_division_id#19211,s_division_name#19212,s_company_id#19213,s_company_name#19214,s_street_number#19215,s_street_name#19216,s_street_type#19217,s_suite_number#19218,s_city#19219,s_county#19220,... 5 more fields] parquet
++- Aggregate [count(1) AS h12_to_12_30#18823L]
+   +- Project
+      +- Join Inner, (ss_store_sk#19233 = s_store_sk#19264)
+         :- Project [ss_store_sk#19233]
+         :  +- Join Inner, (ss_sold_time_sk#19227 = t_time_sk#19254)
+         :     :- Project [ss_sold_time_sk#19227, ss_store_sk#19233]
+         :     :  +- Join Inner, (ss_hdemo_sk#19231 = hd_demo_sk#19249)
+         :     :     :- Project [ss_sold_time_sk#19227, ss_hdemo_sk#19231, ss_store_sk#19233]
+         :     :     :  +- Filter (isnotnull(ss_hdemo_sk#19231) AND (isnotnull(ss_sold_time_sk#19227) AND isnotnull(ss_store_sk#19233)))
+         :     :     :     +- Relation [ss_sold_date_sk#19226,ss_sold_time_sk#19227,ss_item_sk#19228,ss_customer_sk#19229,ss_cdemo_sk#19230,ss_hdemo_sk#19231,ss_addr_sk#19232,ss_store_sk#19233,ss_promo_sk#19234,ss_ticket_number#19235L,ss_quantity#19236,ss_wholesale_cost#19237,ss_list_price#19238,ss_sales_price#19239,ss_ext_discount_amt#19240,ss_ext_sales_price#19241,ss_ext_wholesale_cost#19242,ss_ext_list_price#19243,ss_ext_tax#19244,ss_coupon_amt#19245,ss_net_paid#19246,ss_net_paid_inc_tax#19247,ss_net_profit#19248] parquet
+         :     :     +- Project [hd_demo_sk#19249]
+         :     :        +- Filter (((((hd_dep_count#19252 = 3) AND (hd_vehicle_count#19253 <= 5)) OR ((hd_dep_count#19252 = 0) AND (hd_vehicle_count#19253 <= 2))) OR ((hd_dep_count#19252 = 1) AND (hd_vehicle_count#19253 <= 3))) AND isnotnull(hd_demo_sk#19249))
+         :     :           +- Relation [hd_demo_sk#19249,hd_income_band_sk#19250,hd_buy_potential#19251,hd_dep_count#19252,hd_vehicle_count#19253] parquet
+         :     +- Project [t_time_sk#19254]
+         :        +- Filter (((isnotnull(t_hour#19257) AND isnotnull(t_minute#19258)) AND ((t_hour#19257 = 12) AND (t_minute#19258 < 30))) AND isnotnull(t_time_sk#19254))
+         :           +- Relation [t_time_sk#19254,t_time_id#19255,t_time#19256,t_hour#19257,t_minute#19258,t_second#19259,t_am_pm#19260,t_shift#19261,t_sub_shift#19262,t_meal_time#19263] parquet
+         +- Project [s_store_sk#19264]
+            +- Filter ((isnotnull(s_store_name#19269) AND (s_store_name#19269 = ese)) AND isnotnull(s_store_sk#19264))
+               +- Relation [s_store_sk#19264,s_store_id#19265,s_rec_start_date#19266,s_rec_end_date#19267,s_closed_date_sk#19268,s_store_name#19269,s_number_employees#19270,s_floor_space#19271,s_hours#19272,s_manager#19273,s_market_id#19274,s_geography_class#19275,s_market_desc#19276,s_market_manager#19277,s_division_id#19278,s_division_name#19279,s_company_id#19280,s_company_name#19281,s_street_number#19282,s_street_name#19283,s_street_type#19284,s_suite_number#19285,s_city#19286,s_county#19287,... 5 more fields] parquet

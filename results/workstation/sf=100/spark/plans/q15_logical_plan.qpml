@@ -1,0 +1,71 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Projection: cs_sales_price#565, ca_zip#71"
+        operator: "projection"
+        inputs:
+        - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#612))"
+          operator: "join"
+          inputs:
+          - title: "Projection: cs_sold_date_sk#544, cs_sales_price#565, ca_zip#71"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some(((c_current_addr_sk#404 = ca_address_sk#62)\
+                \ AND ((substr(ca_zip#71, 1, 5) IN (85669,86197,88274,83405,86475,85392,85460,80348,81792)\
+                \ OR ca_state#70 IN (CA,WA,GA)) OR (cs_sales_price#565 > 500.00))))"
+              operator: "join"
+              inputs:
+              - title: "Projection: cs_sold_date_sk#544, cs_sales_price#565, c_current_addr_sk#404"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((cs_bill_customer_sk#547 = c_customer_sk#400))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: cs_sold_date_sk#544, cs_bill_customer_sk#547,\
+                      \ cs_sales_price#565"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (isnotnull(cs_bill_customer_sk#547) AND isnotnull(cs_sold_date_sk#544))"
+                      operator: "filter"
+                      inputs:
+                      - title: "catalog_sales.parquet"
+                        operator: "scan"
+                        inputs: []
+                  - title: "Projection: c_customer_sk#400, c_current_addr_sk#404"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (isnotnull(c_customer_sk#400) AND isnotnull(c_current_addr_sk#404))"
+                      operator: "filter"
+                      inputs:
+                      - title: "customer.parquet"
+                        operator: "scan"
+                        inputs: []
+              - title: "Projection: ca_address_sk#62, ca_state#70, ca_zip#71"
+                operator: "projection"
+                inputs:
+                - title: "Filter: isnotnull(ca_address_sk#62)"
+                  operator: "filter"
+                  inputs:
+                  - title: "customer_address.parquet"
+                    operator: "scan"
+                    inputs: []
+          - title: "Projection: d_date_sk#612"
+            operator: "projection"
+            inputs:
+            - title: "Filter: (((isnotnull(d_qoy#622) AND isnotnull(d_year#618)) AND\
+                \ ((d_qoy#622 = 2) AND (d_year#618 = 2000))) AND isnotnull(d_date_sk#612))"
+              operator: "filter"
+              inputs:
+              - title: "date_dim.parquet"
+                operator: "scan"
+                inputs: []

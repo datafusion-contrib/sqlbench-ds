@@ -1,0 +1,145 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Aggregate (unknown)"
+      operator: "Aggregate"
+      inputs:
+      - title: "Projection: cd_gender#223, cd_marital_status#224, cd_education_status#225,\
+          \ cd_purchase_estimate#226, cd_credit_rating#227"
+        operator: "projection"
+        inputs:
+        - title: "Inner Join: Some((cd_demo_sk#222 = c_current_cdemo_sk#402))"
+          operator: "join"
+          inputs:
+          - title: "Projection: c_current_cdemo_sk#402"
+            operator: "projection"
+            inputs:
+            - title: "Inner Join: Some((c_current_addr_sk#404 = ca_address_sk#62))"
+              operator: "join"
+              inputs:
+              - title: "Projection: c_current_cdemo_sk#402, c_current_addr_sk#404"
+                operator: "projection"
+                inputs:
+                - title: "LeftAnti Join: Some((c_customer_sk#400 = cs_ship_customer_sk#551))"
+                  operator: "join"
+                  inputs:
+                  - title: "LeftAnti Join: Some((c_customer_sk#400 = ws_bill_customer_sk#480))"
+                    operator: "join"
+                    inputs:
+                    - title: "LeftSemi Join: Some((c_customer_sk#400 = ss_customer_sk#255))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: c_customer_sk#400, c_current_cdemo_sk#402,\
+                          \ c_current_addr_sk#404"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (isnotnull(c_current_addr_sk#404) AND isnotnull(c_current_cdemo_sk#402))"
+                          operator: "filter"
+                          inputs:
+                          - title: "customer.parquet"
+                            operator: "scan"
+                            inputs: []
+                      - title: "Projection: ss_customer_sk#255"
+                        operator: "projection"
+                        inputs:
+                        - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#612))"
+                          operator: "join"
+                          inputs:
+                          - title: "Projection: ss_sold_date_sk#252, ss_customer_sk#255"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: isnotnull(ss_sold_date_sk#252)"
+                              operator: "filter"
+                              inputs:
+                              - title: "store_sales.parquet"
+                                operator: "scan"
+                                inputs: []
+                          - title: "Projection: d_date_sk#612"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_moy#620))\
+                                \ AND (((d_year#618 = 1999) AND (d_moy#620 >= 1))\
+                                \ AND (d_moy#620 <= 3))) AND isnotnull(d_date_sk#612))"
+                              operator: "filter"
+                              inputs:
+                              - title: "date_dim.parquet"
+                                operator: "scan"
+                                inputs: []
+                    - title: "Projection: ws_bill_customer_sk#480"
+                      operator: "projection"
+                      inputs:
+                      - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#15433))"
+                        operator: "join"
+                        inputs:
+                        - title: "Projection: ws_sold_date_sk#476, ws_bill_customer_sk#480"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: isnotnull(ws_sold_date_sk#476)"
+                            operator: "filter"
+                            inputs:
+                            - title: "web_sales.parquet"
+                              operator: "scan"
+                              inputs: []
+                        - title: "Projection: d_date_sk#15433"
+                          operator: "projection"
+                          inputs:
+                          - title: "Filter: (((isnotnull(d_year#15439) AND isnotnull(d_moy#15441))\
+                              \ AND (((d_year#15439 = 1999) AND (d_moy#15441 >= 1))\
+                              \ AND (d_moy#15441 <= 3))) AND isnotnull(d_date_sk#15433))"
+                            operator: "filter"
+                            inputs:
+                            - title: "date_dim.parquet"
+                              operator: "scan"
+                              inputs: []
+                  - title: "Projection: cs_ship_customer_sk#551"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#15461))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: cs_sold_date_sk#544, cs_ship_customer_sk#551"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: isnotnull(cs_sold_date_sk#544)"
+                          operator: "filter"
+                          inputs:
+                          - title: "catalog_sales.parquet"
+                            operator: "scan"
+                            inputs: []
+                      - title: "Projection: d_date_sk#15461"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (((isnotnull(d_year#15467) AND isnotnull(d_moy#15469))\
+                            \ AND (((d_year#15467 = 1999) AND (d_moy#15469 >= 1))\
+                            \ AND (d_moy#15469 <= 3))) AND isnotnull(d_date_sk#15461))"
+                          operator: "filter"
+                          inputs:
+                          - title: "date_dim.parquet"
+                            operator: "scan"
+                            inputs: []
+              - title: "Projection: ca_address_sk#62"
+                operator: "projection"
+                inputs:
+                - title: "Filter: (ca_state#70 IN (CO,IL,MN) AND isnotnull(ca_address_sk#62))"
+                  operator: "filter"
+                  inputs:
+                  - title: "customer_address.parquet"
+                    operator: "scan"
+                    inputs: []
+          - title: "Projection: cd_demo_sk#222, cd_gender#223, cd_marital_status#224,\
+              \ cd_education_status#225, cd_purchase_estimate#226, cd_credit_rating#227"
+            operator: "projection"
+            inputs:
+            - title: "Filter: isnotnull(cd_demo_sk#222)"
+              operator: "filter"
+              inputs:
+              - title: "customer_demographics.parquet"
+                operator: "scan"
+                inputs: []

@@ -1,0 +1,32 @@
+GlobalLimit 100
++- LocalLimit 100
+   +- Project [customer_id#18564, customername#18565]
+      +- Sort [c_customer_id#401 ASC NULLS FIRST], true
+         +- Project [c_customer_id#401 AS customer_id#18564, concat(coalesce(c_last_name#409, ), , , coalesce(c_first_name#408, )) AS customername#18565, c_customer_id#401]
+            +- Join Inner, (sr_cdemo_sk#140 = cd_demo_sk#222)
+               :- Project [c_customer_id#401, c_first_name#408, c_last_name#409, cd_demo_sk#222]
+               :  +- Join Inner, (ib_income_band_sk#240 = hd_income_band_sk#89)
+               :     :- Project [c_customer_id#401, c_first_name#408, c_last_name#409, cd_demo_sk#222, hd_income_band_sk#89]
+               :     :  +- Join Inner, (hd_demo_sk#88 = c_current_hdemo_sk#403)
+               :     :     :- Project [c_customer_id#401, c_current_hdemo_sk#403, c_first_name#408, c_last_name#409, cd_demo_sk#222]
+               :     :     :  +- Join Inner, (cd_demo_sk#222 = c_current_cdemo_sk#402)
+               :     :     :     :- Project [c_customer_id#401, c_current_cdemo_sk#402, c_current_hdemo_sk#403, c_first_name#408, c_last_name#409]
+               :     :     :     :  +- Join Inner, (c_current_addr_sk#404 = ca_address_sk#62)
+               :     :     :     :     :- Project [c_customer_id#401, c_current_cdemo_sk#402, c_current_hdemo_sk#403, c_current_addr_sk#404, c_first_name#408, c_last_name#409]
+               :     :     :     :     :  +- Filter (isnotnull(c_current_addr_sk#404) AND (isnotnull(c_current_cdemo_sk#402) AND isnotnull(c_current_hdemo_sk#403)))
+               :     :     :     :     :     +- Relation [c_customer_sk#400,c_customer_id#401,c_current_cdemo_sk#402,c_current_hdemo_sk#403,c_current_addr_sk#404,c_first_shipto_date_sk#405,c_first_sales_date_sk#406,c_salutation#407,c_first_name#408,c_last_name#409,c_preferred_cust_flag#410,c_birth_day#411,c_birth_month#412,c_birth_year#413,c_birth_country#414,c_login#415,c_email_address#416,c_last_review_date_sk#417] parquet
+               :     :     :     :     +- Project [ca_address_sk#62]
+               :     :     :     :        +- Filter ((isnotnull(ca_city#68) AND (ca_city#68 = Hopewell)) AND isnotnull(ca_address_sk#62))
+               :     :     :     :           +- Relation [ca_address_sk#62,ca_address_id#63,ca_street_number#64,ca_street_name#65,ca_street_type#66,ca_suite_number#67,ca_city#68,ca_county#69,ca_state#70,ca_zip#71,ca_country#72,ca_gmt_offset#73,ca_location_type#74] parquet
+               :     :     :     +- Project [cd_demo_sk#222]
+               :     :     :        +- Filter isnotnull(cd_demo_sk#222)
+               :     :     :           +- Relation [cd_demo_sk#222,cd_gender#223,cd_marital_status#224,cd_education_status#225,cd_purchase_estimate#226,cd_credit_rating#227,cd_dep_count#228,cd_dep_employed_count#229,cd_dep_college_count#230] parquet
+               :     :     +- Project [hd_demo_sk#88, hd_income_band_sk#89]
+               :     :        +- Filter (isnotnull(hd_demo_sk#88) AND isnotnull(hd_income_band_sk#89))
+               :     :           +- Relation [hd_demo_sk#88,hd_income_band_sk#89,hd_buy_potential#90,hd_dep_count#91,hd_vehicle_count#92] parquet
+               :     +- Project [ib_income_band_sk#240]
+               :        +- Filter (((isnotnull(ib_lower_bound#241) AND isnotnull(ib_upper_bound#242)) AND ((ib_lower_bound#241 >= 32287) AND (ib_upper_bound#242 <= 82287))) AND isnotnull(ib_income_band_sk#240))
+               :           +- Relation [ib_income_band_sk#240,ib_lower_bound#241,ib_upper_bound#242] parquet
+               +- Project [sr_cdemo_sk#140]
+                  +- Filter isnotnull(sr_cdemo_sk#140)
+                     +- Relation [sr_returned_date_sk#136,sr_return_time_sk#137,sr_item_sk#138,sr_customer_sk#139,sr_cdemo_sk#140,sr_hdemo_sk#141,sr_addr_sk#142,sr_store_sk#143,sr_reason_sk#144,sr_ticket_number#145L,sr_return_quantity#146,sr_return_amt#147,sr_return_tax#148,sr_return_amt_inc_tax#149,sr_fee#150,sr_return_ship_cost#151,sr_refunded_cash#152,sr_reversed_charge#153,sr_store_credit#154,sr_net_loss#155] parquet

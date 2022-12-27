@@ -1,0 +1,263 @@
+---
+title: "GlobalLimit (unknown)"
+operator: "GlobalLimit"
+inputs:
+- title: "LocalLimit (unknown)"
+  operator: "LocalLimit"
+  inputs:
+  - title: "Sort (unknown)"
+    operator: "Sort"
+    inputs:
+    - title: "Projection: cc_name#6, d_year#618, d_moy#620, avg_monthly_sales#10687,\
+        \ sum_sales#10686, sum_sales#10706 AS psum#10689, sum_sales#10714 AS nsum#10690"
+      operator: "projection"
+      inputs:
+      - title: "Inner Join: Some(((((i_category#680 = i_category#10860) AND (i_brand#676\
+          \ = i_brand#10856)) AND (cc_name#6 = cc_name#10938)) AND (rn#10688 = (rn#10967\
+          \ - 1))))"
+        operator: "join"
+        inputs:
+        - title: "Projection: i_category#680, i_brand#676, cc_name#6, d_year#618,\
+            \ d_moy#620, sum_sales#10686, avg_monthly_sales#10687, rn#10688, sum_sales#10706"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some(((((i_category#680 = i_category#10740) AND (i_brand#676\
+              \ = i_brand#10736)) AND (cc_name#6 = cc_name#10818)) AND (rn#10688 =\
+              \ (rn#10847 + 1))))"
+            operator: "join"
+            inputs:
+            - title: "Projection: i_category#680, i_brand#676, cc_name#6, d_year#618,\
+                \ d_moy#620, sum_sales#10686, avg_monthly_sales#10687, rn#10688"
+              operator: "projection"
+              inputs:
+              - title: "Filter: ((isnotnull(avg_monthly_sales#10687) AND (avg_monthly_sales#10687\
+                  \ > 0.000000)) AND (CheckOverflow((promote_precision(abs(CheckOverflow((promote_precision(cast(sum_sales#10686\
+                  \ as decimal(22,6))) - promote_precision(cast(avg_monthly_sales#10687\
+                  \ as decimal(22,6)))), DecimalType(22,6), true), false)) / promote_precision(cast(avg_monthly_sales#10687\
+                  \ as decimal(22,6)))), DecimalType(38,16), true) > 0.1000000000000000))"
+                operator: "filter"
+                inputs:
+                - title: "Window (unknown)"
+                  operator: "Window"
+                  inputs:
+                  - title: "Filter: (isnotnull(d_year#618) AND (d_year#618 = 2000))"
+                    operator: "filter"
+                    inputs:
+                    - title: "Window (unknown)"
+                      operator: "Window"
+                      inputs:
+                      - title: "Aggregate (unknown)"
+                        operator: "Aggregate"
+                        inputs:
+                        - title: "Projection: i_brand#676, i_category#680, cs_sales_price#565,\
+                            \ d_year#618, d_moy#620, cc_name#6"
+                          operator: "projection"
+                          inputs:
+                          - title: "Inner Join: Some((cc_call_center_sk#0 = cs_call_center_sk#555))"
+                            operator: "join"
+                            inputs:
+                            - title: "Projection: i_brand#676, i_category#680, cs_call_center_sk#555,\
+                                \ cs_sales_price#565, d_year#618, d_moy#620"
+                              operator: "projection"
+                              inputs:
+                              - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#612))"
+                                operator: "join"
+                                inputs:
+                                - title: "Projection: i_brand#676, i_category#680,\
+                                    \ cs_sold_date_sk#544, cs_call_center_sk#555,\
+                                    \ cs_sales_price#565"
+                                  operator: "projection"
+                                  inputs:
+                                  - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#668))"
+                                    operator: "join"
+                                    inputs:
+                                    - title: "Projection: i_item_sk#668, i_brand#676,\
+                                        \ i_category#680"
+                                      operator: "projection"
+                                      inputs:
+                                      - title: "Filter: (isnotnull(i_item_sk#668)\
+                                          \ AND (isnotnull(i_category#680) AND isnotnull(i_brand#676)))"
+                                        operator: "filter"
+                                        inputs:
+                                        - title: "item.parquet"
+                                          operator: "scan"
+                                          inputs: []
+                                    - title: "Projection: cs_sold_date_sk#544, cs_call_center_sk#555,\
+                                        \ cs_item_sk#559, cs_sales_price#565"
+                                      operator: "projection"
+                                      inputs:
+                                      - title: "Filter: (isnotnull(cs_item_sk#559)\
+                                          \ AND (isnotnull(cs_sold_date_sk#544) AND\
+                                          \ isnotnull(cs_call_center_sk#555)))"
+                                        operator: "filter"
+                                        inputs:
+                                        - title: "catalog_sales.parquet"
+                                          operator: "scan"
+                                          inputs: []
+                                - title: "Projection: d_date_sk#612, d_year#618, d_moy#620"
+                                  operator: "projection"
+                                  inputs:
+                                  - title: "Filter: ((((d_year#618 = 2000) OR ((d_year#618\
+                                      \ = 1999) AND (d_moy#620 = 12))) OR ((d_year#618\
+                                      \ = 2001) AND (d_moy#620 = 1))) AND isnotnull(d_date_sk#612))"
+                                    operator: "filter"
+                                    inputs:
+                                    - title: "date_dim.parquet"
+                                      operator: "scan"
+                                      inputs: []
+                            - title: "Projection: cc_call_center_sk#0, cc_name#6"
+                              operator: "projection"
+                              inputs:
+                              - title: "Filter: (isnotnull(cc_call_center_sk#0) AND\
+                                  \ isnotnull(cc_name#6))"
+                                operator: "filter"
+                                inputs:
+                                - title: "call_center.parquet"
+                                  operator: "scan"
+                                  inputs: []
+            - title: "Projection: i_category#10740, i_brand#10736, cc_name#10818,\
+                \ sum_sales#10686 AS sum_sales#10706, rn#10847"
+              operator: "projection"
+              inputs:
+              - title: "Window (unknown)"
+                operator: "Window"
+                inputs:
+                - title: "Aggregate (unknown)"
+                  operator: "Aggregate"
+                  inputs:
+                  - title: "Projection: i_brand#10736, i_category#10740, cs_sales_price#10771,\
+                      \ d_year#10790, d_moy#10792, cc_name#10818"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((cc_call_center_sk#10812 = cs_call_center_sk#10761))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: i_brand#10736, i_category#10740, cs_call_center_sk#10761,\
+                          \ cs_sales_price#10771, d_year#10790, d_moy#10792"
+                        operator: "projection"
+                        inputs:
+                        - title: "Inner Join: Some((cs_sold_date_sk#10750 = d_date_sk#10784))"
+                          operator: "join"
+                          inputs:
+                          - title: "Projection: i_brand#10736, i_category#10740, cs_sold_date_sk#10750,\
+                              \ cs_call_center_sk#10761, cs_sales_price#10771"
+                            operator: "projection"
+                            inputs:
+                            - title: "Inner Join: Some((cs_item_sk#10765 = i_item_sk#10728))"
+                              operator: "join"
+                              inputs:
+                              - title: "Projection: i_item_sk#10728, i_brand#10736,\
+                                  \ i_category#10740"
+                                operator: "projection"
+                                inputs:
+                                - title: "Filter: (isnotnull(i_item_sk#10728) AND\
+                                    \ (isnotnull(i_category#10740) AND isnotnull(i_brand#10736)))"
+                                  operator: "filter"
+                                  inputs:
+                                  - title: "item.parquet"
+                                    operator: "scan"
+                                    inputs: []
+                              - title: "Projection: cs_sold_date_sk#10750, cs_call_center_sk#10761,\
+                                  \ cs_item_sk#10765, cs_sales_price#10771"
+                                operator: "projection"
+                                inputs:
+                                - title: "Filter: ((isnotnull(cs_item_sk#10765) AND\
+                                    \ isnotnull(cs_sold_date_sk#10750)) AND isnotnull(cs_call_center_sk#10761))"
+                                  operator: "filter"
+                                  inputs:
+                                  - title: "catalog_sales.parquet"
+                                    operator: "scan"
+                                    inputs: []
+                          - title: "Projection: d_date_sk#10784, d_year#10790, d_moy#10792"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: ((((d_year#10790 = 2000) OR ((d_year#10790\
+                                \ = 1999) AND (d_moy#10792 = 12))) OR ((d_year#10790\
+                                \ = 2001) AND (d_moy#10792 = 1))) AND isnotnull(d_date_sk#10784))"
+                              operator: "filter"
+                              inputs:
+                              - title: "date_dim.parquet"
+                                operator: "scan"
+                                inputs: []
+                      - title: "Projection: cc_call_center_sk#10812, cc_name#10818"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (isnotnull(cc_call_center_sk#10812) AND\
+                            \ isnotnull(cc_name#10818))"
+                          operator: "filter"
+                          inputs:
+                          - title: "call_center.parquet"
+                            operator: "scan"
+                            inputs: []
+        - title: "Projection: i_category#10860, i_brand#10856, cc_name#10938, sum_sales#10686\
+            \ AS sum_sales#10714, rn#10967"
+          operator: "projection"
+          inputs:
+          - title: "Window (unknown)"
+            operator: "Window"
+            inputs:
+            - title: "Aggregate (unknown)"
+              operator: "Aggregate"
+              inputs:
+              - title: "Projection: i_brand#10856, i_category#10860, cs_sales_price#10891,\
+                  \ d_year#10910, d_moy#10912, cc_name#10938"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((cc_call_center_sk#10932 = cs_call_center_sk#10881))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: i_brand#10856, i_category#10860, cs_call_center_sk#10881,\
+                      \ cs_sales_price#10891, d_year#10910, d_moy#10912"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some((cs_sold_date_sk#10870 = d_date_sk#10904))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: i_brand#10856, i_category#10860, cs_sold_date_sk#10870,\
+                          \ cs_call_center_sk#10881, cs_sales_price#10891"
+                        operator: "projection"
+                        inputs:
+                        - title: "Inner Join: Some((cs_item_sk#10885 = i_item_sk#10848))"
+                          operator: "join"
+                          inputs:
+                          - title: "Projection: i_item_sk#10848, i_brand#10856, i_category#10860"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: (isnotnull(i_item_sk#10848) AND (isnotnull(i_category#10860)\
+                                \ AND isnotnull(i_brand#10856)))"
+                              operator: "filter"
+                              inputs:
+                              - title: "item.parquet"
+                                operator: "scan"
+                                inputs: []
+                          - title: "Projection: cs_sold_date_sk#10870, cs_call_center_sk#10881,\
+                              \ cs_item_sk#10885, cs_sales_price#10891"
+                            operator: "projection"
+                            inputs:
+                            - title: "Filter: ((isnotnull(cs_item_sk#10885) AND isnotnull(cs_sold_date_sk#10870))\
+                                \ AND isnotnull(cs_call_center_sk#10881))"
+                              operator: "filter"
+                              inputs:
+                              - title: "catalog_sales.parquet"
+                                operator: "scan"
+                                inputs: []
+                      - title: "Projection: d_date_sk#10904, d_year#10910, d_moy#10912"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: ((((d_year#10910 = 2000) OR ((d_year#10910\
+                            \ = 1999) AND (d_moy#10912 = 12))) OR ((d_year#10910 =\
+                            \ 2001) AND (d_moy#10912 = 1))) AND isnotnull(d_date_sk#10904))"
+                          operator: "filter"
+                          inputs:
+                          - title: "date_dim.parquet"
+                            operator: "scan"
+                            inputs: []
+                  - title: "Projection: cc_call_center_sk#10932, cc_name#10938"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: (isnotnull(cc_call_center_sk#10932) AND isnotnull(cc_name#10938))"
+                      operator: "filter"
+                      inputs:
+                      - title: "call_center.parquet"
+                        operator: "scan"
+                        inputs: []
