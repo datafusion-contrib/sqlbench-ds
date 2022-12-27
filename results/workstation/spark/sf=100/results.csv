@@ -1,28 +1,4 @@
-Register call_center,4863
-Register customer_address,5160
-Register household_demographics,5270
-Register promotion,5401
-Register store_returns,5542
-Register web_page,5667
-Register catalog_page,6653
-Register customer_demographics,6891
-Register income_band,6993
-Register reason,7110
-Register store_sales,7266
-Register web_returns,7383
-Register catalog_returns,7491
-Register customer,7598
-Register inventory,7693
-Register ship_mode,7799
-Register time_dim,7896
-Register web_sales,8007
-Register catalog_sales,8098
-Register date_dim,8204
-Register item,8295
-Register store,8388
-Register warehouse,8473
-Register web_site,8567
-Register All Tables,8567
+Register Tables,8567
 q1,17661
 q2,16929
 q3,16939
