@@ -45,9 +45,11 @@ object Main {
       df.createTempView(table)
       val duration = System.currentTimeMillis() - start
       w.write(s"Register $table,$duration\n")
+      w.flush()
     }
     val duration = System.currentTimeMillis() - start
     w.write(s"Register All Tables,$duration\n")
+    w.flush()
 
     if (conf.query.isSupplied) {
       execute(spark, conf.queryPath(), conf.query().toInt, w)
@@ -80,7 +82,7 @@ object Main {
     val sql = source.getLines.mkString("\n")
     source.close()
 
-    val queries = sql.split(';').filterNot(_.isEmpty)
+    val queries = sql.split(';').filterNot(_.trim.isEmpty)
 
     for ((sql, i) <- queries.zipWithIndex) {
       println(sql)
