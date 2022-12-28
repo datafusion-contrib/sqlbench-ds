@@ -95,7 +95,8 @@ object Main {
       val results = resultDf.collect()
       val duration = System.currentTimeMillis() - start
       println(s"Query $query took $duration ms")
-      results.foreach(println)
+
+
 
       var prefix = s"q$query"
       if (queries.length > 1) {
@@ -109,6 +110,17 @@ object Main {
       writeFile(prefix, "logical_plan.qpml", Qpml.fromLogicalPlan(optimizedLogicalPlan))
       val physicalPlan = resultDf.queryExecution.executedPlan
       writeFile(prefix, "physical_plan.txt", physicalPlan.toString())
+
+      val csvFilename = s"$prefix.csv"
+
+      // write results to CSV format
+      val resultWriter = new BufferedWriter(new FileWriter(csvFilename))
+      resultWriter.write(physicalPlan.schema.fieldNames.mkString(",") + "\n")
+      results.foreach(row => resultWriter.write(row.mkString(",") + "\n"))
+      resultWriter.close()
+
+      // could also save directly from dataframe but this would execute the query again
+      //resultDf.coalesce(1).write.csv(csvFilename)
     }
   }
 
