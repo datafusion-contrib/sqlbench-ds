@@ -1,0 +1,48 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: dt.d_year, item.i_brand_id AS brand_id, item.i_brand AS brand, SUM(store_sales.ss_sales_price) AS sum_agg'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: 'Join: store_sales.ss_item_sk = item.i_item_sk'
+        color: null
+        operator: join
+        inputs:
+        - title: 'Join: dt.d_date_sk = store_sales.ss_sold_date_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Filter: date_dim.d_moy = Int32(11)'
+              color: null
+              operator: filter
+              inputs:
+              - title: date_dim
+                color: null
+                operator: scan
+                inputs: []
+          - title: store_sales
+            color: null
+            operator: scan
+            inputs: []
+        - title: 'Filter: item.i_manufact_id = Int32(55)'
+          color: null
+          operator: filter
+          inputs:
+          - title: item
+            color: null
+            operator: scan
+            inputs: []

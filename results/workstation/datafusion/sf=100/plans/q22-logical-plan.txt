@@ -1,0 +1,10 @@
+Limit: skip=0, fetch=100
+  Sort: qoh ASC NULLS LAST, item.i_product_name ASC NULLS LAST, item.i_brand ASC NULLS LAST, item.i_class ASC NULLS LAST, item.i_category ASC NULLS LAST, fetch=100
+    Projection: item.i_product_name, item.i_brand, item.i_class, item.i_category, AVG(inventory.inv_quantity_on_hand) AS qoh
+      Aggregate: groupBy=[[ROLLUP (item.i_product_name, item.i_brand, item.i_class, item.i_category)]], aggr=[[AVG(inventory.inv_quantity_on_hand)]]
+        Inner Join: inventory.inv_item_sk = item.i_item_sk
+          Inner Join: inventory.inv_date_sk = date_dim.d_date_sk
+            TableScan: inventory projection=[inv_date_sk, inv_item_sk, inv_quantity_on_hand]
+            Filter: date_dim.d_month_seq >= Int32(1204) AND date_dim.d_month_seq <= Int32(1215)
+              TableScan: date_dim projection=[d_date_sk, d_month_seq], partial_filters=[date_dim.d_month_seq >= Int32(1204), date_dim.d_month_seq <= Int32(1215)]
+          TableScan: item projection=[i_item_sk, i_brand, i_class, i_category, i_product_name]

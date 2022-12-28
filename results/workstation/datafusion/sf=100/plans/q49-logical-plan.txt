@@ -1,0 +1,62 @@
+Limit: skip=0, fetch=100
+  Sort: channel ASC NULLS LAST, return_rank ASC NULLS LAST, currency_rank ASC NULLS LAST, item ASC NULLS LAST, fetch=100
+    Projection: channel, item, return_ratio, return_rank, currency_rank
+      Distinct:
+        Union
+          Projection: Utf8("web") AS channel, web.item, web.return_ratio, web.return_rank, web.currency_rank
+            SubqueryAlias: web
+              Projection: in_web.item, in_web.return_ratio, RANK() ORDER BY [in_web.return_ratio ASC NULLS LAST] AS return_rank, RANK() ORDER BY [in_web.currency_ratio ASC NULLS LAST] AS currency_rank
+                Filter: RANK() ORDER BY [in_web.return_ratio ASC NULLS LAST] <= UInt64(10) OR RANK() ORDER BY [in_web.currency_ratio ASC NULLS LAST] <= UInt64(10)
+                  WindowAggr: windowExpr=[[RANK() ORDER BY [in_web.return_ratio ASC NULLS LAST]]]
+                    WindowAggr: windowExpr=[[RANK() ORDER BY [in_web.currency_ratio ASC NULLS LAST]]]
+                      SubqueryAlias: in_web
+                        Projection: ws.ws_item_sk AS item, CAST(SUM(coalesce(wr.wr_return_quantity,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(ws.ws_quantity,Int64(0))) AS Decimal128(15, 4)) AS return_ratio, CAST(SUM(coalesce(wr.wr_return_amt,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(ws.ws_net_paid,Int64(0))) AS Decimal128(15, 4)) AS currency_ratio
+                          Aggregate: groupBy=[[ws.ws_item_sk]], aggr=[[SUM(coalesce(CAST(wr.wr_return_quantity AS Int64), Int64(0))), SUM(coalesce(CAST(ws.ws_quantity AS Int64), Int64(0))), SUM(coalesce(CAST(wr.wr_return_amt AS Float64), Float64(0))) AS SUM(coalesce(wr.wr_return_amt,Int64(0))), SUM(coalesce(CAST(ws.ws_net_paid AS Float64), Float64(0))) AS SUM(coalesce(ws.ws_net_paid,Int64(0)))]]
+                            Inner Join: ws.ws_sold_date_sk = date_dim.d_date_sk
+                              Inner Join: ws.ws_order_number = wr.wr_order_number, ws.ws_item_sk = wr.wr_item_sk
+                                SubqueryAlias: ws
+                                  Filter: web_sales.ws_net_profit > Decimal128(Some(100),7,2) AND web_sales.ws_net_paid > Decimal128(Some(0),7,2) AND web_sales.ws_quantity > Int32(0)
+                                    TableScan: web_sales projection=[ws_sold_date_sk, ws_item_sk, ws_order_number, ws_quantity, ws_net_paid, ws_net_profit], partial_filters=[web_sales.ws_net_profit > Decimal128(Some(100),7,2), web_sales.ws_net_paid > Decimal128(Some(0),7,2), web_sales.ws_quantity > Int32(0)]
+                                SubqueryAlias: wr
+                                  Filter: web_returns.wr_return_amt > Decimal128(Some(1000000),7,2)
+                                    TableScan: web_returns projection=[wr_item_sk, wr_order_number, wr_return_quantity, wr_return_amt], partial_filters=[web_returns.wr_return_amt > Decimal128(Some(1000000),7,2)]
+                              Filter: date_dim.d_year = Int32(2000) AND date_dim.d_moy = Int32(11)
+                                TableScan: date_dim projection=[d_date_sk, d_year, d_moy], partial_filters=[date_dim.d_year = Int32(2000), date_dim.d_moy = Int32(11)]
+          Projection: Utf8("catalog") AS channel, catalog.item, catalog.return_ratio, catalog.return_rank, catalog.currency_rank
+            SubqueryAlias: catalog
+              Projection: in_cat.item, in_cat.return_ratio, RANK() ORDER BY [in_cat.return_ratio ASC NULLS LAST] AS return_rank, RANK() ORDER BY [in_cat.currency_ratio ASC NULLS LAST] AS currency_rank
+                Filter: RANK() ORDER BY [in_cat.return_ratio ASC NULLS LAST] <= UInt64(10) OR RANK() ORDER BY [in_cat.currency_ratio ASC NULLS LAST] <= UInt64(10)
+                  WindowAggr: windowExpr=[[RANK() ORDER BY [in_cat.return_ratio ASC NULLS LAST]]]
+                    WindowAggr: windowExpr=[[RANK() ORDER BY [in_cat.currency_ratio ASC NULLS LAST]]]
+                      SubqueryAlias: in_cat
+                        Projection: cs.cs_item_sk AS item, CAST(SUM(coalesce(cr.cr_return_quantity,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(cs.cs_quantity,Int64(0))) AS Decimal128(15, 4)) AS return_ratio, CAST(SUM(coalesce(cr.cr_return_amount,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(cs.cs_net_paid,Int64(0))) AS Decimal128(15, 4)) AS currency_ratio
+                          Aggregate: groupBy=[[cs.cs_item_sk]], aggr=[[SUM(coalesce(CAST(cr.cr_return_quantity AS Int64), Int64(0))), SUM(coalesce(CAST(cs.cs_quantity AS Int64), Int64(0))), SUM(coalesce(CAST(cr.cr_return_amount AS Float64), Float64(0))) AS SUM(coalesce(cr.cr_return_amount,Int64(0))), SUM(coalesce(CAST(cs.cs_net_paid AS Float64), Float64(0))) AS SUM(coalesce(cs.cs_net_paid,Int64(0)))]]
+                            Inner Join: cs.cs_sold_date_sk = date_dim.d_date_sk
+                              Inner Join: cs.cs_order_number = cr.cr_order_number, cs.cs_item_sk = cr.cr_item_sk
+                                SubqueryAlias: cs
+                                  Filter: catalog_sales.cs_net_profit > Decimal128(Some(100),7,2) AND catalog_sales.cs_net_paid > Decimal128(Some(0),7,2) AND catalog_sales.cs_quantity > Int32(0)
+                                    TableScan: catalog_sales projection=[cs_sold_date_sk, cs_item_sk, cs_order_number, cs_quantity, cs_net_paid, cs_net_profit], partial_filters=[catalog_sales.cs_net_profit > Decimal128(Some(100),7,2), catalog_sales.cs_net_paid > Decimal128(Some(0),7,2), catalog_sales.cs_quantity > Int32(0)]
+                                SubqueryAlias: cr
+                                  Filter: catalog_returns.cr_return_amount > Decimal128(Some(1000000),7,2)
+                                    TableScan: catalog_returns projection=[cr_item_sk, cr_order_number, cr_return_quantity, cr_return_amount], partial_filters=[catalog_returns.cr_return_amount > Decimal128(Some(1000000),7,2)]
+                              Filter: date_dim.d_year = Int32(2000) AND date_dim.d_moy = Int32(11)
+                                TableScan: date_dim projection=[d_date_sk, d_year, d_moy], partial_filters=[date_dim.d_year = Int32(2000), date_dim.d_moy = Int32(11)]
+          Projection: Utf8("store") AS channel, store.item, store.return_ratio, store.return_rank, store.currency_rank
+            SubqueryAlias: store
+              Projection: in_store.item, in_store.return_ratio, RANK() ORDER BY [in_store.return_ratio ASC NULLS LAST] AS return_rank, RANK() ORDER BY [in_store.currency_ratio ASC NULLS LAST] AS currency_rank
+                Filter: RANK() ORDER BY [in_store.return_ratio ASC NULLS LAST] <= UInt64(10) OR RANK() ORDER BY [in_store.currency_ratio ASC NULLS LAST] <= UInt64(10)
+                  WindowAggr: windowExpr=[[RANK() ORDER BY [in_store.return_ratio ASC NULLS LAST]]]
+                    WindowAggr: windowExpr=[[RANK() ORDER BY [in_store.currency_ratio ASC NULLS LAST]]]
+                      SubqueryAlias: in_store
+                        Projection: sts.ss_item_sk AS item, CAST(SUM(coalesce(sr.sr_return_quantity,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(sts.ss_quantity,Int64(0))) AS Decimal128(15, 4)) AS return_ratio, CAST(SUM(coalesce(sr.sr_return_amt,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(sts.ss_net_paid,Int64(0))) AS Decimal128(15, 4)) AS currency_ratio
+                          Aggregate: groupBy=[[sts.ss_item_sk]], aggr=[[SUM(coalesce(CAST(sr.sr_return_quantity AS Int64), Int64(0))), SUM(coalesce(CAST(sts.ss_quantity AS Int64), Int64(0))), SUM(coalesce(CAST(sr.sr_return_amt AS Float64), Float64(0))) AS SUM(coalesce(sr.sr_return_amt,Int64(0))), SUM(coalesce(CAST(sts.ss_net_paid AS Float64), Float64(0))) AS SUM(coalesce(sts.ss_net_paid,Int64(0)))]]
+                            Inner Join: sts.ss_sold_date_sk = date_dim.d_date_sk
+                              Inner Join: sts.ss_ticket_number = sr.sr_ticket_number, sts.ss_item_sk = sr.sr_item_sk
+                                SubqueryAlias: sts
+                                  Filter: store_sales.ss_net_profit > Decimal128(Some(100),7,2) AND store_sales.ss_net_paid > Decimal128(Some(0),7,2) AND store_sales.ss_quantity > Int32(0)
+                                    TableScan: store_sales projection=[ss_sold_date_sk, ss_item_sk, ss_ticket_number, ss_quantity, ss_net_paid, ss_net_profit], partial_filters=[store_sales.ss_net_profit > Decimal128(Some(100),7,2), store_sales.ss_net_paid > Decimal128(Some(0),7,2), store_sales.ss_quantity > Int32(0)]
+                                SubqueryAlias: sr
+                                  Filter: store_returns.sr_return_amt > Decimal128(Some(1000000),7,2)
+                                    TableScan: store_returns projection=[sr_item_sk, sr_ticket_number, sr_return_quantity, sr_return_amt], partial_filters=[store_returns.sr_return_amt > Decimal128(Some(1000000),7,2)]
+                              Filter: date_dim.d_year = Int32(2000) AND date_dim.d_moy = Int32(11)
+                                TableScan: date_dim projection=[d_date_sk, d_year, d_moy], partial_filters=[date_dim.d_year = Int32(2000), date_dim.d_moy = Int32(11)]

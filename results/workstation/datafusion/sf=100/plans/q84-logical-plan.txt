@@ -1,0 +1,17 @@
+Projection: customer_id, customername
+  Limit: skip=0, fetch=100
+    Sort: customer.c_customer_id ASC NULLS LAST, fetch=100
+      Projection: customer.c_customer_id AS customer_id, (coalesce(customer.c_last_name, Utf8("")) || Utf8(", ")) || coalesce(customer.c_first_name, Utf8("")) AS customername, customer.c_customer_id
+        Inner Join: customer_demographics.cd_demo_sk = store_returns.sr_cdemo_sk
+          Inner Join: household_demographics.hd_income_band_sk = income_band.ib_income_band_sk
+            Inner Join: customer.c_current_hdemo_sk = household_demographics.hd_demo_sk
+              Inner Join: customer.c_current_cdemo_sk = customer_demographics.cd_demo_sk
+                Inner Join: customer.c_current_addr_sk = customer_address.ca_address_sk
+                  TableScan: customer projection=[c_customer_id, c_current_cdemo_sk, c_current_hdemo_sk, c_current_addr_sk, c_first_name, c_last_name]
+                  Filter: customer_address.ca_city = Utf8("Oak Hill")
+                    TableScan: customer_address projection=[ca_address_sk, ca_city], partial_filters=[customer_address.ca_city = Utf8("Oak Hill")]
+                TableScan: customer_demographics projection=[cd_demo_sk]
+              TableScan: household_demographics projection=[hd_demo_sk, hd_income_band_sk]
+            Filter: income_band.ib_lower_bound >= Int32(47241) AND income_band.ib_upper_bound <= Int32(97241)
+              TableScan: income_band projection=[ib_income_band_sk, ib_lower_bound, ib_upper_bound], partial_filters=[income_band.ib_lower_bound >= Int32(47241), income_band.ib_upper_bound <= Int32(97241)]
+          TableScan: store_returns projection=[sr_cdemo_sk]

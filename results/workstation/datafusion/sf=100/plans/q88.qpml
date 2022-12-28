@@ -1,0 +1,512 @@
+title: 'Projection: s1.h8_30_to_9, s2.h9_to_9_30, s3.h9_30_to_10, s4.h10_to_10_30, s5.h10_30_to_11, s6.h11_to_11_30, s7.h11_30_to_12, s8.h12_to_12_30'
+color: null
+operator: projection
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: unknown
+    color: null
+    operator: null
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: unknown
+          color: null
+          operator: null
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: 'Projection: COUNT(UInt8(1)) AS h8_30_to_9'
+                  color: null
+                  operator: projection
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: store_sales
+                            color: null
+                            operator: scan
+                            inputs: []
+                          - title: 'Projection: household_demographics.hd_demo_sk'
+                            color: null
+                            operator: projection
+                            inputs:
+                            - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                                color: null
+                                operator: projection
+                                inputs:
+                                - title: household_demographics
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                        - title: 'Filter: time_dim.t_hour = Int32(8) AND time_dim.t_minute >= Int32(30)'
+                          color: null
+                          operator: filter
+                          inputs:
+                          - title: time_dim
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: 'Filter: store.s_store_name = Utf8("ese")'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: store
+                          color: null
+                          operator: scan
+                          inputs: []
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: 'Projection: COUNT(UInt8(1)) AS h9_to_9_30'
+                  color: null
+                  operator: projection
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: store_sales
+                            color: null
+                            operator: scan
+                            inputs: []
+                          - title: 'Projection: household_demographics.hd_demo_sk'
+                            color: null
+                            operator: projection
+                            inputs:
+                            - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                                color: null
+                                operator: projection
+                                inputs:
+                                - title: household_demographics
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                        - title: 'Filter: time_dim.t_hour = Int32(9) AND time_dim.t_minute < Int32(30)'
+                          color: null
+                          operator: filter
+                          inputs:
+                          - title: time_dim
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: 'Filter: store.s_store_name = Utf8("ese")'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: store
+                          color: null
+                          operator: scan
+                          inputs: []
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: 'Projection: COUNT(UInt8(1)) AS h9_30_to_10'
+                color: null
+                operator: projection
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: store_sales
+                          color: null
+                          operator: scan
+                          inputs: []
+                        - title: 'Projection: household_demographics.hd_demo_sk'
+                          color: null
+                          operator: projection
+                          inputs:
+                          - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                            color: null
+                            operator: filter
+                            inputs:
+                            - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                              color: null
+                              operator: projection
+                              inputs:
+                              - title: household_demographics
+                                color: null
+                                operator: scan
+                                inputs: []
+                      - title: 'Filter: time_dim.t_hour = Int32(9) AND time_dim.t_minute >= Int32(30)'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: time_dim
+                          color: null
+                          operator: scan
+                          inputs: []
+                    - title: 'Filter: store.s_store_name = Utf8("ese")'
+                      color: null
+                      operator: filter
+                      inputs:
+                      - title: store
+                        color: null
+                        operator: scan
+                        inputs: []
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: COUNT(UInt8(1)) AS h10_to_10_30'
+              color: null
+              operator: projection
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: store_sales
+                        color: null
+                        operator: scan
+                        inputs: []
+                      - title: 'Projection: household_demographics.hd_demo_sk'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                          color: null
+                          operator: filter
+                          inputs:
+                          - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                            color: null
+                            operator: projection
+                            inputs:
+                            - title: household_demographics
+                              color: null
+                              operator: scan
+                              inputs: []
+                    - title: 'Filter: time_dim.t_hour = Int32(10) AND time_dim.t_minute < Int32(30)'
+                      color: null
+                      operator: filter
+                      inputs:
+                      - title: time_dim
+                        color: null
+                        operator: scan
+                        inputs: []
+                  - title: 'Filter: store.s_store_name = Utf8("ese")'
+                    color: null
+                    operator: filter
+                    inputs:
+                    - title: store
+                      color: null
+                      operator: scan
+                      inputs: []
+        - title: unknown
+          color: null
+          operator: null
+          inputs:
+          - title: 'Projection: COUNT(UInt8(1)) AS h10_30_to_11'
+            color: null
+            operator: projection
+            inputs:
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: store_sales
+                      color: null
+                      operator: scan
+                      inputs: []
+                    - title: 'Projection: household_demographics.hd_demo_sk'
+                      color: null
+                      operator: projection
+                      inputs:
+                      - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                          color: null
+                          operator: projection
+                          inputs:
+                          - title: household_demographics
+                            color: null
+                            operator: scan
+                            inputs: []
+                  - title: 'Filter: time_dim.t_hour = Int32(10) AND time_dim.t_minute >= Int32(30)'
+                    color: null
+                    operator: filter
+                    inputs:
+                    - title: time_dim
+                      color: null
+                      operator: scan
+                      inputs: []
+                - title: 'Filter: store.s_store_name = Utf8("ese")'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: store
+                    color: null
+                    operator: scan
+                    inputs: []
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Projection: COUNT(UInt8(1)) AS h11_to_11_30'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: store_sales
+                    color: null
+                    operator: scan
+                    inputs: []
+                  - title: 'Projection: household_demographics.hd_demo_sk'
+                    color: null
+                    operator: projection
+                    inputs:
+                    - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                      color: null
+                      operator: filter
+                      inputs:
+                      - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: household_demographics
+                          color: null
+                          operator: scan
+                          inputs: []
+                - title: 'Filter: time_dim.t_hour = Int32(11) AND time_dim.t_minute < Int32(30)'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: time_dim
+                    color: null
+                    operator: scan
+                    inputs: []
+              - title: 'Filter: store.s_store_name = Utf8("ese")'
+                color: null
+                operator: filter
+                inputs:
+                - title: store
+                  color: null
+                  operator: scan
+                  inputs: []
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: 'Projection: COUNT(UInt8(1)) AS h11_30_to_12'
+        color: null
+        operator: projection
+        inputs:
+        - title: unknown
+          color: null
+          operator: null
+          inputs:
+          - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: store_sales
+                  color: null
+                  operator: scan
+                  inputs: []
+                - title: 'Projection: household_demographics.hd_demo_sk'
+                  color: null
+                  operator: projection
+                  inputs:
+                  - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                    color: null
+                    operator: filter
+                    inputs:
+                    - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                      color: null
+                      operator: projection
+                      inputs:
+                      - title: household_demographics
+                        color: null
+                        operator: scan
+                        inputs: []
+              - title: 'Filter: time_dim.t_hour = Int32(11) AND time_dim.t_minute >= Int32(30)'
+                color: null
+                operator: filter
+                inputs:
+                - title: time_dim
+                  color: null
+                  operator: scan
+                  inputs: []
+            - title: 'Filter: store.s_store_name = Utf8("ese")'
+              color: null
+              operator: filter
+              inputs:
+              - title: store
+                color: null
+                operator: scan
+                inputs: []
+  - title: unknown
+    color: null
+    operator: null
+    inputs:
+    - title: 'Projection: COUNT(UInt8(1)) AS h12_to_12_30'
+      color: null
+      operator: projection
+      inputs:
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Join: store_sales.ss_sold_time_sk = time_dim.t_time_sk'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Join: store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: store_sales
+                color: null
+                operator: scan
+                inputs: []
+              - title: 'Projection: household_demographics.hd_demo_sk'
+                color: null
+                operator: projection
+                inputs:
+                - title: 'Filter: (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count) AND (household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count OR household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count)'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: 'Projection: household_demographics.hd_dep_count = Int32(0) AS household_demographics.hd_dep_count = Int32(0)Int32(0)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_dep_count = Int32(3) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_dep_count = Int32(3)Int32(3)household_demographics.hd_dep_count, household_demographics.hd_vehicle_count <= Int32(2) AS household_demographics.hd_vehicle_count <= Int32(2)Int32(2)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_dep_count = Int32(1)household_demographics.hd_dep_count = Int32(1)Int32(1)household_demographics.hd_dep_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3) AS household_demographics.hd_vehicle_count <= Int32(5) OR household_demographics.hd_vehicle_count <= Int32(3)household_demographics.hd_vehicle_count <= Int32(3)Int32(3)household_demographics.hd_vehicle_counthousehold_demographics.hd_vehicle_count <= Int32(5)Int32(5)household_demographics.hd_vehicle_count, household_demographics.hd_demo_sk'
+                    color: null
+                    operator: projection
+                    inputs:
+                    - title: household_demographics
+                      color: null
+                      operator: scan
+                      inputs: []
+            - title: 'Filter: time_dim.t_hour = Int32(12) AND time_dim.t_minute < Int32(30)'
+              color: null
+              operator: filter
+              inputs:
+              - title: time_dim
+                color: null
+                operator: scan
+                inputs: []
+          - title: 'Filter: store.s_store_name = Utf8("ese")'
+            color: null
+            operator: filter
+            inputs:
+            - title: store
+              color: null
+              operator: scan
+              inputs: []

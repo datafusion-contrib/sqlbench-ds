@@ -1,0 +1,19 @@
+Limit: skip=0, fetch=100
+  Sort: customer_demographics.cd_gender ASC NULLS LAST, customer_demographics.cd_marital_status ASC NULLS LAST, customer_demographics.cd_education_status ASC NULLS LAST, customer_demographics.cd_purchase_estimate ASC NULLS LAST, customer_demographics.cd_credit_rating ASC NULLS LAST, customer_demographics.cd_dep_count ASC NULLS LAST, customer_demographics.cd_dep_employed_count ASC NULLS LAST, customer_demographics.cd_dep_college_count ASC NULLS LAST, fetch=100
+    Projection: customer_demographics.cd_gender, customer_demographics.cd_marital_status, customer_demographics.cd_education_status, COUNT(UInt8(1)) AS cnt1, customer_demographics.cd_purchase_estimate, COUNT(UInt8(1)) AS cnt2, customer_demographics.cd_credit_rating, COUNT(UInt8(1)) AS cnt3, customer_demographics.cd_dep_count, COUNT(UInt8(1)) AS cnt4, customer_demographics.cd_dep_employed_count, COUNT(UInt8(1)) AS cnt5, customer_demographics.cd_dep_college_count, COUNT(UInt8(1)) AS cnt6
+      Aggregate: groupBy=[[customer_demographics.cd_gender, customer_demographics.cd_marital_status, customer_demographics.cd_education_status, customer_demographics.cd_purchase_estimate, customer_demographics.cd_credit_rating, customer_demographics.cd_dep_count, customer_demographics.cd_dep_employed_count, customer_demographics.cd_dep_college_count]], aggr=[[COUNT(UInt8(1))]]
+        Projection: customer_demographics.cd_gender, customer_demographics.cd_marital_status, customer_demographics.cd_education_status, customer_demographics.cd_purchase_estimate, customer_demographics.cd_credit_rating, customer_demographics.cd_dep_count, customer_demographics.cd_dep_employed_count, customer_demographics.cd_dep_college_count
+          LeftSemi Join: c.c_customer_sk = store_sales.ss_customer_sk
+            Inner Join: c.c_current_cdemo_sk = customer_demographics.cd_demo_sk
+              Inner Join: c.c_current_addr_sk = ca.ca_address_sk
+                SubqueryAlias: c
+                  TableScan: customer projection=[c_customer_sk, c_current_cdemo_sk, c_current_addr_sk], full_filters=[EXISTS (<subquery>)]
+                SubqueryAlias: ca
+                  Filter: customer_address.ca_county IN ([Utf8("Greer County"), Utf8("Boone County"), Utf8("Cumberland County"), Utf8("Tyler County"), Utf8("Marion County")])
+                    TableScan: customer_address projection=[ca_address_sk, ca_county], partial_filters=[customer_address.ca_county IN ([Utf8("Greer County"), Utf8("Boone County"), Utf8("Cumberland County"), Utf8("Tyler County"), Utf8("Marion County")])]
+              TableScan: customer_demographics projection=[cd_demo_sk, cd_gender, cd_marital_status, cd_education_status, cd_purchase_estimate, cd_credit_rating, cd_dep_count, cd_dep_employed_count, cd_dep_college_count]
+            Projection: store_sales.ss_customer_sk
+              Inner Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk
+                TableScan: store_sales projection=[ss_sold_date_sk, ss_customer_sk]
+                Filter: date_dim.d_year = Int32(1999) AND date_dim.d_moy >= Int32(1) AND date_dim.d_moy <= Int32(4)
+                  TableScan: date_dim projection=[d_date_sk, d_year, d_moy], partial_filters=[CAST(date_dim.d_year AS Int64) = Int64(1999), CAST(date_dim.d_moy AS Int64) >= Int64(1), CAST(date_dim.d_moy AS Int64) <= Int64(4), date_dim.d_year = Int32(1999), date_dim.d_moy >= Int32(1), date_dim.d_moy <= Int32(4)]

@@ -1,0 +1,88 @@
+title: 'Projection: SUM(store_sales.ss_quantity)'
+color: null
+operator: projection
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: store_sales.ss_quantity'
+    color: null
+    operator: projection
+    inputs:
+    - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+      color: null
+      operator: join
+      inputs:
+      - title: 'Filter: (customer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN") OR customer_address.ca_state = Utf8("CO")) AND store_sales.ss_net_profit >= Decimal128(Some(0),7,2) AND store_sales.ss_net_profit <= Decimal128(Some(200000),7,2) OR (customer_address.ca_state = Utf8("NY") OR customer_address.ca_state = Utf8("TX") OR customer_address.ca_state = Utf8("AZ")) AND store_sales.ss_net_profit >= Decimal128(Some(15000),7,2) AND store_sales.ss_net_profit <= Decimal128(Some(300000),7,2) OR (customer_address.ca_state = Utf8("MI") OR customer_address.ca_state = Utf8("OH") OR customer_address.ca_state = Utf8("ND")) AND store_sales.ss_net_profit >= Decimal128(Some(5000),7,2) AND store_sales.ss_net_profit <= Decimal128(Some(2500000),7,2)'
+        color: null
+        operator: filter
+        inputs:
+        - title: 'Join: store_sales.ss_addr_sk = customer_address.ca_address_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Filter: customer_demographics.cd_marital_status = Utf8("S") AND customer_demographics.cd_education_status = Utf8("Primary") AND store_sales.ss_sales_price >= Decimal128(Some(10000),7,2) AND store_sales.ss_sales_price <= Decimal128(Some(15000),7,2) OR customer_demographics.cd_marital_status = Utf8("M") AND customer_demographics.cd_education_status = Utf8("4 yr Degree") AND store_sales.ss_sales_price >= Decimal128(Some(5000),7,2) AND store_sales.ss_sales_price <= Decimal128(Some(10000),7,2) OR customer_demographics.cd_marital_status = Utf8("D") AND customer_demographics.cd_education_status = Utf8("2 yr Degree") AND store_sales.ss_sales_price >= Decimal128(Some(15000),7,2) AND store_sales.ss_sales_price <= Decimal128(Some(20000),7,2)'
+            color: null
+            operator: filter
+            inputs:
+            - title: 'Join: store_sales.ss_cdemo_sk = customer_demographics.cd_demo_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Filter: (store_sales.ss_net_profit >= Decimal128(Some(0),7,2) AND store_sales.ss_net_profit <= Decimal128(Some(200000),7,2) OR store_sales.ss_net_profit >= Decimal128(Some(15000),7,2) AND store_sales.ss_net_profit <= Decimal128(Some(300000),7,2) OR store_sales.ss_net_profit >= Decimal128(Some(5000),7,2) AND store_sales.ss_net_profit <= Decimal128(Some(2500000),7,2)) AND (store_sales.ss_sales_price >= Decimal128(Some(10000),7,2) AND store_sales.ss_sales_price <= Decimal128(Some(15000),7,2) OR store_sales.ss_sales_price >= Decimal128(Some(5000),7,2) AND store_sales.ss_sales_price <= Decimal128(Some(10000),7,2) OR store_sales.ss_sales_price >= Decimal128(Some(15000),7,2) AND store_sales.ss_sales_price <= Decimal128(Some(20000),7,2))'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: store_sales
+                    color: null
+                    operator: scan
+                    inputs: []
+                - title: store
+                  color: null
+                  operator: scan
+                  inputs: []
+              - title: 'Projection: customer_demographics.cd_demo_sk, customer_demographics.cd_marital_status, customer_demographics.cd_education_status'
+                color: null
+                operator: projection
+                inputs:
+                - title: 'Filter: (customer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status AND customer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status OR customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_status AND customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_status OR customer_demographics.cd_marital_status = Utf8("D")Utf8("D")customer_demographics.cd_marital_status AND customer_demographics.cd_education_status = Utf8("2 yr Degree")Utf8("2 yr Degree")customer_demographics.cd_education_status) AND (customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_marital_status = Utf8("M")customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_statuscustomer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status OR customer_demographics.cd_marital_status = Utf8("D")Utf8("D")customer_demographics.cd_marital_status) AND (customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_marital_status = Utf8("M")customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_statuscustomer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status OR customer_demographics.cd_education_status = Utf8("2 yr Degree")Utf8("2 yr Degree")customer_demographics.cd_education_status) AND (customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_education_status = Utf8("4 yr Degree")customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_statuscustomer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status OR customer_demographics.cd_marital_status = Utf8("D")Utf8("D")customer_demographics.cd_marital_status) AND (customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_education_status = Utf8("4 yr Degree")customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_statuscustomer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status OR customer_demographics.cd_education_status = Utf8("2 yr Degree")Utf8("2 yr Degree")customer_demographics.cd_education_status) AND (customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_marital_status = Utf8("M")customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_statuscustomer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status OR customer_demographics.cd_marital_status = Utf8("D")Utf8("D")customer_demographics.cd_marital_status) AND (customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_marital_status = Utf8("M")customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_statuscustomer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status OR customer_demographics.cd_education_status = Utf8("2 yr Degree")Utf8("2 yr Degree")customer_demographics.cd_education_status) AND (customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_education_status = Utf8("4 yr Degree")customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_statuscustomer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status OR customer_demographics.cd_marital_status = Utf8("D")Utf8("D")customer_demographics.cd_marital_status) AND (customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_education_status = Utf8("4 yr Degree")customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_statuscustomer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status OR customer_demographics.cd_education_status = Utf8("2 yr Degree")Utf8("2 yr Degree")customer_demographics.cd_education_status)'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: 'Projection: customer_demographics.cd_education_status = Utf8("2 yr Degree") AS customer_demographics.cd_education_status = Utf8("2 yr Degree")Utf8("2 yr Degree")customer_demographics.cd_education_status, customer_demographics.cd_education_status = Utf8("4 yr Degree") AS customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_status, customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_education_status = Utf8("4 yr Degree") AS customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_education_status = Utf8("4 yr Degree")customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_statuscustomer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status, customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_marital_status = Utf8("M") AS customer_demographics.cd_education_status = Utf8("Primary") OR customer_demographics.cd_marital_status = Utf8("M")customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_statuscustomer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status, customer_demographics.cd_education_status = Utf8("Primary") AS customer_demographics.cd_education_status = Utf8("Primary")Utf8("Primary")customer_demographics.cd_education_status, customer_demographics.cd_marital_status = Utf8("D") AS customer_demographics.cd_marital_status = Utf8("D")Utf8("D")customer_demographics.cd_marital_status, customer_demographics.cd_marital_status = Utf8("M") AS customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_status, customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_education_status = Utf8("4 yr Degree") AS customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_education_status = Utf8("4 yr Degree")customer_demographics.cd_education_status = Utf8("4 yr Degree")Utf8("4 yr Degree")customer_demographics.cd_education_statuscustomer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status, customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_marital_status = Utf8("M") AS customer_demographics.cd_marital_status = Utf8("S") OR customer_demographics.cd_marital_status = Utf8("M")customer_demographics.cd_marital_status = Utf8("M")Utf8("M")customer_demographics.cd_marital_statuscustomer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status, customer_demographics.cd_marital_status = Utf8("S") AS customer_demographics.cd_marital_status = Utf8("S")Utf8("S")customer_demographics.cd_marital_status, customer_demographics.cd_demo_sk, customer_demographics.cd_marital_status, customer_demographics.cd_education_status'
+                    color: null
+                    operator: projection
+                    inputs:
+                    - title: customer_demographics
+                      color: null
+                      operator: scan
+                      inputs: []
+          - title: 'Projection: customer_address.ca_address_sk, customer_address.ca_state'
+            color: null
+            operator: projection
+            inputs:
+            - title: 'Filter: (customer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN") OR customer_address.ca_state = Utf8("CO")customer_address.ca_state = Utf8("CO")Utf8("CO")customer_address.ca_statecustomer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN")customer_address.ca_state = Utf8("IN")Utf8("IN")customer_address.ca_statecustomer_address.ca_state = Utf8("AR")Utf8("AR")customer_address.ca_state OR customer_address.ca_state = Utf8("NY")Utf8("NY")customer_address.ca_state OR customer_address.ca_state = Utf8("TX")Utf8("TX")customer_address.ca_state OR customer_address.ca_state = Utf8("AZ")Utf8("AZ")customer_address.ca_state OR customer_address.ca_state = Utf8("MI")Utf8("MI")customer_address.ca_state OR customer_address.ca_state = Utf8("OH")Utf8("OH")customer_address.ca_state OR customer_address.ca_state = Utf8("ND")Utf8("ND")customer_address.ca_state) AND (customer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN") OR customer_address.ca_state = Utf8("CO")customer_address.ca_state = Utf8("CO")Utf8("CO")customer_address.ca_statecustomer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN")customer_address.ca_state = Utf8("IN")Utf8("IN")customer_address.ca_statecustomer_address.ca_state = Utf8("AR")Utf8("AR")customer_address.ca_state OR customer_address.ca_state = Utf8("NY")Utf8("NY")customer_address.ca_state OR customer_address.ca_state = Utf8("TX")Utf8("TX")customer_address.ca_state OR customer_address.ca_state = Utf8("AZ")Utf8("AZ")customer_address.ca_state OR customer_address.ca_state = Utf8("MI")Utf8("MI")customer_address.ca_state OR customer_address.ca_state = Utf8("OH")Utf8("OH")customer_address.ca_state OR customer_address.ca_state = Utf8("ND")Utf8("ND")customer_address.ca_state) AND customer_address.ca_country = Utf8("United States")'
+              color: null
+              operator: filter
+              inputs:
+              - title: 'Projection: customer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN") OR customer_address.ca_state = Utf8("CO") AS customer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN") OR customer_address.ca_state = Utf8("CO")customer_address.ca_state = Utf8("CO")Utf8("CO")customer_address.ca_statecustomer_address.ca_state = Utf8("AR") OR customer_address.ca_state = Utf8("IN")customer_address.ca_state = Utf8("IN")Utf8("IN")customer_address.ca_statecustomer_address.ca_state = Utf8("AR")Utf8("AR")customer_address.ca_state, customer_address.ca_state = Utf8("AZ") AS customer_address.ca_state = Utf8("AZ")Utf8("AZ")customer_address.ca_state, customer_address.ca_state = Utf8("MI") AS customer_address.ca_state = Utf8("MI")Utf8("MI")customer_address.ca_state, customer_address.ca_state = Utf8("ND") AS customer_address.ca_state = Utf8("ND")Utf8("ND")customer_address.ca_state, customer_address.ca_state = Utf8("NY") AS customer_address.ca_state = Utf8("NY")Utf8("NY")customer_address.ca_state, customer_address.ca_state = Utf8("OH") AS customer_address.ca_state = Utf8("OH")Utf8("OH")customer_address.ca_state, customer_address.ca_state = Utf8("TX") AS customer_address.ca_state = Utf8("TX")Utf8("TX")customer_address.ca_state, customer_address.ca_address_sk, customer_address.ca_state, customer_address.ca_country'
+                color: null
+                operator: projection
+                inputs:
+                - title: customer_address
+                  color: null
+                  operator: scan
+                  inputs: []
+      - title: 'Filter: date_dim.d_year = Int32(1998)'
+        color: null
+        operator: filter
+        inputs:
+        - title: date_dim
+          color: null
+          operator: scan
+          inputs: []

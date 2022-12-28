@@ -1,0 +1,76 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: tmp1.i_category, tmp1.i_class, tmp1.i_brand, tmp1.s_store_name, tmp1.s_company_name, tmp1.d_moy, tmp1.sum_sales, tmp1.avg_monthly_sales'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: 'Projection: item.i_category, item.i_class, item.i_brand, store.s_store_name, store.s_company_name, date_dim.d_moy, SUM(store_sales.ss_sales_price) AS sum_sales, AVG(SUM(store_sales.ss_sales_price)) PARTITION BY [item.i_category, item.i_brand, store.s_store_name, store.s_company_name] AS avg_monthly_sales'
+        color: null
+        operator: projection
+        inputs:
+        - title: 'Filter: CASE WHEN AVG(SUM(store_sales.ss_sales_price)) PARTITION BY [item.i_category, item.i_brand, store.s_store_name, store.s_company_name] != Decimal128(Some(0),21,6) THEN abs(CAST(CAST(SUM(store_sales.ss_sales_price) AS Decimal128(22, 6)) - CAST(AVG(SUM(store_sales.ss_sales_price)) PARTITION BY [item.i_category, item.i_brand, store.s_store_name, store.s_company_name] AS Decimal128(22, 6)) AS Float64)) / CAST(AVG(SUM(store_sales.ss_sales_price)) PARTITION BY [item.i_category, item.i_brand, store.s_store_name, store.s_company_name] AS Float64) ELSE Float64(NULL) END > Float64(0.1)'
+          color: null
+          operator: filter
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: item.i_item_sk = store_sales.ss_item_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Projection: item.i_item_sk, item.i_brand, item.i_class, item.i_category'
+                      color: null
+                      operator: projection
+                      inputs:
+                      - title: 'Filter: (item.i_category = Utf8("Music") OR item.i_category = Utf8("Sports") OR item.i_category = Utf8("Shoes")item.i_category = Utf8("Shoes")Utf8("Shoes")item.i_categoryitem.i_category = Utf8("Music") OR item.i_category = Utf8("Sports")item.i_category = Utf8("Sports")Utf8("Sports")item.i_categoryitem.i_category = Utf8("Music")Utf8("Music")item.i_category OR item.i_category = Utf8("Home") OR item.i_category = Utf8("Women") OR item.i_category = Utf8("Children")item.i_category = Utf8("Children")Utf8("Children")item.i_categoryitem.i_category = Utf8("Home") OR item.i_category = Utf8("Women")item.i_category = Utf8("Women")Utf8("Women")item.i_categoryitem.i_category = Utf8("Home")Utf8("Home")item.i_category) AND (item.i_category = Utf8("Music") OR item.i_category = Utf8("Sports") OR item.i_category = Utf8("Shoes")item.i_category = Utf8("Shoes")Utf8("Shoes")item.i_categoryitem.i_category = Utf8("Music") OR item.i_category = Utf8("Sports")item.i_category = Utf8("Sports")Utf8("Sports")item.i_categoryitem.i_category = Utf8("Music")Utf8("Music")item.i_category OR item.i_class = Utf8("blinds/shades") OR item.i_class = Utf8("fragrances") OR item.i_class = Utf8("toddlers")item.i_class = Utf8("toddlers")Utf8("toddlers")item.i_classitem.i_class = Utf8("blinds/shades") OR item.i_class = Utf8("fragrances")item.i_class = Utf8("fragrances")Utf8("fragrances")item.i_classitem.i_class = Utf8("blinds/shades")Utf8("blinds/shades")item.i_class) AND (item.i_class = Utf8("country") OR item.i_class = Utf8("pools") OR item.i_class = Utf8("athletic")item.i_class = Utf8("athletic")Utf8("athletic")item.i_classitem.i_class = Utf8("country") OR item.i_class = Utf8("pools")item.i_class = Utf8("pools")Utf8("pools")item.i_classitem.i_class = Utf8("country")Utf8("country")item.i_class OR item.i_category = Utf8("Home") OR item.i_category = Utf8("Women") OR item.i_category = Utf8("Children")item.i_category = Utf8("Children")Utf8("Children")item.i_categoryitem.i_category = Utf8("Home") OR item.i_category = Utf8("Women")item.i_category = Utf8("Women")Utf8("Women")item.i_categoryitem.i_category = Utf8("Home")Utf8("Home")item.i_category) AND (item.i_class = Utf8("country") OR item.i_class = Utf8("pools") OR item.i_class = Utf8("athletic")item.i_class = Utf8("athletic")Utf8("athletic")item.i_classitem.i_class = Utf8("country") OR item.i_class = Utf8("pools")item.i_class = Utf8("pools")Utf8("pools")item.i_classitem.i_class = Utf8("country")Utf8("country")item.i_class OR item.i_class = Utf8("blinds/shades") OR item.i_class = Utf8("fragrances") OR item.i_class = Utf8("toddlers")item.i_class = Utf8("toddlers")Utf8("toddlers")item.i_classitem.i_class = Utf8("blinds/shades") OR item.i_class = Utf8("fragrances")item.i_class = Utf8("fragrances")Utf8("fragrances")item.i_classitem.i_class = Utf8("blinds/shades")Utf8("blinds/shades")item.i_class)'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: 'Projection: item.i_category = Utf8("Home") OR item.i_category = Utf8("Women") OR item.i_category = Utf8("Children") AS item.i_category = Utf8("Home") OR item.i_category = Utf8("Women") OR item.i_category = Utf8("Children")item.i_category = Utf8("Children")Utf8("Children")item.i_categoryitem.i_category = Utf8("Home") OR item.i_category = Utf8("Women")item.i_category = Utf8("Women")Utf8("Women")item.i_categoryitem.i_category = Utf8("Home")Utf8("Home")item.i_category, item.i_category = Utf8("Music") OR item.i_category = Utf8("Sports") OR item.i_category = Utf8("Shoes") AS item.i_category = Utf8("Music") OR item.i_category = Utf8("Sports") OR item.i_category = Utf8("Shoes")item.i_category = Utf8("Shoes")Utf8("Shoes")item.i_categoryitem.i_category = Utf8("Music") OR item.i_category = Utf8("Sports")item.i_category = Utf8("Sports")Utf8("Sports")item.i_categoryitem.i_category = Utf8("Music")Utf8("Music")item.i_category, item.i_class = Utf8("blinds/shades") OR item.i_class = Utf8("fragrances") OR item.i_class = Utf8("toddlers") AS item.i_class = Utf8("blinds/shades") OR item.i_class = Utf8("fragrances") OR item.i_class = Utf8("toddlers")item.i_class = Utf8("toddlers")Utf8("toddlers")item.i_classitem.i_class = Utf8("blinds/shades") OR item.i_class = Utf8("fragrances")item.i_class = Utf8("fragrances")Utf8("fragrances")item.i_classitem.i_class = Utf8("blinds/shades")Utf8("blinds/shades")item.i_class, item.i_class = Utf8("country") OR item.i_class = Utf8("pools") OR item.i_class = Utf8("athletic") AS item.i_class = Utf8("country") OR item.i_class = Utf8("pools") OR item.i_class = Utf8("athletic")item.i_class = Utf8("athletic")Utf8("athletic")item.i_classitem.i_class = Utf8("country") OR item.i_class = Utf8("pools")item.i_class = Utf8("pools")Utf8("pools")item.i_classitem.i_class = Utf8("country")Utf8("country")item.i_class, item.i_item_sk, item.i_brand, item.i_class, item.i_category'
+                          color: null
+                          operator: projection
+                          inputs:
+                          - title: item
+                            color: null
+                            operator: scan
+                            inputs: []
+                    - title: store_sales
+                      color: null
+                      operator: scan
+                      inputs: []
+                  - title: 'Filter: date_dim.d_year = Int32(2001)'
+                    color: null
+                    operator: filter
+                    inputs:
+                    - title: date_dim
+                      color: null
+                      operator: scan
+                      inputs: []
+                - title: store
+                  color: null
+                  operator: scan
+                  inputs: []

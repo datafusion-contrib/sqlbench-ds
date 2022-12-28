@@ -1,0 +1,276 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: 'Projection: ss1.ca_county, ss1.d_year, ws2.web_sales / ws1.web_sales AS web_q1_q2_increase, ss2.store_sales / ss1.store_sales AS store_q1_q2_increase, ws3.web_sales / ws2.web_sales AS web_q2_q3_increase, ss3.store_sales / ss2.store_sales AS store_q2_q3_increase'
+  color: null
+  operator: projection
+  inputs:
+  - title: 'Filter: CASE WHEN ws2.web_sales > Decimal128(Some(0),17,2) THEN ws3.web_sales / ws2.web_sales ELSE Decimal128(None,17,2) END > CASE WHEN ss2.store_sales > Decimal128(Some(0),17,2) THEN ss3.store_sales / ss2.store_sales ELSE Decimal128(None,17,2) END'
+    color: null
+    operator: filter
+    inputs:
+    - title: 'Join: ws1.ca_county = ws3.ca_county'
+      color: null
+      operator: join
+      inputs:
+      - title: 'Filter: CASE WHEN ws1.web_sales > Decimal128(Some(0),17,2) THEN ws2.web_sales / ws1.web_sales ELSE Decimal128(None,17,2) END > CASE WHEN ss1.store_sales > Decimal128(Some(0),17,2) THEN ss2.store_sales / ss1.store_sales ELSE Decimal128(None,17,2) END'
+        color: null
+        operator: filter
+        inputs:
+        - title: 'Join: ws1.ca_county = ws2.ca_county'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Join: ss1.ca_county = ws1.ca_county'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Join: ss2.ca_county = ss3.ca_county'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: ss1.ca_county = ss2.ca_county'
+                color: null
+                operator: join
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Projection: customer_address.ca_county, date_dim.d_year, SUM(store_sales.ss_ext_sales_price) AS store_sales'
+                      color: null
+                      operator: projection
+                      inputs:
+                      - title: unknown
+                        color: null
+                        operator: null
+                        inputs:
+                        - title: 'Join: store_sales.ss_addr_sk = customer_address.ca_address_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: store_sales
+                              color: null
+                              operator: scan
+                              inputs: []
+                            - title: 'Filter: date_dim.d_qoy = Int32(1) AND date_dim.d_year = Int32(1998)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: customer_address
+                            color: null
+                            operator: scan
+                            inputs: []
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Projection: customer_address.ca_county, SUM(store_sales.ss_ext_sales_price) AS store_sales'
+                      color: null
+                      operator: projection
+                      inputs:
+                      - title: unknown
+                        color: null
+                        operator: null
+                        inputs:
+                        - title: 'Join: store_sales.ss_addr_sk = customer_address.ca_address_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: store_sales
+                              color: null
+                              operator: scan
+                              inputs: []
+                            - title: 'Filter: date_dim.d_qoy = Int32(2) AND date_dim.d_year = Int32(1998)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: customer_address
+                            color: null
+                            operator: scan
+                            inputs: []
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: 'Projection: customer_address.ca_county, SUM(store_sales.ss_ext_sales_price) AS store_sales'
+                    color: null
+                    operator: projection
+                    inputs:
+                    - title: unknown
+                      color: null
+                      operator: null
+                      inputs:
+                      - title: 'Join: store_sales.ss_addr_sk = customer_address.ca_address_sk'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: store_sales
+                            color: null
+                            operator: scan
+                            inputs: []
+                          - title: 'Filter: date_dim.d_qoy = Int32(3) AND date_dim.d_year = Int32(1998)'
+                            color: null
+                            operator: filter
+                            inputs:
+                            - title: date_dim
+                              color: null
+                              operator: scan
+                              inputs: []
+                        - title: customer_address
+                          color: null
+                          operator: scan
+                          inputs: []
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: 'Projection: customer_address.ca_county, SUM(web_sales.ws_ext_sales_price) AS web_sales'
+                  color: null
+                  operator: projection
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Join: web_sales.ws_bill_addr_sk = customer_address.ca_address_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: 'Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: web_sales
+                          color: null
+                          operator: scan
+                          inputs: []
+                        - title: 'Filter: date_dim.d_qoy = Int32(1) AND date_dim.d_year = Int32(1998)'
+                          color: null
+                          operator: filter
+                          inputs:
+                          - title: date_dim
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: customer_address
+                        color: null
+                        operator: scan
+                        inputs: []
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: 'Projection: customer_address.ca_county, SUM(web_sales.ws_ext_sales_price) AS web_sales'
+                color: null
+                operator: projection
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: 'Join: web_sales.ws_bill_addr_sk = customer_address.ca_address_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: web_sales
+                        color: null
+                        operator: scan
+                        inputs: []
+                      - title: 'Filter: date_dim.d_qoy = Int32(2) AND date_dim.d_year = Int32(1998)'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: date_dim
+                          color: null
+                          operator: scan
+                          inputs: []
+                    - title: customer_address
+                      color: null
+                      operator: scan
+                      inputs: []
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: unknown
+          color: null
+          operator: null
+          inputs:
+          - title: 'Projection: customer_address.ca_county, SUM(web_sales.ws_ext_sales_price) AS web_sales'
+            color: null
+            operator: projection
+            inputs:
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: 'Join: web_sales.ws_bill_addr_sk = customer_address.ca_address_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: web_sales
+                    color: null
+                    operator: scan
+                    inputs: []
+                  - title: 'Filter: date_dim.d_qoy = Int32(3) AND date_dim.d_year = Int32(1998)'
+                    color: null
+                    operator: filter
+                    inputs:
+                    - title: date_dim
+                      color: null
+                      operator: scan
+                      inputs: []
+                - title: customer_address
+                  color: null
+                  operator: scan
+                  inputs: []

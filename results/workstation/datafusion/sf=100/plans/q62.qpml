@@ -1,0 +1,60 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: substr(warehouse.w_warehouse_name,Int64(1),Int64(20)), ship_mode.sm_type, web_site.web_name, SUM(CASE WHEN web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk <= Int64(30) THEN Int64(1) ELSE Int64(0) END) AS 30 days, SUM(CASE WHEN web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk > Int64(30) AND web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk <= Int64(60) THEN Int64(1) ELSE Int64(0) END) AS 31-60 days, SUM(CASE WHEN web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk > Int64(60) AND web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk <= Int64(90) THEN Int64(1) ELSE Int64(0) END) AS 61-90 days, SUM(CASE WHEN web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk > Int64(90) AND web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk <= Int64(120) THEN Int64(1) ELSE Int64(0) END) AS 91-120 days, SUM(CASE WHEN web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk > Int64(120) THEN Int64(1) ELSE Int64(0) END) AS >120 days'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: 'Projection: web_sales.ws_ship_date_sk - web_sales.ws_sold_date_sk AS web_sales.ws_ship_date_sk - web_sales.ws_sold_date_skweb_sales.ws_sold_date_skweb_sales.ws_ship_date_sk, warehouse.w_warehouse_name, ship_mode.sm_type, web_site.web_name'
+        color: null
+        operator: projection
+        inputs:
+        - title: 'Join: web_sales.ws_ship_date_sk = date_dim.d_date_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Join: web_sales.ws_web_site_sk = web_site.web_site_sk'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Join: web_sales.ws_ship_mode_sk = ship_mode.sm_ship_mode_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: web_sales.ws_warehouse_sk = warehouse.w_warehouse_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: web_sales
+                  color: null
+                  operator: scan
+                  inputs: []
+                - title: warehouse
+                  color: null
+                  operator: scan
+                  inputs: []
+              - title: ship_mode
+                color: null
+                operator: scan
+                inputs: []
+            - title: web_site
+              color: null
+              operator: scan
+              inputs: []
+          - title: 'Filter: date_dim.d_month_seq >= Int32(1217) AND date_dim.d_month_seq <= Int32(1228)'
+            color: null
+            operator: filter
+            inputs:
+            - title: date_dim
+              color: null
+              operator: scan
+              inputs: []

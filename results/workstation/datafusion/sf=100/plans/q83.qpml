@@ -1,0 +1,228 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: sr_items.item_id, sr_items.sr_item_qty, CAST(sr_items.sr_item_qty / sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qtywr_items.wr_item_qtysr_items.sr_item_qty + cr_items.cr_item_qtycr_items.cr_item_qtysr_items.sr_item_qty AS sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qty AS Float64) / Float64(3) * Float64(100) AS sr_dev, cr_items.cr_item_qty, CAST(cr_items.cr_item_qty / sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qtywr_items.wr_item_qtysr_items.sr_item_qty + cr_items.cr_item_qtycr_items.cr_item_qtysr_items.sr_item_qty AS sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qty AS Float64) / Float64(3) * Float64(100) AS cr_dev, wr_items.wr_item_qty, CAST(wr_items.wr_item_qty / sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qtywr_items.wr_item_qtysr_items.sr_item_qty + cr_items.cr_item_qtycr_items.cr_item_qtysr_items.sr_item_qty AS sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qty AS Float64) / Float64(3) * Float64(100) AS wr_dev, CAST(sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qtywr_items.wr_item_qtysr_items.sr_item_qty + cr_items.cr_item_qtycr_items.cr_item_qtysr_items.sr_item_qty AS sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qty AS Float64) / Float64(3) AS average'
+    color: null
+    operator: projection
+    inputs:
+    - title: 'Projection: sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qty AS sr_items.sr_item_qty + cr_items.cr_item_qty + wr_items.wr_item_qtywr_items.wr_item_qtysr_items.sr_item_qty + cr_items.cr_item_qtycr_items.cr_item_qtysr_items.sr_item_qty, sr_items.item_id, sr_items.sr_item_qty, cr_items.cr_item_qty, wr_items.wr_item_qty'
+      color: null
+      operator: projection
+      inputs:
+      - title: 'Join: sr_items.item_id = wr_items.item_id'
+        color: null
+        operator: join
+        inputs:
+        - title: 'Join: sr_items.item_id = cr_items.item_id'
+          color: null
+          operator: join
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: item.i_item_id AS item_id, SUM(store_returns.sr_return_quantity) AS sr_item_qty'
+              color: null
+              operator: projection
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: 'Join: date_dim.d_date = __sq_2.d_date'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: store_returns.sr_returned_date_sk = date_dim.d_date_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Join: store_returns.sr_item_sk = item.i_item_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: store_returns
+                        color: null
+                        operator: scan
+                        inputs: []
+                      - title: item
+                        color: null
+                        operator: scan
+                        inputs: []
+                    - title: date_dim
+                      color: null
+                      operator: scan
+                      inputs: []
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Projection: date_dim.d_date AS d_date'
+                      color: null
+                      operator: projection
+                      inputs:
+                      - title: 'Join: date_dim.d_week_seq = __sq_1.d_week_seq'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: date_dim
+                          color: null
+                          operator: scan
+                          inputs: []
+                        - title: unknown
+                          color: null
+                          operator: null
+                          inputs:
+                          - title: 'Projection: date_dim.d_week_seq AS d_week_seq'
+                            color: null
+                            operator: projection
+                            inputs:
+                            - title: 'Filter: date_dim.d_date = Date32("10552") OR date_dim.d_date = Date32("10511") OR date_dim.d_date = Date32("10281")'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: item.i_item_id AS item_id, SUM(catalog_returns.cr_return_quantity) AS cr_item_qty'
+              color: null
+              operator: projection
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: 'Join: date_dim.d_date = __sq_4.d_date'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: catalog_returns.cr_returned_date_sk = date_dim.d_date_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Join: catalog_returns.cr_item_sk = item.i_item_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: catalog_returns
+                        color: null
+                        operator: scan
+                        inputs: []
+                      - title: item
+                        color: null
+                        operator: scan
+                        inputs: []
+                    - title: date_dim
+                      color: null
+                      operator: scan
+                      inputs: []
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Projection: date_dim.d_date AS d_date'
+                      color: null
+                      operator: projection
+                      inputs:
+                      - title: 'Join: date_dim.d_week_seq = __sq_3.d_week_seq'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: date_dim
+                          color: null
+                          operator: scan
+                          inputs: []
+                        - title: unknown
+                          color: null
+                          operator: null
+                          inputs:
+                          - title: 'Projection: date_dim.d_week_seq AS d_week_seq'
+                            color: null
+                            operator: projection
+                            inputs:
+                            - title: 'Filter: date_dim.d_date = Date32("10552") OR date_dim.d_date = Date32("10511") OR date_dim.d_date = Date32("10281")'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+        - title: unknown
+          color: null
+          operator: null
+          inputs:
+          - title: 'Projection: item.i_item_id AS item_id, SUM(web_returns.wr_return_quantity) AS wr_item_qty'
+            color: null
+            operator: projection
+            inputs:
+            - title: unknown
+              color: null
+              operator: null
+              inputs:
+              - title: 'Join: date_dim.d_date = __sq_6.d_date'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: web_returns.wr_returned_date_sk = date_dim.d_date_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: web_returns.wr_item_sk = item.i_item_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: web_returns
+                      color: null
+                      operator: scan
+                      inputs: []
+                    - title: item
+                      color: null
+                      operator: scan
+                      inputs: []
+                  - title: date_dim
+                    color: null
+                    operator: scan
+                    inputs: []
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: 'Projection: date_dim.d_date AS d_date'
+                    color: null
+                    operator: projection
+                    inputs:
+                    - title: 'Join: date_dim.d_week_seq = __sq_5.d_week_seq'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: date_dim
+                        color: null
+                        operator: scan
+                        inputs: []
+                      - title: unknown
+                        color: null
+                        operator: null
+                        inputs:
+                        - title: 'Projection: date_dim.d_week_seq AS d_week_seq'
+                          color: null
+                          operator: projection
+                          inputs:
+                          - title: 'Filter: date_dim.d_date = Date32("10552") OR date_dim.d_date = Date32("10511") OR date_dim.d_date = Date32("10281")'
+                            color: null
+                            operator: filter
+                            inputs:
+                            - title: date_dim
+                              color: null
+                              operator: scan
+                              inputs: []

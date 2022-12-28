@@ -1,0 +1,64 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: item.i_item_id, AVG(store_sales.ss_quantity) AS agg1, AVG(store_sales.ss_list_price) AS agg2, AVG(store_sales.ss_coupon_amt) AS agg3, AVG(store_sales.ss_sales_price) AS agg4'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: 'Join: store_sales.ss_promo_sk = promotion.p_promo_sk'
+        color: null
+        operator: join
+        inputs:
+        - title: 'Join: store_sales.ss_item_sk = item.i_item_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Join: store_sales.ss_cdemo_sk = customer_demographics.cd_demo_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: store_sales
+                color: null
+                operator: scan
+                inputs: []
+              - title: 'Filter: customer_demographics.cd_gender = Utf8("M") AND customer_demographics.cd_marital_status = Utf8("M") AND customer_demographics.cd_education_status = Utf8("4 yr Degree")'
+                color: null
+                operator: filter
+                inputs:
+                - title: customer_demographics
+                  color: null
+                  operator: scan
+                  inputs: []
+            - title: 'Filter: date_dim.d_year = Int32(2001)'
+              color: null
+              operator: filter
+              inputs:
+              - title: date_dim
+                color: null
+                operator: scan
+                inputs: []
+          - title: item
+            color: null
+            operator: scan
+            inputs: []
+        - title: 'Filter: promotion.p_channel_email = Utf8("N") OR promotion.p_channel_event = Utf8("N")'
+          color: null
+          operator: filter
+          inputs:
+          - title: promotion
+            color: null
+            operator: scan
+            inputs: []

@@ -1,0 +1,69 @@
+Sort: ss1.d_year ASC NULLS LAST
+  Projection: ss1.ca_county, ss1.d_year, ws2.web_sales / ws1.web_sales AS web_q1_q2_increase, ss2.store_sales / ss1.store_sales AS store_q1_q2_increase, ws3.web_sales / ws2.web_sales AS web_q2_q3_increase, ss3.store_sales / ss2.store_sales AS store_q2_q3_increase
+    Filter: CASE WHEN ws2.web_sales > Decimal128(Some(0),17,2) THEN ws3.web_sales / ws2.web_sales ELSE Decimal128(None,17,2) END > CASE WHEN ss2.store_sales > Decimal128(Some(0),17,2) THEN ss3.store_sales / ss2.store_sales ELSE Decimal128(None,17,2) END
+      Inner Join: ws1.ca_county = ws3.ca_county
+        Filter: CASE WHEN ws1.web_sales > Decimal128(Some(0),17,2) THEN ws2.web_sales / ws1.web_sales ELSE Decimal128(None,17,2) END > CASE WHEN ss1.store_sales > Decimal128(Some(0),17,2) THEN ss2.store_sales / ss1.store_sales ELSE Decimal128(None,17,2) END
+          Inner Join: ws1.ca_county = ws2.ca_county
+            Inner Join: ss1.ca_county = ws1.ca_county
+              Inner Join: ss2.ca_county = ss3.ca_county
+                Inner Join: ss1.ca_county = ss2.ca_county
+                  SubqueryAlias: ss1
+                    SubqueryAlias: ss
+                      Projection: customer_address.ca_county, date_dim.d_year, SUM(store_sales.ss_ext_sales_price) AS store_sales
+                        Aggregate: groupBy=[[customer_address.ca_county, date_dim.d_qoy, date_dim.d_year]], aggr=[[SUM(store_sales.ss_ext_sales_price)]]
+                          Inner Join: store_sales.ss_addr_sk = customer_address.ca_address_sk
+                            Inner Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk
+                              TableScan: store_sales projection=[ss_sold_date_sk, ss_addr_sk, ss_ext_sales_price]
+                              Filter: date_dim.d_qoy = Int32(1) AND date_dim.d_year = Int32(1998)
+                                TableScan: date_dim projection=[d_date_sk, d_year, d_qoy], partial_filters=[date_dim.d_qoy = Int32(1), date_dim.d_year = Int32(1998)]
+                            TableScan: customer_address projection=[ca_address_sk, ca_county]
+                  SubqueryAlias: ss2
+                    SubqueryAlias: ss
+                      Projection: customer_address.ca_county, SUM(store_sales.ss_ext_sales_price) AS store_sales
+                        Aggregate: groupBy=[[customer_address.ca_county, date_dim.d_qoy, date_dim.d_year]], aggr=[[SUM(store_sales.ss_ext_sales_price)]]
+                          Inner Join: store_sales.ss_addr_sk = customer_address.ca_address_sk
+                            Inner Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk
+                              TableScan: store_sales projection=[ss_sold_date_sk, ss_addr_sk, ss_ext_sales_price]
+                              Filter: date_dim.d_qoy = Int32(2) AND date_dim.d_year = Int32(1998)
+                                TableScan: date_dim projection=[d_date_sk, d_year, d_qoy], partial_filters=[date_dim.d_qoy = Int32(2), date_dim.d_year = Int32(1998)]
+                            TableScan: customer_address projection=[ca_address_sk, ca_county]
+                SubqueryAlias: ss3
+                  SubqueryAlias: ss
+                    Projection: customer_address.ca_county, SUM(store_sales.ss_ext_sales_price) AS store_sales
+                      Aggregate: groupBy=[[customer_address.ca_county, date_dim.d_qoy, date_dim.d_year]], aggr=[[SUM(store_sales.ss_ext_sales_price)]]
+                        Inner Join: store_sales.ss_addr_sk = customer_address.ca_address_sk
+                          Inner Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk
+                            TableScan: store_sales projection=[ss_sold_date_sk, ss_addr_sk, ss_ext_sales_price]
+                            Filter: date_dim.d_qoy = Int32(3) AND date_dim.d_year = Int32(1998)
+                              TableScan: date_dim projection=[d_date_sk, d_year, d_qoy], partial_filters=[date_dim.d_qoy = Int32(3), date_dim.d_year = Int32(1998)]
+                          TableScan: customer_address projection=[ca_address_sk, ca_county]
+              SubqueryAlias: ws1
+                SubqueryAlias: ws
+                  Projection: customer_address.ca_county, SUM(web_sales.ws_ext_sales_price) AS web_sales
+                    Aggregate: groupBy=[[customer_address.ca_county, date_dim.d_qoy, date_dim.d_year]], aggr=[[SUM(web_sales.ws_ext_sales_price)]]
+                      Inner Join: web_sales.ws_bill_addr_sk = customer_address.ca_address_sk
+                        Inner Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk
+                          TableScan: web_sales projection=[ws_sold_date_sk, ws_bill_addr_sk, ws_ext_sales_price]
+                          Filter: date_dim.d_qoy = Int32(1) AND date_dim.d_year = Int32(1998)
+                            TableScan: date_dim projection=[d_date_sk, d_year, d_qoy], partial_filters=[date_dim.d_qoy = Int32(1), date_dim.d_year = Int32(1998)]
+                        TableScan: customer_address projection=[ca_address_sk, ca_county]
+            SubqueryAlias: ws2
+              SubqueryAlias: ws
+                Projection: customer_address.ca_county, SUM(web_sales.ws_ext_sales_price) AS web_sales
+                  Aggregate: groupBy=[[customer_address.ca_county, date_dim.d_qoy, date_dim.d_year]], aggr=[[SUM(web_sales.ws_ext_sales_price)]]
+                    Inner Join: web_sales.ws_bill_addr_sk = customer_address.ca_address_sk
+                      Inner Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk
+                        TableScan: web_sales projection=[ws_sold_date_sk, ws_bill_addr_sk, ws_ext_sales_price]
+                        Filter: date_dim.d_qoy = Int32(2) AND date_dim.d_year = Int32(1998)
+                          TableScan: date_dim projection=[d_date_sk, d_year, d_qoy], partial_filters=[date_dim.d_qoy = Int32(2), date_dim.d_year = Int32(1998)]
+                      TableScan: customer_address projection=[ca_address_sk, ca_county]
+        SubqueryAlias: ws3
+          SubqueryAlias: ws
+            Projection: customer_address.ca_county, SUM(web_sales.ws_ext_sales_price) AS web_sales
+              Aggregate: groupBy=[[customer_address.ca_county, date_dim.d_qoy, date_dim.d_year]], aggr=[[SUM(web_sales.ws_ext_sales_price)]]
+                Inner Join: web_sales.ws_bill_addr_sk = customer_address.ca_address_sk
+                  Inner Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk
+                    TableScan: web_sales projection=[ws_sold_date_sk, ws_bill_addr_sk, ws_ext_sales_price]
+                    Filter: date_dim.d_qoy = Int32(3) AND date_dim.d_year = Int32(1998)
+                      TableScan: date_dim projection=[d_date_sk, d_year, d_qoy], partial_filters=[date_dim.d_qoy = Int32(3), date_dim.d_year = Int32(1998)]
+                  TableScan: customer_address projection=[ca_address_sk, ca_county]

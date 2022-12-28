@@ -1,0 +1,248 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: channel, item, return_ratio, return_rank, currency_rank'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Projection: Utf8("web") AS channel, web.item, web.return_ratio, web.return_rank, web.currency_rank'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: in_web.item, in_web.return_ratio, RANK() ORDER BY [in_web.return_ratio ASC NULLS LAST] AS return_rank, RANK() ORDER BY [in_web.currency_ratio ASC NULLS LAST] AS currency_rank'
+              color: null
+              operator: projection
+              inputs:
+              - title: 'Filter: RANK() ORDER BY [in_web.return_ratio ASC NULLS LAST] <= UInt64(10) OR RANK() ORDER BY [in_web.currency_ratio ASC NULLS LAST] <= UInt64(10)'
+                color: null
+                operator: filter
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: unknown
+                      color: null
+                      operator: null
+                      inputs:
+                      - title: 'Projection: ws.ws_item_sk AS item, CAST(SUM(coalesce(wr.wr_return_quantity,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(ws.ws_quantity,Int64(0))) AS Decimal128(15, 4)) AS return_ratio, CAST(SUM(coalesce(wr.wr_return_amt,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(ws.ws_net_paid,Int64(0))) AS Decimal128(15, 4)) AS currency_ratio'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: unknown
+                          color: null
+                          operator: null
+                          inputs:
+                          - title: 'Join: ws.ws_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: ws.ws_order_number = wr.wr_order_number AND ws.ws_item_sk = wr.wr_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: unknown
+                                color: null
+                                operator: null
+                                inputs:
+                                - title: 'Filter: web_sales.ws_net_profit > Decimal128(Some(100),7,2) AND web_sales.ws_net_paid > Decimal128(Some(0),7,2) AND web_sales.ws_quantity > Int32(0)'
+                                  color: null
+                                  operator: filter
+                                  inputs:
+                                  - title: web_sales
+                                    color: null
+                                    operator: scan
+                                    inputs: []
+                              - title: unknown
+                                color: null
+                                operator: null
+                                inputs:
+                                - title: 'Filter: web_returns.wr_return_amt > Decimal128(Some(1000000),7,2)'
+                                  color: null
+                                  operator: filter
+                                  inputs:
+                                  - title: web_returns
+                                    color: null
+                                    operator: scan
+                                    inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(2000) AND date_dim.d_moy = Int32(11)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+        - title: 'Projection: Utf8("catalog") AS channel, catalog.item, catalog.return_ratio, catalog.return_rank, catalog.currency_rank'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: in_cat.item, in_cat.return_ratio, RANK() ORDER BY [in_cat.return_ratio ASC NULLS LAST] AS return_rank, RANK() ORDER BY [in_cat.currency_ratio ASC NULLS LAST] AS currency_rank'
+              color: null
+              operator: projection
+              inputs:
+              - title: 'Filter: RANK() ORDER BY [in_cat.return_ratio ASC NULLS LAST] <= UInt64(10) OR RANK() ORDER BY [in_cat.currency_ratio ASC NULLS LAST] <= UInt64(10)'
+                color: null
+                operator: filter
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: unknown
+                      color: null
+                      operator: null
+                      inputs:
+                      - title: 'Projection: cs.cs_item_sk AS item, CAST(SUM(coalesce(cr.cr_return_quantity,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(cs.cs_quantity,Int64(0))) AS Decimal128(15, 4)) AS return_ratio, CAST(SUM(coalesce(cr.cr_return_amount,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(cs.cs_net_paid,Int64(0))) AS Decimal128(15, 4)) AS currency_ratio'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: unknown
+                          color: null
+                          operator: null
+                          inputs:
+                          - title: 'Join: cs.cs_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: cs.cs_order_number = cr.cr_order_number AND cs.cs_item_sk = cr.cr_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: unknown
+                                color: null
+                                operator: null
+                                inputs:
+                                - title: 'Filter: catalog_sales.cs_net_profit > Decimal128(Some(100),7,2) AND catalog_sales.cs_net_paid > Decimal128(Some(0),7,2) AND catalog_sales.cs_quantity > Int32(0)'
+                                  color: null
+                                  operator: filter
+                                  inputs:
+                                  - title: catalog_sales
+                                    color: null
+                                    operator: scan
+                                    inputs: []
+                              - title: unknown
+                                color: null
+                                operator: null
+                                inputs:
+                                - title: 'Filter: catalog_returns.cr_return_amount > Decimal128(Some(1000000),7,2)'
+                                  color: null
+                                  operator: filter
+                                  inputs:
+                                  - title: catalog_returns
+                                    color: null
+                                    operator: scan
+                                    inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(2000) AND date_dim.d_moy = Int32(11)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+        - title: 'Projection: Utf8("store") AS channel, store.item, store.return_ratio, store.return_rank, store.currency_rank'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: in_store.item, in_store.return_ratio, RANK() ORDER BY [in_store.return_ratio ASC NULLS LAST] AS return_rank, RANK() ORDER BY [in_store.currency_ratio ASC NULLS LAST] AS currency_rank'
+              color: null
+              operator: projection
+              inputs:
+              - title: 'Filter: RANK() ORDER BY [in_store.return_ratio ASC NULLS LAST] <= UInt64(10) OR RANK() ORDER BY [in_store.currency_ratio ASC NULLS LAST] <= UInt64(10)'
+                color: null
+                operator: filter
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: unknown
+                      color: null
+                      operator: null
+                      inputs:
+                      - title: 'Projection: sts.ss_item_sk AS item, CAST(SUM(coalesce(sr.sr_return_quantity,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(sts.ss_quantity,Int64(0))) AS Decimal128(15, 4)) AS return_ratio, CAST(SUM(coalesce(sr.sr_return_amt,Int64(0))) AS Decimal128(15, 4)) / CAST(SUM(coalesce(sts.ss_net_paid,Int64(0))) AS Decimal128(15, 4)) AS currency_ratio'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: unknown
+                          color: null
+                          operator: null
+                          inputs:
+                          - title: 'Join: sts.ss_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: sts.ss_ticket_number = sr.sr_ticket_number AND sts.ss_item_sk = sr.sr_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: unknown
+                                color: null
+                                operator: null
+                                inputs:
+                                - title: 'Filter: store_sales.ss_net_profit > Decimal128(Some(100),7,2) AND store_sales.ss_net_paid > Decimal128(Some(0),7,2) AND store_sales.ss_quantity > Int32(0)'
+                                  color: null
+                                  operator: filter
+                                  inputs:
+                                  - title: store_sales
+                                    color: null
+                                    operator: scan
+                                    inputs: []
+                              - title: unknown
+                                color: null
+                                operator: null
+                                inputs:
+                                - title: 'Filter: store_returns.sr_return_amt > Decimal128(Some(1000000),7,2)'
+                                  color: null
+                                  operator: filter
+                                  inputs:
+                                  - title: store_returns
+                                    color: null
+                                    operator: scan
+                                    inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(2000) AND date_dim.d_moy = Int32(11)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
