@@ -1,0 +1,47 @@
+Projection: b1.b1_lp, b1.b1_cnt, b1.b1_cntd, b2.b2_lp, b2.b2_cnt, b2.b2_cntd, b3.b3_lp, b3.b3_cnt, b3.b3_cntd, b4.b4_lp, b4.b4_cnt, b4.b4_cntd, b5.b5_lp, b5.b5_cnt, b5.b5_cntd, b6.b6_lp, b6.b6_cnt, b6.b6_cntd
+  Limit: skip=0, fetch=100
+    CrossJoin:
+      Limit: skip=0, fetch=100
+        CrossJoin:
+          Limit: skip=0, fetch=100
+            CrossJoin:
+              Limit: skip=0, fetch=100
+                CrossJoin:
+                  Limit: skip=0, fetch=100
+                    CrossJoin:
+                      SubqueryAlias: b1
+                        Projection: AVG(store_sales.ss_list_price) AS b1_lp, COUNT(store_sales.ss_list_price) AS b1_cnt, COUNT(DISTINCT store_sales.ss_list_price) AS b1_cntd
+                          Limit: skip=0, fetch=100
+                            Aggregate: groupBy=[[]], aggr=[[AVG(store_sales.ss_list_price), COUNT(store_sales.ss_list_price), COUNT(DISTINCT store_sales.ss_list_price)]]
+                              Filter: store_sales.ss_quantity >= Int32(0) AND store_sales.ss_quantity <= Int32(5) AND (store_sales.ss_list_price >= Decimal128(Some(1900),7,2) AND store_sales.ss_list_price <= Decimal128(Some(2900),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(1146800),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(1246800),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(2000),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(4000),7,2))
+                                TableScan: store_sales projection=[ss_quantity, ss_wholesale_cost, ss_list_price, ss_coupon_amt], partial_filters=[store_sales.ss_quantity >= Int32(0), store_sales.ss_quantity <= Int32(5), store_sales.ss_list_price >= Decimal128(Some(1900),7,2) AND store_sales.ss_list_price <= Decimal128(Some(2900),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(1146800),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(1246800),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(2000),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(4000),7,2)]
+                      SubqueryAlias: b2
+                        Projection: AVG(store_sales.ss_list_price) AS b2_lp, COUNT(store_sales.ss_list_price) AS b2_cnt, COUNT(DISTINCT store_sales.ss_list_price) AS b2_cntd
+                          Limit: skip=0, fetch=100
+                            Aggregate: groupBy=[[]], aggr=[[AVG(store_sales.ss_list_price), COUNT(store_sales.ss_list_price), COUNT(DISTINCT store_sales.ss_list_price)]]
+                              Filter: store_sales.ss_quantity >= Int32(6) AND store_sales.ss_quantity <= Int32(10) AND (store_sales.ss_list_price >= Decimal128(Some(1400),7,2) AND store_sales.ss_list_price <= Decimal128(Some(2400),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(9200),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(109200),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(1300),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(3300),7,2))
+                                TableScan: store_sales projection=[ss_quantity, ss_wholesale_cost, ss_list_price, ss_coupon_amt], partial_filters=[store_sales.ss_quantity >= Int32(6), store_sales.ss_quantity <= Int32(10), store_sales.ss_list_price >= Decimal128(Some(1400),7,2) AND store_sales.ss_list_price <= Decimal128(Some(2400),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(9200),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(109200),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(1300),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(3300),7,2)]
+                  SubqueryAlias: b3
+                    Projection: AVG(store_sales.ss_list_price) AS b3_lp, COUNT(store_sales.ss_list_price) AS b3_cnt, COUNT(DISTINCT store_sales.ss_list_price) AS b3_cntd
+                      Limit: skip=0, fetch=100
+                        Aggregate: groupBy=[[]], aggr=[[AVG(store_sales.ss_list_price), COUNT(store_sales.ss_list_price), COUNT(DISTINCT store_sales.ss_list_price)]]
+                          Filter: store_sales.ss_quantity >= Int32(11) AND store_sales.ss_quantity <= Int32(15) AND (store_sales.ss_list_price >= Decimal128(Some(12400),7,2) AND store_sales.ss_list_price <= Decimal128(Some(13400),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(402300),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(502300),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(5000),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(7000),7,2))
+                            TableScan: store_sales projection=[ss_quantity, ss_wholesale_cost, ss_list_price, ss_coupon_amt], partial_filters=[store_sales.ss_quantity >= Int32(11), store_sales.ss_quantity <= Int32(15), store_sales.ss_list_price >= Decimal128(Some(12400),7,2) AND store_sales.ss_list_price <= Decimal128(Some(13400),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(402300),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(502300),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(5000),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(7000),7,2)]
+              SubqueryAlias: b4
+                Projection: AVG(store_sales.ss_list_price) AS b4_lp, COUNT(store_sales.ss_list_price) AS b4_cnt, COUNT(DISTINCT store_sales.ss_list_price) AS b4_cntd
+                  Limit: skip=0, fetch=100
+                    Aggregate: groupBy=[[]], aggr=[[AVG(store_sales.ss_list_price), COUNT(store_sales.ss_list_price), COUNT(DISTINCT store_sales.ss_list_price)]]
+                      Filter: store_sales.ss_quantity >= Int32(16) AND store_sales.ss_quantity <= Int32(20) AND (store_sales.ss_list_price >= Decimal128(Some(7400),7,2) AND store_sales.ss_list_price <= Decimal128(Some(8400),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(353400),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(453400),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(1100),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(3100),7,2))
+                        TableScan: store_sales projection=[ss_quantity, ss_wholesale_cost, ss_list_price, ss_coupon_amt], partial_filters=[store_sales.ss_quantity >= Int32(16), store_sales.ss_quantity <= Int32(20), store_sales.ss_list_price >= Decimal128(Some(7400),7,2) AND store_sales.ss_list_price <= Decimal128(Some(8400),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(353400),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(453400),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(1100),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(3100),7,2)]
+          SubqueryAlias: b5
+            Projection: AVG(store_sales.ss_list_price) AS b5_lp, COUNT(store_sales.ss_list_price) AS b5_cnt, COUNT(DISTINCT store_sales.ss_list_price) AS b5_cntd
+              Limit: skip=0, fetch=100
+                Aggregate: groupBy=[[]], aggr=[[AVG(store_sales.ss_list_price), COUNT(store_sales.ss_list_price), COUNT(DISTINCT store_sales.ss_list_price)]]
+                  Filter: store_sales.ss_quantity >= Int32(21) AND store_sales.ss_quantity <= Int32(25) AND (store_sales.ss_list_price >= Decimal128(Some(17300),7,2) AND store_sales.ss_list_price <= Decimal128(Some(18300),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(601700),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(701700),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(4500),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(6500),7,2))
+                    TableScan: store_sales projection=[ss_quantity, ss_wholesale_cost, ss_list_price, ss_coupon_amt], partial_filters=[store_sales.ss_quantity >= Int32(21), store_sales.ss_quantity <= Int32(25), store_sales.ss_list_price >= Decimal128(Some(17300),7,2) AND store_sales.ss_list_price <= Decimal128(Some(18300),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(601700),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(701700),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(4500),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(6500),7,2)]
+      SubqueryAlias: b6
+        Projection: AVG(store_sales.ss_list_price) AS b6_lp, COUNT(store_sales.ss_list_price) AS b6_cnt, COUNT(DISTINCT store_sales.ss_list_price) AS b6_cntd
+          Limit: skip=0, fetch=100
+            Aggregate: groupBy=[[]], aggr=[[AVG(store_sales.ss_list_price), COUNT(store_sales.ss_list_price), COUNT(DISTINCT store_sales.ss_list_price)]]
+              Filter: store_sales.ss_quantity >= Int32(26) AND store_sales.ss_quantity <= Int32(30) AND (store_sales.ss_list_price >= Decimal128(Some(200),7,2) AND store_sales.ss_list_price <= Decimal128(Some(1200),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(1696100),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(1796100),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(1800),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(3800),7,2))
+                TableScan: store_sales projection=[ss_quantity, ss_wholesale_cost, ss_list_price, ss_coupon_amt], partial_filters=[store_sales.ss_quantity >= Int32(26), store_sales.ss_quantity <= Int32(30), store_sales.ss_list_price >= Decimal128(Some(200),7,2) AND store_sales.ss_list_price <= Decimal128(Some(1200),7,2) OR store_sales.ss_coupon_amt >= Decimal128(Some(1696100),7,2) AND store_sales.ss_coupon_amt <= Decimal128(Some(1796100),7,2) OR store_sales.ss_wholesale_cost >= Decimal128(Some(1800),7,2) AND store_sales.ss_wholesale_cost <= Decimal128(Some(3800),7,2)]

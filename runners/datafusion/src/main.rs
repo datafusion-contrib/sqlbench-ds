@@ -106,7 +106,7 @@ pub async fn main() -> Result<()> {
             execute_query(&mut w, &ctx, &query_path, query, opt.debug, &output_path).await?;
         }
         _ => {
-            for query in 1..=99 {
+            for query in 79..=99 {
                 let result =
                     execute_query(&mut w, &ctx, &query_path, query, opt.debug, &output_path).await;
                 match result {
@@ -180,12 +180,12 @@ pub async fn execute_query(
         serde_yaml::to_writer(&mut file, &qpml).unwrap();
 
         // write results to disk
-        if !batches.is_empty() {
-            let filename = format!("{}/q{}{}.csv", output_path, query_no, file_suffix);
-            let t = MemTable::try_new(batches[0].schema(), vec![batches])?;
-            let df = ctx.read_table(Arc::new(t))?;
-            df.write_csv(&filename).await?;
-        }
+        // if !batches.is_empty() {
+        //     let filename = format!("{}/q{}{}.csv", output_path, query_no, file_suffix);
+        //     let t = MemTable::try_new(batches[0].schema(), vec![batches])?;
+        //     let df = ctx.read_table(Arc::new(t))?;
+        //     df.write_csv(&filename).await?;
+        // }
     }
 
     Ok(())

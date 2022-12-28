@@ -1,0 +1,316 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: prev_yr.d_year AS prev_year, curr_yr.d_year AS year, curr_yr.i_brand_id, curr_yr.i_class_id, curr_yr.i_category_id, curr_yr.i_manufact_id, prev_yr.sales_cnt AS prev_yr_cnt, curr_yr.sales_cnt AS curr_yr_cnt, curr_yr.sales_cnt - prev_yr.sales_cnt AS sales_cnt_diff, curr_yr.sales_amt - prev_yr.sales_amt AS sales_amt_diff'
+    color: null
+    operator: projection
+    inputs:
+    - title: 'Filter: CAST(curr_yr.sales_cnt AS Decimal128(17, 2)) / CAST(prev_yr.sales_cnt AS Decimal128(17, 2)) < Decimal128(Some(90),17,2)'
+      color: null
+      operator: filter
+      inputs:
+      - title: 'Join: curr_yr.i_brand_id = prev_yr.i_brand_id AND curr_yr.i_class_id = prev_yr.i_class_id AND curr_yr.i_category_id = prev_yr.i_category_id AND curr_yr.i_manufact_id = prev_yr.i_manufact_id'
+        color: null
+        operator: join
+        inputs:
+        - title: unknown
+          color: null
+          operator: null
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: sales_detail.d_year, sales_detail.i_brand_id, sales_detail.i_class_id, sales_detail.i_category_id, sales_detail.i_manufact_id, SUM(sales_detail.sales_cnt) AS sales_cnt, SUM(sales_detail.sales_amt) AS sales_amt'
+              color: null
+              operator: projection
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: unknown
+                      color: null
+                      operator: null
+                      inputs:
+                      - title: 'Projection: date_dim.d_year, item.i_brand_id, item.i_class_id, item.i_category_id, item.i_manufact_id, CAST(catalog_sales.cs_quantity AS Int64) - coalesce(CAST(catalog_returns.cr_return_quantity AS Int64), Int64(0)) AS sales_cnt, CAST(catalog_sales.cs_ext_sales_price AS Float64) - coalesce(CAST(catalog_returns.cr_return_amount AS Float64), Float64(0)) AS sales_amt'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: 'Join: catalog_sales.cs_order_number = catalog_returns.cr_order_number AND catalog_sales.cs_item_sk = catalog_returns.cr_item_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: catalog_sales.cs_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: catalog_sales.cs_item_sk = item.i_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: catalog_sales
+                                color: null
+                                operator: scan
+                                inputs: []
+                              - title: 'Filter: item.i_category = Utf8("Shoes")'
+                                color: null
+                                operator: filter
+                                inputs:
+                                - title: item
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(2000)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: catalog_returns
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: 'Projection: date_dim.d_year, item.i_brand_id, item.i_class_id, item.i_category_id, item.i_manufact_id, CAST(store_sales.ss_quantity AS Int64) - coalesce(CAST(store_returns.sr_return_quantity AS Int64), Int64(0)) AS sales_cnt, CAST(store_sales.ss_ext_sales_price AS Float64) - coalesce(CAST(store_returns.sr_return_amt AS Float64), Float64(0)) AS sales_amt'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: 'Join: store_sales.ss_ticket_number = store_returns.sr_ticket_number AND store_sales.ss_item_sk = store_returns.sr_item_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: store_sales.ss_item_sk = item.i_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: store_sales
+                                color: null
+                                operator: scan
+                                inputs: []
+                              - title: 'Filter: item.i_category = Utf8("Shoes")'
+                                color: null
+                                operator: filter
+                                inputs:
+                                - title: item
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(2000)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: store_returns
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: 'Projection: date_dim.d_year, item.i_brand_id, item.i_class_id, item.i_category_id, item.i_manufact_id, CAST(web_sales.ws_quantity AS Int64) - coalesce(CAST(web_returns.wr_return_quantity AS Int64), Int64(0)) AS sales_cnt, CAST(web_sales.ws_ext_sales_price AS Float64) - coalesce(CAST(web_returns.wr_return_amt AS Float64), Float64(0)) AS sales_amt'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: 'Join: web_sales.ws_order_number = web_returns.wr_order_number AND web_sales.ws_item_sk = web_returns.wr_item_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: web_sales.ws_item_sk = item.i_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: web_sales
+                                color: null
+                                operator: scan
+                                inputs: []
+                              - title: 'Filter: item.i_category = Utf8("Shoes")'
+                                color: null
+                                operator: filter
+                                inputs:
+                                - title: item
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(2000)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: web_returns
+                            color: null
+                            operator: scan
+                            inputs: []
+        - title: unknown
+          color: null
+          operator: null
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: sales_detail.d_year, sales_detail.i_brand_id, sales_detail.i_class_id, sales_detail.i_category_id, sales_detail.i_manufact_id, SUM(sales_detail.sales_cnt) AS sales_cnt, SUM(sales_detail.sales_amt) AS sales_amt'
+              color: null
+              operator: projection
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: unknown
+                      color: null
+                      operator: null
+                      inputs:
+                      - title: 'Projection: date_dim.d_year, item.i_brand_id, item.i_class_id, item.i_category_id, item.i_manufact_id, CAST(catalog_sales.cs_quantity AS Int64) - coalesce(CAST(catalog_returns.cr_return_quantity AS Int64), Int64(0)) AS sales_cnt, CAST(catalog_sales.cs_ext_sales_price AS Float64) - coalesce(CAST(catalog_returns.cr_return_amount AS Float64), Float64(0)) AS sales_amt'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: 'Join: catalog_sales.cs_order_number = catalog_returns.cr_order_number AND catalog_sales.cs_item_sk = catalog_returns.cr_item_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: catalog_sales.cs_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: catalog_sales.cs_item_sk = item.i_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: catalog_sales
+                                color: null
+                                operator: scan
+                                inputs: []
+                              - title: 'Filter: item.i_category = Utf8("Shoes")'
+                                color: null
+                                operator: filter
+                                inputs:
+                                - title: item
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(1999)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: catalog_returns
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: 'Projection: date_dim.d_year, item.i_brand_id, item.i_class_id, item.i_category_id, item.i_manufact_id, CAST(store_sales.ss_quantity AS Int64) - coalesce(CAST(store_returns.sr_return_quantity AS Int64), Int64(0)) AS sales_cnt, CAST(store_sales.ss_ext_sales_price AS Float64) - coalesce(CAST(store_returns.sr_return_amt AS Float64), Float64(0)) AS sales_amt'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: 'Join: store_sales.ss_ticket_number = store_returns.sr_ticket_number AND store_sales.ss_item_sk = store_returns.sr_item_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: store_sales.ss_item_sk = item.i_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: store_sales
+                                color: null
+                                operator: scan
+                                inputs: []
+                              - title: 'Filter: item.i_category = Utf8("Shoes")'
+                                color: null
+                                operator: filter
+                                inputs:
+                                - title: item
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(1999)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: store_returns
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: 'Projection: date_dim.d_year, item.i_brand_id, item.i_class_id, item.i_category_id, item.i_manufact_id, CAST(web_sales.ws_quantity AS Int64) - coalesce(CAST(web_returns.wr_return_quantity AS Int64), Int64(0)) AS sales_cnt, CAST(web_sales.ws_ext_sales_price AS Float64) - coalesce(CAST(web_returns.wr_return_amt AS Float64), Float64(0)) AS sales_amt'
+                        color: null
+                        operator: projection
+                        inputs:
+                        - title: 'Join: web_sales.ws_order_number = web_returns.wr_order_number AND web_sales.ws_item_sk = web_returns.wr_item_sk'
+                          color: null
+                          operator: join
+                          inputs:
+                          - title: 'Join: web_sales.ws_sold_date_sk = date_dim.d_date_sk'
+                            color: null
+                            operator: join
+                            inputs:
+                            - title: 'Join: web_sales.ws_item_sk = item.i_item_sk'
+                              color: null
+                              operator: join
+                              inputs:
+                              - title: web_sales
+                                color: null
+                                operator: scan
+                                inputs: []
+                              - title: 'Filter: item.i_category = Utf8("Shoes")'
+                                color: null
+                                operator: filter
+                                inputs:
+                                - title: item
+                                  color: null
+                                  operator: scan
+                                  inputs: []
+                            - title: 'Filter: date_dim.d_year = Int32(1999)'
+                              color: null
+                              operator: filter
+                              inputs:
+                              - title: date_dim
+                                color: null
+                                operator: scan
+                                inputs: []
+                          - title: web_returns
+                            color: null
+                            operator: scan
+                            inputs: []

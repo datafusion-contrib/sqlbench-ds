@@ -1,0 +1,48 @@
+title: 'Projection: brand_id, brand, ext_price'
+color: null
+operator: projection
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: unknown
+    color: null
+    operator: null
+    inputs:
+    - title: 'Projection: item.i_brand_id AS brand_id, item.i_brand AS brand, SUM(store_sales.ss_ext_sales_price) AS ext_price, item.i_brand_id'
+      color: null
+      operator: projection
+      inputs:
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Join: store_sales.ss_item_sk = item.i_item_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Join: date_dim.d_date_sk = store_sales.ss_sold_date_sk'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Filter: date_dim.d_moy = Int32(12) AND date_dim.d_year = Int32(2000)'
+              color: null
+              operator: filter
+              inputs:
+              - title: date_dim
+                color: null
+                operator: scan
+                inputs: []
+            - title: store_sales
+              color: null
+              operator: scan
+              inputs: []
+          - title: 'Filter: item.i_manager_id = Int32(1)'
+            color: null
+            operator: filter
+            inputs:
+            - title: item
+              color: null
+              operator: scan
+              inputs: []

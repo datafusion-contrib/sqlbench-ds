@@ -1,0 +1,172 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: promotional_sales.promotions, all_sales.total, CAST(CAST(promotional_sales.promotions AS Decimal128(15, 4)) / CAST(all_sales.total AS Decimal128(15, 4)) AS Decimal128(36, 4)) * Decimal128(Some(1000000),36,4) AS promotional_sales.promotions / all_sales.total * Int64(100)'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Projection: SUM(store_sales.ss_ext_sales_price) AS promotions'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Join: store_sales.ss_item_sk = item.i_item_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: customer.c_current_addr_sk = customer_address.ca_address_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: store_sales.ss_customer_sk = customer.c_customer_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Join: store_sales.ss_promo_sk = promotion.p_promo_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: store_sales
+                          color: null
+                          operator: scan
+                          inputs: []
+                        - title: 'Filter: store.s_gmt_offset = Decimal128(Some(-600),5,2)'
+                          color: null
+                          operator: filter
+                          inputs:
+                          - title: store
+                            color: null
+                            operator: scan
+                            inputs: []
+                      - title: 'Filter: promotion.p_channel_dmail = Utf8("Y") OR promotion.p_channel_email = Utf8("Y") OR promotion.p_channel_tv = Utf8("Y")'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: promotion
+                          color: null
+                          operator: scan
+                          inputs: []
+                    - title: 'Filter: date_dim.d_year = Int32(2001) AND date_dim.d_moy = Int32(12)'
+                      color: null
+                      operator: filter
+                      inputs:
+                      - title: date_dim
+                        color: null
+                        operator: scan
+                        inputs: []
+                  - title: customer
+                    color: null
+                    operator: scan
+                    inputs: []
+                - title: 'Filter: customer_address.ca_gmt_offset = Decimal128(Some(-600),5,2)'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: customer_address
+                    color: null
+                    operator: scan
+                    inputs: []
+              - title: 'Filter: item.i_category = Utf8("Jewelry")'
+                color: null
+                operator: filter
+                inputs:
+                - title: item
+                  color: null
+                  operator: scan
+                  inputs: []
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Projection: SUM(store_sales.ss_ext_sales_price) AS total'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Join: store_sales.ss_item_sk = item.i_item_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: customer.c_current_addr_sk = customer_address.ca_address_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: store_sales.ss_customer_sk = customer.c_customer_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                    color: null
+                    operator: join
+                    inputs:
+                    - title: 'Join: store_sales.ss_store_sk = store.s_store_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: store_sales
+                        color: null
+                        operator: scan
+                        inputs: []
+                      - title: 'Filter: store.s_gmt_offset = Decimal128(Some(-600),5,2)'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: store
+                          color: null
+                          operator: scan
+                          inputs: []
+                    - title: 'Filter: date_dim.d_year = Int32(2001) AND date_dim.d_moy = Int32(12)'
+                      color: null
+                      operator: filter
+                      inputs:
+                      - title: date_dim
+                        color: null
+                        operator: scan
+                        inputs: []
+                  - title: customer
+                    color: null
+                    operator: scan
+                    inputs: []
+                - title: 'Filter: customer_address.ca_gmt_offset = Decimal128(Some(-600),5,2)'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: customer_address
+                    color: null
+                    operator: scan
+                    inputs: []
+              - title: 'Filter: item.i_category = Utf8("Jewelry")'
+                color: null
+                operator: filter
+                inputs:
+                - title: item
+                  color: null
+                  operator: scan
+                  inputs: []

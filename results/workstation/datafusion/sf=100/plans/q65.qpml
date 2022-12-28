@@ -1,0 +1,108 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: store.s_store_name, item.i_item_desc, sc.revenue, item.i_current_price, item.i_wholesale_cost, item.i_brand'
+    color: null
+    operator: projection
+    inputs:
+    - title: 'Projection: store.s_store_name, item.i_item_desc, item.i_current_price, item.i_wholesale_cost, item.i_brand, sc.revenue'
+      color: null
+      operator: projection
+      inputs:
+      - title: 'Filter: CAST(sc.revenue AS Decimal128(30, 15)) <= CAST(Float64(0.1) * CAST(sb.ave AS Float64) AS Decimal128(30, 15))'
+        color: null
+        operator: filter
+        inputs:
+        - title: 'Join: sc.ss_store_sk = sb.ss_store_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Join: sc.ss_item_sk = item.i_item_sk'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Join: store.s_store_sk = sc.ss_store_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: store
+                color: null
+                operator: scan
+                inputs: []
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: 'Projection: store_sales.ss_store_sk, store_sales.ss_item_sk, SUM(store_sales.ss_sales_price) AS revenue'
+                  color: null
+                  operator: projection
+                  inputs:
+                  - title: unknown
+                    color: null
+                    operator: null
+                    inputs:
+                    - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                      color: null
+                      operator: join
+                      inputs:
+                      - title: store_sales
+                        color: null
+                        operator: scan
+                        inputs: []
+                      - title: 'Filter: date_dim.d_month_seq >= Int32(1191) AND date_dim.d_month_seq <= Int32(1202)'
+                        color: null
+                        operator: filter
+                        inputs:
+                        - title: date_dim
+                          color: null
+                          operator: scan
+                          inputs: []
+            - title: item
+              color: null
+              operator: scan
+              inputs: []
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Projection: sa.ss_store_sk, AVG(sa.revenue) AS ave'
+              color: null
+              operator: projection
+              inputs:
+              - title: unknown
+                color: null
+                operator: null
+                inputs:
+                - title: unknown
+                  color: null
+                  operator: null
+                  inputs:
+                  - title: 'Projection: store_sales.ss_store_sk, SUM(store_sales.ss_sales_price) AS revenue'
+                    color: null
+                    operator: projection
+                    inputs:
+                    - title: unknown
+                      color: null
+                      operator: null
+                      inputs:
+                      - title: 'Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk'
+                        color: null
+                        operator: join
+                        inputs:
+                        - title: store_sales
+                          color: null
+                          operator: scan
+                          inputs: []
+                        - title: 'Filter: date_dim.d_month_seq >= Int32(1191) AND date_dim.d_month_seq <= Int32(1202)'
+                          color: null
+                          operator: filter
+                          inputs:
+                          - title: date_dim
+                            color: null
+                            operator: scan
+                            inputs: []

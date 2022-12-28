@@ -1,0 +1,12 @@
+Limit: skip=0, fetch=100
+  Sort: SUM(store_sales.ss_ext_sales_price) DESC NULLS FIRST, dt.d_year ASC NULLS LAST, item.i_category_id ASC NULLS LAST, item.i_category ASC NULLS LAST, fetch=100
+    Projection: dt.d_year, item.i_category_id, item.i_category, SUM(store_sales.ss_ext_sales_price)
+      Aggregate: groupBy=[[dt.d_year, item.i_category_id, item.i_category]], aggr=[[SUM(store_sales.ss_ext_sales_price)]]
+        Inner Join: store_sales.ss_item_sk = item.i_item_sk
+          Inner Join: dt.d_date_sk = store_sales.ss_sold_date_sk
+            SubqueryAlias: dt
+              Filter: date_dim.d_moy = Int32(11) AND date_dim.d_year = Int32(2001)
+                TableScan: date_dim projection=[d_date_sk, d_year, d_moy], partial_filters=[date_dim.d_moy = Int32(11), date_dim.d_year = Int32(2001)]
+            TableScan: store_sales projection=[ss_sold_date_sk, ss_item_sk, ss_ext_sales_price]
+          Filter: item.i_manager_id = Int32(1)
+            TableScan: item projection=[i_item_sk, i_category_id, i_category, i_manager_id], partial_filters=[item.i_manager_id = Int32(1)]

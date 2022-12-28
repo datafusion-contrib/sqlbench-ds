@@ -1,0 +1,40 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: item.i_product_name, item.i_brand, item.i_class, item.i_category, AVG(inventory.inv_quantity_on_hand) AS qoh'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: 'Join: inventory.inv_item_sk = item.i_item_sk'
+        color: null
+        operator: join
+        inputs:
+        - title: 'Join: inventory.inv_date_sk = date_dim.d_date_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: inventory
+            color: null
+            operator: scan
+            inputs: []
+          - title: 'Filter: date_dim.d_month_seq >= Int32(1204) AND date_dim.d_month_seq <= Int32(1215)'
+            color: null
+            operator: filter
+            inputs:
+            - title: date_dim
+              color: null
+              operator: scan
+              inputs: []
+        - title: item
+          color: null
+          operator: scan
+          inputs: []

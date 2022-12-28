@@ -1,0 +1,60 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: substr(warehouse.w_warehouse_name,Int64(1),Int64(20)), ship_mode.sm_type, call_center.cc_name, SUM(CASE WHEN catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk <= Int64(30) THEN Int64(1) ELSE Int64(0) END) AS 30 days, SUM(CASE WHEN catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk > Int64(30) AND catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk <= Int64(60) THEN Int64(1) ELSE Int64(0) END) AS 31-60 days, SUM(CASE WHEN catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk > Int64(60) AND catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk <= Int64(90) THEN Int64(1) ELSE Int64(0) END) AS 61-90 days, SUM(CASE WHEN catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk > Int64(90) AND catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk <= Int64(120) THEN Int64(1) ELSE Int64(0) END) AS 91-120 days, SUM(CASE WHEN catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk > Int64(120) THEN Int64(1) ELSE Int64(0) END) AS >120 days'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: 'Projection: catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_sk AS catalog_sales.cs_ship_date_sk - catalog_sales.cs_sold_date_skcatalog_sales.cs_sold_date_skcatalog_sales.cs_ship_date_sk, warehouse.w_warehouse_name, ship_mode.sm_type, call_center.cc_name'
+        color: null
+        operator: projection
+        inputs:
+        - title: 'Join: catalog_sales.cs_ship_date_sk = date_dim.d_date_sk'
+          color: null
+          operator: join
+          inputs:
+          - title: 'Join: catalog_sales.cs_call_center_sk = call_center.cc_call_center_sk'
+            color: null
+            operator: join
+            inputs:
+            - title: 'Join: catalog_sales.cs_ship_mode_sk = ship_mode.sm_ship_mode_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: catalog_sales.cs_warehouse_sk = warehouse.w_warehouse_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: catalog_sales
+                  color: null
+                  operator: scan
+                  inputs: []
+                - title: warehouse
+                  color: null
+                  operator: scan
+                  inputs: []
+              - title: ship_mode
+                color: null
+                operator: scan
+                inputs: []
+            - title: call_center
+              color: null
+              operator: scan
+              inputs: []
+          - title: 'Filter: date_dim.d_month_seq >= Int32(1221) AND date_dim.d_month_seq <= Int32(1232)'
+            color: null
+            operator: filter
+            inputs:
+            - title: date_dim
+              color: null
+              operator: scan
+              inputs: []

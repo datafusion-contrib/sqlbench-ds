@@ -1,0 +1,28 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: unknown
+    color: null
+    operator: null
+    inputs:
+    - title: 'Projection: i1.i_product_name'
+      color: null
+      operator: projection
+      inputs:
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Filter: item.i_manufact_id >= Int32(762) AND item.i_manufact_id <= Int32(802)'
+          color: null
+          operator: filter
+          inputs:
+          - title: item
+            color: null
+            operator: scan
+            inputs: []

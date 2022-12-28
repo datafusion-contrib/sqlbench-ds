@@ -1,0 +1,19 @@
+Projection: SUM(CASE WHEN ssci.customer_sk IS NOT NULL AND csci.customer_sk IS NULL THEN Int64(1) ELSE Int64(0) END) AS store_only, SUM(CASE WHEN ssci.customer_sk IS NULL AND csci.customer_sk IS NOT NULL THEN Int64(1) ELSE Int64(0) END) AS catalog_only, SUM(CASE WHEN ssci.customer_sk IS NOT NULL AND csci.customer_sk IS NOT NULL THEN Int64(1) ELSE Int64(0) END) AS store_and_catalog
+  Limit: skip=0, fetch=100
+    Aggregate: groupBy=[[]], aggr=[[SUM(CASE WHEN ssci.customer_sk IS NOT NULLssci.customer_sk AS ssci.customer_sk IS NOT NULL AND csci.customer_sk IS NULL THEN Int64(1) ELSE Int64(0) END), SUM(CASE WHEN ssci.customer_sk IS NULL AND csci.customer_sk IS NOT NULLcsci.customer_sk AS csci.customer_sk IS NOT NULL THEN Int64(1) ELSE Int64(0) END), SUM(CASE WHEN ssci.customer_sk IS NOT NULLssci.customer_sk AS ssci.customer_sk IS NOT NULL AND csci.customer_sk IS NOT NULLcsci.customer_sk AS csci.customer_sk IS NOT NULL THEN Int64(1) ELSE Int64(0) END)]]
+      Projection: csci.customer_sk IS NOT NULL AS csci.customer_sk IS NOT NULLcsci.customer_sk, ssci.customer_sk IS NOT NULL AS ssci.customer_sk IS NOT NULLssci.customer_sk, ssci.customer_sk, csci.customer_sk
+        Full Join: ssci.customer_sk = csci.customer_sk, ssci.item_sk = csci.item_sk
+          SubqueryAlias: ssci
+            Projection: store_sales.ss_customer_sk AS customer_sk, store_sales.ss_item_sk AS item_sk
+              Aggregate: groupBy=[[store_sales.ss_customer_sk, store_sales.ss_item_sk]], aggr=[[]]
+                Inner Join: store_sales.ss_sold_date_sk = date_dim.d_date_sk
+                  TableScan: store_sales projection=[ss_sold_date_sk, ss_item_sk, ss_customer_sk]
+                  Filter: date_dim.d_month_seq >= Int32(1219) AND date_dim.d_month_seq <= Int32(1230)
+                    TableScan: date_dim projection=[d_date_sk, d_month_seq], partial_filters=[date_dim.d_month_seq >= Int32(1219), date_dim.d_month_seq <= Int32(1230)]
+          SubqueryAlias: csci
+            Projection: catalog_sales.cs_bill_customer_sk AS customer_sk, catalog_sales.cs_item_sk AS item_sk
+              Aggregate: groupBy=[[catalog_sales.cs_bill_customer_sk, catalog_sales.cs_item_sk]], aggr=[[]]
+                Inner Join: catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+                  TableScan: catalog_sales projection=[cs_sold_date_sk, cs_bill_customer_sk, cs_item_sk]
+                  Filter: date_dim.d_month_seq >= Int32(1219) AND date_dim.d_month_seq <= Int32(1230)
+                    TableScan: date_dim projection=[d_date_sk, d_month_seq], partial_filters=[date_dim.d_month_seq >= Int32(1219), date_dim.d_month_seq <= Int32(1230)]

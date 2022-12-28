@@ -1,0 +1,120 @@
+title: unknown
+color: null
+operator: null
+inputs:
+- title: unknown
+  color: null
+  operator: null
+  inputs:
+  - title: 'Projection: CAST(at.amc AS Decimal128(15, 4)) / CAST(pt.pmc AS Decimal128(15, 4)) AS am_pm_ratio'
+    color: null
+    operator: projection
+    inputs:
+    - title: unknown
+      color: null
+      operator: null
+      inputs:
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Projection: COUNT(UInt8(1)) AS amc'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Join: web_sales.ws_web_page_sk = web_page.wp_web_page_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: web_sales.ws_sold_time_sk = time_dim.t_time_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: web_sales.ws_ship_hdemo_sk = household_demographics.hd_demo_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: web_sales
+                    color: null
+                    operator: scan
+                    inputs: []
+                  - title: 'Filter: household_demographics.hd_dep_count = Int32(6)'
+                    color: null
+                    operator: filter
+                    inputs:
+                    - title: household_demographics
+                      color: null
+                      operator: scan
+                      inputs: []
+                - title: 'Filter: time_dim.t_hour >= Int32(10) AND time_dim.t_hour <= Int32(11)'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: time_dim
+                    color: null
+                    operator: scan
+                    inputs: []
+              - title: 'Filter: web_page.wp_char_count >= Int32(5000) AND web_page.wp_char_count <= Int32(5200)'
+                color: null
+                operator: filter
+                inputs:
+                - title: web_page
+                  color: null
+                  operator: scan
+                  inputs: []
+      - title: unknown
+        color: null
+        operator: null
+        inputs:
+        - title: 'Projection: COUNT(UInt8(1)) AS pmc'
+          color: null
+          operator: projection
+          inputs:
+          - title: unknown
+            color: null
+            operator: null
+            inputs:
+            - title: 'Join: web_sales.ws_web_page_sk = web_page.wp_web_page_sk'
+              color: null
+              operator: join
+              inputs:
+              - title: 'Join: web_sales.ws_sold_time_sk = time_dim.t_time_sk'
+                color: null
+                operator: join
+                inputs:
+                - title: 'Join: web_sales.ws_ship_hdemo_sk = household_demographics.hd_demo_sk'
+                  color: null
+                  operator: join
+                  inputs:
+                  - title: web_sales
+                    color: null
+                    operator: scan
+                    inputs: []
+                  - title: 'Filter: household_demographics.hd_dep_count = Int32(6)'
+                    color: null
+                    operator: filter
+                    inputs:
+                    - title: household_demographics
+                      color: null
+                      operator: scan
+                      inputs: []
+                - title: 'Filter: time_dim.t_hour >= Int32(18) AND time_dim.t_hour <= Int32(19)'
+                  color: null
+                  operator: filter
+                  inputs:
+                  - title: time_dim
+                    color: null
+                    operator: scan
+                    inputs: []
+              - title: 'Filter: web_page.wp_char_count >= Int32(5000) AND web_page.wp_char_count <= Int32(5200)'
+                color: null
+                operator: filter
+                inputs:
+                - title: web_page
+                  color: null
+                  operator: scan
+                  inputs: []

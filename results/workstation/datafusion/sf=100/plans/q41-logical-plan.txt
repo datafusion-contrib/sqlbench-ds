@@ -1,0 +1,7 @@
+Limit: skip=0, fetch=100
+  Sort: i1.i_product_name ASC NULLS LAST, fetch=100
+    Distinct:
+      Projection: i1.i_product_name
+        SubqueryAlias: i1
+          Filter: item.i_manufact_id >= Int32(762) AND item.i_manufact_id <= Int32(802)
+            TableScan: item projection=[i_manufact_id, i_product_name], full_filters=[(<subquery>) > Int64(0)], partial_filters=[item.i_manufact_id >= Int32(762), item.i_manufact_id <= Int32(802)]
