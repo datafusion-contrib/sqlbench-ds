@@ -78,7 +78,11 @@ pub async fn main() -> Result<()> {
     let config = SessionConfig::from_env().with_target_partitions(opt.concurrency as usize);
     let ctx = SessionContext::with_config(config);
 
+    let f = File::create("results.csv")?;
+    let mut w = BufWriter::new(f);
+
     // register tables
+    let start = Instant::now();
     for table in TABLES {
         // let path = format!("{}/{}", &data_path, table.name);
         let path = format!("{}/{}.parquet", &data_path, table);
@@ -93,14 +97,18 @@ pub async fn main() -> Result<()> {
             )));
         }
     }
+    let duration = start.elapsed();
+    w.write(format!("Register Tables,{}\n", duration.as_millis()).as_bytes())?;
+    w.flush()?;
 
     match opt.query {
         Some(query) => {
-            execute_query(&ctx, &query_path, query, opt.debug, &output_path).await?;
+            execute_query(&mut w, &ctx, &query_path, query, opt.debug, &output_path).await?;
         }
         _ => {
             for query in 1..=99 {
-                let result = execute_query(&ctx, &query_path, query, opt.debug, &output_path).await;
+                let result =
+                    execute_query(&mut w, &ctx, &query_path, query, opt.debug, &output_path).await;
                 match result {
                     Ok(_) => {}
                     Err(e) => println!("Fail: {}", e),
@@ -113,16 +121,16 @@ pub async fn main() -> Result<()> {
 }
 
 pub async fn execute_query(
+    w: &mut BufWriter<File>,
     ctx: &SessionContext,
     query_path: &str,
     query_no: u8,
     debug: bool,
     output_path: &str,
 ) -> Result<()> {
-    println!("Executing query {}", query_no);
-
-    let filename = format!("{}/{query_no}.sql", query_path);
-    let sql = fs::read_to_string(filename).expect("Could not read query sql");
+    let filename = format!("{}/q{query_no}.sql", query_path);
+    println!("Executing query {} from {}", query_no, filename);
+    let sql = fs::read_to_string(&filename)?;
 
     // some queries have multiple statements
     let sql = sql
@@ -138,7 +146,7 @@ pub async fn execute_query(
         }
 
         let file_suffix = if multipart {
-            format!("_part{}", i + 1)
+            format!("_part_{}", i + 1)
         } else {
             "".to_owned()
         };
@@ -147,7 +155,13 @@ pub async fn execute_query(
         let df = ctx.sql(sql).await?;
         let batches = df.collect().await?;
         let duration = start.elapsed();
-        println!("Query {} executed in: {:?}", query_no, duration);
+        println!(
+            "Query {}{} executed in: {:?}",
+            query_no, file_suffix, duration
+        );
+
+        w.write(format!("q{}{},{}\n", query_no, file_suffix, duration.as_millis()).as_bytes())?;
+        w.flush()?;
 
         let plan = df.to_logical_plan()?;
         let formatted_query_plan = format!("{}", plan.display_indent());
