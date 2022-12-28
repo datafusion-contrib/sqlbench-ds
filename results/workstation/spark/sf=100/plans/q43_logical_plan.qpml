@@ -26,7 +26,7 @@ inputs:
               - title: "Projection: d_date_sk#612, d_day_name#626"
                 operator: "projection"
                 inputs:
-                - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 = 1998))\
+                - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 = 2000))\
                     \ AND isnotnull(d_date_sk#612))"
                   operator: "filter"
                   inputs:
@@ -46,7 +46,7 @@ inputs:
             operator: "projection"
             inputs:
             - title: "Filter: ((isnotnull(s_gmt_offset#739) AND (s_gmt_offset#739\
-                \ = -6.00)) AND isnotnull(s_store_sk#712))"
+                \ = -5.00)) AND isnotnull(s_store_sk#712))"
               operator: "filter"
               inputs:
               - title: "store.parquet"

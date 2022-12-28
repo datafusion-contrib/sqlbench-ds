@@ -75,7 +75,7 @@ inputs:
         - title: "Projection: d_week_seq#922"
           operator: "projection"
           inputs:
-          - title: "Filter: ((isnotnull(d_year#924) AND (d_year#924 = 2001)) AND isnotnull(d_week_seq#922))"
+          - title: "Filter: ((isnotnull(d_year#924) AND (d_year#924 = 1999)) AND isnotnull(d_week_seq#922))"
             operator: "filter"
             inputs:
             - title: "date_dim.parquet"
@@ -134,7 +134,7 @@ inputs:
         - title: "Projection: d_week_seq#950"
           operator: "projection"
           inputs:
-          - title: "Filter: ((isnotnull(d_year#952) AND (d_year#952 = 2002)) AND isnotnull(d_week_seq#950))"
+          - title: "Filter: ((isnotnull(d_year#952) AND (d_year#952 = 2000)) AND isnotnull(d_week_seq#950))"
             operator: "filter"
             inputs:
             - title: "date_dim.parquet"

@@ -8,13 +8,13 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: i_manufact_id#681, sum_sales#10258, avg_quarterly_sales#10259"
+    - title: "Projection: i_manufact_id#681, sum_sales#12471, avg_quarterly_sales#12472"
       operator: "projection"
       inputs:
-      - title: "Filter: (isnotnull(avg_quarterly_sales#10259) AND ((avg_quarterly_sales#10259\
-          \ > 0.000000) AND (CheckOverflow((promote_precision(abs(CheckOverflow((promote_precision(cast(sum_sales#10258\
-          \ as decimal(22,6))) - promote_precision(cast(avg_quarterly_sales#10259\
-          \ as decimal(22,6)))), DecimalType(22,6), true), false)) / promote_precision(cast(avg_quarterly_sales#10259\
+      - title: "Filter: (isnotnull(avg_quarterly_sales#12472) AND ((avg_quarterly_sales#12472\
+          \ > 0.000000) AND (CheckOverflow((promote_precision(abs(CheckOverflow((promote_precision(cast(sum_sales#12471\
+          \ as decimal(22,6))) - promote_precision(cast(avg_quarterly_sales#12472\
+          \ as decimal(22,6)))), DecimalType(22,6), true), false)) / promote_precision(cast(avg_quarterly_sales#12472\
           \ as decimal(22,6)))), DecimalType(38,16), true) > 0.1000000000000000)))"
         operator: "filter"
         inputs:
@@ -73,8 +73,8 @@ inputs:
                     - title: "Projection: d_date_sk#612, d_qoy#622"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: (d_month_seq#615 INSET 1212, 1213, 1214, 1215,\
-                          \ 1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223 AND isnotnull(d_date_sk#612))"
+                      - title: "Filter: (d_month_seq#615 INSET 1180, 1181, 1182, 1183,\
+                          \ 1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191 AND isnotnull(d_date_sk#612))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"

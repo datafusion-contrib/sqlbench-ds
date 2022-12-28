@@ -8,24 +8,24 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: item_id#18240, sr_item_qty#18241L, (((cast(sr_item_qty#18241L\
-        \ as double) / cast(((sr_item_qty#18241L + cr_item_qty#18245L) + wr_item_qty#18249L)\
-        \ as double)) / 3.0) * 100.0) AS sr_dev#18236, cr_item_qty#18245L, (((cast(cr_item_qty#18245L\
-        \ as double) / cast(((sr_item_qty#18241L + cr_item_qty#18245L) + wr_item_qty#18249L)\
-        \ as double)) / 3.0) * 100.0) AS cr_dev#18237, wr_item_qty#18249L, (((cast(wr_item_qty#18249L\
-        \ as double) / cast(((sr_item_qty#18241L + cr_item_qty#18245L) + wr_item_qty#18249L)\
-        \ as double)) / 3.0) * 100.0) AS wr_dev#18238, CheckOverflow((promote_precision(cast(cast(((sr_item_qty#18241L\
-        \ + cr_item_qty#18245L) + wr_item_qty#18249L) as decimal(20,0)) as decimal(21,1)))\
-        \ / 3.0), DecimalType(27,6), true) AS average#18239"
+    - title: "Projection: item_id#20813, sr_item_qty#20814L, (((cast(sr_item_qty#20814L\
+        \ as double) / cast(((sr_item_qty#20814L + cr_item_qty#20818L) + wr_item_qty#20822L)\
+        \ as double)) / 3.0) * 100.0) AS sr_dev#20809, cr_item_qty#20818L, (((cast(cr_item_qty#20818L\
+        \ as double) / cast(((sr_item_qty#20814L + cr_item_qty#20818L) + wr_item_qty#20822L)\
+        \ as double)) / 3.0) * 100.0) AS cr_dev#20810, wr_item_qty#20822L, (((cast(wr_item_qty#20822L\
+        \ as double) / cast(((sr_item_qty#20814L + cr_item_qty#20818L) + wr_item_qty#20822L)\
+        \ as double)) / 3.0) * 100.0) AS wr_dev#20811, CheckOverflow((promote_precision(cast(cast(((sr_item_qty#20814L\
+        \ + cr_item_qty#20818L) + wr_item_qty#20822L) as decimal(20,0)) as decimal(21,1)))\
+        \ / 3.0), DecimalType(27,6), true) AS average#20812"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some((item_id#18240 = item_id#18248))"
+      - title: "Inner Join: Some((item_id#20813 = item_id#20821))"
         operator: "join"
         inputs:
-        - title: "Projection: item_id#18240, sr_item_qty#18241L, cr_item_qty#18245L"
+        - title: "Projection: item_id#20813, sr_item_qty#20814L, cr_item_qty#20818L"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((item_id#18240 = item_id#18244))"
+          - title: "Inner Join: Some((item_id#20813 = item_id#20817))"
             operator: "join"
             inputs:
             - title: "Aggregate (unknown)"
@@ -66,7 +66,7 @@ inputs:
                   - title: "Projection: d_date_sk#612"
                     operator: "projection"
                     inputs:
-                    - title: "LeftSemi Join: Some((d_date#614 = d_date#18438))"
+                    - title: "LeftSemi Join: Some((d_date#614 = d_date#21011))"
                       operator: "join"
                       inputs:
                       - title: "Projection: d_date_sk#612, d_date#614"
@@ -78,22 +78,22 @@ inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-                      - title: "Projection: d_date#18438"
+                      - title: "Projection: d_date#21011"
                         operator: "projection"
                         inputs:
-                        - title: "LeftSemi Join: Some((d_week_seq#18440 = d_week_seq#18356))"
+                        - title: "LeftSemi Join: Some((d_week_seq#21013 = d_week_seq#20929))"
                           operator: "join"
                           inputs:
-                          - title: "Projection: d_date#18438, d_week_seq#18440"
+                          - title: "Projection: d_date#21011, d_week_seq#21013"
                             operator: "projection"
                             inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-                          - title: "Projection: d_week_seq#18356"
+                          - title: "Projection: d_week_seq#20929"
                             operator: "projection"
                             inputs:
-                            - title: "Filter: cast(d_date#18354 as string) IN (1998-01-02,1998-10-15,1998-11-10)"
+                            - title: "Filter: cast(d_date#20927 as string) IN (1998-02-24,1998-10-12,1998-11-22)"
                               operator: "filter"
                               inputs:
                               - title: "date_dim.parquet"
@@ -102,17 +102,17 @@ inputs:
             - title: "Aggregate (unknown)"
               operator: "Aggregate"
               inputs:
-              - title: "Projection: cr_return_quantity#363, i_item_id#18253"
+              - title: "Projection: cr_return_quantity#363, i_item_id#20826"
                 operator: "projection"
                 inputs:
-                - title: "Inner Join: Some((cr_returned_date_sk#346 = d_date_sk#18274))"
+                - title: "Inner Join: Some((cr_returned_date_sk#346 = d_date_sk#20847))"
                   operator: "join"
                   inputs:
                   - title: "Projection: cr_returned_date_sk#346, cr_return_quantity#363,\
-                      \ i_item_id#18253"
+                      \ i_item_id#20826"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((cr_item_sk#348 = i_item_sk#18252))"
+                    - title: "Inner Join: Some((cr_item_sk#348 = i_item_sk#20825))"
                       operator: "join"
                       inputs:
                       - title: "Projection: cr_returned_date_sk#346, cr_item_sk#348,\
@@ -125,46 +125,46 @@ inputs:
                           - title: "catalog_returns.parquet"
                             operator: "scan"
                             inputs: []
-                      - title: "Projection: i_item_sk#18252, i_item_id#18253"
+                      - title: "Projection: i_item_sk#20825, i_item_id#20826"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (isnotnull(i_item_sk#18252) AND isnotnull(i_item_id#18253))"
+                        - title: "Filter: (isnotnull(i_item_sk#20825) AND isnotnull(i_item_id#20826))"
                           operator: "filter"
                           inputs:
                           - title: "item.parquet"
                             operator: "scan"
                             inputs: []
-                  - title: "Projection: d_date_sk#18274"
+                  - title: "Projection: d_date_sk#20847"
                     operator: "projection"
                     inputs:
-                    - title: "LeftSemi Join: Some((d_date#18276 = d_date#18466))"
+                    - title: "LeftSemi Join: Some((d_date#20849 = d_date#21039))"
                       operator: "join"
                       inputs:
-                      - title: "Projection: d_date_sk#18274, d_date#18276"
+                      - title: "Projection: d_date_sk#20847, d_date#20849"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: isnotnull(d_date_sk#18274)"
+                        - title: "Filter: isnotnull(d_date_sk#20847)"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-                      - title: "Projection: d_date#18466"
+                      - title: "Projection: d_date#21039"
                         operator: "projection"
                         inputs:
-                        - title: "LeftSemi Join: Some((d_week_seq#18468 = d_week_seq#18384))"
+                        - title: "LeftSemi Join: Some((d_week_seq#21041 = d_week_seq#20957))"
                           operator: "join"
                           inputs:
-                          - title: "Projection: d_date#18466, d_week_seq#18468"
+                          - title: "Projection: d_date#21039, d_week_seq#21041"
                             operator: "projection"
                             inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-                          - title: "Projection: d_week_seq#18384"
+                          - title: "Projection: d_week_seq#20957"
                             operator: "projection"
                             inputs:
-                            - title: "Filter: cast(d_date#18382 as string) IN (1998-01-02,1998-10-15,1998-11-10)"
+                            - title: "Filter: cast(d_date#20955 as string) IN (1998-02-24,1998-10-12,1998-11-22)"
                               operator: "filter"
                               inputs:
                               - title: "date_dim.parquet"
@@ -173,17 +173,17 @@ inputs:
         - title: "Aggregate (unknown)"
           operator: "Aggregate"
           inputs:
-          - title: "Projection: wr_return_quantity#312, i_item_id#18303"
+          - title: "Projection: wr_return_quantity#312, i_item_id#20876"
             operator: "projection"
             inputs:
-            - title: "Inner Join: Some((wr_returned_date_sk#298 = d_date_sk#18324))"
+            - title: "Inner Join: Some((wr_returned_date_sk#298 = d_date_sk#20897))"
               operator: "join"
               inputs:
               - title: "Projection: wr_returned_date_sk#298, wr_return_quantity#312,\
-                  \ i_item_id#18303"
+                  \ i_item_id#20876"
                 operator: "projection"
                 inputs:
-                - title: "Inner Join: Some((wr_item_sk#300 = i_item_sk#18302))"
+                - title: "Inner Join: Some((wr_item_sk#300 = i_item_sk#20875))"
                   operator: "join"
                   inputs:
                   - title: "Projection: wr_returned_date_sk#298, wr_item_sk#300, wr_return_quantity#312"
@@ -195,46 +195,46 @@ inputs:
                       - title: "web_returns.parquet"
                         operator: "scan"
                         inputs: []
-                  - title: "Projection: i_item_sk#18302, i_item_id#18303"
+                  - title: "Projection: i_item_sk#20875, i_item_id#20876"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: (isnotnull(i_item_sk#18302) AND isnotnull(i_item_id#18303))"
+                    - title: "Filter: (isnotnull(i_item_sk#20875) AND isnotnull(i_item_id#20876))"
                       operator: "filter"
                       inputs:
                       - title: "item.parquet"
                         operator: "scan"
                         inputs: []
-              - title: "Projection: d_date_sk#18324"
+              - title: "Projection: d_date_sk#20897"
                 operator: "projection"
                 inputs:
-                - title: "LeftSemi Join: Some((d_date#18326 = d_date#18494))"
+                - title: "LeftSemi Join: Some((d_date#20899 = d_date#21067))"
                   operator: "join"
                   inputs:
-                  - title: "Projection: d_date_sk#18324, d_date#18326"
+                  - title: "Projection: d_date_sk#20897, d_date#20899"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: isnotnull(d_date_sk#18324)"
+                    - title: "Filter: isnotnull(d_date_sk#20897)"
                       operator: "filter"
                       inputs:
                       - title: "date_dim.parquet"
                         operator: "scan"
                         inputs: []
-                  - title: "Projection: d_date#18494"
+                  - title: "Projection: d_date#21067"
                     operator: "projection"
                     inputs:
-                    - title: "LeftSemi Join: Some((d_week_seq#18496 = d_week_seq#18412))"
+                    - title: "LeftSemi Join: Some((d_week_seq#21069 = d_week_seq#20985))"
                       operator: "join"
                       inputs:
-                      - title: "Projection: d_date#18494, d_week_seq#18496"
+                      - title: "Projection: d_date#21067, d_week_seq#21069"
                         operator: "projection"
                         inputs:
                         - title: "date_dim.parquet"
                           operator: "scan"
                           inputs: []
-                      - title: "Projection: d_week_seq#18412"
+                      - title: "Projection: d_week_seq#20985"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: cast(d_date#18410 as string) IN (1998-01-02,1998-10-15,1998-11-10)"
+                        - title: "Filter: cast(d_date#20983 as string) IN (1998-02-24,1998-10-12,1998-11-22)"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"

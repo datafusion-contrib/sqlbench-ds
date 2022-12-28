@@ -1,9 +1,9 @@
 GlobalLimit 100
 +- LocalLimit 100
-   +- Sort [i_item_id#669 ASC NULLS FIRST, total_sales#11741 ASC NULLS FIRST], true
-      +- Aggregate [i_item_id#669], [i_item_id#669, sum(total_sales#11742) AS total_sales#11741]
+   +- Sort [i_item_id#669 ASC NULLS FIRST, total_sales#13952 ASC NULLS FIRST], true
+      +- Aggregate [i_item_id#669], [i_item_id#669, sum(total_sales#13953) AS total_sales#13952]
          +- Union false, false
-            :- Aggregate [i_item_id#669], [i_item_id#669, MakeDecimal(sum(UnscaledValue(ss_ext_sales_price#267)),17,2) AS total_sales#11742]
+            :- Aggregate [i_item_id#669], [i_item_id#669, MakeDecimal(sum(UnscaledValue(ss_ext_sales_price#267)),17,2) AS total_sales#13953]
             :  +- Project [ss_ext_sales_price#267, i_item_id#669]
             :     +- Join Inner, (ss_item_sk#254 = i_item_sk#668)
             :        :- Project [ss_item_sk#254, ss_ext_sales_price#267]
@@ -14,61 +14,61 @@ GlobalLimit 100
             :        :     :     :  +- Filter (isnotnull(ss_sold_date_sk#252) AND (isnotnull(ss_addr_sk#258) AND isnotnull(ss_item_sk#254)))
             :        :     :     :     +- Relation [ss_sold_date_sk#252,ss_sold_time_sk#253,ss_item_sk#254,ss_customer_sk#255,ss_cdemo_sk#256,ss_hdemo_sk#257,ss_addr_sk#258,ss_store_sk#259,ss_promo_sk#260,ss_ticket_number#261L,ss_quantity#262,ss_wholesale_cost#263,ss_list_price#264,ss_sales_price#265,ss_ext_discount_amt#266,ss_ext_sales_price#267,ss_ext_wholesale_cost#268,ss_ext_list_price#269,ss_ext_tax#270,ss_coupon_amt#271,ss_net_paid#272,ss_net_paid_inc_tax#273,ss_net_profit#274] parquet
             :        :     :     +- Project [d_date_sk#612]
-            :        :     :        +- Filter (((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND ((d_year#618 = 1999) AND (d_moy#620 = 9))) AND isnotnull(d_date_sk#612))
+            :        :     :        +- Filter (((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND ((d_year#618 = 2000) AND (d_moy#620 = 9))) AND isnotnull(d_date_sk#612))
             :        :     :           +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
             :        :     +- Project [ca_address_sk#62]
-            :        :        +- Filter ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73 = -6.00)) AND isnotnull(ca_address_sk#62))
+            :        :        +- Filter ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73 = -5.00)) AND isnotnull(ca_address_sk#62))
             :        :           +- Relation [ca_address_sk#62,ca_address_id#63,ca_street_number#64,ca_street_name#65,ca_street_type#66,ca_suite_number#67,ca_city#68,ca_county#69,ca_state#70,ca_zip#71,ca_country#72,ca_gmt_offset#73,ca_location_type#74] parquet
-            :        +- Join LeftSemi, (i_item_id#669 = i_item_id#11875)
+            :        +- Join LeftSemi, (i_item_id#669 = i_item_id#14086)
             :           :- Project [i_item_sk#668, i_item_id#669]
             :           :  +- Filter isnotnull(i_item_sk#668)
             :           :     +- Relation [i_item_sk#668,i_item_id#669,i_rec_start_date#670,i_rec_end_date#671,i_item_desc#672,i_current_price#673,i_wholesale_cost#674,i_brand_id#675,i_brand#676,i_class_id#677,i_class#678,i_category_id#679,i_category#680,i_manufact_id#681,i_manufact#682,i_size#683,i_formulation#684,i_color#685,i_units#686,i_container#687,i_manager_id#688,i_product_name#689] parquet
-            :           +- Project [i_item_id#11875]
-            :              +- Filter (isnotnull(i_category#11886) AND (i_category#11886 = Children))
-            :                 +- Relation [i_item_sk#11874,i_item_id#11875,i_rec_start_date#11876,i_rec_end_date#11877,i_item_desc#11878,i_current_price#11879,i_wholesale_cost#11880,i_brand_id#11881,i_brand#11882,i_class_id#11883,i_class#11884,i_category_id#11885,i_category#11886,i_manufact_id#11887,i_manufact#11888,i_size#11889,i_formulation#11890,i_color#11891,i_units#11892,i_container#11893,i_manager_id#11894,i_product_name#11895] parquet
-            :- Aggregate [i_item_id#11790], [i_item_id#11790, MakeDecimal(sum(UnscaledValue(cs_ext_sales_price#567)),17,2) AS total_sales#11744]
-            :  +- Project [cs_ext_sales_price#567, i_item_id#11790]
-            :     +- Join Inner, (cs_item_sk#559 = i_item_sk#11789)
+            :           +- Project [i_item_id#14086]
+            :              +- Filter (isnotnull(i_category#14097) AND (i_category#14097 = Shoes))
+            :                 +- Relation [i_item_sk#14085,i_item_id#14086,i_rec_start_date#14087,i_rec_end_date#14088,i_item_desc#14089,i_current_price#14090,i_wholesale_cost#14091,i_brand_id#14092,i_brand#14093,i_class_id#14094,i_class#14095,i_category_id#14096,i_category#14097,i_manufact_id#14098,i_manufact#14099,i_size#14100,i_formulation#14101,i_color#14102,i_units#14103,i_container#14104,i_manager_id#14105,i_product_name#14106] parquet
+            :- Aggregate [i_item_id#14001], [i_item_id#14001, MakeDecimal(sum(UnscaledValue(cs_ext_sales_price#567)),17,2) AS total_sales#13955]
+            :  +- Project [cs_ext_sales_price#567, i_item_id#14001]
+            :     +- Join Inner, (cs_item_sk#559 = i_item_sk#14000)
             :        :- Project [cs_item_sk#559, cs_ext_sales_price#567]
-            :        :  +- Join Inner, (cs_bill_addr_sk#550 = ca_address_sk#11776)
+            :        :  +- Join Inner, (cs_bill_addr_sk#550 = ca_address_sk#13987)
             :        :     :- Project [cs_bill_addr_sk#550, cs_item_sk#559, cs_ext_sales_price#567]
-            :        :     :  +- Join Inner, (cs_sold_date_sk#544 = d_date_sk#11748)
+            :        :     :  +- Join Inner, (cs_sold_date_sk#544 = d_date_sk#13959)
             :        :     :     :- Project [cs_sold_date_sk#544, cs_bill_addr_sk#550, cs_item_sk#559, cs_ext_sales_price#567]
             :        :     :     :  +- Filter (isnotnull(cs_sold_date_sk#544) AND (isnotnull(cs_bill_addr_sk#550) AND isnotnull(cs_item_sk#559)))
             :        :     :     :     +- Relation [cs_sold_date_sk#544,cs_sold_time_sk#545,cs_ship_date_sk#546,cs_bill_customer_sk#547,cs_bill_cdemo_sk#548,cs_bill_hdemo_sk#549,cs_bill_addr_sk#550,cs_ship_customer_sk#551,cs_ship_cdemo_sk#552,cs_ship_hdemo_sk#553,cs_ship_addr_sk#554,cs_call_center_sk#555,cs_catalog_page_sk#556,cs_ship_mode_sk#557,cs_warehouse_sk#558,cs_item_sk#559,cs_promo_sk#560,cs_order_number#561L,cs_quantity#562,cs_wholesale_cost#563,cs_list_price#564,cs_sales_price#565,cs_ext_discount_amt#566,cs_ext_sales_price#567,... 10 more fields] parquet
-            :        :     :     +- Project [d_date_sk#11748]
-            :        :     :        +- Filter (((isnotnull(d_year#11754) AND isnotnull(d_moy#11756)) AND ((d_year#11754 = 1999) AND (d_moy#11756 = 9))) AND isnotnull(d_date_sk#11748))
-            :        :     :           +- Relation [d_date_sk#11748,d_date_id#11749,d_date#11750,d_month_seq#11751,d_week_seq#11752,d_quarter_seq#11753,d_year#11754,d_dow#11755,d_moy#11756,d_dom#11757,d_qoy#11758,d_fy_year#11759,d_fy_quarter_seq#11760,d_fy_week_seq#11761,d_day_name#11762,d_quarter_name#11763,d_holiday#11764,d_weekend#11765,d_following_holiday#11766,d_first_dom#11767,d_last_dom#11768,d_same_day_ly#11769,d_same_day_lq#11770,d_current_day#11771,... 4 more fields] parquet
-            :        :     +- Project [ca_address_sk#11776]
-            :        :        +- Filter ((isnotnull(ca_gmt_offset#11787) AND (ca_gmt_offset#11787 = -6.00)) AND isnotnull(ca_address_sk#11776))
-            :        :           +- Relation [ca_address_sk#11776,ca_address_id#11777,ca_street_number#11778,ca_street_name#11779,ca_street_type#11780,ca_suite_number#11781,ca_city#11782,ca_county#11783,ca_state#11784,ca_zip#11785,ca_country#11786,ca_gmt_offset#11787,ca_location_type#11788] parquet
-            :        +- Join LeftSemi, (i_item_id#11790 = i_item_id#11897)
-            :           :- Project [i_item_sk#11789, i_item_id#11790]
-            :           :  +- Filter isnotnull(i_item_sk#11789)
-            :           :     +- Relation [i_item_sk#11789,i_item_id#11790,i_rec_start_date#11791,i_rec_end_date#11792,i_item_desc#11793,i_current_price#11794,i_wholesale_cost#11795,i_brand_id#11796,i_brand#11797,i_class_id#11798,i_class#11799,i_category_id#11800,i_category#11801,i_manufact_id#11802,i_manufact#11803,i_size#11804,i_formulation#11805,i_color#11806,i_units#11807,i_container#11808,i_manager_id#11809,i_product_name#11810] parquet
-            :           +- Project [i_item_id#11897]
-            :              +- Filter (isnotnull(i_category#11908) AND (i_category#11908 = Children))
-            :                 +- Relation [i_item_sk#11896,i_item_id#11897,i_rec_start_date#11898,i_rec_end_date#11899,i_item_desc#11900,i_current_price#11901,i_wholesale_cost#11902,i_brand_id#11903,i_brand#11904,i_class_id#11905,i_class#11906,i_category_id#11907,i_category#11908,i_manufact_id#11909,i_manufact#11910,i_size#11911,i_formulation#11912,i_color#11913,i_units#11914,i_container#11915,i_manager_id#11916,i_product_name#11917] parquet
-            +- Aggregate [i_item_id#11853], [i_item_id#11853, MakeDecimal(sum(UnscaledValue(ws_ext_sales_price#499)),17,2) AS total_sales#11746]
-               +- Project [ws_ext_sales_price#499, i_item_id#11853]
-                  +- Join Inner, (ws_item_sk#479 = i_item_sk#11852)
+            :        :     :     +- Project [d_date_sk#13959]
+            :        :     :        +- Filter (((isnotnull(d_year#13965) AND isnotnull(d_moy#13967)) AND ((d_year#13965 = 2000) AND (d_moy#13967 = 9))) AND isnotnull(d_date_sk#13959))
+            :        :     :           +- Relation [d_date_sk#13959,d_date_id#13960,d_date#13961,d_month_seq#13962,d_week_seq#13963,d_quarter_seq#13964,d_year#13965,d_dow#13966,d_moy#13967,d_dom#13968,d_qoy#13969,d_fy_year#13970,d_fy_quarter_seq#13971,d_fy_week_seq#13972,d_day_name#13973,d_quarter_name#13974,d_holiday#13975,d_weekend#13976,d_following_holiday#13977,d_first_dom#13978,d_last_dom#13979,d_same_day_ly#13980,d_same_day_lq#13981,d_current_day#13982,... 4 more fields] parquet
+            :        :     +- Project [ca_address_sk#13987]
+            :        :        +- Filter ((isnotnull(ca_gmt_offset#13998) AND (ca_gmt_offset#13998 = -5.00)) AND isnotnull(ca_address_sk#13987))
+            :        :           +- Relation [ca_address_sk#13987,ca_address_id#13988,ca_street_number#13989,ca_street_name#13990,ca_street_type#13991,ca_suite_number#13992,ca_city#13993,ca_county#13994,ca_state#13995,ca_zip#13996,ca_country#13997,ca_gmt_offset#13998,ca_location_type#13999] parquet
+            :        +- Join LeftSemi, (i_item_id#14001 = i_item_id#14108)
+            :           :- Project [i_item_sk#14000, i_item_id#14001]
+            :           :  +- Filter isnotnull(i_item_sk#14000)
+            :           :     +- Relation [i_item_sk#14000,i_item_id#14001,i_rec_start_date#14002,i_rec_end_date#14003,i_item_desc#14004,i_current_price#14005,i_wholesale_cost#14006,i_brand_id#14007,i_brand#14008,i_class_id#14009,i_class#14010,i_category_id#14011,i_category#14012,i_manufact_id#14013,i_manufact#14014,i_size#14015,i_formulation#14016,i_color#14017,i_units#14018,i_container#14019,i_manager_id#14020,i_product_name#14021] parquet
+            :           +- Project [i_item_id#14108]
+            :              +- Filter (isnotnull(i_category#14119) AND (i_category#14119 = Shoes))
+            :                 +- Relation [i_item_sk#14107,i_item_id#14108,i_rec_start_date#14109,i_rec_end_date#14110,i_item_desc#14111,i_current_price#14112,i_wholesale_cost#14113,i_brand_id#14114,i_brand#14115,i_class_id#14116,i_class#14117,i_category_id#14118,i_category#14119,i_manufact_id#14120,i_manufact#14121,i_size#14122,i_formulation#14123,i_color#14124,i_units#14125,i_container#14126,i_manager_id#14127,i_product_name#14128] parquet
+            +- Aggregate [i_item_id#14064], [i_item_id#14064, MakeDecimal(sum(UnscaledValue(ws_ext_sales_price#499)),17,2) AS total_sales#13957]
+               +- Project [ws_ext_sales_price#499, i_item_id#14064]
+                  +- Join Inner, (ws_item_sk#479 = i_item_sk#14063)
                      :- Project [ws_item_sk#479, ws_ext_sales_price#499]
-                     :  +- Join Inner, (ws_bill_addr_sk#483 = ca_address_sk#11839)
+                     :  +- Join Inner, (ws_bill_addr_sk#483 = ca_address_sk#14050)
                      :     :- Project [ws_item_sk#479, ws_bill_addr_sk#483, ws_ext_sales_price#499]
-                     :     :  +- Join Inner, (ws_sold_date_sk#476 = d_date_sk#11811)
+                     :     :  +- Join Inner, (ws_sold_date_sk#476 = d_date_sk#14022)
                      :     :     :- Project [ws_sold_date_sk#476, ws_item_sk#479, ws_bill_addr_sk#483, ws_ext_sales_price#499]
                      :     :     :  +- Filter (isnotnull(ws_sold_date_sk#476) AND (isnotnull(ws_bill_addr_sk#483) AND isnotnull(ws_item_sk#479)))
                      :     :     :     +- Relation [ws_sold_date_sk#476,ws_sold_time_sk#477,ws_ship_date_sk#478,ws_item_sk#479,ws_bill_customer_sk#480,ws_bill_cdemo_sk#481,ws_bill_hdemo_sk#482,ws_bill_addr_sk#483,ws_ship_customer_sk#484,ws_ship_cdemo_sk#485,ws_ship_hdemo_sk#486,ws_ship_addr_sk#487,ws_web_page_sk#488,ws_web_site_sk#489,ws_ship_mode_sk#490,ws_warehouse_sk#491,ws_promo_sk#492,ws_order_number#493L,ws_quantity#494,ws_wholesale_cost#495,ws_list_price#496,ws_sales_price#497,ws_ext_discount_amt#498,ws_ext_sales_price#499,... 10 more fields] parquet
-                     :     :     +- Project [d_date_sk#11811]
-                     :     :        +- Filter (((isnotnull(d_year#11817) AND isnotnull(d_moy#11819)) AND ((d_year#11817 = 1999) AND (d_moy#11819 = 9))) AND isnotnull(d_date_sk#11811))
-                     :     :           +- Relation [d_date_sk#11811,d_date_id#11812,d_date#11813,d_month_seq#11814,d_week_seq#11815,d_quarter_seq#11816,d_year#11817,d_dow#11818,d_moy#11819,d_dom#11820,d_qoy#11821,d_fy_year#11822,d_fy_quarter_seq#11823,d_fy_week_seq#11824,d_day_name#11825,d_quarter_name#11826,d_holiday#11827,d_weekend#11828,d_following_holiday#11829,d_first_dom#11830,d_last_dom#11831,d_same_day_ly#11832,d_same_day_lq#11833,d_current_day#11834,... 4 more fields] parquet
-                     :     +- Project [ca_address_sk#11839]
-                     :        +- Filter ((isnotnull(ca_gmt_offset#11850) AND (ca_gmt_offset#11850 = -6.00)) AND isnotnull(ca_address_sk#11839))
-                     :           +- Relation [ca_address_sk#11839,ca_address_id#11840,ca_street_number#11841,ca_street_name#11842,ca_street_type#11843,ca_suite_number#11844,ca_city#11845,ca_county#11846,ca_state#11847,ca_zip#11848,ca_country#11849,ca_gmt_offset#11850,ca_location_type#11851] parquet
-                     +- Join LeftSemi, (i_item_id#11853 = i_item_id#11919)
-                        :- Project [i_item_sk#11852, i_item_id#11853]
-                        :  +- Filter isnotnull(i_item_sk#11852)
-                        :     +- Relation [i_item_sk#11852,i_item_id#11853,i_rec_start_date#11854,i_rec_end_date#11855,i_item_desc#11856,i_current_price#11857,i_wholesale_cost#11858,i_brand_id#11859,i_brand#11860,i_class_id#11861,i_class#11862,i_category_id#11863,i_category#11864,i_manufact_id#11865,i_manufact#11866,i_size#11867,i_formulation#11868,i_color#11869,i_units#11870,i_container#11871,i_manager_id#11872,i_product_name#11873] parquet
-                        +- Project [i_item_id#11919]
-                           +- Filter (isnotnull(i_category#11930) AND (i_category#11930 = Children))
-                              +- Relation [i_item_sk#11918,i_item_id#11919,i_rec_start_date#11920,i_rec_end_date#11921,i_item_desc#11922,i_current_price#11923,i_wholesale_cost#11924,i_brand_id#11925,i_brand#11926,i_class_id#11927,i_class#11928,i_category_id#11929,i_category#11930,i_manufact_id#11931,i_manufact#11932,i_size#11933,i_formulation#11934,i_color#11935,i_units#11936,i_container#11937,i_manager_id#11938,i_product_name#11939] parquet
+                     :     :     +- Project [d_date_sk#14022]
+                     :     :        +- Filter (((isnotnull(d_year#14028) AND isnotnull(d_moy#14030)) AND ((d_year#14028 = 2000) AND (d_moy#14030 = 9))) AND isnotnull(d_date_sk#14022))
+                     :     :           +- Relation [d_date_sk#14022,d_date_id#14023,d_date#14024,d_month_seq#14025,d_week_seq#14026,d_quarter_seq#14027,d_year#14028,d_dow#14029,d_moy#14030,d_dom#14031,d_qoy#14032,d_fy_year#14033,d_fy_quarter_seq#14034,d_fy_week_seq#14035,d_day_name#14036,d_quarter_name#14037,d_holiday#14038,d_weekend#14039,d_following_holiday#14040,d_first_dom#14041,d_last_dom#14042,d_same_day_ly#14043,d_same_day_lq#14044,d_current_day#14045,... 4 more fields] parquet
+                     :     +- Project [ca_address_sk#14050]
+                     :        +- Filter ((isnotnull(ca_gmt_offset#14061) AND (ca_gmt_offset#14061 = -5.00)) AND isnotnull(ca_address_sk#14050))
+                     :           +- Relation [ca_address_sk#14050,ca_address_id#14051,ca_street_number#14052,ca_street_name#14053,ca_street_type#14054,ca_suite_number#14055,ca_city#14056,ca_county#14057,ca_state#14058,ca_zip#14059,ca_country#14060,ca_gmt_offset#14061,ca_location_type#14062] parquet
+                     +- Join LeftSemi, (i_item_id#14064 = i_item_id#14130)
+                        :- Project [i_item_sk#14063, i_item_id#14064]
+                        :  +- Filter isnotnull(i_item_sk#14063)
+                        :     +- Relation [i_item_sk#14063,i_item_id#14064,i_rec_start_date#14065,i_rec_end_date#14066,i_item_desc#14067,i_current_price#14068,i_wholesale_cost#14069,i_brand_id#14070,i_brand#14071,i_class_id#14072,i_class#14073,i_category_id#14074,i_category#14075,i_manufact_id#14076,i_manufact#14077,i_size#14078,i_formulation#14079,i_color#14080,i_units#14081,i_container#14082,i_manager_id#14083,i_product_name#14084] parquet
+                        +- Project [i_item_id#14130]
+                           +- Filter (isnotnull(i_category#14141) AND (i_category#14141 = Shoes))
+                              +- Relation [i_item_sk#14129,i_item_id#14130,i_rec_start_date#14131,i_rec_end_date#14132,i_item_desc#14133,i_current_price#14134,i_wholesale_cost#14135,i_brand_id#14136,i_brand#14137,i_class_id#14138,i_class#14139,i_category_id#14140,i_category#14141,i_manufact_id#14142,i_manufact#14143,i_size#14144,i_formulation#14145,i_color#14146,i_units#14147,i_container#14148,i_manager_id#14149,i_product_name#14150] parquet

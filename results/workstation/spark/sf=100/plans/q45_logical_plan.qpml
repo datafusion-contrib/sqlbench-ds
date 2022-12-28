@@ -11,23 +11,23 @@ inputs:
     - title: "Aggregate (unknown)"
       operator: "Aggregate"
       inputs:
-      - title: "Projection: ws_sales_price#497, ca_county#69, ca_zip#71"
+      - title: "Projection: ws_sales_price#497, ca_city#68, ca_zip#71"
         operator: "projection"
         inputs:
         - title: "Filter: (substr(ca_zip#71, 1, 5) IN (85669,86197,88274,83405,86475,85392,85460,80348,81792)\
-            \ OR exists#9082)"
+            \ OR exists#11295)"
           operator: "filter"
           inputs:
-          - title: "ExistenceJoin(exists#9082) Join: Some((i_item_id#669 = i_item_id#9056))"
+          - title: "ExistenceJoin(exists#11295) Join: Some((i_item_id#669 = i_item_id#11269))"
             operator: "join"
             inputs:
-            - title: "Projection: ws_sales_price#497, ca_county#69, ca_zip#71, i_item_id#669"
+            - title: "Projection: ws_sales_price#497, ca_city#68, ca_zip#71, i_item_id#669"
               operator: "projection"
               inputs:
               - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#668))"
                 operator: "join"
                 inputs:
-                - title: "Projection: ws_item_sk#479, ws_sales_price#497, ca_county#69,\
+                - title: "Projection: ws_item_sk#479, ws_sales_price#497, ca_city#68,\
                     \ ca_zip#71"
                   operator: "projection"
                   inputs:
@@ -35,7 +35,7 @@ inputs:
                     operator: "join"
                     inputs:
                     - title: "Projection: ws_sold_date_sk#476, ws_item_sk#479, ws_sales_price#497,\
-                        \ ca_county#69, ca_zip#71"
+                        \ ca_city#68, ca_zip#71"
                       operator: "projection"
                       inputs:
                       - title: "Inner Join: Some((c_current_addr_sk#404 = ca_address_sk#62))"
@@ -69,7 +69,7 @@ inputs:
                                 - title: "customer.parquet"
                                   operator: "scan"
                                   inputs: []
-                        - title: "Projection: ca_address_sk#62, ca_county#69, ca_zip#71"
+                        - title: "Projection: ca_address_sk#62, ca_city#68, ca_zip#71"
                           operator: "projection"
                           inputs:
                           - title: "Filter: isnotnull(ca_address_sk#62)"
@@ -97,10 +97,10 @@ inputs:
                     - title: "item.parquet"
                       operator: "scan"
                       inputs: []
-            - title: "Projection: i_item_id#9056"
+            - title: "Projection: i_item_id#11269"
               operator: "projection"
               inputs:
-              - title: "Filter: i_item_sk#9055 IN (2,3,5,7,11,13,17,19,23,29)"
+              - title: "Filter: i_item_sk#11268 IN (2,3,5,7,11,13,17,19,23,29)"
                 operator: "filter"
                 inputs:
                 - title: "item.parquet"

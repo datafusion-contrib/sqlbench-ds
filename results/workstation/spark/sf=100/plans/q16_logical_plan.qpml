@@ -1,0 +1,88 @@
+---
+title: "Aggregate (unknown)"
+operator: "Aggregate"
+inputs:
+- title: "Projection: cs_order_number#561L, cs_ext_ship_cost#572, cs_net_profit#577"
+  operator: "projection"
+  inputs:
+  - title: "Inner Join: Some((cs_call_center_sk#555 = cc_call_center_sk#0))"
+    operator: "join"
+    inputs:
+    - title: "Projection: cs_call_center_sk#555, cs_order_number#561L, cs_ext_ship_cost#572,\
+        \ cs_net_profit#577"
+      operator: "projection"
+      inputs:
+      - title: "Inner Join: Some((cs_ship_addr_sk#554 = ca_address_sk#62))"
+        operator: "join"
+        inputs:
+        - title: "Projection: cs_ship_addr_sk#554, cs_call_center_sk#555, cs_order_number#561L,\
+            \ cs_ext_ship_cost#572, cs_net_profit#577"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((cs_ship_date_sk#546 = d_date_sk#612))"
+            operator: "join"
+            inputs:
+            - title: "LeftAnti Join: Some((cs_order_number#561L = cr_order_number#362L))"
+              operator: "join"
+              inputs:
+              - title: "Projection: cs_ship_date_sk#546, cs_ship_addr_sk#554, cs_call_center_sk#555,\
+                  \ cs_order_number#561L, cs_ext_ship_cost#572, cs_net_profit#577"
+                operator: "projection"
+                inputs:
+                - title: "LeftSemi Join: Some(((cs_order_number#561L = cs_order_number#872L)\
+                    \ AND NOT (cs_warehouse_sk#558 = cs_warehouse_sk#869)))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: cs_ship_date_sk#546, cs_ship_addr_sk#554,\
+                      \ cs_call_center_sk#555, cs_warehouse_sk#558, cs_order_number#561L,\
+                      \ cs_ext_ship_cost#572, cs_net_profit#577"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: ((isnotnull(cs_ship_date_sk#546) AND isnotnull(cs_ship_addr_sk#554))\
+                        \ AND isnotnull(cs_call_center_sk#555))"
+                      operator: "filter"
+                      inputs:
+                      - title: "catalog_sales.parquet"
+                        operator: "scan"
+                        inputs: []
+                  - title: "Projection: cs_warehouse_sk#869, cs_order_number#872L"
+                    operator: "projection"
+                    inputs:
+                    - title: "catalog_sales.parquet"
+                      operator: "scan"
+                      inputs: []
+              - title: "Projection: cr_order_number#362L"
+                operator: "projection"
+                inputs:
+                - title: "catalog_returns.parquet"
+                  operator: "scan"
+                  inputs: []
+            - title: "Projection: d_date_sk#612"
+              operator: "projection"
+              inputs:
+              - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2001-04-01)\
+                  \ AND (d_date#614 <= 2001-05-31))) AND isnotnull(d_date_sk#612))"
+                operator: "filter"
+                inputs:
+                - title: "date_dim.parquet"
+                  operator: "scan"
+                  inputs: []
+        - title: "Projection: ca_address_sk#62"
+          operator: "projection"
+          inputs:
+          - title: "Filter: ((isnotnull(ca_state#70) AND (ca_state#70 = TX)) AND isnotnull(ca_address_sk#62))"
+            operator: "filter"
+            inputs:
+            - title: "customer_address.parquet"
+              operator: "scan"
+              inputs: []
+    - title: "Projection: cc_call_center_sk#0"
+      operator: "projection"
+      inputs:
+      - title: "Filter: (cc_county#25 IN (Franklin Parish,Walker County,Ziebach County,Fairfield\
+          \ County,Daviess County) AND isnotnull(cc_call_center_sk#0))"
+        operator: "filter"
+        inputs:
+        - title: "call_center.parquet"
+          operator: "scan"
+          inputs: []

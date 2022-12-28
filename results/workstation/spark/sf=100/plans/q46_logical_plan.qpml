@@ -8,16 +8,16 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: c_last_name#409, c_first_name#408, ca_city#9105, bought_city#9096,\
-        \ ss_ticket_number#261L, amt#9097, profit#9098"
+    - title: "Projection: c_last_name#409, c_first_name#408, ca_city#11318, bought_city#11309,\
+        \ ss_ticket_number#261L, amt#11310, profit#11311"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some(((c_current_addr_sk#404 = ca_address_sk#9099) AND\
-          \ NOT (ca_city#9105 = bought_city#9096)))"
+      - title: "Inner Join: Some(((c_current_addr_sk#404 = ca_address_sk#11312) AND\
+          \ NOT (ca_city#11318 = bought_city#11309)))"
         operator: "join"
         inputs:
-        - title: "Projection: ss_ticket_number#261L, bought_city#9096, amt#9097, profit#9098,\
-            \ c_current_addr_sk#404, c_first_name#408, c_last_name#409"
+        - title: "Projection: ss_ticket_number#261L, bought_city#11309, amt#11310,\
+            \ profit#11311, c_current_addr_sk#404, c_first_name#408, c_last_name#409"
           operator: "projection"
           inputs:
           - title: "Inner Join: Some((ss_customer_sk#255 = c_customer_sk#400))"
@@ -81,7 +81,7 @@ inputs:
                           - title: "Projection: s_store_sk#712"
                             operator: "projection"
                             inputs:
-                            - title: "Filter: (s_city#734 IN (Oakland,Riverside,Union,Salem,Greenwood)\
+                            - title: "Filter: (s_city#734 IN (Pleasant Hill,Fairview,Liberty,Oakland,Bethel)\
                                 \ AND isnotnull(s_store_sk#712))"
                               operator: "filter"
                               inputs:
@@ -91,8 +91,8 @@ inputs:
                       - title: "Projection: hd_demo_sk#88"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (((hd_dep_count#91 = 6) OR (hd_vehicle_count#92\
-                            \ = 3)) AND isnotnull(hd_demo_sk#88))"
+                        - title: "Filter: (((hd_dep_count#91 = 8) OR (hd_vehicle_count#92\
+                            \ = 4)) AND isnotnull(hd_demo_sk#88))"
                           operator: "filter"
                           inputs:
                           - title: "household_demographics.parquet"
@@ -117,10 +117,10 @@ inputs:
                 - title: "customer.parquet"
                   operator: "scan"
                   inputs: []
-        - title: "Projection: ca_address_sk#9099, ca_city#9105"
+        - title: "Projection: ca_address_sk#11312, ca_city#11318"
           operator: "projection"
           inputs:
-          - title: "Filter: (isnotnull(ca_address_sk#9099) AND isnotnull(ca_city#9105))"
+          - title: "Filter: (isnotnull(ca_address_sk#11312) AND isnotnull(ca_city#11318))"
             operator: "filter"
             inputs:
             - title: "customer_address.parquet"

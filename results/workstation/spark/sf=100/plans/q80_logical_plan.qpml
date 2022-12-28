@@ -86,7 +86,7 @@ inputs:
                               operator: "projection"
                               inputs:
                               - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614\
-                                  \ >= 1998-08-04) AND (d_date#614 <= 1998-09-03)))\
+                                  \ >= 2002-08-04) AND (d_date#614 <= 2002-09-03)))\
                                   \ AND isnotnull(d_date_sk#612))"
                                 operator: "filter"
                                 inputs:
@@ -129,14 +129,14 @@ inputs:
                 \ cr_net_loss#372, cp_catalog_page_id#205"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some((cs_promo_sk#560 = p_promo_sk#17736))"
+              - title: "Inner Join: Some((cs_promo_sk#560 = p_promo_sk#20309))"
                 operator: "join"
                 inputs:
                 - title: "Projection: cs_promo_sk#560, cs_ext_sales_price#567, cs_net_profit#577,\
                     \ cr_return_amount#364, cr_net_loss#372, cp_catalog_page_id#205"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#17714))"
+                  - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#20287))"
                     operator: "join"
                     inputs:
                     - title: "Projection: cs_item_sk#559, cs_promo_sk#560, cs_ext_sales_price#567,\
@@ -152,7 +152,7 @@ inputs:
                             \ cr_return_amount#364, cr_net_loss#372"
                           operator: "projection"
                           inputs:
-                          - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#17686))"
+                          - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#20259))"
                             operator: "join"
                             inputs:
                             - title: "Projection: cs_sold_date_sk#544, cs_catalog_page_sk#556,\
@@ -188,12 +188,12 @@ inputs:
                                     - title: "catalog_returns.parquet"
                                       operator: "scan"
                                       inputs: []
-                            - title: "Projection: d_date_sk#17686"
+                            - title: "Projection: d_date_sk#20259"
                               operator: "projection"
                               inputs:
-                              - title: "Filter: ((isnotnull(d_date#17688) AND ((d_date#17688\
-                                  \ >= 1998-08-04) AND (d_date#17688 <= 1998-09-03)))\
-                                  \ AND isnotnull(d_date_sk#17686))"
+                              - title: "Filter: ((isnotnull(d_date#20261) AND ((d_date#20261\
+                                  \ >= 2002-08-04) AND (d_date#20261 <= 2002-09-03)))\
+                                  \ AND isnotnull(d_date_sk#20259))"
                                 operator: "filter"
                                 inputs:
                                 - title: "date_dim.parquet"
@@ -208,21 +208,21 @@ inputs:
                             - title: "catalog_page.parquet"
                               operator: "scan"
                               inputs: []
-                    - title: "Projection: i_item_sk#17714"
+                    - title: "Projection: i_item_sk#20287"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: ((isnotnull(i_current_price#17719) AND (i_current_price#17719\
-                          \ > 50.00)) AND isnotnull(i_item_sk#17714))"
+                      - title: "Filter: ((isnotnull(i_current_price#20292) AND (i_current_price#20292\
+                          \ > 50.00)) AND isnotnull(i_item_sk#20287))"
                         operator: "filter"
                         inputs:
                         - title: "item.parquet"
                           operator: "scan"
                           inputs: []
-                - title: "Projection: p_promo_sk#17736"
+                - title: "Projection: p_promo_sk#20309"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: ((isnotnull(p_channel_tv#17747) AND (p_channel_tv#17747\
-                      \ = N)) AND isnotnull(p_promo_sk#17736))"
+                  - title: "Filter: ((isnotnull(p_channel_tv#20320) AND (p_channel_tv#20320\
+                      \ = N)) AND isnotnull(p_promo_sk#20309))"
                     operator: "filter"
                     inputs:
                     - title: "promotion.parquet"
@@ -235,14 +235,14 @@ inputs:
                 \ wr_net_loss#321, web_site_id#799"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some((ws_promo_sk#492 = p_promo_sk#17805))"
+              - title: "Inner Join: Some((ws_promo_sk#492 = p_promo_sk#20378))"
                 operator: "join"
                 inputs:
                 - title: "Projection: ws_promo_sk#492, ws_ext_sales_price#499, ws_net_profit#509,\
                     \ wr_return_amt#313, wr_net_loss#321, web_site_id#799"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#17783))"
+                  - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#20356))"
                     operator: "join"
                     inputs:
                     - title: "Projection: ws_item_sk#479, ws_promo_sk#492, ws_ext_sales_price#499,\
@@ -257,7 +257,7 @@ inputs:
                             \ wr_return_amt#313, wr_net_loss#321"
                           operator: "projection"
                           inputs:
-                          - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#17755))"
+                          - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#20328))"
                             operator: "join"
                             inputs:
                             - title: "Projection: ws_sold_date_sk#476, ws_item_sk#479,\
@@ -293,12 +293,12 @@ inputs:
                                     - title: "web_returns.parquet"
                                       operator: "scan"
                                       inputs: []
-                            - title: "Projection: d_date_sk#17755"
+                            - title: "Projection: d_date_sk#20328"
                               operator: "projection"
                               inputs:
-                              - title: "Filter: ((isnotnull(d_date#17757) AND ((d_date#17757\
-                                  \ >= 1998-08-04) AND (d_date#17757 <= 1998-09-03)))\
-                                  \ AND isnotnull(d_date_sk#17755))"
+                              - title: "Filter: ((isnotnull(d_date#20330) AND ((d_date#20330\
+                                  \ >= 2002-08-04) AND (d_date#20330 <= 2002-09-03)))\
+                                  \ AND isnotnull(d_date_sk#20328))"
                                 operator: "filter"
                                 inputs:
                                 - title: "date_dim.parquet"
@@ -313,21 +313,21 @@ inputs:
                             - title: "web_site.parquet"
                               operator: "scan"
                               inputs: []
-                    - title: "Projection: i_item_sk#17783"
+                    - title: "Projection: i_item_sk#20356"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: ((isnotnull(i_current_price#17788) AND (i_current_price#17788\
-                          \ > 50.00)) AND isnotnull(i_item_sk#17783))"
+                      - title: "Filter: ((isnotnull(i_current_price#20361) AND (i_current_price#20361\
+                          \ > 50.00)) AND isnotnull(i_item_sk#20356))"
                         operator: "filter"
                         inputs:
                         - title: "item.parquet"
                           operator: "scan"
                           inputs: []
-                - title: "Projection: p_promo_sk#17805"
+                - title: "Projection: p_promo_sk#20378"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: ((isnotnull(p_channel_tv#17816) AND (p_channel_tv#17816\
-                      \ = N)) AND isnotnull(p_promo_sk#17805))"
+                  - title: "Filter: ((isnotnull(p_channel_tv#20389) AND (p_channel_tv#20389\
+                      \ = N)) AND isnotnull(p_promo_sk#20378))"
                     operator: "filter"
                     inputs:
                     - title: "promotion.parquet"

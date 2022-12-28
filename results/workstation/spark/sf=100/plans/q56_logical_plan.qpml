@@ -50,7 +50,7 @@ inputs:
                         operator: "projection"
                         inputs:
                         - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_moy#620))\
-                            \ AND ((d_year#618 = 2000) AND (d_moy#620 = 1))) AND isnotnull(d_date_sk#612))"
+                            \ AND ((d_year#618 = 2000) AND (d_moy#620 = 5))) AND isnotnull(d_date_sk#612))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
@@ -60,13 +60,13 @@ inputs:
                     operator: "projection"
                     inputs:
                     - title: "Filter: ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73\
-                        \ = -8.00)) AND isnotnull(ca_address_sk#62))"
+                        \ = -6.00)) AND isnotnull(ca_address_sk#62))"
                       operator: "filter"
                       inputs:
                       - title: "customer_address.parquet"
                         operator: "scan"
                         inputs: []
-              - title: "LeftSemi Join: Some((i_item_id#669 = i_item_id#10552))"
+              - title: "LeftSemi Join: Some((i_item_id#669 = i_item_id#12765))"
                 operator: "join"
                 inputs:
                 - title: "Projection: i_item_sk#668, i_item_id#669"
@@ -78,10 +78,10 @@ inputs:
                     - title: "item.parquet"
                       operator: "scan"
                       inputs: []
-                - title: "Projection: i_item_id#10552"
+                - title: "Projection: i_item_id#12765"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: i_color#10568 IN (orchid,chiffon,lace)"
+                  - title: "Filter: i_color#12781 IN (cyan,royal,seashell)"
                     operator: "filter"
                     inputs:
                     - title: "item.parquet"
@@ -90,22 +90,22 @@ inputs:
         - title: "Aggregate (unknown)"
           operator: "Aggregate"
           inputs:
-          - title: "Projection: cs_ext_sales_price#567, i_item_id#10467"
+          - title: "Projection: cs_ext_sales_price#567, i_item_id#12680"
             operator: "projection"
             inputs:
-            - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#10466))"
+            - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#12679))"
               operator: "join"
               inputs:
               - title: "Projection: cs_item_sk#559, cs_ext_sales_price#567"
                 operator: "projection"
                 inputs:
-                - title: "Inner Join: Some((cs_bill_addr_sk#550 = ca_address_sk#10453))"
+                - title: "Inner Join: Some((cs_bill_addr_sk#550 = ca_address_sk#12666))"
                   operator: "join"
                   inputs:
                   - title: "Projection: cs_bill_addr_sk#550, cs_item_sk#559, cs_ext_sales_price#567"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#10425))"
+                    - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#12638))"
                       operator: "join"
                       inputs:
                       - title: "Projection: cs_sold_date_sk#544, cs_bill_addr_sk#550,\
@@ -119,43 +119,43 @@ inputs:
                           - title: "catalog_sales.parquet"
                             operator: "scan"
                             inputs: []
-                      - title: "Projection: d_date_sk#10425"
+                      - title: "Projection: d_date_sk#12638"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (((isnotnull(d_year#10431) AND isnotnull(d_moy#10433))\
-                            \ AND ((d_year#10431 = 2000) AND (d_moy#10433 = 1))) AND\
-                            \ isnotnull(d_date_sk#10425))"
+                        - title: "Filter: (((isnotnull(d_year#12644) AND isnotnull(d_moy#12646))\
+                            \ AND ((d_year#12644 = 2000) AND (d_moy#12646 = 5))) AND\
+                            \ isnotnull(d_date_sk#12638))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-                  - title: "Projection: ca_address_sk#10453"
+                  - title: "Projection: ca_address_sk#12666"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: ((isnotnull(ca_gmt_offset#10464) AND (ca_gmt_offset#10464\
-                        \ = -8.00)) AND isnotnull(ca_address_sk#10453))"
+                    - title: "Filter: ((isnotnull(ca_gmt_offset#12677) AND (ca_gmt_offset#12677\
+                        \ = -6.00)) AND isnotnull(ca_address_sk#12666))"
                       operator: "filter"
                       inputs:
                       - title: "customer_address.parquet"
                         operator: "scan"
                         inputs: []
-              - title: "LeftSemi Join: Some((i_item_id#10467 = i_item_id#10574))"
+              - title: "LeftSemi Join: Some((i_item_id#12680 = i_item_id#12787))"
                 operator: "join"
                 inputs:
-                - title: "Projection: i_item_sk#10466, i_item_id#10467"
+                - title: "Projection: i_item_sk#12679, i_item_id#12680"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: isnotnull(i_item_sk#10466)"
+                  - title: "Filter: isnotnull(i_item_sk#12679)"
                     operator: "filter"
                     inputs:
                     - title: "item.parquet"
                       operator: "scan"
                       inputs: []
-                - title: "Projection: i_item_id#10574"
+                - title: "Projection: i_item_id#12787"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: i_color#10590 IN (orchid,chiffon,lace)"
+                  - title: "Filter: i_color#12803 IN (cyan,royal,seashell)"
                     operator: "filter"
                     inputs:
                     - title: "item.parquet"
@@ -164,22 +164,22 @@ inputs:
         - title: "Aggregate (unknown)"
           operator: "Aggregate"
           inputs:
-          - title: "Projection: ws_ext_sales_price#499, i_item_id#10530"
+          - title: "Projection: ws_ext_sales_price#499, i_item_id#12743"
             operator: "projection"
             inputs:
-            - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#10529))"
+            - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#12742))"
               operator: "join"
               inputs:
               - title: "Projection: ws_item_sk#479, ws_ext_sales_price#499"
                 operator: "projection"
                 inputs:
-                - title: "Inner Join: Some((ws_bill_addr_sk#483 = ca_address_sk#10516))"
+                - title: "Inner Join: Some((ws_bill_addr_sk#483 = ca_address_sk#12729))"
                   operator: "join"
                   inputs:
                   - title: "Projection: ws_item_sk#479, ws_bill_addr_sk#483, ws_ext_sales_price#499"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#10488))"
+                    - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#12701))"
                       operator: "join"
                       inputs:
                       - title: "Projection: ws_sold_date_sk#476, ws_item_sk#479, ws_bill_addr_sk#483,\
@@ -193,43 +193,43 @@ inputs:
                           - title: "web_sales.parquet"
                             operator: "scan"
                             inputs: []
-                      - title: "Projection: d_date_sk#10488"
+                      - title: "Projection: d_date_sk#12701"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (((isnotnull(d_year#10494) AND isnotnull(d_moy#10496))\
-                            \ AND ((d_year#10494 = 2000) AND (d_moy#10496 = 1))) AND\
-                            \ isnotnull(d_date_sk#10488))"
+                        - title: "Filter: (((isnotnull(d_year#12707) AND isnotnull(d_moy#12709))\
+                            \ AND ((d_year#12707 = 2000) AND (d_moy#12709 = 5))) AND\
+                            \ isnotnull(d_date_sk#12701))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-                  - title: "Projection: ca_address_sk#10516"
+                  - title: "Projection: ca_address_sk#12729"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: ((isnotnull(ca_gmt_offset#10527) AND (ca_gmt_offset#10527\
-                        \ = -8.00)) AND isnotnull(ca_address_sk#10516))"
+                    - title: "Filter: ((isnotnull(ca_gmt_offset#12740) AND (ca_gmt_offset#12740\
+                        \ = -6.00)) AND isnotnull(ca_address_sk#12729))"
                       operator: "filter"
                       inputs:
                       - title: "customer_address.parquet"
                         operator: "scan"
                         inputs: []
-              - title: "LeftSemi Join: Some((i_item_id#10530 = i_item_id#10596))"
+              - title: "LeftSemi Join: Some((i_item_id#12743 = i_item_id#12809))"
                 operator: "join"
                 inputs:
-                - title: "Projection: i_item_sk#10529, i_item_id#10530"
+                - title: "Projection: i_item_sk#12742, i_item_id#12743"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: isnotnull(i_item_sk#10529)"
+                  - title: "Filter: isnotnull(i_item_sk#12742)"
                     operator: "filter"
                     inputs:
                     - title: "item.parquet"
                       operator: "scan"
                       inputs: []
-                - title: "Projection: i_item_id#10596"
+                - title: "Projection: i_item_id#12809"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: i_color#10612 IN (orchid,chiffon,lace)"
+                  - title: "Filter: i_color#12825 IN (cyan,royal,seashell)"
                     operator: "filter"
                     inputs:
                     - title: "item.parquet"

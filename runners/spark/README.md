@@ -23,7 +23,7 @@ $SPARK_HOME/sbin/start-master.sh
 $SPARK_HOME/sbin/start-worker.sh spark://ripper:7077
 ```
 
-## Submit the benchmark application to the cluster
+## Run Single Query
 
 ```bash
 $SPARK_HOME/bin/spark-submit --master spark://ripper:7077 \
@@ -33,8 +33,22 @@ $SPARK_HOME/bin/spark-submit --master spark://ripper:7077 \
     --conf spark.executor.cores=24 \
     target/sqlbench-ds-0.1.0-SNAPSHOT-jar-with-dependencies.jar \
     --input-path /mnt/bigdata/tpcds/sf100-parquet/ \
-    --query-path queries/ \
+    --query-path ~/git/sql-benchmarks/sqlbench-ds-private/queries-spark/sf\=100/ \
     --query 1
+```
+
+## Run All Queries
+
+```bash
+$SPARK_HOME/bin/spark-submit --master spark://ripper:7077 \
+    --class io.sqlbenchmarks.sqlbenchds.Main \
+    --conf spark.driver.memory=8G \
+    --conf spark.executor.memory=32G \
+    --conf spark.executor.cores=24 \
+    target/sqlbench-ds-0.1.0-SNAPSHOT-jar-with-dependencies.jar \
+    --input-path /mnt/bigdata/tpcds/sf100-parquet/ \
+    --query-path ~/git/sql-benchmarks/sqlbench-ds-private/queries-spark/sf\=100/ \
+    --skip-query72
 ```
 
 Monitor progress via the Spark UI at http://localhost:8080

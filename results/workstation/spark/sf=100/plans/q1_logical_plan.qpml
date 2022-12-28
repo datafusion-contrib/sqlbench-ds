@@ -33,14 +33,14 @@ inputs:
                   - title: "Aggregate (unknown)"
                     operator: "Aggregate"
                     inputs:
-                    - title: "Projection: sr_customer_sk#139, sr_store_sk#143, sr_fee#150"
+                    - title: "Projection: sr_customer_sk#139, sr_store_sk#143, sr_return_amt_inc_tax#149"
                       operator: "projection"
                       inputs:
                       - title: "Inner Join: Some((sr_returned_date_sk#136 = d_date_sk#612))"
                         operator: "join"
                         inputs:
                         - title: "Projection: sr_returned_date_sk#136, sr_customer_sk#139,\
-                            \ sr_store_sk#143, sr_fee#150"
+                            \ sr_store_sk#143, sr_return_amt_inc_tax#149"
                           operator: "projection"
                           inputs:
                           - title: "Filter: (isnotnull(sr_returned_date_sk#136) AND\
@@ -54,7 +54,7 @@ inputs:
                           operator: "projection"
                           inputs:
                           - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618\
-                              \ = 2000)) AND isnotnull(d_date_sk#612))"
+                              \ = 1999)) AND isnotnull(d_date_sk#612))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
@@ -69,14 +69,14 @@ inputs:
                     - title: "Aggregate (unknown)"
                       operator: "Aggregate"
                       inputs:
-                      - title: "Projection: sr_customer_sk#139, sr_store_sk#143, sr_fee#150"
+                      - title: "Projection: sr_customer_sk#139, sr_store_sk#143, sr_return_amt_inc_tax#149"
                         operator: "projection"
                         inputs:
                         - title: "Inner Join: Some((sr_returned_date_sk#136 = d_date_sk#612))"
                           operator: "join"
                           inputs:
                           - title: "Projection: sr_returned_date_sk#136, sr_customer_sk#139,\
-                              \ sr_store_sk#143, sr_fee#150"
+                              \ sr_store_sk#143, sr_return_amt_inc_tax#149"
                             operator: "projection"
                             inputs:
                             - title: "Filter: (isnotnull(sr_returned_date_sk#136)\
@@ -90,7 +90,7 @@ inputs:
                             operator: "projection"
                             inputs:
                             - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618\
-                                \ = 2000)) AND isnotnull(d_date_sk#612))"
+                                \ = 1999)) AND isnotnull(d_date_sk#612))"
                               operator: "filter"
                               inputs:
                               - title: "date_dim.parquet"
@@ -99,7 +99,7 @@ inputs:
             - title: "Projection: s_store_sk#712"
               operator: "projection"
               inputs:
-              - title: "Filter: ((isnotnull(s_state#736) AND (s_state#736 = SD)) AND\
+              - title: "Filter: ((isnotnull(s_state#736) AND (s_state#736 = OH)) AND\
                   \ isnotnull(s_store_sk#712))"
                 operator: "filter"
                 inputs:

@@ -1,158 +1,158 @@
 AdaptiveSparkPlan isFinalPlan=true
 +- == Final Plan ==
-   *(32) Sort [w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#7895 ASC NULLS FIRST, cov#7896 ASC NULLS FIRST, d_moy#7996 ASC NULLS FIRST, mean#7928 ASC NULLS FIRST, cov#7929 ASC NULLS FIRST], true, 0
+   *(32) Sort [w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#10108 ASC NULLS FIRST, cov#10109 ASC NULLS FIRST, d_moy#10209 ASC NULLS FIRST, mean#10141 ASC NULLS FIRST, cov#10142 ASC NULLS FIRST], true, 0
    +- AQEShuffleRead coalesced
       +- ShuffleQueryStage 21
-         +- Exchange rangepartitioning(w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#7895 ASC NULLS FIRST, cov#7896 ASC NULLS FIRST, d_moy#7996 ASC NULLS FIRST, mean#7928 ASC NULLS FIRST, cov#7929 ASC NULLS FIRST, 200), ENSURE_REQUIREMENTS, [id=#64455]
-            +- *(31) SortMergeJoin [i_item_sk#668, w_warehouse_sk#770], [i_item_sk#7952, w_warehouse_sk#7974], Inner
+         +- Exchange rangepartitioning(w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#10108 ASC NULLS FIRST, cov#10109 ASC NULLS FIRST, d_moy#10209 ASC NULLS FIRST, mean#10141 ASC NULLS FIRST, cov#10142 ASC NULLS FIRST, 200), ENSURE_REQUIREMENTS, [id=#136164]
+            +- *(31) SortMergeJoin [i_item_sk#668, w_warehouse_sk#770], [i_item_sk#10165, w_warehouse_sk#10187], Inner
                :- *(29) Sort [i_item_sk#668 ASC NULLS FIRST, w_warehouse_sk#770 ASC NULLS FIRST], false, 0
                :  +- AQEShuffleRead coalesced
                :     +- ShuffleQueryStage 19
-               :        +- Exchange hashpartitioning(i_item_sk#668, w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#64321]
-               :           +- *(27) Project [w_warehouse_sk#770, i_item_sk#668, d_moy#620, mean#7895, CASE WHEN (mean#7895 = 0.0) THEN null ELSE (stdev#7894 / mean#7895) END AS cov#7896]
-               :              +- *(27) Filter ((isnotnull(stdev#7894) AND isnotnull(mean#7895)) AND (NOT coalesce((mean#7895 = 0.0), false) AND ((stdev#7894 / mean#7895) > 1.0)))
-               :                 +- *(27) HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[stddev_samp(cast(inv_quantity_on_hand#439 as double)), avg(inv_quantity_on_hand#439)], output=[w_warehouse_sk#770, i_item_sk#668, d_moy#620, stdev#7894, mean#7895])
+               :        +- Exchange hashpartitioning(i_item_sk#668, w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#136030]
+               :           +- *(27) Project [w_warehouse_sk#770, i_item_sk#668, d_moy#620, mean#10108, CASE WHEN (mean#10108 = 0.0) THEN null ELSE (stdev#10107 / mean#10108) END AS cov#10109]
+               :              +- *(27) Filter ((isnotnull(stdev#10107) AND isnotnull(mean#10108)) AND (NOT coalesce((mean#10108 = 0.0), false) AND ((stdev#10107 / mean#10108) > 1.0)))
+               :                 +- *(27) HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[stddev_samp(cast(inv_quantity_on_hand#439 as double)), avg(inv_quantity_on_hand#439)], output=[w_warehouse_sk#770, i_item_sk#668, d_moy#620, stdev#10107, mean#10108])
                :                    +- AQEShuffleRead coalesced
                :                       +- ShuffleQueryStage 17
-               :                          +- Exchange hashpartitioning(w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, 200), ENSURE_REQUIREMENTS, [id=#64148]
-               :                             +- *(23) HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#439 as double)), partial_avg(inv_quantity_on_hand#439)], output=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, n#7920, avg#7921, m2#7922, sum#8027, count#8028L])
+               :                          +- Exchange hashpartitioning(w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, 200), ENSURE_REQUIREMENTS, [id=#135857]
+               :                             +- *(23) HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#439 as double)), partial_avg(inv_quantity_on_hand#439)], output=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, n#10133, avg#10134, m2#10135, sum#10240, count#10241L])
                :                                +- *(23) Project [inv_quantity_on_hand#439, i_item_sk#668, w_warehouse_sk#770, w_warehouse_name#772, d_moy#620]
                :                                   +- *(23) SortMergeJoin [inv_date_sk#436], [d_date_sk#612], Inner
                :                                      :- *(21) Sort [inv_date_sk#436 ASC NULLS FIRST], false, 0
                :                                      :  +- AQEShuffleRead coalesced
                :                                      :     +- ShuffleQueryStage 14
-               :                                      :        +- Exchange hashpartitioning(inv_date_sk#436, 200), ENSURE_REQUIREMENTS, [id=#63920]
+               :                                      :        +- Exchange hashpartitioning(inv_date_sk#436, 200), ENSURE_REQUIREMENTS, [id=#135629]
                :                                      :           +- *(17) Project [inv_date_sk#436, inv_quantity_on_hand#439, i_item_sk#668, w_warehouse_sk#770, w_warehouse_name#772]
                :                                      :              +- *(17) SortMergeJoin [inv_warehouse_sk#438], [w_warehouse_sk#770], Inner
                :                                      :                 :- *(15) Sort [inv_warehouse_sk#438 ASC NULLS FIRST], false, 0
                :                                      :                 :  +- AQEShuffleRead coalesced
                :                                      :                 :     +- ShuffleQueryStage 11
-               :                                      :                 :        +- Exchange hashpartitioning(inv_warehouse_sk#438, 200), ENSURE_REQUIREMENTS, [id=#63640]
+               :                                      :                 :        +- Exchange hashpartitioning(inv_warehouse_sk#438, 200), ENSURE_REQUIREMENTS, [id=#135349]
                :                                      :                 :           +- *(11) Project [inv_date_sk#436, inv_warehouse_sk#438, inv_quantity_on_hand#439, i_item_sk#668]
                :                                      :                 :              +- *(11) SortMergeJoin [inv_item_sk#437], [i_item_sk#668], Inner
                :                                      :                 :                 :- *(9) Sort [inv_item_sk#437 ASC NULLS FIRST], false, 0
                :                                      :                 :                 :  +- AQEShuffleRead coalesced
                :                                      :                 :                 :     +- ShuffleQueryStage 0
-               :                                      :                 :                 :        +- Exchange hashpartitioning(inv_item_sk#437, 200), ENSURE_REQUIREMENTS, [id=#62520]
+               :                                      :                 :                 :        +- Exchange hashpartitioning(inv_item_sk#437, 200), ENSURE_REQUIREMENTS, [id=#134368]
                :                                      :                 :                 :           +- *(1) Filter ((isnotnull(inv_item_sk#437) AND isnotnull(inv_warehouse_sk#438)) AND isnotnull(inv_date_sk#436))
                :                                      :                 :                 :              +- *(1) ColumnarToRow
                :                                      :                 :                 :                 +- FileScan parquet [inv_date_sk#436,inv_item_sk#437,inv_warehouse_sk#438,inv_quantity_on_hand#439] Batched: true, DataFilters: [isnotnull(inv_item_sk#437), isnotnull(inv_warehouse_sk#438), isnotnull(inv_date_sk#436)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/inventory.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(inv_item_sk), IsNotNull(inv_warehouse_sk), IsNotNull(inv_date_sk)], ReadSchema: struct<inv_date_sk:int,inv_item_sk:int,inv_warehouse_sk:int,inv_quantity_on_hand:int>
                :                                      :                 :                 +- *(10) Sort [i_item_sk#668 ASC NULLS FIRST], false, 0
                :                                      :                 :                    +- AQEShuffleRead coalesced
                :                                      :                 :                       +- ShuffleQueryStage 1
-               :                                      :                 :                          +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#62537]
+               :                                      :                 :                          +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#134385]
                :                                      :                 :                             +- *(2) Filter isnotnull(i_item_sk#668)
                :                                      :                 :                                +- *(2) ColumnarToRow
                :                                      :                 :                                   +- FileScan parquet [i_item_sk#668] Batched: true, DataFilters: [isnotnull(i_item_sk#668)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_item_sk)], ReadSchema: struct<i_item_sk:int>
                :                                      :                 +- *(16) Sort [w_warehouse_sk#770 ASC NULLS FIRST], false, 0
                :                                      :                    +- AQEShuffleRead coalesced
                :                                      :                       +- ShuffleQueryStage 2
-               :                                      :                          +- Exchange hashpartitioning(w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#62558]
+               :                                      :                          +- Exchange hashpartitioning(w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#134406]
                :                                      :                             +- *(3) Filter isnotnull(w_warehouse_sk#770)
                :                                      :                                +- *(3) ColumnarToRow
                :                                      :                                   +- FileScan parquet [w_warehouse_sk#770,w_warehouse_name#772] Batched: true, DataFilters: [isnotnull(w_warehouse_sk#770)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/warehouse.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(w_warehouse_sk)], ReadSchema: struct<w_warehouse_sk:int,w_warehouse_name:string>
                :                                      +- *(22) Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
                :                                         +- AQEShuffleRead coalesced
                :                                            +- ShuffleQueryStage 3
-               :                                               +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#62581]
+               :                                               +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#134429]
                :                                                  +- *(4) Project [d_date_sk#612, d_moy#620]
-               :                                                     +- *(4) Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 1998)) AND (d_moy#620 = 4)) AND isnotnull(d_date_sk#612))
+               :                                                     +- *(4) Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 2001)) AND (d_moy#620 = 1)) AND isnotnull(d_date_sk#612))
                :                                                        +- *(4) ColumnarToRow
-               :                                                           +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 1998), (d_moy#620 = 4), isnotnull(d_d..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1998), EqualTo(d_moy,4), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
-               +- *(30) Sort [i_item_sk#7952 ASC NULLS FIRST, w_warehouse_sk#7974 ASC NULLS FIRST], false, 0
+               :                                                           +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 2001), (d_moy#620 = 1), isnotnull(d_d..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,2001), EqualTo(d_moy,1), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+               +- *(30) Sort [i_item_sk#10165 ASC NULLS FIRST, w_warehouse_sk#10187 ASC NULLS FIRST], false, 0
                   +- AQEShuffleRead coalesced
                      +- ShuffleQueryStage 20
-                        +- Exchange hashpartitioning(i_item_sk#7952, w_warehouse_sk#7974, 200), ENSURE_REQUIREMENTS, [id=#64400]
-                           +- *(28) Project [w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, mean#7895 AS mean#7928, CASE WHEN (mean#7895 = 0.0) THEN null ELSE (stdev#7894 / mean#7895) END AS cov#7929]
-                              +- *(28) Filter ((isnotnull(stdev#7894) AND isnotnull(mean#7895)) AND (NOT coalesce((mean#7895 = 0.0), false) AND ((stdev#7894 / mean#7895) > 1.0)))
-                                 +- *(28) HashAggregate(keys=[w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996], functions=[stddev_samp(cast(inv_quantity_on_hand#7951 as double)), avg(inv_quantity_on_hand#7951)], output=[w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, stdev#7894, mean#7895])
+                        +- Exchange hashpartitioning(i_item_sk#10165, w_warehouse_sk#10187, 200), ENSURE_REQUIREMENTS, [id=#136109]
+                           +- *(28) Project [w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, mean#10108 AS mean#10141, CASE WHEN (mean#10108 = 0.0) THEN null ELSE (stdev#10107 / mean#10108) END AS cov#10142]
+                              +- *(28) Filter ((isnotnull(stdev#10107) AND isnotnull(mean#10108)) AND (NOT coalesce((mean#10108 = 0.0), false) AND ((stdev#10107 / mean#10108) > 1.0)))
+                                 +- *(28) HashAggregate(keys=[w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209], functions=[stddev_samp(cast(inv_quantity_on_hand#10164 as double)), avg(inv_quantity_on_hand#10164)], output=[w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, stdev#10107, mean#10108])
                                     +- AQEShuffleRead coalesced
                                        +- ShuffleQueryStage 18
-                                          +- Exchange hashpartitioning(w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, 200), ENSURE_REQUIREMENTS, [id=#64196]
-                                             +- *(26) HashAggregate(keys=[w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#7951 as double)), partial_avg(inv_quantity_on_hand#7951)], output=[w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, n#8021, avg#8022, m2#8023, sum#8039, count#8040L])
-                                                +- *(26) Project [inv_quantity_on_hand#7951, i_item_sk#7952, w_warehouse_sk#7974, w_warehouse_name#7976, d_moy#7996]
-                                                   +- *(26) SortMergeJoin [inv_date_sk#7948], [d_date_sk#7988], Inner
-                                                      :- *(24) Sort [inv_date_sk#7948 ASC NULLS FIRST], false, 0
+                                          +- Exchange hashpartitioning(w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, 200), ENSURE_REQUIREMENTS, [id=#135905]
+                                             +- *(26) HashAggregate(keys=[w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#10164 as double)), partial_avg(inv_quantity_on_hand#10164)], output=[w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, n#10234, avg#10235, m2#10236, sum#10252, count#10253L])
+                                                +- *(26) Project [inv_quantity_on_hand#10164, i_item_sk#10165, w_warehouse_sk#10187, w_warehouse_name#10189, d_moy#10209]
+                                                   +- *(26) SortMergeJoin [inv_date_sk#10161], [d_date_sk#10201], Inner
+                                                      :- *(24) Sort [inv_date_sk#10161 ASC NULLS FIRST], false, 0
                                                       :  +- AQEShuffleRead coalesced
                                                       :     +- ShuffleQueryStage 16
-                                                      :        +- ReusedExchange [inv_date_sk#7948, inv_quantity_on_hand#7951, i_item_sk#7952, w_warehouse_sk#7974, w_warehouse_name#7976], Exchange hashpartitioning(inv_date_sk#436, 200), ENSURE_REQUIREMENTS, [id=#63920]
-                                                      +- *(25) Sort [d_date_sk#7988 ASC NULLS FIRST], false, 0
+                                                      :        +- ReusedExchange [inv_date_sk#10161, inv_quantity_on_hand#10164, i_item_sk#10165, w_warehouse_sk#10187, w_warehouse_name#10189], Exchange hashpartitioning(inv_date_sk#436, 200), ENSURE_REQUIREMENTS, [id=#135629]
+                                                      +- *(25) Sort [d_date_sk#10201 ASC NULLS FIRST], false, 0
                                                          +- AQEShuffleRead coalesced
                                                             +- ShuffleQueryStage 10
-                                                               +- Exchange hashpartitioning(d_date_sk#7988, 200), ENSURE_REQUIREMENTS, [id=#62676]
-                                                                  +- *(8) Project [d_date_sk#7988, d_moy#7996]
-                                                                     +- *(8) Filter ((((isnotnull(d_year#7994) AND isnotnull(d_moy#7996)) AND (d_year#7994 = 1998)) AND (d_moy#7996 = 5)) AND isnotnull(d_date_sk#7988))
+                                                               +- Exchange hashpartitioning(d_date_sk#10201, 200), ENSURE_REQUIREMENTS, [id=#134524]
+                                                                  +- *(8) Project [d_date_sk#10201, d_moy#10209]
+                                                                     +- *(8) Filter ((((isnotnull(d_year#10207) AND isnotnull(d_moy#10209)) AND (d_year#10207 = 2001)) AND (d_moy#10209 = 2)) AND isnotnull(d_date_sk#10201))
                                                                         +- *(8) ColumnarToRow
-                                                                           +- FileScan parquet [d_date_sk#7988,d_year#7994,d_moy#7996] Batched: true, DataFilters: [isnotnull(d_year#7994), isnotnull(d_moy#7996), (d_year#7994 = 1998), (d_moy#7996 = 5), isnotnull..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1998), EqualTo(d_moy,5), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+                                                                           +- FileScan parquet [d_date_sk#10201,d_year#10207,d_moy#10209] Batched: true, DataFilters: [isnotnull(d_year#10207), isnotnull(d_moy#10209), (d_year#10207 = 2001), (d_moy#10209 = 2), isnot..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,2001), EqualTo(d_moy,2), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
 +- == Initial Plan ==
-   Sort [w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#7895 ASC NULLS FIRST, cov#7896 ASC NULLS FIRST, d_moy#7996 ASC NULLS FIRST, mean#7928 ASC NULLS FIRST, cov#7929 ASC NULLS FIRST], true, 0
-   +- Exchange rangepartitioning(w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#7895 ASC NULLS FIRST, cov#7896 ASC NULLS FIRST, d_moy#7996 ASC NULLS FIRST, mean#7928 ASC NULLS FIRST, cov#7929 ASC NULLS FIRST, 200), ENSURE_REQUIREMENTS, [id=#62379]
-      +- SortMergeJoin [i_item_sk#668, w_warehouse_sk#770], [i_item_sk#7952, w_warehouse_sk#7974], Inner
+   Sort [w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#10108 ASC NULLS FIRST, cov#10109 ASC NULLS FIRST, d_moy#10209 ASC NULLS FIRST, mean#10141 ASC NULLS FIRST, cov#10142 ASC NULLS FIRST], true, 0
+   +- Exchange rangepartitioning(w_warehouse_sk#770 ASC NULLS FIRST, i_item_sk#668 ASC NULLS FIRST, d_moy#620 ASC NULLS FIRST, mean#10108 ASC NULLS FIRST, cov#10109 ASC NULLS FIRST, d_moy#10209 ASC NULLS FIRST, mean#10141 ASC NULLS FIRST, cov#10142 ASC NULLS FIRST, 200), ENSURE_REQUIREMENTS, [id=#134227]
+      +- SortMergeJoin [i_item_sk#668, w_warehouse_sk#770], [i_item_sk#10165, w_warehouse_sk#10187], Inner
          :- Sort [i_item_sk#668 ASC NULLS FIRST, w_warehouse_sk#770 ASC NULLS FIRST], false, 0
-         :  +- Exchange hashpartitioning(i_item_sk#668, w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#62373]
-         :     +- Project [w_warehouse_sk#770, i_item_sk#668, d_moy#620, mean#7895, CASE WHEN (mean#7895 = 0.0) THEN null ELSE (stdev#7894 / mean#7895) END AS cov#7896]
-         :        +- Filter ((isnotnull(stdev#7894) AND isnotnull(mean#7895)) AND (NOT coalesce((mean#7895 = 0.0), false) AND ((stdev#7894 / mean#7895) > 1.0)))
-         :           +- HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[stddev_samp(cast(inv_quantity_on_hand#439 as double)), avg(inv_quantity_on_hand#439)], output=[w_warehouse_sk#770, i_item_sk#668, d_moy#620, stdev#7894, mean#7895])
-         :              +- Exchange hashpartitioning(w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, 200), ENSURE_REQUIREMENTS, [id=#62338]
-         :                 +- HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#439 as double)), partial_avg(inv_quantity_on_hand#439)], output=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, n#7920, avg#7921, m2#7922, sum#8027, count#8028L])
+         :  +- Exchange hashpartitioning(i_item_sk#668, w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#134221]
+         :     +- Project [w_warehouse_sk#770, i_item_sk#668, d_moy#620, mean#10108, CASE WHEN (mean#10108 = 0.0) THEN null ELSE (stdev#10107 / mean#10108) END AS cov#10109]
+         :        +- Filter ((isnotnull(stdev#10107) AND isnotnull(mean#10108)) AND (NOT coalesce((mean#10108 = 0.0), false) AND ((stdev#10107 / mean#10108) > 1.0)))
+         :           +- HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[stddev_samp(cast(inv_quantity_on_hand#439 as double)), avg(inv_quantity_on_hand#439)], output=[w_warehouse_sk#770, i_item_sk#668, d_moy#620, stdev#10107, mean#10108])
+         :              +- Exchange hashpartitioning(w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, 200), ENSURE_REQUIREMENTS, [id=#134186]
+         :                 +- HashAggregate(keys=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#439 as double)), partial_avg(inv_quantity_on_hand#439)], output=[w_warehouse_name#772, w_warehouse_sk#770, i_item_sk#668, d_moy#620, n#10133, avg#10134, m2#10135, sum#10240, count#10241L])
          :                    +- Project [inv_quantity_on_hand#439, i_item_sk#668, w_warehouse_sk#770, w_warehouse_name#772, d_moy#620]
          :                       +- SortMergeJoin [inv_date_sk#436], [d_date_sk#612], Inner
          :                          :- Sort [inv_date_sk#436 ASC NULLS FIRST], false, 0
-         :                          :  +- Exchange hashpartitioning(inv_date_sk#436, 200), ENSURE_REQUIREMENTS, [id=#62330]
+         :                          :  +- Exchange hashpartitioning(inv_date_sk#436, 200), ENSURE_REQUIREMENTS, [id=#134178]
          :                          :     +- Project [inv_date_sk#436, inv_quantity_on_hand#439, i_item_sk#668, w_warehouse_sk#770, w_warehouse_name#772]
          :                          :        +- SortMergeJoin [inv_warehouse_sk#438], [w_warehouse_sk#770], Inner
          :                          :           :- Sort [inv_warehouse_sk#438 ASC NULLS FIRST], false, 0
-         :                          :           :  +- Exchange hashpartitioning(inv_warehouse_sk#438, 200), ENSURE_REQUIREMENTS, [id=#62322]
+         :                          :           :  +- Exchange hashpartitioning(inv_warehouse_sk#438, 200), ENSURE_REQUIREMENTS, [id=#134170]
          :                          :           :     +- Project [inv_date_sk#436, inv_warehouse_sk#438, inv_quantity_on_hand#439, i_item_sk#668]
          :                          :           :        +- SortMergeJoin [inv_item_sk#437], [i_item_sk#668], Inner
          :                          :           :           :- Sort [inv_item_sk#437 ASC NULLS FIRST], false, 0
-         :                          :           :           :  +- Exchange hashpartitioning(inv_item_sk#437, 200), ENSURE_REQUIREMENTS, [id=#62314]
+         :                          :           :           :  +- Exchange hashpartitioning(inv_item_sk#437, 200), ENSURE_REQUIREMENTS, [id=#134162]
          :                          :           :           :     +- Filter ((isnotnull(inv_item_sk#437) AND isnotnull(inv_warehouse_sk#438)) AND isnotnull(inv_date_sk#436))
          :                          :           :           :        +- FileScan parquet [inv_date_sk#436,inv_item_sk#437,inv_warehouse_sk#438,inv_quantity_on_hand#439] Batched: true, DataFilters: [isnotnull(inv_item_sk#437), isnotnull(inv_warehouse_sk#438), isnotnull(inv_date_sk#436)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/inventory.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(inv_item_sk), IsNotNull(inv_warehouse_sk), IsNotNull(inv_date_sk)], ReadSchema: struct<inv_date_sk:int,inv_item_sk:int,inv_warehouse_sk:int,inv_quantity_on_hand:int>
          :                          :           :           +- Sort [i_item_sk#668 ASC NULLS FIRST], false, 0
-         :                          :           :              +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#62315]
+         :                          :           :              +- Exchange hashpartitioning(i_item_sk#668, 200), ENSURE_REQUIREMENTS, [id=#134163]
          :                          :           :                 +- Filter isnotnull(i_item_sk#668)
          :                          :           :                    +- FileScan parquet [i_item_sk#668] Batched: true, DataFilters: [isnotnull(i_item_sk#668)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_item_sk)], ReadSchema: struct<i_item_sk:int>
          :                          :           +- Sort [w_warehouse_sk#770 ASC NULLS FIRST], false, 0
-         :                          :              +- Exchange hashpartitioning(w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#62323]
+         :                          :              +- Exchange hashpartitioning(w_warehouse_sk#770, 200), ENSURE_REQUIREMENTS, [id=#134171]
          :                          :                 +- Filter isnotnull(w_warehouse_sk#770)
          :                          :                    +- FileScan parquet [w_warehouse_sk#770,w_warehouse_name#772] Batched: true, DataFilters: [isnotnull(w_warehouse_sk#770)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/warehouse.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(w_warehouse_sk)], ReadSchema: struct<w_warehouse_sk:int,w_warehouse_name:string>
          :                          +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
-         :                             +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#62331]
+         :                             +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#134179]
          :                                +- Project [d_date_sk#612, d_moy#620]
-         :                                   +- Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 1998)) AND (d_moy#620 = 4)) AND isnotnull(d_date_sk#612))
-         :                                      +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 1998), (d_moy#620 = 4), isnotnull(d_d..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1998), EqualTo(d_moy,4), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
-         +- Sort [i_item_sk#7952 ASC NULLS FIRST, w_warehouse_sk#7974 ASC NULLS FIRST], false, 0
-            +- Exchange hashpartitioning(i_item_sk#7952, w_warehouse_sk#7974, 200), ENSURE_REQUIREMENTS, [id=#62374]
-               +- Project [w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, mean#7895 AS mean#7928, CASE WHEN (mean#7895 = 0.0) THEN null ELSE (stdev#7894 / mean#7895) END AS cov#7929]
-                  +- Filter ((isnotnull(stdev#7894) AND isnotnull(mean#7895)) AND (NOT coalesce((mean#7895 = 0.0), false) AND ((stdev#7894 / mean#7895) > 1.0)))
-                     +- HashAggregate(keys=[w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996], functions=[stddev_samp(cast(inv_quantity_on_hand#7951 as double)), avg(inv_quantity_on_hand#7951)], output=[w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, stdev#7894, mean#7895])
-                        +- Exchange hashpartitioning(w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, 200), ENSURE_REQUIREMENTS, [id=#62367]
-                           +- HashAggregate(keys=[w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#7951 as double)), partial_avg(inv_quantity_on_hand#7951)], output=[w_warehouse_name#7976, w_warehouse_sk#7974, i_item_sk#7952, d_moy#7996, n#8021, avg#8022, m2#8023, sum#8039, count#8040L])
-                              +- Project [inv_quantity_on_hand#7951, i_item_sk#7952, w_warehouse_sk#7974, w_warehouse_name#7976, d_moy#7996]
-                                 +- SortMergeJoin [inv_date_sk#7948], [d_date_sk#7988], Inner
-                                    :- Sort [inv_date_sk#7948 ASC NULLS FIRST], false, 0
-                                    :  +- Exchange hashpartitioning(inv_date_sk#7948, 200), ENSURE_REQUIREMENTS, [id=#62359]
-                                    :     +- Project [inv_date_sk#7948, inv_quantity_on_hand#7951, i_item_sk#7952, w_warehouse_sk#7974, w_warehouse_name#7976]
-                                    :        +- SortMergeJoin [inv_warehouse_sk#7950], [w_warehouse_sk#7974], Inner
-                                    :           :- Sort [inv_warehouse_sk#7950 ASC NULLS FIRST], false, 0
-                                    :           :  +- Exchange hashpartitioning(inv_warehouse_sk#7950, 200), ENSURE_REQUIREMENTS, [id=#62351]
-                                    :           :     +- Project [inv_date_sk#7948, inv_warehouse_sk#7950, inv_quantity_on_hand#7951, i_item_sk#7952]
-                                    :           :        +- SortMergeJoin [inv_item_sk#7949], [i_item_sk#7952], Inner
-                                    :           :           :- Sort [inv_item_sk#7949 ASC NULLS FIRST], false, 0
-                                    :           :           :  +- Exchange hashpartitioning(inv_item_sk#7949, 200), ENSURE_REQUIREMENTS, [id=#62343]
-                                    :           :           :     +- Filter ((isnotnull(inv_item_sk#7949) AND isnotnull(inv_warehouse_sk#7950)) AND isnotnull(inv_date_sk#7948))
-                                    :           :           :        +- FileScan parquet [inv_date_sk#7948,inv_item_sk#7949,inv_warehouse_sk#7950,inv_quantity_on_hand#7951] Batched: true, DataFilters: [isnotnull(inv_item_sk#7949), isnotnull(inv_warehouse_sk#7950), isnotnull(inv_date_sk#7948)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/inventory.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(inv_item_sk), IsNotNull(inv_warehouse_sk), IsNotNull(inv_date_sk)], ReadSchema: struct<inv_date_sk:int,inv_item_sk:int,inv_warehouse_sk:int,inv_quantity_on_hand:int>
-                                    :           :           +- Sort [i_item_sk#7952 ASC NULLS FIRST], false, 0
-                                    :           :              +- Exchange hashpartitioning(i_item_sk#7952, 200), ENSURE_REQUIREMENTS, [id=#62344]
-                                    :           :                 +- Filter isnotnull(i_item_sk#7952)
-                                    :           :                    +- FileScan parquet [i_item_sk#7952] Batched: true, DataFilters: [isnotnull(i_item_sk#7952)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_item_sk)], ReadSchema: struct<i_item_sk:int>
-                                    :           +- Sort [w_warehouse_sk#7974 ASC NULLS FIRST], false, 0
-                                    :              +- Exchange hashpartitioning(w_warehouse_sk#7974, 200), ENSURE_REQUIREMENTS, [id=#62352]
-                                    :                 +- Filter isnotnull(w_warehouse_sk#7974)
-                                    :                    +- FileScan parquet [w_warehouse_sk#7974,w_warehouse_name#7976] Batched: true, DataFilters: [isnotnull(w_warehouse_sk#7974)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/warehouse.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(w_warehouse_sk)], ReadSchema: struct<w_warehouse_sk:int,w_warehouse_name:string>
-                                    +- Sort [d_date_sk#7988 ASC NULLS FIRST], false, 0
-                                       +- Exchange hashpartitioning(d_date_sk#7988, 200), ENSURE_REQUIREMENTS, [id=#62360]
-                                          +- Project [d_date_sk#7988, d_moy#7996]
-                                             +- Filter ((((isnotnull(d_year#7994) AND isnotnull(d_moy#7996)) AND (d_year#7994 = 1998)) AND (d_moy#7996 = 5)) AND isnotnull(d_date_sk#7988))
-                                                +- FileScan parquet [d_date_sk#7988,d_year#7994,d_moy#7996] Batched: true, DataFilters: [isnotnull(d_year#7994), isnotnull(d_moy#7996), (d_year#7994 = 1998), (d_moy#7996 = 5), isnotnull..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1998), EqualTo(d_moy,5), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+         :                                   +- Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 2001)) AND (d_moy#620 = 1)) AND isnotnull(d_date_sk#612))
+         :                                      +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 2001), (d_moy#620 = 1), isnotnull(d_d..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,2001), EqualTo(d_moy,1), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+         +- Sort [i_item_sk#10165 ASC NULLS FIRST, w_warehouse_sk#10187 ASC NULLS FIRST], false, 0
+            +- Exchange hashpartitioning(i_item_sk#10165, w_warehouse_sk#10187, 200), ENSURE_REQUIREMENTS, [id=#134222]
+               +- Project [w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, mean#10108 AS mean#10141, CASE WHEN (mean#10108 = 0.0) THEN null ELSE (stdev#10107 / mean#10108) END AS cov#10142]
+                  +- Filter ((isnotnull(stdev#10107) AND isnotnull(mean#10108)) AND (NOT coalesce((mean#10108 = 0.0), false) AND ((stdev#10107 / mean#10108) > 1.0)))
+                     +- HashAggregate(keys=[w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209], functions=[stddev_samp(cast(inv_quantity_on_hand#10164 as double)), avg(inv_quantity_on_hand#10164)], output=[w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, stdev#10107, mean#10108])
+                        +- Exchange hashpartitioning(w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, 200), ENSURE_REQUIREMENTS, [id=#134215]
+                           +- HashAggregate(keys=[w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209], functions=[partial_stddev_samp(cast(inv_quantity_on_hand#10164 as double)), partial_avg(inv_quantity_on_hand#10164)], output=[w_warehouse_name#10189, w_warehouse_sk#10187, i_item_sk#10165, d_moy#10209, n#10234, avg#10235, m2#10236, sum#10252, count#10253L])
+                              +- Project [inv_quantity_on_hand#10164, i_item_sk#10165, w_warehouse_sk#10187, w_warehouse_name#10189, d_moy#10209]
+                                 +- SortMergeJoin [inv_date_sk#10161], [d_date_sk#10201], Inner
+                                    :- Sort [inv_date_sk#10161 ASC NULLS FIRST], false, 0
+                                    :  +- Exchange hashpartitioning(inv_date_sk#10161, 200), ENSURE_REQUIREMENTS, [id=#134207]
+                                    :     +- Project [inv_date_sk#10161, inv_quantity_on_hand#10164, i_item_sk#10165, w_warehouse_sk#10187, w_warehouse_name#10189]
+                                    :        +- SortMergeJoin [inv_warehouse_sk#10163], [w_warehouse_sk#10187], Inner
+                                    :           :- Sort [inv_warehouse_sk#10163 ASC NULLS FIRST], false, 0
+                                    :           :  +- Exchange hashpartitioning(inv_warehouse_sk#10163, 200), ENSURE_REQUIREMENTS, [id=#134199]
+                                    :           :     +- Project [inv_date_sk#10161, inv_warehouse_sk#10163, inv_quantity_on_hand#10164, i_item_sk#10165]
+                                    :           :        +- SortMergeJoin [inv_item_sk#10162], [i_item_sk#10165], Inner
+                                    :           :           :- Sort [inv_item_sk#10162 ASC NULLS FIRST], false, 0
+                                    :           :           :  +- Exchange hashpartitioning(inv_item_sk#10162, 200), ENSURE_REQUIREMENTS, [id=#134191]
+                                    :           :           :     +- Filter ((isnotnull(inv_item_sk#10162) AND isnotnull(inv_warehouse_sk#10163)) AND isnotnull(inv_date_sk#10161))
+                                    :           :           :        +- FileScan parquet [inv_date_sk#10161,inv_item_sk#10162,inv_warehouse_sk#10163,inv_quantity_on_hand#10164] Batched: true, DataFilters: [isnotnull(inv_item_sk#10162), isnotnull(inv_warehouse_sk#10163), isnotnull(inv_date_sk#10161)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/inventory.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(inv_item_sk), IsNotNull(inv_warehouse_sk), IsNotNull(inv_date_sk)], ReadSchema: struct<inv_date_sk:int,inv_item_sk:int,inv_warehouse_sk:int,inv_quantity_on_hand:int>
+                                    :           :           +- Sort [i_item_sk#10165 ASC NULLS FIRST], false, 0
+                                    :           :              +- Exchange hashpartitioning(i_item_sk#10165, 200), ENSURE_REQUIREMENTS, [id=#134192]
+                                    :           :                 +- Filter isnotnull(i_item_sk#10165)
+                                    :           :                    +- FileScan parquet [i_item_sk#10165] Batched: true, DataFilters: [isnotnull(i_item_sk#10165)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/item.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(i_item_sk)], ReadSchema: struct<i_item_sk:int>
+                                    :           +- Sort [w_warehouse_sk#10187 ASC NULLS FIRST], false, 0
+                                    :              +- Exchange hashpartitioning(w_warehouse_sk#10187, 200), ENSURE_REQUIREMENTS, [id=#134200]
+                                    :                 +- Filter isnotnull(w_warehouse_sk#10187)
+                                    :                    +- FileScan parquet [w_warehouse_sk#10187,w_warehouse_name#10189] Batched: true, DataFilters: [isnotnull(w_warehouse_sk#10187)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/warehouse.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(w_warehouse_sk)], ReadSchema: struct<w_warehouse_sk:int,w_warehouse_name:string>
+                                    +- Sort [d_date_sk#10201 ASC NULLS FIRST], false, 0
+                                       +- Exchange hashpartitioning(d_date_sk#10201, 200), ENSURE_REQUIREMENTS, [id=#134208]
+                                          +- Project [d_date_sk#10201, d_moy#10209]
+                                             +- Filter ((((isnotnull(d_year#10207) AND isnotnull(d_moy#10209)) AND (d_year#10207 = 2001)) AND (d_moy#10209 = 2)) AND isnotnull(d_date_sk#10201))
+                                                +- FileScan parquet [d_date_sk#10201,d_year#10207,d_moy#10209] Batched: true, DataFilters: [isnotnull(d_year#10207), isnotnull(d_moy#10209), (d_year#10207 = 2001), (d_moy#10209 = 2), isnot..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,2001), EqualTo(d_moy,2), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>

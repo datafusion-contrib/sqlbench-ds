@@ -16,7 +16,7 @@ inputs:
           \ as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265\
           \ as decimal(12,2)))), DecimalType(18,2), true) ELSE CheckOverflow((promote_precision(cast(cast(ss_quantity#262\
           \ as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265\
-          \ as decimal(12,2)))), DecimalType(18,2), true) END AS act_sales#19468"
+          \ as decimal(12,2)))), DecimalType(18,2), true) END AS act_sales#22041"
         operator: "projection"
         inputs:
         - title: "Inner Join: Some((sr_reason_sk#144 = r_reason_sk#246))"
@@ -52,7 +52,7 @@ inputs:
             operator: "projection"
             inputs:
             - title: "Filter: ((isnotnull(r_reason_desc#248) AND (r_reason_desc#248\
-                \ = Did not like the warranty)) AND isnotnull(r_reason_sk#246))"
+                \ = reason 49)) AND isnotnull(r_reason_sk#246))"
               operator: "filter"
               inputs:
               - title: "reason.parquet"

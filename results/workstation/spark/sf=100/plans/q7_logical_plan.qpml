@@ -56,8 +56,8 @@ inputs:
                         inputs:
                         - title: "Filter: ((((isnotnull(cd_gender#223) AND isnotnull(cd_marital_status#224))\
                             \ AND isnotnull(cd_education_status#225)) AND (((cd_gender#223\
-                            \ = F) AND (cd_marital_status#224 = W)) AND (cd_education_status#225\
-                            \ = Primary))) AND isnotnull(cd_demo_sk#222))"
+                            \ = M) AND (cd_marital_status#224 = M)) AND (cd_education_status#225\
+                            \ = 4 yr Degree))) AND isnotnull(cd_demo_sk#222))"
                           operator: "filter"
                           inputs:
                           - title: "customer_demographics.parquet"
@@ -66,7 +66,7 @@ inputs:
                   - title: "Projection: d_date_sk#612"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 = 1998))\
+                    - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 = 2001))\
                         \ AND isnotnull(d_date_sk#612))"
                       operator: "filter"
                       inputs:

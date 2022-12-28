@@ -9,9 +9,9 @@ inputs:
     operator: "Sort"
     inputs:
     - title: "Projection: i_item_id#669, i_item_desc#672, i_category#680, i_class#678,\
-        \ i_current_price#673, itemrevenue#5697, CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(_w0#5703)\
-        \ * 100.00), DecimalType(21,2), true) as decimal(27,2))) / promote_precision(_we0#5705)),\
-        \ DecimalType(38,17), true) AS revenueratio#5698"
+        \ i_current_price#673, itemrevenue#7185, CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(_w0#7191)\
+        \ * 100.00), DecimalType(21,2), true) as decimal(27,2))) / promote_precision(_we0#7193)),\
+        \ DecimalType(38,17), true) AS revenueratio#7186"
       operator: "projection"
       inputs:
       - title: "Window (unknown)"
@@ -47,7 +47,7 @@ inputs:
                       \ i_current_price#673, i_class#678, i_category#680"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: (i_category#680 IN (Jewelry,Sports,Books) AND\
+                    - title: "Filter: (i_category#680 IN (Men,Children,Shoes) AND\
                         \ isnotnull(i_item_sk#668))"
                       operator: "filter"
                       inputs:
@@ -57,8 +57,8 @@ inputs:
               - title: "Projection: d_date_sk#612"
                 operator: "projection"
                 inputs:
-                - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2001-01-12)\
-                    \ AND (d_date#614 <= 2001-02-11))) AND isnotnull(d_date_sk#612))"
+                - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 1999-02-11)\
+                    \ AND (d_date#614 <= 1999-03-13))) AND isnotnull(d_date_sk#612))"
                   operator: "filter"
                   inputs:
                   - title: "date_dim.parquet"

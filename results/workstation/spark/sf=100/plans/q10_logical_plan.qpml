@@ -72,8 +72,8 @@ inputs:
                               operator: "projection"
                               inputs:
                               - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_moy#620))\
-                                  \ AND (((d_year#618 = 2002) AND (d_moy#620 >= 4))\
-                                  \ AND (d_moy#620 <= 7))) AND isnotnull(d_date_sk#612))"
+                                  \ AND (((d_year#618 = 1999) AND (d_moy#620 >= 1))\
+                                  \ AND (d_moy#620 <= 4))) AND isnotnull(d_date_sk#612))"
                                 operator: "filter"
                                 inputs:
                                 - title: "date_dim.parquet"
@@ -98,8 +98,8 @@ inputs:
                             operator: "projection"
                             inputs:
                             - title: "Filter: (((isnotnull(d_year#3786) AND isnotnull(d_moy#3788))\
-                                \ AND (((d_year#3786 = 2002) AND (d_moy#3788 >= 4))\
-                                \ AND (d_moy#3788 <= 7))) AND isnotnull(d_date_sk#3780))"
+                                \ AND (((d_year#3786 = 1999) AND (d_moy#3788 >= 1))\
+                                \ AND (d_moy#3788 <= 4))) AND isnotnull(d_date_sk#3780))"
                               operator: "filter"
                               inputs:
                               - title: "date_dim.parquet"
@@ -124,8 +124,8 @@ inputs:
                           operator: "projection"
                           inputs:
                           - title: "Filter: (((isnotnull(d_year#3814) AND isnotnull(d_moy#3816))\
-                              \ AND (((d_year#3814 = 2002) AND (d_moy#3816 >= 4))\
-                              \ AND (d_moy#3816 <= 7))) AND isnotnull(d_date_sk#3808))"
+                              \ AND (((d_year#3814 = 1999) AND (d_moy#3816 >= 1))\
+                              \ AND (d_moy#3816 <= 4))) AND isnotnull(d_date_sk#3808))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
@@ -134,8 +134,8 @@ inputs:
               - title: "Projection: ca_address_sk#62"
                 operator: "projection"
                 inputs:
-                - title: "Filter: (ca_county#69 IN (Walker County,Richland County,Gaines\
-                    \ County,Douglas County,Dona Ana County) AND isnotnull(ca_address_sk#62))"
+                - title: "Filter: (ca_county#69 IN (Greer County,Boone County,Cumberland\
+                    \ County,Tyler County,Marion County) AND isnotnull(ca_address_sk#62))"
                   operator: "filter"
                   inputs:
                   - title: "customer_address.parquet"

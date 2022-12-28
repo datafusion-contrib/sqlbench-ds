@@ -17,14 +17,14 @@ inputs:
         - title: "Union (unknown)"
           operator: "Union"
           inputs:
-          - title: "Projection: sales#17081, coalesce(returns#17083, 0.00) AS returns#17069,\
-              \ CheckOverflow((promote_precision(cast(profit#17082 as decimal(18,2)))\
-              \ - promote_precision(cast(coalesce(profit_loss#17084, 0.00) as decimal(18,2)))),\
-              \ DecimalType(18,2), true) AS profit#17070, store channel AS channel#17291,\
-              \ s_store_sk#712 AS id#17292"
+          - title: "Projection: sales#19658, coalesce(returns#19660, 0.00) AS returns#19646,\
+              \ CheckOverflow((promote_precision(cast(profit#19659 as decimal(18,2)))\
+              \ - promote_precision(cast(coalesce(profit_loss#19661, 0.00) as decimal(18,2)))),\
+              \ DecimalType(18,2), true) AS profit#19647, store channel AS channel#19868,\
+              \ s_store_sk#712 AS id#19869"
             operator: "projection"
             inputs:
-            - title: "LeftOuter Join: Some((s_store_sk#712 = s_store_sk#17121))"
+            - title: "LeftOuter Join: Some((s_store_sk#712 = s_store_sk#19698))"
               operator: "join"
               inputs:
               - title: "Aggregate (unknown)"
@@ -57,7 +57,7 @@ inputs:
                           operator: "projection"
                           inputs:
                           - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614\
-                              \ >= 1998-08-04) AND (d_date#614 <= 1998-09-03))) AND\
+                              \ >= 1998-08-27) AND (d_date#614 <= 1998-09-26))) AND\
                               \ isnotnull(d_date_sk#612))"
                             operator: "filter"
                             inputs:
@@ -76,16 +76,16 @@ inputs:
               - title: "Aggregate (unknown)"
                 operator: "Aggregate"
                 inputs:
-                - title: "Projection: sr_return_amt#147, sr_net_loss#155, s_store_sk#17121"
+                - title: "Projection: sr_return_amt#147, sr_net_loss#155, s_store_sk#19698"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((sr_store_sk#143 = s_store_sk#17121))"
+                  - title: "Inner Join: Some((sr_store_sk#143 = s_store_sk#19698))"
                     operator: "join"
                     inputs:
                     - title: "Projection: sr_store_sk#143, sr_return_amt#147, sr_net_loss#155"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((sr_returned_date_sk#136 = d_date_sk#17093))"
+                      - title: "Inner Join: Some((sr_returned_date_sk#136 = d_date_sk#19670))"
                         operator: "join"
                         inputs:
                         - title: "Projection: sr_returned_date_sk#136, sr_store_sk#143,\
@@ -99,30 +99,30 @@ inputs:
                             - title: "store_returns.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date_sk#17093"
+                        - title: "Projection: d_date_sk#19670"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: ((isnotnull(d_date#17095) AND ((d_date#17095\
-                              \ >= 1998-08-04) AND (d_date#17095 <= 1998-09-03)))\
-                              \ AND isnotnull(d_date_sk#17093))"
+                          - title: "Filter: ((isnotnull(d_date#19672) AND ((d_date#19672\
+                              \ >= 1998-08-27) AND (d_date#19672 <= 1998-09-26)))\
+                              \ AND isnotnull(d_date_sk#19670))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-                    - title: "Projection: s_store_sk#17121"
+                    - title: "Projection: s_store_sk#19698"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: isnotnull(s_store_sk#17121)"
+                      - title: "Filter: isnotnull(s_store_sk#19698)"
                         operator: "filter"
                         inputs:
                         - title: "store.parquet"
                           operator: "scan"
                           inputs: []
-          - title: "Projection: sales#17085, returns#17087, CheckOverflow((promote_precision(cast(profit#17086\
-              \ as decimal(18,2))) - promote_precision(cast(profit_loss#17088 as decimal(18,2)))),\
-              \ DecimalType(18,2), true) AS profit#17073, catalog channel AS channel#17301,\
-              \ cs_call_center_sk#555 AS id#17302"
+          - title: "Projection: sales#19662, returns#19664, CheckOverflow((promote_precision(cast(profit#19663\
+              \ as decimal(18,2))) - promote_precision(cast(profit_loss#19665 as decimal(18,2)))),\
+              \ DecimalType(18,2), true) AS profit#19650, catalog channel AS channel#19878,\
+              \ cs_call_center_sk#555 AS id#19879"
             operator: "projection"
             inputs:
             - title: "Inner Join: None"
@@ -135,7 +135,7 @@ inputs:
                     \ cs_net_profit#577"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#17150))"
+                  - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#19727))"
                     operator: "join"
                     inputs:
                     - title: "Projection: cs_sold_date_sk#544, cs_call_center_sk#555,\
@@ -148,12 +148,12 @@ inputs:
                         - title: "catalog_sales.parquet"
                           operator: "scan"
                           inputs: []
-                    - title: "Projection: d_date_sk#17150"
+                    - title: "Projection: d_date_sk#19727"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: ((isnotnull(d_date#17152) AND ((d_date#17152\
-                          \ >= 1998-08-04) AND (d_date#17152 <= 1998-09-03))) AND\
-                          \ isnotnull(d_date_sk#17150))"
+                      - title: "Filter: ((isnotnull(d_date#19729) AND ((d_date#19729\
+                          \ >= 1998-08-27) AND (d_date#19729 <= 1998-09-26))) AND\
+                          \ isnotnull(d_date_sk#19727))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"
@@ -166,7 +166,7 @@ inputs:
                     \ cr_net_loss#372"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((cr_returned_date_sk#346 = d_date_sk#17178))"
+                  - title: "Inner Join: Some((cr_returned_date_sk#346 = d_date_sk#19755))"
                     operator: "join"
                     inputs:
                     - title: "Projection: cr_returned_date_sk#346, cr_call_center_sk#357,\
@@ -179,25 +179,25 @@ inputs:
                         - title: "catalog_returns.parquet"
                           operator: "scan"
                           inputs: []
-                    - title: "Projection: d_date_sk#17178"
+                    - title: "Projection: d_date_sk#19755"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: ((isnotnull(d_date#17180) AND ((d_date#17180\
-                          \ >= 1998-08-04) AND (d_date#17180 <= 1998-09-03))) AND\
-                          \ isnotnull(d_date_sk#17178))"
+                      - title: "Filter: ((isnotnull(d_date#19757) AND ((d_date#19757\
+                          \ >= 1998-08-27) AND (d_date#19757 <= 1998-09-26))) AND\
+                          \ isnotnull(d_date_sk#19755))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"
                           operator: "scan"
                           inputs: []
-          - title: "Projection: sales#17089, coalesce(returns#17091, 0.00) AS returns#17076,\
-              \ CheckOverflow((promote_precision(cast(profit#17090 as decimal(18,2)))\
-              \ - promote_precision(cast(coalesce(profit_loss#17092, 0.00) as decimal(18,2)))),\
-              \ DecimalType(18,2), true) AS profit#17077, web channel AS channel#17303,\
-              \ wp_web_page_sk#176 AS id#17304"
+          - title: "Projection: sales#19666, coalesce(returns#19668, 0.00) AS returns#19653,\
+              \ CheckOverflow((promote_precision(cast(profit#19667 as decimal(18,2)))\
+              \ - promote_precision(cast(coalesce(profit_loss#19669, 0.00) as decimal(18,2)))),\
+              \ DecimalType(18,2), true) AS profit#19654, web channel AS channel#19880,\
+              \ wp_web_page_sk#176 AS id#19881"
             operator: "projection"
             inputs:
-            - title: "LeftOuter Join: Some((wp_web_page_sk#176 = wp_web_page_sk#17262))"
+            - title: "LeftOuter Join: Some((wp_web_page_sk#176 = wp_web_page_sk#19839))"
               operator: "join"
               inputs:
               - title: "Aggregate (unknown)"
@@ -213,7 +213,7 @@ inputs:
                         \ ws_net_profit#509"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#17206))"
+                      - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#19783))"
                         operator: "join"
                         inputs:
                         - title: "Projection: ws_sold_date_sk#476, ws_web_page_sk#488,\
@@ -226,12 +226,12 @@ inputs:
                             - title: "web_sales.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date_sk#17206"
+                        - title: "Projection: d_date_sk#19783"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: ((isnotnull(d_date#17208) AND ((d_date#17208\
-                              \ >= 1998-08-04) AND (d_date#17208 <= 1998-09-03)))\
-                              \ AND isnotnull(d_date_sk#17206))"
+                          - title: "Filter: ((isnotnull(d_date#19785) AND ((d_date#19785\
+                              \ >= 1998-08-27) AND (d_date#19785 <= 1998-09-26)))\
+                              \ AND isnotnull(d_date_sk#19783))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
@@ -249,16 +249,16 @@ inputs:
               - title: "Aggregate (unknown)"
                 operator: "Aggregate"
                 inputs:
-                - title: "Projection: wr_return_amt#313, wr_net_loss#321, wp_web_page_sk#17262"
+                - title: "Projection: wr_return_amt#313, wr_net_loss#321, wp_web_page_sk#19839"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((wr_web_page_sk#309 = wp_web_page_sk#17262))"
+                  - title: "Inner Join: Some((wr_web_page_sk#309 = wp_web_page_sk#19839))"
                     operator: "join"
                     inputs:
                     - title: "Projection: wr_web_page_sk#309, wr_return_amt#313, wr_net_loss#321"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((wr_returned_date_sk#298 = d_date_sk#17234))"
+                      - title: "Inner Join: Some((wr_returned_date_sk#298 = d_date_sk#19811))"
                         operator: "join"
                         inputs:
                         - title: "Projection: wr_returned_date_sk#298, wr_web_page_sk#309,\
@@ -272,21 +272,21 @@ inputs:
                             - title: "web_returns.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date_sk#17234"
+                        - title: "Projection: d_date_sk#19811"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: ((isnotnull(d_date#17236) AND ((d_date#17236\
-                              \ >= 1998-08-04) AND (d_date#17236 <= 1998-09-03)))\
-                              \ AND isnotnull(d_date_sk#17234))"
+                          - title: "Filter: ((isnotnull(d_date#19813) AND ((d_date#19813\
+                              \ >= 1998-08-27) AND (d_date#19813 <= 1998-09-26)))\
+                              \ AND isnotnull(d_date_sk#19811))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-                    - title: "Projection: wp_web_page_sk#17262"
+                    - title: "Projection: wp_web_page_sk#19839"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: isnotnull(wp_web_page_sk#17262)"
+                      - title: "Filter: isnotnull(wp_web_page_sk#19839)"
                         operator: "filter"
                         inputs:
                         - title: "web_page.parquet"

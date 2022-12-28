@@ -1,10 +1,10 @@
 GlobalLimit 100
 +- LocalLimit 100
-   +- Sort [lochierarchy#18666 DESC NULLS LAST, CASE WHEN (lochierarchy#18666 = 0) THEN i_category#18675 END ASC NULLS FIRST, rank_within_parent#18667 ASC NULLS FIRST], true
-      +- Project [total_sum#18665, i_category#18675, i_class#18676, lochierarchy#18666, rank_within_parent#18667]
-         +- Window [rank(_w3#18691) windowspecdefinition(_w1#18689, _w2#18690, _w3#18691 DESC NULLS LAST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS rank_within_parent#18667], [_w1#18689, _w2#18690], [_w3#18691 DESC NULLS LAST]
-            +- Aggregate [i_category#18675, i_class#18676, spark_grouping_id#18674L], [MakeDecimal(sum(UnscaledValue(ws_net_paid#505)),17,2) AS total_sum#18665, i_category#18675, i_class#18676, (cast((shiftright(spark_grouping_id#18674L, 1) & 1) as tinyint) + cast((shiftright(spark_grouping_id#18674L, 0) & 1) as tinyint)) AS lochierarchy#18666, (cast((shiftright(spark_grouping_id#18674L, 1) & 1) as tinyint) + cast((shiftright(spark_grouping_id#18674L, 0) & 1) as tinyint)) AS _w1#18689, CASE WHEN (cast((shiftright(spark_grouping_id#18674L, 0) & 1) as tinyint) = 0) THEN i_category#18675 END AS _w2#18690, MakeDecimal(sum(UnscaledValue(ws_net_paid#505)),17,2) AS _w3#18691]
-               +- Expand [[ws_net_paid#505, i_category#680, i_class#678, 0], [ws_net_paid#505, i_category#680, null, 1], [ws_net_paid#505, null, null, 3]], [ws_net_paid#505, i_category#18675, i_class#18676, spark_grouping_id#18674L]
+   +- Sort [lochierarchy#21239 DESC NULLS LAST, CASE WHEN (lochierarchy#21239 = 0) THEN i_category#21248 END ASC NULLS FIRST, rank_within_parent#21240 ASC NULLS FIRST], true
+      +- Project [total_sum#21238, i_category#21248, i_class#21249, lochierarchy#21239, rank_within_parent#21240]
+         +- Window [rank(_w3#21264) windowspecdefinition(_w1#21262, _w2#21263, _w3#21264 DESC NULLS LAST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS rank_within_parent#21240], [_w1#21262, _w2#21263], [_w3#21264 DESC NULLS LAST]
+            +- Aggregate [i_category#21248, i_class#21249, spark_grouping_id#21247L], [MakeDecimal(sum(UnscaledValue(ws_net_paid#505)),17,2) AS total_sum#21238, i_category#21248, i_class#21249, (cast((shiftright(spark_grouping_id#21247L, 1) & 1) as tinyint) + cast((shiftright(spark_grouping_id#21247L, 0) & 1) as tinyint)) AS lochierarchy#21239, (cast((shiftright(spark_grouping_id#21247L, 1) & 1) as tinyint) + cast((shiftright(spark_grouping_id#21247L, 0) & 1) as tinyint)) AS _w1#21262, CASE WHEN (cast((shiftright(spark_grouping_id#21247L, 0) & 1) as tinyint) = 0) THEN i_category#21248 END AS _w2#21263, MakeDecimal(sum(UnscaledValue(ws_net_paid#505)),17,2) AS _w3#21264]
+               +- Expand [[ws_net_paid#505, i_category#680, i_class#678, 0], [ws_net_paid#505, i_category#680, null, 1], [ws_net_paid#505, null, null, 3]], [ws_net_paid#505, i_category#21248, i_class#21249, spark_grouping_id#21247L]
                   +- Project [ws_net_paid#505, i_category#680, i_class#678]
                      +- Join Inner, (i_item_sk#668 = ws_item_sk#479)
                         :- Project [ws_item_sk#479, ws_net_paid#505]
@@ -13,7 +13,7 @@ GlobalLimit 100
                         :     :  +- Filter (isnotnull(ws_sold_date_sk#476) AND isnotnull(ws_item_sk#479))
                         :     :     +- Relation [ws_sold_date_sk#476,ws_sold_time_sk#477,ws_ship_date_sk#478,ws_item_sk#479,ws_bill_customer_sk#480,ws_bill_cdemo_sk#481,ws_bill_hdemo_sk#482,ws_bill_addr_sk#483,ws_ship_customer_sk#484,ws_ship_cdemo_sk#485,ws_ship_hdemo_sk#486,ws_ship_addr_sk#487,ws_web_page_sk#488,ws_web_site_sk#489,ws_ship_mode_sk#490,ws_warehouse_sk#491,ws_promo_sk#492,ws_order_number#493L,ws_quantity#494,ws_wholesale_cost#495,ws_list_price#496,ws_sales_price#497,ws_ext_discount_amt#498,ws_ext_sales_price#499,... 10 more fields] parquet
                         :     +- Project [d_date_sk#612]
-                        :        +- Filter ((isnotnull(d_month_seq#615) AND ((d_month_seq#615 >= 1212) AND (d_month_seq#615 <= 1223))) AND isnotnull(d_date_sk#612))
+                        :        +- Filter ((isnotnull(d_month_seq#615) AND ((d_month_seq#615 >= 1205) AND (d_month_seq#615 <= 1216))) AND isnotnull(d_date_sk#612))
                         :           +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
                         +- Project [i_item_sk#668, i_class#678, i_category#680]
                            +- Filter isnotnull(i_item_sk#668)

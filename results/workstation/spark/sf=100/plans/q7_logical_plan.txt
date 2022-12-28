@@ -14,10 +14,10 @@ GlobalLimit 100
                :     :     :     :  +- Filter ((isnotnull(ss_cdemo_sk#256) AND isnotnull(ss_sold_date_sk#252)) AND (isnotnull(ss_item_sk#254) AND isnotnull(ss_promo_sk#260)))
                :     :     :     :     +- Relation [ss_sold_date_sk#252,ss_sold_time_sk#253,ss_item_sk#254,ss_customer_sk#255,ss_cdemo_sk#256,ss_hdemo_sk#257,ss_addr_sk#258,ss_store_sk#259,ss_promo_sk#260,ss_ticket_number#261L,ss_quantity#262,ss_wholesale_cost#263,ss_list_price#264,ss_sales_price#265,ss_ext_discount_amt#266,ss_ext_sales_price#267,ss_ext_wholesale_cost#268,ss_ext_list_price#269,ss_ext_tax#270,ss_coupon_amt#271,ss_net_paid#272,ss_net_paid_inc_tax#273,ss_net_profit#274] parquet
                :     :     :     +- Project [cd_demo_sk#222]
-               :     :     :        +- Filter ((((isnotnull(cd_gender#223) AND isnotnull(cd_marital_status#224)) AND isnotnull(cd_education_status#225)) AND (((cd_gender#223 = F) AND (cd_marital_status#224 = W)) AND (cd_education_status#225 = Primary))) AND isnotnull(cd_demo_sk#222))
+               :     :     :        +- Filter ((((isnotnull(cd_gender#223) AND isnotnull(cd_marital_status#224)) AND isnotnull(cd_education_status#225)) AND (((cd_gender#223 = M) AND (cd_marital_status#224 = M)) AND (cd_education_status#225 = 4 yr Degree))) AND isnotnull(cd_demo_sk#222))
                :     :     :           +- Relation [cd_demo_sk#222,cd_gender#223,cd_marital_status#224,cd_education_status#225,cd_purchase_estimate#226,cd_credit_rating#227,cd_dep_count#228,cd_dep_employed_count#229,cd_dep_college_count#230] parquet
                :     :     +- Project [d_date_sk#612]
-               :     :        +- Filter ((isnotnull(d_year#618) AND (d_year#618 = 1998)) AND isnotnull(d_date_sk#612))
+               :     :        +- Filter ((isnotnull(d_year#618) AND (d_year#618 = 2001)) AND isnotnull(d_date_sk#612))
                :     :           +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
                :     +- Project [i_item_sk#668, i_item_id#669]
                :        +- Filter isnotnull(i_item_sk#668)

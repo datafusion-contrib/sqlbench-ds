@@ -9,7 +9,7 @@ inputs:
     operator: "Sort"
     inputs:
     - title: "Projection: customer_id#1247, customer_first_name#1248, customer_last_name#1249,\
-        \ customer_email_address#1253"
+        \ customer_login#1252"
       operator: "projection"
       inputs:
       - title: "Inner Join: Some(((customer_id#1122 = customer_id#1287) AND (CASE\
@@ -20,16 +20,15 @@ inputs:
         operator: "join"
         inputs:
         - title: "Projection: customer_id#1122, customer_id#1247, customer_first_name#1248,\
-            \ customer_last_name#1249, customer_email_address#1253, year_total#1777,\
-            \ year_total#1275, year_total#2255"
+            \ customer_last_name#1249, customer_login#1252, year_total#1777, year_total#1275,\
+            \ year_total#2255"
           operator: "projection"
           inputs:
           - title: "Inner Join: Some((customer_id#1122 = customer_id#2247))"
             operator: "join"
             inputs:
             - title: "Projection: customer_id#1122, customer_id#1247, customer_first_name#1248,\
-                \ customer_last_name#1249, customer_email_address#1253, year_total#1777,\
-                \ year_total#1275"
+                \ customer_last_name#1249, customer_login#1252, year_total#1777, year_total#1275"
               operator: "projection"
               inputs:
               - title: "Inner Join: Some(((customer_id#1122 = customer_id#1267) AND\
@@ -41,7 +40,7 @@ inputs:
                 operator: "join"
                 inputs:
                 - title: "Projection: customer_id#1122, year_total#1130, customer_id#1247,\
-                    \ customer_first_name#1248, customer_last_name#1249, customer_email_address#1253,\
+                    \ customer_first_name#1248, customer_last_name#1249, customer_login#1252,\
                     \ year_total#1255, year_total#1777"
                   operator: "projection"
                   inputs:

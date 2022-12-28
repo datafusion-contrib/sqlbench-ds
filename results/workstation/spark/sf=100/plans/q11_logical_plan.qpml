@@ -9,7 +9,7 @@ inputs:
     operator: "Sort"
     inputs:
     - title: "Projection: customer_id#3937, customer_first_name#3938, customer_last_name#3939,\
-        \ customer_email_address#3943"
+        \ customer_birth_country#3941"
       operator: "projection"
       inputs:
       - title: "Inner Join: Some(((customer_id#3869 = customer_id#3957) AND (CASE\
@@ -21,7 +21,7 @@ inputs:
         operator: "join"
         inputs:
         - title: "Projection: customer_id#3869, year_total#3877, customer_id#3937,\
-            \ customer_first_name#3938, customer_last_name#3939, customer_email_address#3943,\
+            \ customer_first_name#3938, customer_last_name#3939, customer_birth_country#3941,\
             \ year_total#3945, year_total#4287"
           operator: "projection"
           inputs:
@@ -81,7 +81,7 @@ inputs:
                         operator: "projection"
                         inputs:
                         - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618\
-                            \ = 2001)) AND isnotnull(d_date_sk#612))"
+                            \ = 1998)) AND isnotnull(d_date_sk#612))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
@@ -133,7 +133,7 @@ inputs:
                       operator: "projection"
                       inputs:
                       - title: "Filter: ((isnotnull(d_year#4018) AND (d_year#4018\
-                          \ = 2002)) AND isnotnull(d_date_sk#4012))"
+                          \ = 1999)) AND isnotnull(d_date_sk#4012))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"
@@ -194,7 +194,7 @@ inputs:
                         operator: "projection"
                         inputs:
                         - title: "Filter: ((isnotnull(d_year#4257) AND (d_year#4257\
-                            \ = 2001)) AND isnotnull(d_date_sk#4251))"
+                            \ = 1998)) AND isnotnull(d_date_sk#4251))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
@@ -244,7 +244,7 @@ inputs:
               - title: "Projection: d_date_sk#4410, d_year#4416"
                 operator: "projection"
                 inputs:
-                - title: "Filter: ((isnotnull(d_year#4416) AND (d_year#4416 = 2002))\
+                - title: "Filter: ((isnotnull(d_year#4416) AND (d_year#4416 = 1999))\
                     \ AND isnotnull(d_date_sk#4410))"
                   operator: "filter"
                   inputs:

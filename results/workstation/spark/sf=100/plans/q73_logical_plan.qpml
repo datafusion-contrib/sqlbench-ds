@@ -3,13 +3,13 @@ title: "Sort (unknown)"
 operator: "Sort"
 inputs:
 - title: "Projection: c_last_name#409, c_first_name#408, c_salutation#407, c_preferred_cust_flag#410,\
-    \ ss_ticket_number#261L, cnt#15800L"
+    \ ss_ticket_number#261L, cnt#17953L"
   operator: "projection"
   inputs:
   - title: "Inner Join: Some((ss_customer_sk#255 = c_customer_sk#400))"
     operator: "join"
     inputs:
-    - title: "Filter: ((cnt#15800L >= 1) AND (cnt#15800L <= 5))"
+    - title: "Filter: ((cnt#17953L >= 1) AND (cnt#17953L <= 5))"
       operator: "filter"
       inputs:
       - title: "Aggregate (unknown)"
@@ -59,7 +59,7 @@ inputs:
                 - title: "Projection: s_store_sk#712"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: (s_county#735 IN (Daviess County,Franklin Parish,Barrow\
+                  - title: "Filter: (s_county#735 IN (Fairfield County,Daviess County,Richland\
                       \ County,Luce County) AND isnotnull(s_store_sk#712))"
                     operator: "filter"
                     inputs:
@@ -70,8 +70,8 @@ inputs:
               operator: "projection"
               inputs:
               - title: "Filter: (((isnotnull(hd_vehicle_count#92) AND isnotnull(hd_dep_count#91))\
-                  \ AND ((((hd_buy_potential#90 = >10000) OR (hd_buy_potential#90\
-                  \ = 5001-10000)) AND (hd_vehicle_count#92 > 0)) AND ((cast(hd_dep_count#91\
+                  \ AND ((((hd_buy_potential#90 = 1001-5000) OR (hd_buy_potential#90\
+                  \ = Unknown)) AND (hd_vehicle_count#92 > 0)) AND ((cast(hd_dep_count#91\
                   \ as double) / cast(hd_vehicle_count#92 as double)) > 1.0))) AND\
                   \ isnotnull(hd_demo_sk#88))"
                 operator: "filter"

@@ -12,9 +12,9 @@ inputs:
       operator: "projection"
       inputs:
       - title: "Inner Join: Some(((ss_addr_sk#258 = ca_address_sk#62) AND ((((ca_state#70\
-          \ IN (KY,GA,NM) AND (ss_net_profit#274 >= 0.00)) AND (ss_net_profit#274\
-          \ <= 2000.00)) OR ((ca_state#70 IN (MT,OR,IN) AND (ss_net_profit#274 >=\
-          \ 150.00)) AND (ss_net_profit#274 <= 3000.00))) OR ((ca_state#70 IN (WI,MO,WV)\
+          \ IN (CO,IN,AR) AND (ss_net_profit#274 >= 0.00)) AND (ss_net_profit#274\
+          \ <= 2000.00)) OR ((ca_state#70 IN (AZ,TX,NY) AND (ss_net_profit#274 >=\
+          \ 150.00)) AND (ss_net_profit#274 <= 3000.00))) OR ((ca_state#70 IN (ND,OH,MI)\
           \ AND (ss_net_profit#274 >= 50.00)) AND (ss_net_profit#274 <= 25000.00)))))"
         operator: "join"
         inputs:
@@ -23,11 +23,11 @@ inputs:
           operator: "projection"
           inputs:
           - title: "Inner Join: Some(((cd_demo_sk#222 = ss_cdemo_sk#256) AND ((((((cd_marital_status#224\
-              \ = M) AND (cd_education_status#225 = 4 yr Degree)) AND (ss_sales_price#265\
+              \ = S) AND (cd_education_status#225 = Primary)) AND (ss_sales_price#265\
               \ >= 100.00)) AND (ss_sales_price#265 <= 150.00)) OR ((((cd_marital_status#224\
-              \ = D) AND (cd_education_status#225 = Primary)) AND (ss_sales_price#265\
+              \ = M) AND (cd_education_status#225 = 4 yr Degree)) AND (ss_sales_price#265\
               \ >= 50.00)) AND (ss_sales_price#265 <= 100.00))) OR ((((cd_marital_status#224\
-              \ = U) AND (cd_education_status#225 = Advanced Degree)) AND (ss_sales_price#265\
+              \ = D) AND (cd_education_status#225 = 2 yr Degree)) AND (ss_sales_price#265\
               \ >= 150.00)) AND (ss_sales_price#265 <= 200.00)))))"
             operator: "join"
             inputs:
@@ -69,9 +69,9 @@ inputs:
               operator: "projection"
               inputs:
               - title: "Filter: (isnotnull(cd_demo_sk#222) AND ((((cd_marital_status#224\
-                  \ = M) AND (cd_education_status#225 = 4 yr Degree)) OR ((cd_marital_status#224\
-                  \ = D) AND (cd_education_status#225 = Primary))) OR ((cd_marital_status#224\
-                  \ = U) AND (cd_education_status#225 = Advanced Degree))))"
+                  \ = S) AND (cd_education_status#225 = Primary)) OR ((cd_marital_status#224\
+                  \ = M) AND (cd_education_status#225 = 4 yr Degree))) OR ((cd_marital_status#224\
+                  \ = D) AND (cd_education_status#225 = 2 yr Degree))))"
                 operator: "filter"
                 inputs:
                 - title: "customer_demographics.parquet"
@@ -81,8 +81,8 @@ inputs:
           operator: "projection"
           inputs:
           - title: "Filter: (((isnotnull(ca_country#72) AND (ca_country#72 = United\
-              \ States)) AND isnotnull(ca_address_sk#62)) AND ((ca_state#70 IN (KY,GA,NM)\
-              \ OR ca_state#70 IN (MT,OR,IN)) OR ca_state#70 IN (WI,MO,WV)))"
+              \ States)) AND isnotnull(ca_address_sk#62)) AND ((ca_state#70 IN (CO,IN,AR)\
+              \ OR ca_state#70 IN (AZ,TX,NY)) OR ca_state#70 IN (ND,OH,MI)))"
             operator: "filter"
             inputs:
             - title: "customer_address.parquet"

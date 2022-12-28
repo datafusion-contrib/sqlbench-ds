@@ -29,14 +29,14 @@ inputs:
                   \ sr_return_quantity#146, cs_quantity#562"
                 operator: "projection"
                 inputs:
-                - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#4681))"
+                - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#6169))"
                   operator: "join"
                   inputs:
                   - title: "Projection: ss_item_sk#254, ss_store_sk#259, ss_quantity#262,\
                       \ sr_return_quantity#146, cs_sold_date_sk#544, cs_quantity#562"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((sr_returned_date_sk#136 = d_date_sk#4653))"
+                    - title: "Inner Join: Some((sr_returned_date_sk#136 = d_date_sk#6141))"
                       operator: "join"
                       inputs:
                       - title: "Projection: ss_item_sk#254, ss_store_sk#259, ss_quantity#262,\
@@ -108,27 +108,27 @@ inputs:
                             operator: "projection"
                             inputs:
                             - title: "Filter: ((isnotnull(d_quarter_name#627) AND\
-                                \ (d_quarter_name#627 = 1998Q1)) AND isnotnull(d_date_sk#612))"
+                                \ (d_quarter_name#627 = 1999Q1)) AND isnotnull(d_date_sk#612))"
                               operator: "filter"
                               inputs:
                               - title: "date_dim.parquet"
                                 operator: "scan"
                                 inputs: []
-                      - title: "Projection: d_date_sk#4653"
+                      - title: "Projection: d_date_sk#6141"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (d_quarter_name#4668 IN (1998Q1,1998Q2,1998Q3)\
-                            \ AND isnotnull(d_date_sk#4653))"
+                        - title: "Filter: (d_quarter_name#6156 IN (1999Q1,1999Q2,1999Q3)\
+                            \ AND isnotnull(d_date_sk#6141))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-                  - title: "Projection: d_date_sk#4681"
+                  - title: "Projection: d_date_sk#6169"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: (d_quarter_name#4696 IN (1998Q1,1998Q2,1998Q3)\
-                        \ AND isnotnull(d_date_sk#4681))"
+                    - title: "Filter: (d_quarter_name#6184 IN (1999Q1,1999Q2,1999Q3)\
+                        \ AND isnotnull(d_date_sk#6169))"
                       operator: "filter"
                       inputs:
                       - title: "date_dim.parquet"

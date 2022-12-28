@@ -1,119 +1,119 @@
 AdaptiveSparkPlan isFinalPlan=true
 +- == Final Plan ==
-   TakeOrderedAndProject(limit=100, orderBy=[item_sk#10166 ASC NULLS FIRST,d_date#10167 ASC NULLS FIRST], output=[item_sk#10166,d_date#10167,web_sales#10168,store_sales#10169,web_cumulative#10170,store_cumulative#10171])
-   +- *(21) Filter ((isnotnull(web_cumulative#10170) AND isnotnull(store_cumulative#10171)) AND (web_cumulative#10170 > store_cumulative#10171))
-      +- Window [max(web_sales#10168) windowspecdefinition(item_sk#10166, d_date#10167 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS web_cumulative#10170, max(store_sales#10169) windowspecdefinition(item_sk#10166, d_date#10167 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS store_cumulative#10171], [item_sk#10166], [d_date#10167 ASC NULLS FIRST]
-         +- *(20) Sort [item_sk#10166 ASC NULLS FIRST, d_date#10167 ASC NULLS FIRST], false, 0
+   TakeOrderedAndProject(limit=100, orderBy=[item_sk#12379 ASC NULLS FIRST,d_date#12380 ASC NULLS FIRST], output=[item_sk#12379,d_date#12380,web_sales#12381,store_sales#12382,web_cumulative#12383,store_cumulative#12384])
+   +- *(21) Filter ((isnotnull(web_cumulative#12383) AND isnotnull(store_cumulative#12384)) AND (web_cumulative#12383 > store_cumulative#12384))
+      +- Window [max(web_sales#12381) windowspecdefinition(item_sk#12379, d_date#12380 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS web_cumulative#12383, max(store_sales#12382) windowspecdefinition(item_sk#12379, d_date#12380 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS store_cumulative#12384], [item_sk#12379], [d_date#12380 ASC NULLS FIRST]
+         +- *(20) Sort [item_sk#12379 ASC NULLS FIRST, d_date#12380 ASC NULLS FIRST], false, 0
             +- AQEShuffleRead coalesced
                +- ShuffleQueryStage 11
-                  +- Exchange hashpartitioning(item_sk#10166, 200), ENSURE_REQUIREMENTS, [id=#83282]
-                     +- *(19) Project [CASE WHEN isnotnull(item_sk#10172) THEN item_sk#10172 ELSE item_sk#10174 END AS item_sk#10166, CASE WHEN isnotnull(d_date#614) THEN d_date#614 ELSE d_date#10178 END AS d_date#10167, cume_sales#10173 AS web_sales#10168, cume_sales#10175 AS store_sales#10169]
-                        +- SortMergeJoin [item_sk#10172, d_date#614], [item_sk#10174, d_date#10178], FullOuter
-                           :- *(17) Sort [item_sk#10172 ASC NULLS FIRST, d_date#614 ASC NULLS FIRST], false, 0
+                  +- Exchange hashpartitioning(item_sk#12379, 200), ENSURE_REQUIREMENTS, [id=#155030]
+                     +- *(19) Project [CASE WHEN isnotnull(item_sk#12385) THEN item_sk#12385 ELSE item_sk#12387 END AS item_sk#12379, CASE WHEN isnotnull(d_date#614) THEN d_date#614 ELSE d_date#12391 END AS d_date#12380, cume_sales#12386 AS web_sales#12381, cume_sales#12388 AS store_sales#12382]
+                        +- SortMergeJoin [item_sk#12385, d_date#614], [item_sk#12387, d_date#12391], FullOuter
+                           :- *(17) Sort [item_sk#12385 ASC NULLS FIRST, d_date#614 ASC NULLS FIRST], false, 0
                            :  +- AQEShuffleRead coalesced
                            :     +- ShuffleQueryStage 8
-                           :        +- Exchange hashpartitioning(item_sk#10172, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#83001]
-                           :           +- *(13) Project [item_sk#10172, d_date#614, cume_sales#10173]
-                           :              +- Window [sum(_w0#10208) windowspecdefinition(ws_item_sk#479, d_date#614 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#10173], [ws_item_sk#479], [d_date#614 ASC NULLS FIRST]
+                           :        +- Exchange hashpartitioning(item_sk#12385, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#154750]
+                           :           +- *(13) Project [item_sk#12385, d_date#614, cume_sales#12386]
+                           :              +- Window [sum(_w0#12421) windowspecdefinition(ws_item_sk#479, d_date#614 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#12386], [ws_item_sk#479], [d_date#614 ASC NULLS FIRST]
                            :                 +- *(12) Sort [ws_item_sk#479 ASC NULLS FIRST, d_date#614 ASC NULLS FIRST], false, 0
                            :                    +- AQEShuffleRead coalesced
                            :                       +- ShuffleQueryStage 7
-                           :                          +- Exchange hashpartitioning(ws_item_sk#479, 200), ENSURE_REQUIREMENTS, [id=#82902]
-                           :                             +- *(11) HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[sum(UnscaledValue(ws_sales_price#497))], output=[item_sk#10172, d_date#614, _w0#10208, ws_item_sk#479])
+                           :                          +- Exchange hashpartitioning(ws_item_sk#479, 200), ENSURE_REQUIREMENTS, [id=#154651]
+                           :                             +- *(11) HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[sum(UnscaledValue(ws_sales_price#497))], output=[item_sk#12385, d_date#614, _w0#12421, ws_item_sk#479])
                            :                                +- AQEShuffleRead coalesced
                            :                                   +- ShuffleQueryStage 5
-                           :                                      +- Exchange hashpartitioning(ws_item_sk#479, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#82637]
-                           :                                         +- *(7) HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[partial_sum(UnscaledValue(ws_sales_price#497))], output=[ws_item_sk#479, d_date#614, sum#10219L])
+                           :                                      +- Exchange hashpartitioning(ws_item_sk#479, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#154386]
+                           :                                         +- *(7) HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[partial_sum(UnscaledValue(ws_sales_price#497))], output=[ws_item_sk#479, d_date#614, sum#12432L])
                            :                                            +- *(7) Project [ws_item_sk#479, ws_sales_price#497, d_date#614]
                            :                                               +- *(7) SortMergeJoin [ws_sold_date_sk#476], [d_date_sk#612], Inner
                            :                                                  :- *(5) Sort [ws_sold_date_sk#476 ASC NULLS FIRST], false, 0
                            :                                                  :  +- AQEShuffleRead coalesced
                            :                                                  :     +- ShuffleQueryStage 0
-                           :                                                  :        +- Exchange hashpartitioning(ws_sold_date_sk#476, 200), ENSURE_REQUIREMENTS, [id=#82265]
+                           :                                                  :        +- Exchange hashpartitioning(ws_sold_date_sk#476, 200), ENSURE_REQUIREMENTS, [id=#154014]
                            :                                                  :           +- *(1) Filter (isnotnull(ws_item_sk#479) AND isnotnull(ws_sold_date_sk#476))
                            :                                                  :              +- *(1) ColumnarToRow
                            :                                                  :                 +- FileScan parquet [ws_sold_date_sk#476,ws_item_sk#479,ws_sales_price#497] Batched: true, DataFilters: [isnotnull(ws_item_sk#479), isnotnull(ws_sold_date_sk#476)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_item_sk), IsNotNull(ws_sold_date_sk)], ReadSchema: struct<ws_sold_date_sk:int,ws_item_sk:int,ws_sales_price:decimal(7,2)>
                            :                                                  +- *(6) Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
                            :                                                     +- AQEShuffleRead coalesced
                            :                                                        +- ShuffleQueryStage 1
-                           :                                                           +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#82284]
+                           :                                                           +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#154033]
                            :                                                              +- *(2) Project [d_date_sk#612, d_date#614]
                            :                                                                 +- *(2) Filter (((isnotnull(d_month_seq#615) AND (d_month_seq#615 >= 1212)) AND (d_month_seq#615 <= 1223)) AND isnotnull(d_date_sk#612))
                            :                                                                    +- *(2) ColumnarToRow
                            :                                                                       +- FileScan parquet [d_date_sk#612,d_date#614,d_month_seq#615] Batched: true, DataFilters: [isnotnull(d_month_seq#615), (d_month_seq#615 >= 1212), (d_month_seq#615 <= 1223), isnotnull(d_da..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1212), LessThanOrEqual(d_month_seq,1223),..., ReadSchema: struct<d_date_sk:int,d_date:date,d_month_seq:int>
-                           +- *(18) Sort [item_sk#10174 ASC NULLS FIRST, d_date#10178 ASC NULLS FIRST], false, 0
+                           +- *(18) Sort [item_sk#12387 ASC NULLS FIRST, d_date#12391 ASC NULLS FIRST], false, 0
                               +- AQEShuffleRead coalesced
                                  +- ShuffleQueryStage 10
-                                    +- Exchange hashpartitioning(item_sk#10174, d_date#10178, 200), ENSURE_REQUIREMENTS, [id=#83206]
-                                       +- *(16) Project [item_sk#10174, d_date#10178, cume_sales#10175]
-                                          +- Window [sum(_w0#10209) windowspecdefinition(ss_item_sk#254, d_date#10178 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#10175], [ss_item_sk#254], [d_date#10178 ASC NULLS FIRST]
-                                             +- *(15) Sort [ss_item_sk#254 ASC NULLS FIRST, d_date#10178 ASC NULLS FIRST], false, 0
+                                    +- Exchange hashpartitioning(item_sk#12387, d_date#12391, 200), ENSURE_REQUIREMENTS, [id=#154954]
+                                       +- *(16) Project [item_sk#12387, d_date#12391, cume_sales#12388]
+                                          +- Window [sum(_w0#12422) windowspecdefinition(ss_item_sk#254, d_date#12391 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#12388], [ss_item_sk#254], [d_date#12391 ASC NULLS FIRST]
+                                             +- *(15) Sort [ss_item_sk#254 ASC NULLS FIRST, d_date#12391 ASC NULLS FIRST], false, 0
                                                 +- AQEShuffleRead coalesced
                                                    +- ShuffleQueryStage 9
-                                                      +- Exchange hashpartitioning(ss_item_sk#254, 200), ENSURE_REQUIREMENTS, [id=#83118]
-                                                         +- *(14) HashAggregate(keys=[ss_item_sk#254, d_date#10178], functions=[sum(UnscaledValue(ss_sales_price#265))], output=[item_sk#10174, d_date#10178, _w0#10209, ss_item_sk#254])
+                                                      +- Exchange hashpartitioning(ss_item_sk#254, 200), ENSURE_REQUIREMENTS, [id=#154827]
+                                                         +- *(14) HashAggregate(keys=[ss_item_sk#254, d_date#12391], functions=[sum(UnscaledValue(ss_sales_price#265))], output=[item_sk#12387, d_date#12391, _w0#12422, ss_item_sk#254])
                                                             +- AQEShuffleRead coalesced
                                                                +- ShuffleQueryStage 6
-                                                                  +- Exchange hashpartitioning(ss_item_sk#254, d_date#10178, 200), ENSURE_REQUIREMENTS, [id=#82788]
-                                                                     +- *(10) HashAggregate(keys=[ss_item_sk#254, d_date#10178], functions=[partial_sum(UnscaledValue(ss_sales_price#265))], output=[ss_item_sk#254, d_date#10178, sum#10221L])
-                                                                        +- *(10) Project [ss_item_sk#254, ss_sales_price#265, d_date#10178]
-                                                                           +- *(10) SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#10176], Inner
+                                                                  +- Exchange hashpartitioning(ss_item_sk#254, d_date#12391, 200), ENSURE_REQUIREMENTS, [id=#154537]
+                                                                     +- *(10) HashAggregate(keys=[ss_item_sk#254, d_date#12391], functions=[partial_sum(UnscaledValue(ss_sales_price#265))], output=[ss_item_sk#254, d_date#12391, sum#12434L])
+                                                                        +- *(10) Project [ss_item_sk#254, ss_sales_price#265, d_date#12391]
+                                                                           +- *(10) SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#12389], Inner
                                                                               :- *(8) Sort [ss_sold_date_sk#252 ASC NULLS FIRST], false, 0
                                                                               :  +- AQEShuffleRead coalesced
                                                                               :     +- ShuffleQueryStage 2
-                                                                              :        +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#82314]
+                                                                              :        +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#154063]
                                                                               :           +- *(3) Filter (isnotnull(ss_item_sk#254) AND isnotnull(ss_sold_date_sk#252))
                                                                               :              +- *(3) ColumnarToRow
                                                                               :                 +- FileScan parquet [ss_sold_date_sk#252,ss_item_sk#254,ss_sales_price#265] Batched: true, DataFilters: [isnotnull(ss_item_sk#254), isnotnull(ss_sold_date_sk#252)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_item_sk), IsNotNull(ss_sold_date_sk)], ReadSchema: struct<ss_sold_date_sk:int,ss_item_sk:int,ss_sales_price:decimal(7,2)>
-                                                                              +- *(9) Sort [d_date_sk#10176 ASC NULLS FIRST], false, 0
+                                                                              +- *(9) Sort [d_date_sk#12389 ASC NULLS FIRST], false, 0
                                                                                  +- AQEShuffleRead coalesced
                                                                                     +- ShuffleQueryStage 4
-                                                                                       +- ReusedExchange [d_date_sk#10176, d_date#10178], Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#82284]
+                                                                                       +- ReusedExchange [d_date_sk#12389, d_date#12391], Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#154033]
 +- == Initial Plan ==
-   TakeOrderedAndProject(limit=100, orderBy=[item_sk#10166 ASC NULLS FIRST,d_date#10167 ASC NULLS FIRST], output=[item_sk#10166,d_date#10167,web_sales#10168,store_sales#10169,web_cumulative#10170,store_cumulative#10171])
-   +- Filter ((isnotnull(web_cumulative#10170) AND isnotnull(store_cumulative#10171)) AND (web_cumulative#10170 > store_cumulative#10171))
-      +- Window [max(web_sales#10168) windowspecdefinition(item_sk#10166, d_date#10167 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS web_cumulative#10170, max(store_sales#10169) windowspecdefinition(item_sk#10166, d_date#10167 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS store_cumulative#10171], [item_sk#10166], [d_date#10167 ASC NULLS FIRST]
-         +- Sort [item_sk#10166 ASC NULLS FIRST, d_date#10167 ASC NULLS FIRST], false, 0
-            +- Exchange hashpartitioning(item_sk#10166, 200), ENSURE_REQUIREMENTS, [id=#82171]
-               +- Project [CASE WHEN isnotnull(item_sk#10172) THEN item_sk#10172 ELSE item_sk#10174 END AS item_sk#10166, CASE WHEN isnotnull(d_date#614) THEN d_date#614 ELSE d_date#10178 END AS d_date#10167, cume_sales#10173 AS web_sales#10168, cume_sales#10175 AS store_sales#10169]
-                  +- SortMergeJoin [item_sk#10172, d_date#614], [item_sk#10174, d_date#10178], FullOuter
-                     :- Sort [item_sk#10172 ASC NULLS FIRST, d_date#614 ASC NULLS FIRST], false, 0
-                     :  +- Exchange hashpartitioning(item_sk#10172, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#82164]
-                     :     +- Project [item_sk#10172, d_date#614, cume_sales#10173]
-                     :        +- Window [sum(_w0#10208) windowspecdefinition(ws_item_sk#479, d_date#614 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#10173], [ws_item_sk#479], [d_date#614 ASC NULLS FIRST]
+   TakeOrderedAndProject(limit=100, orderBy=[item_sk#12379 ASC NULLS FIRST,d_date#12380 ASC NULLS FIRST], output=[item_sk#12379,d_date#12380,web_sales#12381,store_sales#12382,web_cumulative#12383,store_cumulative#12384])
+   +- Filter ((isnotnull(web_cumulative#12383) AND isnotnull(store_cumulative#12384)) AND (web_cumulative#12383 > store_cumulative#12384))
+      +- Window [max(web_sales#12381) windowspecdefinition(item_sk#12379, d_date#12380 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS web_cumulative#12383, max(store_sales#12382) windowspecdefinition(item_sk#12379, d_date#12380 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS store_cumulative#12384], [item_sk#12379], [d_date#12380 ASC NULLS FIRST]
+         +- Sort [item_sk#12379 ASC NULLS FIRST, d_date#12380 ASC NULLS FIRST], false, 0
+            +- Exchange hashpartitioning(item_sk#12379, 200), ENSURE_REQUIREMENTS, [id=#153920]
+               +- Project [CASE WHEN isnotnull(item_sk#12385) THEN item_sk#12385 ELSE item_sk#12387 END AS item_sk#12379, CASE WHEN isnotnull(d_date#614) THEN d_date#614 ELSE d_date#12391 END AS d_date#12380, cume_sales#12386 AS web_sales#12381, cume_sales#12388 AS store_sales#12382]
+                  +- SortMergeJoin [item_sk#12385, d_date#614], [item_sk#12387, d_date#12391], FullOuter
+                     :- Sort [item_sk#12385 ASC NULLS FIRST, d_date#614 ASC NULLS FIRST], false, 0
+                     :  +- Exchange hashpartitioning(item_sk#12385, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#153913]
+                     :     +- Project [item_sk#12385, d_date#614, cume_sales#12386]
+                     :        +- Window [sum(_w0#12421) windowspecdefinition(ws_item_sk#479, d_date#614 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#12386], [ws_item_sk#479], [d_date#614 ASC NULLS FIRST]
                      :           +- Sort [ws_item_sk#479 ASC NULLS FIRST, d_date#614 ASC NULLS FIRST], false, 0
-                     :              +- Exchange hashpartitioning(ws_item_sk#479, 200), ENSURE_REQUIREMENTS, [id=#82142]
-                     :                 +- HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[sum(UnscaledValue(ws_sales_price#497))], output=[item_sk#10172, d_date#614, _w0#10208, ws_item_sk#479])
-                     :                    +- Exchange hashpartitioning(ws_item_sk#479, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#82139]
-                     :                       +- HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[partial_sum(UnscaledValue(ws_sales_price#497))], output=[ws_item_sk#479, d_date#614, sum#10219L])
+                     :              +- Exchange hashpartitioning(ws_item_sk#479, 200), ENSURE_REQUIREMENTS, [id=#153891]
+                     :                 +- HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[sum(UnscaledValue(ws_sales_price#497))], output=[item_sk#12385, d_date#614, _w0#12421, ws_item_sk#479])
+                     :                    +- Exchange hashpartitioning(ws_item_sk#479, d_date#614, 200), ENSURE_REQUIREMENTS, [id=#153888]
+                     :                       +- HashAggregate(keys=[ws_item_sk#479, d_date#614], functions=[partial_sum(UnscaledValue(ws_sales_price#497))], output=[ws_item_sk#479, d_date#614, sum#12432L])
                      :                          +- Project [ws_item_sk#479, ws_sales_price#497, d_date#614]
                      :                             +- SortMergeJoin [ws_sold_date_sk#476], [d_date_sk#612], Inner
                      :                                :- Sort [ws_sold_date_sk#476 ASC NULLS FIRST], false, 0
-                     :                                :  +- Exchange hashpartitioning(ws_sold_date_sk#476, 200), ENSURE_REQUIREMENTS, [id=#82131]
+                     :                                :  +- Exchange hashpartitioning(ws_sold_date_sk#476, 200), ENSURE_REQUIREMENTS, [id=#153880]
                      :                                :     +- Filter (isnotnull(ws_item_sk#479) AND isnotnull(ws_sold_date_sk#476))
                      :                                :        +- FileScan parquet [ws_sold_date_sk#476,ws_item_sk#479,ws_sales_price#497] Batched: true, DataFilters: [isnotnull(ws_item_sk#479), isnotnull(ws_sold_date_sk#476)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_item_sk), IsNotNull(ws_sold_date_sk)], ReadSchema: struct<ws_sold_date_sk:int,ws_item_sk:int,ws_sales_price:decimal(7,2)>
                      :                                +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
-                     :                                   +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#82132]
+                     :                                   +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#153881]
                      :                                      +- Project [d_date_sk#612, d_date#614]
                      :                                         +- Filter (((isnotnull(d_month_seq#615) AND (d_month_seq#615 >= 1212)) AND (d_month_seq#615 <= 1223)) AND isnotnull(d_date_sk#612))
                      :                                            +- FileScan parquet [d_date_sk#612,d_date#614,d_month_seq#615] Batched: true, DataFilters: [isnotnull(d_month_seq#615), (d_month_seq#615 >= 1212), (d_month_seq#615 <= 1223), isnotnull(d_da..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1212), LessThanOrEqual(d_month_seq,1223),..., ReadSchema: struct<d_date_sk:int,d_date:date,d_month_seq:int>
-                     +- Sort [item_sk#10174 ASC NULLS FIRST, d_date#10178 ASC NULLS FIRST], false, 0
-                        +- Exchange hashpartitioning(item_sk#10174, d_date#10178, 200), ENSURE_REQUIREMENTS, [id=#82165]
-                           +- Project [item_sk#10174, d_date#10178, cume_sales#10175]
-                              +- Window [sum(_w0#10209) windowspecdefinition(ss_item_sk#254, d_date#10178 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#10175], [ss_item_sk#254], [d_date#10178 ASC NULLS FIRST]
-                                 +- Sort [ss_item_sk#254 ASC NULLS FIRST, d_date#10178 ASC NULLS FIRST], false, 0
-                                    +- Exchange hashpartitioning(ss_item_sk#254, 200), ENSURE_REQUIREMENTS, [id=#82158]
-                                       +- HashAggregate(keys=[ss_item_sk#254, d_date#10178], functions=[sum(UnscaledValue(ss_sales_price#265))], output=[item_sk#10174, d_date#10178, _w0#10209, ss_item_sk#254])
-                                          +- Exchange hashpartitioning(ss_item_sk#254, d_date#10178, 200), ENSURE_REQUIREMENTS, [id=#82155]
-                                             +- HashAggregate(keys=[ss_item_sk#254, d_date#10178], functions=[partial_sum(UnscaledValue(ss_sales_price#265))], output=[ss_item_sk#254, d_date#10178, sum#10221L])
-                                                +- Project [ss_item_sk#254, ss_sales_price#265, d_date#10178]
-                                                   +- SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#10176], Inner
+                     +- Sort [item_sk#12387 ASC NULLS FIRST, d_date#12391 ASC NULLS FIRST], false, 0
+                        +- Exchange hashpartitioning(item_sk#12387, d_date#12391, 200), ENSURE_REQUIREMENTS, [id=#153914]
+                           +- Project [item_sk#12387, d_date#12391, cume_sales#12388]
+                              +- Window [sum(_w0#12422) windowspecdefinition(ss_item_sk#254, d_date#12391 ASC NULLS FIRST, specifiedwindowframe(RowFrame, unboundedpreceding$(), currentrow$())) AS cume_sales#12388], [ss_item_sk#254], [d_date#12391 ASC NULLS FIRST]
+                                 +- Sort [ss_item_sk#254 ASC NULLS FIRST, d_date#12391 ASC NULLS FIRST], false, 0
+                                    +- Exchange hashpartitioning(ss_item_sk#254, 200), ENSURE_REQUIREMENTS, [id=#153907]
+                                       +- HashAggregate(keys=[ss_item_sk#254, d_date#12391], functions=[sum(UnscaledValue(ss_sales_price#265))], output=[item_sk#12387, d_date#12391, _w0#12422, ss_item_sk#254])
+                                          +- Exchange hashpartitioning(ss_item_sk#254, d_date#12391, 200), ENSURE_REQUIREMENTS, [id=#153904]
+                                             +- HashAggregate(keys=[ss_item_sk#254, d_date#12391], functions=[partial_sum(UnscaledValue(ss_sales_price#265))], output=[ss_item_sk#254, d_date#12391, sum#12434L])
+                                                +- Project [ss_item_sk#254, ss_sales_price#265, d_date#12391]
+                                                   +- SortMergeJoin [ss_sold_date_sk#252], [d_date_sk#12389], Inner
                                                       :- Sort [ss_sold_date_sk#252 ASC NULLS FIRST], false, 0
-                                                      :  +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#82147]
+                                                      :  +- Exchange hashpartitioning(ss_sold_date_sk#252, 200), ENSURE_REQUIREMENTS, [id=#153896]
                                                       :     +- Filter (isnotnull(ss_item_sk#254) AND isnotnull(ss_sold_date_sk#252))
                                                       :        +- FileScan parquet [ss_sold_date_sk#252,ss_item_sk#254,ss_sales_price#265] Batched: true, DataFilters: [isnotnull(ss_item_sk#254), isnotnull(ss_sold_date_sk#252)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ss_item_sk), IsNotNull(ss_sold_date_sk)], ReadSchema: struct<ss_sold_date_sk:int,ss_item_sk:int,ss_sales_price:decimal(7,2)>
-                                                      +- Sort [d_date_sk#10176 ASC NULLS FIRST], false, 0
-                                                         +- Exchange hashpartitioning(d_date_sk#10176, 200), ENSURE_REQUIREMENTS, [id=#82148]
-                                                            +- Project [d_date_sk#10176, d_date#10178]
-                                                               +- Filter (((isnotnull(d_month_seq#10179) AND (d_month_seq#10179 >= 1212)) AND (d_month_seq#10179 <= 1223)) AND isnotnull(d_date_sk#10176))
-                                                                  +- FileScan parquet [d_date_sk#10176,d_date#10178,d_month_seq#10179] Batched: true, DataFilters: [isnotnull(d_month_seq#10179), (d_month_seq#10179 >= 1212), (d_month_seq#10179 <= 1223), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1212), LessThanOrEqual(d_month_seq,1223),..., ReadSchema: struct<d_date_sk:int,d_date:date,d_month_seq:int>
+                                                      +- Sort [d_date_sk#12389 ASC NULLS FIRST], false, 0
+                                                         +- Exchange hashpartitioning(d_date_sk#12389, 200), ENSURE_REQUIREMENTS, [id=#153897]
+                                                            +- Project [d_date_sk#12389, d_date#12391]
+                                                               +- Filter (((isnotnull(d_month_seq#12392) AND (d_month_seq#12392 >= 1212)) AND (d_month_seq#12392 <= 1223)) AND isnotnull(d_date_sk#12389))
+                                                                  +- FileScan parquet [d_date_sk#12389,d_date#12391,d_month_seq#12392] Batched: true, DataFilters: [isnotnull(d_month_seq#12392), (d_month_seq#12392 >= 1212), (d_month_seq#12392 <= 1223), isnotnul..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_month_seq), GreaterThanOrEqual(d_month_seq,1212), LessThanOrEqual(d_month_seq,1223),..., ReadSchema: struct<d_date_sk:int,d_date:date,d_month_seq:int>

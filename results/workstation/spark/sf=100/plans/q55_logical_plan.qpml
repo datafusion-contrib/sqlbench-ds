@@ -27,7 +27,7 @@ inputs:
                 operator: "projection"
                 inputs:
                 - title: "Filter: (((isnotnull(d_moy#620) AND isnotnull(d_year#618))\
-                    \ AND ((d_moy#620 = 12) AND (d_year#618 = 2001))) AND isnotnull(d_date_sk#612))"
+                    \ AND ((d_moy#620 = 12) AND (d_year#618 = 2000))) AND isnotnull(d_date_sk#612))"
                   operator: "filter"
                   inputs:
                   - title: "date_dim.parquet"
@@ -46,7 +46,7 @@ inputs:
             operator: "projection"
             inputs:
             - title: "Filter: ((isnotnull(i_manager_id#688) AND (i_manager_id#688\
-                \ = 36)) AND isnotnull(i_item_sk#668))"
+                \ = 1)) AND isnotnull(i_item_sk#668))"
               operator: "filter"
               inputs:
               - title: "item.parquet"

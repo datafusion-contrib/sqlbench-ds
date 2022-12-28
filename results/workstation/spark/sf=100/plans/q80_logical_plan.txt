@@ -1,10 +1,10 @@
 GlobalLimit 100
 +- LocalLimit 100
-   +- Sort [channel#17839 ASC NULLS FIRST, id#17840 ASC NULLS FIRST], true
-      +- Aggregate [channel#17839, id#17840, spark_grouping_id#17838L], [channel#17839, id#17840, sum(sales#17676) AS sales#17672, sum(returns#17677) AS returns#17673, sum(profit#17678) AS profit#17674]
-         +- Expand [[sales#17676, returns#17677, profit#17678, channel#17836, id#17837, 0], [sales#17676, returns#17677, profit#17678, channel#17836, null, 1], [sales#17676, returns#17677, profit#17678, null, null, 3]], [sales#17676, returns#17677, profit#17678, channel#17839, id#17840, spark_grouping_id#17838L]
+   +- Sort [channel#20412 ASC NULLS FIRST, id#20413 ASC NULLS FIRST], true
+      +- Aggregate [channel#20412, id#20413, spark_grouping_id#20411L], [channel#20412, id#20413, sum(sales#20249) AS sales#20245, sum(returns#20250) AS returns#20246, sum(profit#20251) AS profit#20247]
+         +- Expand [[sales#20249, returns#20250, profit#20251, channel#20409, id#20410, 0], [sales#20249, returns#20250, profit#20251, channel#20409, null, 1], [sales#20249, returns#20250, profit#20251, null, null, 3]], [sales#20249, returns#20250, profit#20251, channel#20412, id#20413, spark_grouping_id#20411L]
             +- Union false, false
-               :- Aggregate [s_store_id#713], [MakeDecimal(sum(UnscaledValue(ss_ext_sales_price#267)),17,2) AS sales#17676, sum(coalesce(cast(sr_return_amt#147 as decimal(12,2)), 0.00)) AS returns#17677, sum(CheckOverflow((promote_precision(cast(ss_net_profit#274 as decimal(13,2))) - promote_precision(cast(coalesce(cast(sr_net_loss#155 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true)) AS profit#17678, store channel AS channel#17836, concat(store, s_store_id#713) AS id#17837]
+               :- Aggregate [s_store_id#713], [MakeDecimal(sum(UnscaledValue(ss_ext_sales_price#267)),17,2) AS sales#20249, sum(coalesce(cast(sr_return_amt#147 as decimal(12,2)), 0.00)) AS returns#20250, sum(CheckOverflow((promote_precision(cast(ss_net_profit#274 as decimal(13,2))) - promote_precision(cast(coalesce(cast(sr_net_loss#155 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true)) AS profit#20251, store channel AS channel#20409, concat(store, s_store_id#713) AS id#20410]
                :  +- Project [ss_ext_sales_price#267, ss_net_profit#274, sr_return_amt#147, sr_net_loss#155, s_store_id#713]
                :     +- Join Inner, (ss_promo_sk#260 = p_promo_sk#98)
                :        :- Project [ss_promo_sk#260, ss_ext_sales_price#267, ss_net_profit#274, sr_return_amt#147, sr_net_loss#155, s_store_id#713]
@@ -22,7 +22,7 @@ GlobalLimit 100
                :        :     :     :     :        +- Filter (isnotnull(sr_item_sk#138) AND isnotnull(sr_ticket_number#145L))
                :        :     :     :     :           +- Relation [sr_returned_date_sk#136,sr_return_time_sk#137,sr_item_sk#138,sr_customer_sk#139,sr_cdemo_sk#140,sr_hdemo_sk#141,sr_addr_sk#142,sr_store_sk#143,sr_reason_sk#144,sr_ticket_number#145L,sr_return_quantity#146,sr_return_amt#147,sr_return_tax#148,sr_return_amt_inc_tax#149,sr_fee#150,sr_return_ship_cost#151,sr_refunded_cash#152,sr_reversed_charge#153,sr_store_credit#154,sr_net_loss#155] parquet
                :        :     :     :     +- Project [d_date_sk#612]
-               :        :     :     :        +- Filter ((isnotnull(d_date#614) AND ((d_date#614 >= 1998-08-04) AND (d_date#614 <= 1998-09-03))) AND isnotnull(d_date_sk#612))
+               :        :     :     :        +- Filter ((isnotnull(d_date#614) AND ((d_date#614 >= 2002-08-04) AND (d_date#614 <= 2002-09-03))) AND isnotnull(d_date_sk#612))
                :        :     :     :           +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
                :        :     :     +- Project [s_store_sk#712, s_store_id#713]
                :        :     :        +- Filter isnotnull(s_store_sk#712)
@@ -33,15 +33,15 @@ GlobalLimit 100
                :        +- Project [p_promo_sk#98]
                :           +- Filter ((isnotnull(p_channel_tv#109) AND (p_channel_tv#109 = N)) AND isnotnull(p_promo_sk#98))
                :              +- Relation [p_promo_sk#98,p_promo_id#99,p_start_date_sk#100,p_end_date_sk#101,p_item_sk#102,p_cost#103,p_response_target#104,p_promo_name#105,p_channel_dmail#106,p_channel_email#107,p_channel_catalog#108,p_channel_tv#109,p_channel_radio#110,p_channel_press#111,p_channel_event#112,p_channel_demo#113,p_channel_details#114,p_purpose#115,p_discount_active#116] parquet
-               :- Aggregate [cp_catalog_page_id#205], [MakeDecimal(sum(UnscaledValue(cs_ext_sales_price#567)),17,2) AS sales#17680, sum(coalesce(cast(cr_return_amount#364 as decimal(12,2)), 0.00)) AS returns#17681, sum(CheckOverflow((promote_precision(cast(cs_net_profit#577 as decimal(13,2))) - promote_precision(cast(coalesce(cast(cr_net_loss#372 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true)) AS profit#17682, catalog channel AS channel#17846, concat(catalog_page, cp_catalog_page_id#205) AS id#17847]
+               :- Aggregate [cp_catalog_page_id#205], [MakeDecimal(sum(UnscaledValue(cs_ext_sales_price#567)),17,2) AS sales#20253, sum(coalesce(cast(cr_return_amount#364 as decimal(12,2)), 0.00)) AS returns#20254, sum(CheckOverflow((promote_precision(cast(cs_net_profit#577 as decimal(13,2))) - promote_precision(cast(coalesce(cast(cr_net_loss#372 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true)) AS profit#20255, catalog channel AS channel#20419, concat(catalog_page, cp_catalog_page_id#205) AS id#20420]
                :  +- Project [cs_ext_sales_price#567, cs_net_profit#577, cr_return_amount#364, cr_net_loss#372, cp_catalog_page_id#205]
-               :     +- Join Inner, (cs_promo_sk#560 = p_promo_sk#17736)
+               :     +- Join Inner, (cs_promo_sk#560 = p_promo_sk#20309)
                :        :- Project [cs_promo_sk#560, cs_ext_sales_price#567, cs_net_profit#577, cr_return_amount#364, cr_net_loss#372, cp_catalog_page_id#205]
-               :        :  +- Join Inner, (cs_item_sk#559 = i_item_sk#17714)
+               :        :  +- Join Inner, (cs_item_sk#559 = i_item_sk#20287)
                :        :     :- Project [cs_item_sk#559, cs_promo_sk#560, cs_ext_sales_price#567, cs_net_profit#577, cr_return_amount#364, cr_net_loss#372, cp_catalog_page_id#205]
                :        :     :  +- Join Inner, (cs_catalog_page_sk#556 = cp_catalog_page_sk#204)
                :        :     :     :- Project [cs_catalog_page_sk#556, cs_item_sk#559, cs_promo_sk#560, cs_ext_sales_price#567, cs_net_profit#577, cr_return_amount#364, cr_net_loss#372]
-               :        :     :     :  +- Join Inner, (cs_sold_date_sk#544 = d_date_sk#17686)
+               :        :     :     :  +- Join Inner, (cs_sold_date_sk#544 = d_date_sk#20259)
                :        :     :     :     :- Project [cs_sold_date_sk#544, cs_catalog_page_sk#556, cs_item_sk#559, cs_promo_sk#560, cs_ext_sales_price#567, cs_net_profit#577, cr_return_amount#364, cr_net_loss#372]
                :        :     :     :     :  +- Join LeftOuter, ((cs_item_sk#559 = cr_item_sk#348) AND (cs_order_number#561L = cr_order_number#362L))
                :        :     :     :     :     :- Project [cs_sold_date_sk#544, cs_catalog_page_sk#556, cs_item_sk#559, cs_promo_sk#560, cs_order_number#561L, cs_ext_sales_price#567, cs_net_profit#577]
@@ -50,27 +50,27 @@ GlobalLimit 100
                :        :     :     :     :     +- Project [cr_item_sk#348, cr_order_number#362L, cr_return_amount#364, cr_net_loss#372]
                :        :     :     :     :        +- Filter (isnotnull(cr_item_sk#348) AND isnotnull(cr_order_number#362L))
                :        :     :     :     :           +- Relation [cr_returned_date_sk#346,cr_returned_time_sk#347,cr_item_sk#348,cr_refunded_customer_sk#349,cr_refunded_cdemo_sk#350,cr_refunded_hdemo_sk#351,cr_refunded_addr_sk#352,cr_returning_customer_sk#353,cr_returning_cdemo_sk#354,cr_returning_hdemo_sk#355,cr_returning_addr_sk#356,cr_call_center_sk#357,cr_catalog_page_sk#358,cr_ship_mode_sk#359,cr_warehouse_sk#360,cr_reason_sk#361,cr_order_number#362L,cr_return_quantity#363,cr_return_amount#364,cr_return_tax#365,cr_return_amt_inc_tax#366,cr_fee#367,cr_return_ship_cost#368,cr_refunded_cash#369,... 3 more fields] parquet
-               :        :     :     :     +- Project [d_date_sk#17686]
-               :        :     :     :        +- Filter ((isnotnull(d_date#17688) AND ((d_date#17688 >= 1998-08-04) AND (d_date#17688 <= 1998-09-03))) AND isnotnull(d_date_sk#17686))
-               :        :     :     :           +- Relation [d_date_sk#17686,d_date_id#17687,d_date#17688,d_month_seq#17689,d_week_seq#17690,d_quarter_seq#17691,d_year#17692,d_dow#17693,d_moy#17694,d_dom#17695,d_qoy#17696,d_fy_year#17697,d_fy_quarter_seq#17698,d_fy_week_seq#17699,d_day_name#17700,d_quarter_name#17701,d_holiday#17702,d_weekend#17703,d_following_holiday#17704,d_first_dom#17705,d_last_dom#17706,d_same_day_ly#17707,d_same_day_lq#17708,d_current_day#17709,... 4 more fields] parquet
+               :        :     :     :     +- Project [d_date_sk#20259]
+               :        :     :     :        +- Filter ((isnotnull(d_date#20261) AND ((d_date#20261 >= 2002-08-04) AND (d_date#20261 <= 2002-09-03))) AND isnotnull(d_date_sk#20259))
+               :        :     :     :           +- Relation [d_date_sk#20259,d_date_id#20260,d_date#20261,d_month_seq#20262,d_week_seq#20263,d_quarter_seq#20264,d_year#20265,d_dow#20266,d_moy#20267,d_dom#20268,d_qoy#20269,d_fy_year#20270,d_fy_quarter_seq#20271,d_fy_week_seq#20272,d_day_name#20273,d_quarter_name#20274,d_holiday#20275,d_weekend#20276,d_following_holiday#20277,d_first_dom#20278,d_last_dom#20279,d_same_day_ly#20280,d_same_day_lq#20281,d_current_day#20282,... 4 more fields] parquet
                :        :     :     +- Project [cp_catalog_page_sk#204, cp_catalog_page_id#205]
                :        :     :        +- Filter isnotnull(cp_catalog_page_sk#204)
                :        :     :           +- Relation [cp_catalog_page_sk#204,cp_catalog_page_id#205,cp_start_date_sk#206,cp_end_date_sk#207,cp_department#208,cp_catalog_number#209,cp_catalog_page_number#210,cp_description#211,cp_type#212] parquet
-               :        :     +- Project [i_item_sk#17714]
-               :        :        +- Filter ((isnotnull(i_current_price#17719) AND (i_current_price#17719 > 50.00)) AND isnotnull(i_item_sk#17714))
-               :        :           +- Relation [i_item_sk#17714,i_item_id#17715,i_rec_start_date#17716,i_rec_end_date#17717,i_item_desc#17718,i_current_price#17719,i_wholesale_cost#17720,i_brand_id#17721,i_brand#17722,i_class_id#17723,i_class#17724,i_category_id#17725,i_category#17726,i_manufact_id#17727,i_manufact#17728,i_size#17729,i_formulation#17730,i_color#17731,i_units#17732,i_container#17733,i_manager_id#17734,i_product_name#17735] parquet
-               :        +- Project [p_promo_sk#17736]
-               :           +- Filter ((isnotnull(p_channel_tv#17747) AND (p_channel_tv#17747 = N)) AND isnotnull(p_promo_sk#17736))
-               :              +- Relation [p_promo_sk#17736,p_promo_id#17737,p_start_date_sk#17738,p_end_date_sk#17739,p_item_sk#17740,p_cost#17741,p_response_target#17742,p_promo_name#17743,p_channel_dmail#17744,p_channel_email#17745,p_channel_catalog#17746,p_channel_tv#17747,p_channel_radio#17748,p_channel_press#17749,p_channel_event#17750,p_channel_demo#17751,p_channel_details#17752,p_purpose#17753,p_discount_active#17754] parquet
-               +- Aggregate [web_site_id#799], [MakeDecimal(sum(UnscaledValue(ws_ext_sales_price#499)),17,2) AS sales#17683, sum(coalesce(cast(wr_return_amt#313 as decimal(12,2)), 0.00)) AS returns#17684, sum(CheckOverflow((promote_precision(cast(ws_net_profit#509 as decimal(13,2))) - promote_precision(cast(coalesce(cast(wr_net_loss#321 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true)) AS profit#17685, web channel AS channel#17848, concat(web_site, web_site_id#799) AS id#17849]
+               :        :     +- Project [i_item_sk#20287]
+               :        :        +- Filter ((isnotnull(i_current_price#20292) AND (i_current_price#20292 > 50.00)) AND isnotnull(i_item_sk#20287))
+               :        :           +- Relation [i_item_sk#20287,i_item_id#20288,i_rec_start_date#20289,i_rec_end_date#20290,i_item_desc#20291,i_current_price#20292,i_wholesale_cost#20293,i_brand_id#20294,i_brand#20295,i_class_id#20296,i_class#20297,i_category_id#20298,i_category#20299,i_manufact_id#20300,i_manufact#20301,i_size#20302,i_formulation#20303,i_color#20304,i_units#20305,i_container#20306,i_manager_id#20307,i_product_name#20308] parquet
+               :        +- Project [p_promo_sk#20309]
+               :           +- Filter ((isnotnull(p_channel_tv#20320) AND (p_channel_tv#20320 = N)) AND isnotnull(p_promo_sk#20309))
+               :              +- Relation [p_promo_sk#20309,p_promo_id#20310,p_start_date_sk#20311,p_end_date_sk#20312,p_item_sk#20313,p_cost#20314,p_response_target#20315,p_promo_name#20316,p_channel_dmail#20317,p_channel_email#20318,p_channel_catalog#20319,p_channel_tv#20320,p_channel_radio#20321,p_channel_press#20322,p_channel_event#20323,p_channel_demo#20324,p_channel_details#20325,p_purpose#20326,p_discount_active#20327] parquet
+               +- Aggregate [web_site_id#799], [MakeDecimal(sum(UnscaledValue(ws_ext_sales_price#499)),17,2) AS sales#20256, sum(coalesce(cast(wr_return_amt#313 as decimal(12,2)), 0.00)) AS returns#20257, sum(CheckOverflow((promote_precision(cast(ws_net_profit#509 as decimal(13,2))) - promote_precision(cast(coalesce(cast(wr_net_loss#321 as decimal(12,2)), 0.00) as decimal(13,2)))), DecimalType(13,2), true)) AS profit#20258, web channel AS channel#20421, concat(web_site, web_site_id#799) AS id#20422]
                   +- Project [ws_ext_sales_price#499, ws_net_profit#509, wr_return_amt#313, wr_net_loss#321, web_site_id#799]
-                     +- Join Inner, (ws_promo_sk#492 = p_promo_sk#17805)
+                     +- Join Inner, (ws_promo_sk#492 = p_promo_sk#20378)
                         :- Project [ws_promo_sk#492, ws_ext_sales_price#499, ws_net_profit#509, wr_return_amt#313, wr_net_loss#321, web_site_id#799]
-                        :  +- Join Inner, (ws_item_sk#479 = i_item_sk#17783)
+                        :  +- Join Inner, (ws_item_sk#479 = i_item_sk#20356)
                         :     :- Project [ws_item_sk#479, ws_promo_sk#492, ws_ext_sales_price#499, ws_net_profit#509, wr_return_amt#313, wr_net_loss#321, web_site_id#799]
                         :     :  +- Join Inner, (ws_web_site_sk#489 = web_site_sk#798)
                         :     :     :- Project [ws_item_sk#479, ws_web_site_sk#489, ws_promo_sk#492, ws_ext_sales_price#499, ws_net_profit#509, wr_return_amt#313, wr_net_loss#321]
-                        :     :     :  +- Join Inner, (ws_sold_date_sk#476 = d_date_sk#17755)
+                        :     :     :  +- Join Inner, (ws_sold_date_sk#476 = d_date_sk#20328)
                         :     :     :     :- Project [ws_sold_date_sk#476, ws_item_sk#479, ws_web_site_sk#489, ws_promo_sk#492, ws_ext_sales_price#499, ws_net_profit#509, wr_return_amt#313, wr_net_loss#321]
                         :     :     :     :  +- Join LeftOuter, ((ws_item_sk#479 = wr_item_sk#300) AND (ws_order_number#493L = wr_order_number#311L))
                         :     :     :     :     :- Project [ws_sold_date_sk#476, ws_item_sk#479, ws_web_site_sk#489, ws_promo_sk#492, ws_order_number#493L, ws_ext_sales_price#499, ws_net_profit#509]
@@ -79,15 +79,15 @@ GlobalLimit 100
                         :     :     :     :     +- Project [wr_item_sk#300, wr_order_number#311L, wr_return_amt#313, wr_net_loss#321]
                         :     :     :     :        +- Filter (isnotnull(wr_item_sk#300) AND isnotnull(wr_order_number#311L))
                         :     :     :     :           +- Relation [wr_returned_date_sk#298,wr_returned_time_sk#299,wr_item_sk#300,wr_refunded_customer_sk#301,wr_refunded_cdemo_sk#302,wr_refunded_hdemo_sk#303,wr_refunded_addr_sk#304,wr_returning_customer_sk#305,wr_returning_cdemo_sk#306,wr_returning_hdemo_sk#307,wr_returning_addr_sk#308,wr_web_page_sk#309,wr_reason_sk#310,wr_order_number#311L,wr_return_quantity#312,wr_return_amt#313,wr_return_tax#314,wr_return_amt_inc_tax#315,wr_fee#316,wr_return_ship_cost#317,wr_refunded_cash#318,wr_reversed_charge#319,wr_account_credit#320,wr_net_loss#321] parquet
-                        :     :     :     +- Project [d_date_sk#17755]
-                        :     :     :        +- Filter ((isnotnull(d_date#17757) AND ((d_date#17757 >= 1998-08-04) AND (d_date#17757 <= 1998-09-03))) AND isnotnull(d_date_sk#17755))
-                        :     :     :           +- Relation [d_date_sk#17755,d_date_id#17756,d_date#17757,d_month_seq#17758,d_week_seq#17759,d_quarter_seq#17760,d_year#17761,d_dow#17762,d_moy#17763,d_dom#17764,d_qoy#17765,d_fy_year#17766,d_fy_quarter_seq#17767,d_fy_week_seq#17768,d_day_name#17769,d_quarter_name#17770,d_holiday#17771,d_weekend#17772,d_following_holiday#17773,d_first_dom#17774,d_last_dom#17775,d_same_day_ly#17776,d_same_day_lq#17777,d_current_day#17778,... 4 more fields] parquet
+                        :     :     :     +- Project [d_date_sk#20328]
+                        :     :     :        +- Filter ((isnotnull(d_date#20330) AND ((d_date#20330 >= 2002-08-04) AND (d_date#20330 <= 2002-09-03))) AND isnotnull(d_date_sk#20328))
+                        :     :     :           +- Relation [d_date_sk#20328,d_date_id#20329,d_date#20330,d_month_seq#20331,d_week_seq#20332,d_quarter_seq#20333,d_year#20334,d_dow#20335,d_moy#20336,d_dom#20337,d_qoy#20338,d_fy_year#20339,d_fy_quarter_seq#20340,d_fy_week_seq#20341,d_day_name#20342,d_quarter_name#20343,d_holiday#20344,d_weekend#20345,d_following_holiday#20346,d_first_dom#20347,d_last_dom#20348,d_same_day_ly#20349,d_same_day_lq#20350,d_current_day#20351,... 4 more fields] parquet
                         :     :     +- Project [web_site_sk#798, web_site_id#799]
                         :     :        +- Filter isnotnull(web_site_sk#798)
                         :     :           +- Relation [web_site_sk#798,web_site_id#799,web_rec_start_date#800,web_rec_end_date#801,web_name#802,web_open_date_sk#803,web_close_date_sk#804,web_class#805,web_manager#806,web_mkt_id#807,web_mkt_class#808,web_mkt_desc#809,web_market_manager#810,web_company_id#811,web_company_name#812,web_street_number#813,web_street_name#814,web_street_type#815,web_suite_number#816,web_city#817,web_county#818,web_state#819,web_zip#820,web_country#821,... 2 more fields] parquet
-                        :     +- Project [i_item_sk#17783]
-                        :        +- Filter ((isnotnull(i_current_price#17788) AND (i_current_price#17788 > 50.00)) AND isnotnull(i_item_sk#17783))
-                        :           +- Relation [i_item_sk#17783,i_item_id#17784,i_rec_start_date#17785,i_rec_end_date#17786,i_item_desc#17787,i_current_price#17788,i_wholesale_cost#17789,i_brand_id#17790,i_brand#17791,i_class_id#17792,i_class#17793,i_category_id#17794,i_category#17795,i_manufact_id#17796,i_manufact#17797,i_size#17798,i_formulation#17799,i_color#17800,i_units#17801,i_container#17802,i_manager_id#17803,i_product_name#17804] parquet
-                        +- Project [p_promo_sk#17805]
-                           +- Filter ((isnotnull(p_channel_tv#17816) AND (p_channel_tv#17816 = N)) AND isnotnull(p_promo_sk#17805))
-                              +- Relation [p_promo_sk#17805,p_promo_id#17806,p_start_date_sk#17807,p_end_date_sk#17808,p_item_sk#17809,p_cost#17810,p_response_target#17811,p_promo_name#17812,p_channel_dmail#17813,p_channel_email#17814,p_channel_catalog#17815,p_channel_tv#17816,p_channel_radio#17817,p_channel_press#17818,p_channel_event#17819,p_channel_demo#17820,p_channel_details#17821,p_purpose#17822,p_discount_active#17823] parquet
+                        :     +- Project [i_item_sk#20356]
+                        :        +- Filter ((isnotnull(i_current_price#20361) AND (i_current_price#20361 > 50.00)) AND isnotnull(i_item_sk#20356))
+                        :           +- Relation [i_item_sk#20356,i_item_id#20357,i_rec_start_date#20358,i_rec_end_date#20359,i_item_desc#20360,i_current_price#20361,i_wholesale_cost#20362,i_brand_id#20363,i_brand#20364,i_class_id#20365,i_class#20366,i_category_id#20367,i_category#20368,i_manufact_id#20369,i_manufact#20370,i_size#20371,i_formulation#20372,i_color#20373,i_units#20374,i_container#20375,i_manager_id#20376,i_product_name#20377] parquet
+                        +- Project [p_promo_sk#20378]
+                           +- Filter ((isnotnull(p_channel_tv#20389) AND (p_channel_tv#20389 = N)) AND isnotnull(p_promo_sk#20378))
+                              +- Relation [p_promo_sk#20378,p_promo_id#20379,p_start_date_sk#20380,p_end_date_sk#20381,p_item_sk#20382,p_cost#20383,p_response_target#20384,p_promo_name#20385,p_channel_dmail#20386,p_channel_email#20387,p_channel_catalog#20388,p_channel_tv#20389,p_channel_radio#20390,p_channel_press#20391,p_channel_event#20392,p_channel_demo#20393,p_channel_details#20394,p_purpose#20395,p_discount_active#20396] parquet

@@ -12,7 +12,7 @@ inputs:
       operator: "Aggregate"
       inputs:
       - title: "Projection: ws_sold_date_sk#476, ws_ship_date_sk#478, sm_type#446,\
-          \ web_name#802, substr(w_warehouse_name#772, 1, 20) AS _groupingexpression#12181"
+          \ web_name#802, substr(w_warehouse_name#772, 1, 20) AS _groupingexpression#869"
         operator: "projection"
         inputs:
         - title: "Inner Join: Some((ws_ship_date_sk#478 = d_date_sk#612))"
@@ -81,7 +81,7 @@ inputs:
             operator: "projection"
             inputs:
             - title: "Filter: ((isnotnull(d_month_seq#615) AND ((d_month_seq#615 >=\
-                \ 1212) AND (d_month_seq#615 <= 1223))) AND isnotnull(d_date_sk#612))"
+                \ 1217) AND (d_month_seq#615 <= 1228))) AND isnotnull(d_date_sk#612))"
               operator: "filter"
               inputs:
               - title: "date_dim.parquet"

@@ -1,10 +1,10 @@
-Aggregate [sum(ss_quantity#262) AS sum(ss_quantity)#9613L]
+Aggregate [sum(ss_quantity#262) AS sum(ss_quantity)#11826L]
 +- Project [ss_quantity#262]
    +- Join Inner, (ss_sold_date_sk#252 = d_date_sk#612)
       :- Project [ss_sold_date_sk#252, ss_quantity#262]
-      :  +- Join Inner, ((ss_addr_sk#258 = ca_address_sk#62) AND ((((ca_state#70 IN (KY,GA,NM) AND (ss_net_profit#274 >= 0.00)) AND (ss_net_profit#274 <= 2000.00)) OR ((ca_state#70 IN (MT,OR,IN) AND (ss_net_profit#274 >= 150.00)) AND (ss_net_profit#274 <= 3000.00))) OR ((ca_state#70 IN (WI,MO,WV) AND (ss_net_profit#274 >= 50.00)) AND (ss_net_profit#274 <= 25000.00))))
+      :  +- Join Inner, ((ss_addr_sk#258 = ca_address_sk#62) AND ((((ca_state#70 IN (CO,IN,AR) AND (ss_net_profit#274 >= 0.00)) AND (ss_net_profit#274 <= 2000.00)) OR ((ca_state#70 IN (AZ,TX,NY) AND (ss_net_profit#274 >= 150.00)) AND (ss_net_profit#274 <= 3000.00))) OR ((ca_state#70 IN (ND,OH,MI) AND (ss_net_profit#274 >= 50.00)) AND (ss_net_profit#274 <= 25000.00))))
       :     :- Project [ss_sold_date_sk#252, ss_addr_sk#258, ss_quantity#262, ss_net_profit#274]
-      :     :  +- Join Inner, ((cd_demo_sk#222 = ss_cdemo_sk#256) AND ((((((cd_marital_status#224 = M) AND (cd_education_status#225 = 4 yr Degree)) AND (ss_sales_price#265 >= 100.00)) AND (ss_sales_price#265 <= 150.00)) OR ((((cd_marital_status#224 = D) AND (cd_education_status#225 = Primary)) AND (ss_sales_price#265 >= 50.00)) AND (ss_sales_price#265 <= 100.00))) OR ((((cd_marital_status#224 = U) AND (cd_education_status#225 = Advanced Degree)) AND (ss_sales_price#265 >= 150.00)) AND (ss_sales_price#265 <= 200.00))))
+      :     :  +- Join Inner, ((cd_demo_sk#222 = ss_cdemo_sk#256) AND ((((((cd_marital_status#224 = S) AND (cd_education_status#225 = Primary)) AND (ss_sales_price#265 >= 100.00)) AND (ss_sales_price#265 <= 150.00)) OR ((((cd_marital_status#224 = M) AND (cd_education_status#225 = 4 yr Degree)) AND (ss_sales_price#265 >= 50.00)) AND (ss_sales_price#265 <= 100.00))) OR ((((cd_marital_status#224 = D) AND (cd_education_status#225 = 2 yr Degree)) AND (ss_sales_price#265 >= 150.00)) AND (ss_sales_price#265 <= 200.00))))
       :     :     :- Project [ss_sold_date_sk#252, ss_cdemo_sk#256, ss_addr_sk#258, ss_quantity#262, ss_sales_price#265, ss_net_profit#274]
       :     :     :  +- Join Inner, (s_store_sk#712 = ss_store_sk#259)
       :     :     :     :- Project [ss_sold_date_sk#252, ss_cdemo_sk#256, ss_addr_sk#258, ss_store_sk#259, ss_quantity#262, ss_sales_price#265, ss_net_profit#274]
@@ -14,10 +14,10 @@ Aggregate [sum(ss_quantity#262) AS sum(ss_quantity)#9613L]
       :     :     :        +- Filter isnotnull(s_store_sk#712)
       :     :     :           +- Relation [s_store_sk#712,s_store_id#713,s_rec_start_date#714,s_rec_end_date#715,s_closed_date_sk#716,s_store_name#717,s_number_employees#718,s_floor_space#719,s_hours#720,s_manager#721,s_market_id#722,s_geography_class#723,s_market_desc#724,s_market_manager#725,s_division_id#726,s_division_name#727,s_company_id#728,s_company_name#729,s_street_number#730,s_street_name#731,s_street_type#732,s_suite_number#733,s_city#734,s_county#735,... 5 more fields] parquet
       :     :     +- Project [cd_demo_sk#222, cd_marital_status#224, cd_education_status#225]
-      :     :        +- Filter (isnotnull(cd_demo_sk#222) AND ((((cd_marital_status#224 = M) AND (cd_education_status#225 = 4 yr Degree)) OR ((cd_marital_status#224 = D) AND (cd_education_status#225 = Primary))) OR ((cd_marital_status#224 = U) AND (cd_education_status#225 = Advanced Degree))))
+      :     :        +- Filter (isnotnull(cd_demo_sk#222) AND ((((cd_marital_status#224 = S) AND (cd_education_status#225 = Primary)) OR ((cd_marital_status#224 = M) AND (cd_education_status#225 = 4 yr Degree))) OR ((cd_marital_status#224 = D) AND (cd_education_status#225 = 2 yr Degree))))
       :     :           +- Relation [cd_demo_sk#222,cd_gender#223,cd_marital_status#224,cd_education_status#225,cd_purchase_estimate#226,cd_credit_rating#227,cd_dep_count#228,cd_dep_employed_count#229,cd_dep_college_count#230] parquet
       :     +- Project [ca_address_sk#62, ca_state#70]
-      :        +- Filter (((isnotnull(ca_country#72) AND (ca_country#72 = United States)) AND isnotnull(ca_address_sk#62)) AND ((ca_state#70 IN (KY,GA,NM) OR ca_state#70 IN (MT,OR,IN)) OR ca_state#70 IN (WI,MO,WV)))
+      :        +- Filter (((isnotnull(ca_country#72) AND (ca_country#72 = United States)) AND isnotnull(ca_address_sk#62)) AND ((ca_state#70 IN (CO,IN,AR) OR ca_state#70 IN (AZ,TX,NY)) OR ca_state#70 IN (ND,OH,MI)))
       :           +- Relation [ca_address_sk#62,ca_address_id#63,ca_street_number#64,ca_street_name#65,ca_street_type#66,ca_suite_number#67,ca_city#68,ca_county#69,ca_state#70,ca_zip#71,ca_country#72,ca_gmt_offset#73,ca_location_type#74] parquet
       +- Project [d_date_sk#612]
          +- Filter ((isnotnull(d_year#618) AND (d_year#618 = 1998)) AND isnotnull(d_date_sk#612))

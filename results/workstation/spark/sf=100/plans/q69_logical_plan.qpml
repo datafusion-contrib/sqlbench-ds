@@ -65,7 +65,7 @@ inputs:
                             operator: "projection"
                             inputs:
                             - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_moy#620))\
-                                \ AND (((d_year#618 = 1999) AND (d_moy#620 >= 1))\
+                                \ AND (((d_year#618 = 2001) AND (d_moy#620 >= 1))\
                                 \ AND (d_moy#620 <= 3))) AND isnotnull(d_date_sk#612))"
                               operator: "filter"
                               inputs:
@@ -75,7 +75,7 @@ inputs:
                     - title: "Projection: ws_bill_customer_sk#480"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#15433))"
+                      - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#17586))"
                         operator: "join"
                         inputs:
                         - title: "Projection: ws_sold_date_sk#476, ws_bill_customer_sk#480"
@@ -87,12 +87,12 @@ inputs:
                             - title: "web_sales.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date_sk#15433"
+                        - title: "Projection: d_date_sk#17586"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: (((isnotnull(d_year#15439) AND isnotnull(d_moy#15441))\
-                              \ AND (((d_year#15439 = 1999) AND (d_moy#15441 >= 1))\
-                              \ AND (d_moy#15441 <= 3))) AND isnotnull(d_date_sk#15433))"
+                          - title: "Filter: (((isnotnull(d_year#17592) AND isnotnull(d_moy#17594))\
+                              \ AND (((d_year#17592 = 2001) AND (d_moy#17594 >= 1))\
+                              \ AND (d_moy#17594 <= 3))) AND isnotnull(d_date_sk#17586))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
@@ -101,7 +101,7 @@ inputs:
                   - title: "Projection: cs_ship_customer_sk#551"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#15461))"
+                    - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#17614))"
                       operator: "join"
                       inputs:
                       - title: "Projection: cs_sold_date_sk#544, cs_ship_customer_sk#551"
@@ -113,12 +113,12 @@ inputs:
                           - title: "catalog_sales.parquet"
                             operator: "scan"
                             inputs: []
-                      - title: "Projection: d_date_sk#15461"
+                      - title: "Projection: d_date_sk#17614"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (((isnotnull(d_year#15467) AND isnotnull(d_moy#15469))\
-                            \ AND (((d_year#15467 = 1999) AND (d_moy#15469 >= 1))\
-                            \ AND (d_moy#15469 <= 3))) AND isnotnull(d_date_sk#15461))"
+                        - title: "Filter: (((isnotnull(d_year#17620) AND isnotnull(d_moy#17622))\
+                            \ AND (((d_year#17620 = 2001) AND (d_moy#17622 >= 1))\
+                            \ AND (d_moy#17622 <= 3))) AND isnotnull(d_date_sk#17614))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
@@ -127,7 +127,7 @@ inputs:
               - title: "Projection: ca_address_sk#62"
                 operator: "projection"
                 inputs:
-                - title: "Filter: (ca_state#70 IN (CO,IL,MN) AND isnotnull(ca_address_sk#62))"
+                - title: "Filter: (ca_state#70 IN (KY,TX,AR) AND isnotnull(ca_address_sk#62))"
                   operator: "filter"
                   inputs:
                   - title: "customer_address.parquet"

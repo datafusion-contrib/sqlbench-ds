@@ -74,7 +74,7 @@ inputs:
                         operator: "projection"
                         inputs:
                         - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_moy#620))\
-                            \ AND ((d_year#618 = 1999) AND (d_moy#620 = 11))) AND\
+                            \ AND ((d_year#618 = 2002) AND (d_moy#620 = 11))) AND\
                             \ isnotnull(d_date_sk#612))"
                           operator: "filter"
                           inputs:
@@ -96,7 +96,7 @@ inputs:
                 operator: "projection"
                 inputs:
                 - title: "Filter: ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73\
-                    \ = -7.00)) AND isnotnull(ca_address_sk#62))"
+                    \ = -6.00)) AND isnotnull(ca_address_sk#62))"
                   operator: "filter"
                   inputs:
                   - title: "customer_address.parquet"
@@ -117,7 +117,7 @@ inputs:
         operator: "projection"
         inputs:
         - title: "Filter: ((isnotnull(hd_buy_potential#90) AND StartsWith(hd_buy_potential#90,\
-            \ 0-500)) AND isnotnull(hd_demo_sk#88))"
+            \ Unknown)) AND isnotnull(hd_demo_sk#88))"
           operator: "filter"
           inputs:
           - title: "household_demographics.parquet"

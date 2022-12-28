@@ -27,14 +27,14 @@ inputs:
               - title: "Projection: c_current_cdemo_sk#402, c_current_addr_sk#404"
                 operator: "projection"
                 inputs:
-                - title: "Filter: (exists#7581 OR exists#7582)"
+                - title: "Filter: (exists#9854 OR exists#9855)"
                   operator: "filter"
                   inputs:
-                  - title: "ExistenceJoin(exists#7582) Join: Some((c_customer_sk#400\
+                  - title: "ExistenceJoin(exists#9855) Join: Some((c_customer_sk#400\
                       \ = cs_ship_customer_sk#551))"
                     operator: "join"
                     inputs:
-                    - title: "ExistenceJoin(exists#7581) Join: Some((c_customer_sk#400\
+                    - title: "ExistenceJoin(exists#9854) Join: Some((c_customer_sk#400\
                         \ = ws_bill_customer_sk#480))"
                       operator: "join"
                       inputs:
@@ -71,7 +71,7 @@ inputs:
                               operator: "projection"
                               inputs:
                               - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_qoy#622))\
-                                  \ AND ((d_year#618 = 1999) AND (d_qoy#622 < 4)))\
+                                  \ AND ((d_year#618 = 2002) AND (d_qoy#622 < 4)))\
                                   \ AND isnotnull(d_date_sk#612))"
                                 operator: "filter"
                                 inputs:
@@ -81,7 +81,7 @@ inputs:
                       - title: "Projection: ws_bill_customer_sk#480"
                         operator: "projection"
                         inputs:
-                        - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#7489))"
+                        - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#9762))"
                           operator: "join"
                           inputs:
                           - title: "Projection: ws_sold_date_sk#476, ws_bill_customer_sk#480"
@@ -93,12 +93,12 @@ inputs:
                               - title: "web_sales.parquet"
                                 operator: "scan"
                                 inputs: []
-                          - title: "Projection: d_date_sk#7489"
+                          - title: "Projection: d_date_sk#9762"
                             operator: "projection"
                             inputs:
-                            - title: "Filter: (((isnotnull(d_year#7495) AND isnotnull(d_qoy#7499))\
-                                \ AND ((d_year#7495 = 1999) AND (d_qoy#7499 < 4)))\
-                                \ AND isnotnull(d_date_sk#7489))"
+                            - title: "Filter: (((isnotnull(d_year#9768) AND isnotnull(d_qoy#9772))\
+                                \ AND ((d_year#9768 = 2002) AND (d_qoy#9772 < 4)))\
+                                \ AND isnotnull(d_date_sk#9762))"
                               operator: "filter"
                               inputs:
                               - title: "date_dim.parquet"
@@ -107,7 +107,7 @@ inputs:
                     - title: "Projection: cs_ship_customer_sk#551"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#7517))"
+                      - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#9790))"
                         operator: "join"
                         inputs:
                         - title: "Projection: cs_sold_date_sk#544, cs_ship_customer_sk#551"
@@ -119,12 +119,12 @@ inputs:
                             - title: "catalog_sales.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date_sk#7517"
+                        - title: "Projection: d_date_sk#9790"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: (((isnotnull(d_year#7523) AND isnotnull(d_qoy#7527))\
-                              \ AND ((d_year#7523 = 1999) AND (d_qoy#7527 < 4))) AND\
-                              \ isnotnull(d_date_sk#7517))"
+                          - title: "Filter: (((isnotnull(d_year#9796) AND isnotnull(d_qoy#9800))\
+                              \ AND ((d_year#9796 = 2002) AND (d_qoy#9800 < 4))) AND\
+                              \ isnotnull(d_date_sk#9790))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"

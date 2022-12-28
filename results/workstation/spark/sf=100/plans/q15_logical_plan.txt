@@ -1,7 +1,7 @@
 GlobalLimit 100
 +- LocalLimit 100
    +- Sort [ca_zip#71 ASC NULLS FIRST], true
-      +- Aggregate [ca_zip#71], [ca_zip#71, MakeDecimal(sum(UnscaledValue(cs_sales_price#565)),17,2) AS sum(cs_sales_price)#4628]
+      +- Aggregate [ca_zip#71], [ca_zip#71, MakeDecimal(sum(UnscaledValue(cs_sales_price#565)),17,2) AS sum(cs_sales_price)#6116]
          +- Project [cs_sales_price#565, ca_zip#71]
             +- Join Inner, (cs_sold_date_sk#544 = d_date_sk#612)
                :- Project [cs_sold_date_sk#544, cs_sales_price#565, ca_zip#71]
@@ -18,5 +18,5 @@ GlobalLimit 100
                :        +- Filter isnotnull(ca_address_sk#62)
                :           +- Relation [ca_address_sk#62,ca_address_id#63,ca_street_number#64,ca_street_name#65,ca_street_type#66,ca_suite_number#67,ca_city#68,ca_county#69,ca_state#70,ca_zip#71,ca_country#72,ca_gmt_offset#73,ca_location_type#74] parquet
                +- Project [d_date_sk#612]
-                  +- Filter (((isnotnull(d_qoy#622) AND isnotnull(d_year#618)) AND ((d_qoy#622 = 2) AND (d_year#618 = 2000))) AND isnotnull(d_date_sk#612))
+                  +- Filter (((isnotnull(d_qoy#622) AND isnotnull(d_year#618)) AND ((d_qoy#622 = 1) AND (d_year#618 = 1999))) AND isnotnull(d_date_sk#612))
                      +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
