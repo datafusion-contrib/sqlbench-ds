@@ -8,8 +8,8 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: total_sum#18665, i_category#18675, i_class#18676, lochierarchy#18666,\
-        \ rank_within_parent#18667"
+    - title: "Projection: total_sum#21238, i_category#21248, i_class#21249, lochierarchy#21239,\
+        \ rank_within_parent#21240"
       operator: "projection"
       inputs:
       - title: "Window (unknown)"
@@ -46,7 +46,7 @@ inputs:
                       operator: "projection"
                       inputs:
                       - title: "Filter: ((isnotnull(d_month_seq#615) AND ((d_month_seq#615\
-                          \ >= 1212) AND (d_month_seq#615 <= 1223))) AND isnotnull(d_date_sk#612))"
+                          \ >= 1205) AND (d_month_seq#615 <= 1216))) AND isnotnull(d_date_sk#612))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"

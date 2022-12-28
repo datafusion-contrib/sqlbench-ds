@@ -3,7 +3,7 @@ AdaptiveSparkPlan isFinalPlan=true
    *(23) Sort [d_week_seq1#891 ASC NULLS FIRST], true, 0
    +- AQEShuffleRead coalesced
       +- ShuffleQueryStage 12
-         +- Exchange rangepartitioning(d_week_seq1#891 ASC NULLS FIRST, 200), ENSURE_REQUIREMENTS, [id=#2809]
+         +- Exchange rangepartitioning(d_week_seq1#891 ASC NULLS FIRST, 200), ENSURE_REQUIREMENTS, [id=#2762]
             +- *(22) Project [d_week_seq1#891, round(CheckOverflow((promote_precision(sun_sales1#892) / promote_precision(sun_sales2#900)), DecimalType(37,20), true), 2) AS round((sun_sales1 / sun_sales2), 2)#981, round(CheckOverflow((promote_precision(mon_sales1#893) / promote_precision(mon_sales2#901)), DecimalType(37,20), true), 2) AS round((mon_sales1 / mon_sales2), 2)#982, round(CheckOverflow((promote_precision(tue_sales1#894) / promote_precision(tue_sales2#902)), DecimalType(37,20), true), 2) AS round((tue_sales1 / tue_sales2), 2)#983, round(CheckOverflow((promote_precision(wed_sales1#895) / promote_precision(wed_sales2#903)), DecimalType(37,20), true), 2) AS round((wed_sales1 / wed_sales2), 2)#984, round(CheckOverflow((promote_precision(thu_sales1#896) / promote_precision(thu_sales2#904)), DecimalType(37,20), true), 2) AS round((thu_sales1 / thu_sales2), 2)#985, round(CheckOverflow((promote_precision(fri_sales1#897) / promote_precision(fri_sales2#905)), DecimalType(37,20), true), 2) AS round((fri_sales1 / fri_sales2), 2)#986, round(CheckOverflow((promote_precision(sat_sales1#898) / promote_precision(sat_sales2#906)), DecimalType(37,20), true), 2) AS round((sat_sales1 / sat_sales2), 2)#987]
                +- *(22) SortMergeJoin [d_week_seq1#891], [(d_week_seq2#899 - 53)], Inner
                   :- *(20) Project [d_week_seq#616 AS d_week_seq1#891, sun_sales#911 AS sun_sales1#892, mon_sales#912 AS mon_sales1#893, tue_sales#913 AS tue_sales1#894, wed_sales#914 AS wed_sales1#895, thu_sales#915 AS thu_sales1#896, fri_sales#916 AS fri_sales1#897, sat_sales#917 AS sat_sales1#898]
@@ -41,13 +41,13 @@ AdaptiveSparkPlan isFinalPlan=true
                   :           +- ShuffleQueryStage 2
                   :              +- Exchange hashpartitioning(d_week_seq#922, 200), ENSURE_REQUIREMENTS, [id=#1931]
                   :                 +- *(4) Project [d_week_seq#922]
-                  :                    +- *(4) Filter ((isnotnull(d_year#924) AND (d_year#924 = 2001)) AND isnotnull(d_week_seq#922))
+                  :                    +- *(4) Filter ((isnotnull(d_year#924) AND (d_year#924 = 1999)) AND isnotnull(d_week_seq#922))
                   :                       +- *(4) ColumnarToRow
-                  :                          +- FileScan parquet [d_week_seq#922,d_year#924] Batched: true, DataFilters: [isnotnull(d_year#924), (d_year#924 = 2001), isnotnull(d_week_seq#922)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,2001), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>
+                  :                          +- FileScan parquet [d_week_seq#922,d_year#924] Batched: true, DataFilters: [isnotnull(d_year#924), (d_year#924 = 1999), isnotnull(d_week_seq#922)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,1999), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>
                   +- *(21) Sort [(d_week_seq2#899 - 53) ASC NULLS FIRST], false, 0
                      +- AQEShuffleRead coalesced
                         +- ShuffleQueryStage 11
-                           +- Exchange hashpartitioning((d_week_seq2#899 - 53), 200), ENSURE_REQUIREMENTS, [id=#2708]
+                           +- Exchange hashpartitioning((d_week_seq2#899 - 53), 200), ENSURE_REQUIREMENTS, [id=#2661]
                               +- *(17) Project [d_week_seq#616 AS d_week_seq2#899, sun_sales#911 AS sun_sales2#900, mon_sales#912 AS mon_sales2#901, tue_sales#913 AS tue_sales2#902, wed_sales#914 AS wed_sales2#903, thu_sales#915 AS thu_sales2#904, fri_sales#916 AS fri_sales2#905, sat_sales#917 AS sat_sales2#906]
                                  +- *(17) SortMergeJoin [d_week_seq#616], [d_week_seq#950], Inner
                                     :- *(15) Sort [d_week_seq#616 ASC NULLS FIRST], false, 0
@@ -60,9 +60,9 @@ AdaptiveSparkPlan isFinalPlan=true
                                           +- ShuffleQueryStage 7
                                              +- Exchange hashpartitioning(d_week_seq#950, 200), ENSURE_REQUIREMENTS, [id=#2020]
                                                 +- *(8) Project [d_week_seq#950]
-                                                   +- *(8) Filter ((isnotnull(d_year#952) AND (d_year#952 = 2002)) AND isnotnull(d_week_seq#950))
+                                                   +- *(8) Filter ((isnotnull(d_year#952) AND (d_year#952 = 2000)) AND isnotnull(d_week_seq#950))
                                                       +- *(8) ColumnarToRow
-                                                         +- FileScan parquet [d_week_seq#950,d_year#952] Batched: true, DataFilters: [isnotnull(d_year#952), (d_year#952 = 2002), isnotnull(d_week_seq#950)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,2002), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>
+                                                         +- FileScan parquet [d_week_seq#950,d_year#952] Batched: true, DataFilters: [isnotnull(d_year#952), (d_year#952 = 2000), isnotnull(d_week_seq#950)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,2000), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>
 +- == Initial Plan ==
    Sort [d_week_seq1#891 ASC NULLS FIRST], true, 0
    +- Exchange rangepartitioning(d_week_seq1#891 ASC NULLS FIRST, 200), ENSURE_REQUIREMENTS, [id=#1754]
@@ -92,8 +92,8 @@ AdaptiveSparkPlan isFinalPlan=true
             :     +- Sort [d_week_seq#922 ASC NULLS FIRST], false, 0
             :        +- Exchange hashpartitioning(d_week_seq#922, 200), ENSURE_REQUIREMENTS, [id=#1724]
             :           +- Project [d_week_seq#922]
-            :              +- Filter ((isnotnull(d_year#924) AND (d_year#924 = 2001)) AND isnotnull(d_week_seq#922))
-            :                 +- FileScan parquet [d_week_seq#922,d_year#924] Batched: true, DataFilters: [isnotnull(d_year#924), (d_year#924 = 2001), isnotnull(d_week_seq#922)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,2001), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>
+            :              +- Filter ((isnotnull(d_year#924) AND (d_year#924 = 1999)) AND isnotnull(d_week_seq#922))
+            :                 +- FileScan parquet [d_week_seq#922,d_year#924] Batched: true, DataFilters: [isnotnull(d_year#924), (d_year#924 = 1999), isnotnull(d_week_seq#922)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,1999), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>
             +- Sort [(d_week_seq2#899 - 53) ASC NULLS FIRST], false, 0
                +- Exchange hashpartitioning((d_week_seq2#899 - 53), 200), ENSURE_REQUIREMENTS, [id=#1749]
                   +- Project [d_week_seq#616 AS d_week_seq2#899, sun_sales#911 AS sun_sales2#900, mon_sales#912 AS mon_sales2#901, tue_sales#913 AS tue_sales2#902, wed_sales#914 AS wed_sales2#903, thu_sales#915 AS thu_sales2#904, fri_sales#916 AS fri_sales2#905, sat_sales#917 AS sat_sales2#906]
@@ -120,5 +120,5 @@ AdaptiveSparkPlan isFinalPlan=true
                         +- Sort [d_week_seq#950 ASC NULLS FIRST], false, 0
                            +- Exchange hashpartitioning(d_week_seq#950, 200), ENSURE_REQUIREMENTS, [id=#1742]
                               +- Project [d_week_seq#950]
-                                 +- Filter ((isnotnull(d_year#952) AND (d_year#952 = 2002)) AND isnotnull(d_week_seq#950))
-                                    +- FileScan parquet [d_week_seq#950,d_year#952] Batched: true, DataFilters: [isnotnull(d_year#952), (d_year#952 = 2002), isnotnull(d_week_seq#950)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,2002), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>
+                                 +- Filter ((isnotnull(d_year#952) AND (d_year#952 = 2000)) AND isnotnull(d_week_seq#950))
+                                    +- FileScan parquet [d_week_seq#950,d_year#952] Batched: true, DataFilters: [isnotnull(d_year#952), (d_year#952 = 2000), isnotnull(d_week_seq#950)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), EqualTo(d_year,2000), IsNotNull(d_week_seq)], ReadSchema: struct<d_week_seq:int,d_year:int>

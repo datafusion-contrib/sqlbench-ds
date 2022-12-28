@@ -60,7 +60,7 @@ inputs:
                           inputs:
                           - title: "Filter: ((((isnotnull(cd_gender#223) AND isnotnull(cd_marital_status#224))\
                               \ AND isnotnull(cd_education_status#225)) AND (((cd_gender#223\
-                              \ = M) AND (cd_marital_status#224 = W)) AND (cd_education_status#225\
+                              \ = M) AND (cd_marital_status#224 = M)) AND (cd_education_status#225\
                               \ = College))) AND isnotnull(cd_demo_sk#222))"
                             operator: "filter"
                             inputs:
@@ -71,7 +71,7 @@ inputs:
                       operator: "projection"
                       inputs:
                       - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618 =\
-                          \ 2002)) AND isnotnull(d_date_sk#612))"
+                          \ 1999)) AND isnotnull(d_date_sk#612))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"
@@ -80,7 +80,7 @@ inputs:
                 - title: "Projection: s_store_sk#712, s_state#736"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: (s_state#736 IN (MO,LA,GA,MI,SC,OH) AND isnotnull(s_store_sk#712))"
+                  - title: "Filter: (s_state#736 IN (GA,MI,SD,OH,MO,SC) AND isnotnull(s_store_sk#712))"
                     operator: "filter"
                     inputs:
                     - title: "store.parquet"

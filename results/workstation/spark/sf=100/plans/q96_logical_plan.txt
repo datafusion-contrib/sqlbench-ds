@@ -1,4 +1,4 @@
-Aggregate [count(1) AS count(1)#19490L]
+Aggregate [count(1) AS count(1)#22063L]
 +- Project
    +- Join Inner, (ss_store_sk#259 = s_store_sk#712)
       :- Project [ss_store_sk#259]

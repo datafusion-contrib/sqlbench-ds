@@ -6,13 +6,13 @@ inputs:
   operator: "projection"
   inputs:
   - title: "Inner Join: Some(((ss_hdemo_sk#257 = hd_demo_sk#88) AND (((((((cd_marital_status#224\
-      \ = D) AND (cd_education_status#225 = 2 yr Degree)) AND (ss_sales_price#265\
-      \ >= 100.00)) AND (ss_sales_price#265 <= 150.00)) AND (hd_dep_count#91 = 3))\
-      \ OR (((((cd_marital_status#224 = S) AND (cd_education_status#225 = Secondary))\
-      \ AND (ss_sales_price#265 >= 50.00)) AND (ss_sales_price#265 <= 100.00)) AND\
-      \ (hd_dep_count#91 = 1))) OR (((((cd_marital_status#224 = W) AND (cd_education_status#225\
-      \ = Advanced Degree)) AND (ss_sales_price#265 >= 150.00)) AND (ss_sales_price#265\
-      \ <= 200.00)) AND (hd_dep_count#91 = 1)))))"
+      \ = D) AND (cd_education_status#225 = Secondary)) AND (ss_sales_price#265 >=\
+      \ 100.00)) AND (ss_sales_price#265 <= 150.00)) AND (hd_dep_count#91 = 3)) OR\
+      \ (((((cd_marital_status#224 = W) AND (cd_education_status#225 = Primary)) AND\
+      \ (ss_sales_price#265 >= 50.00)) AND (ss_sales_price#265 <= 100.00)) AND (hd_dep_count#91\
+      \ = 1))) OR (((((cd_marital_status#224 = S) AND (cd_education_status#225 = 4\
+      \ yr Degree)) AND (ss_sales_price#265 >= 150.00)) AND (ss_sales_price#265 <=\
+      \ 200.00)) AND (hd_dep_count#91 = 1)))))"
     operator: "join"
     inputs:
     - title: "Projection: ss_hdemo_sk#257, ss_quantity#262, ss_sales_price#265, ss_ext_sales_price#267,\
@@ -20,11 +20,11 @@ inputs:
       operator: "projection"
       inputs:
       - title: "Inner Join: Some((((((((cd_marital_status#224 = D) AND (cd_education_status#225\
-          \ = 2 yr Degree)) AND (ss_sales_price#265 >= 100.00)) AND (ss_sales_price#265\
-          \ <= 150.00)) OR ((((cd_marital_status#224 = S) AND (cd_education_status#225\
-          \ = Secondary)) AND (ss_sales_price#265 >= 50.00)) AND (ss_sales_price#265\
-          \ <= 100.00))) OR ((((cd_marital_status#224 = W) AND (cd_education_status#225\
-          \ = Advanced Degree)) AND (ss_sales_price#265 >= 150.00)) AND (ss_sales_price#265\
+          \ = Secondary)) AND (ss_sales_price#265 >= 100.00)) AND (ss_sales_price#265\
+          \ <= 150.00)) OR ((((cd_marital_status#224 = W) AND (cd_education_status#225\
+          \ = Primary)) AND (ss_sales_price#265 >= 50.00)) AND (ss_sales_price#265\
+          \ <= 100.00))) OR ((((cd_marital_status#224 = S) AND (cd_education_status#225\
+          \ = 4 yr Degree)) AND (ss_sales_price#265 >= 150.00)) AND (ss_sales_price#265\
           \ <= 200.00))) AND (cd_demo_sk#222 = ss_cdemo_sk#256)))"
         operator: "join"
         inputs:
@@ -40,10 +40,10 @@ inputs:
               operator: "projection"
               inputs:
               - title: "Inner Join: Some(((ss_addr_sk#258 = ca_address_sk#62) AND\
-                  \ ((((ca_state#70 IN (CO,IL,MN) AND (ss_net_profit#274 >= 100.00))\
-                  \ AND (ss_net_profit#274 <= 200.00)) OR ((ca_state#70 IN (OH,MT,NM)\
+                  \ ((((ca_state#70 IN (GA,CA,TX) AND (ss_net_profit#274 >= 100.00))\
+                  \ AND (ss_net_profit#274 <= 200.00)) OR ((ca_state#70 IN (VA,UT,IL)\
                   \ AND (ss_net_profit#274 >= 150.00)) AND (ss_net_profit#274 <= 300.00)))\
-                  \ OR ((ca_state#70 IN (TX,MO,MI) AND (ss_net_profit#274 >= 50.00))\
+                  \ OR ((ca_state#70 IN (WV,WA,OK) AND (ss_net_profit#274 >= 50.00))\
                   \ AND (ss_net_profit#274 <= 250.00)))))"
                 operator: "join"
                 inputs:
@@ -88,8 +88,8 @@ inputs:
                   inputs:
                   - title: "Filter: (((isnotnull(ca_country#72) AND (ca_country#72\
                       \ = United States)) AND isnotnull(ca_address_sk#62)) AND ((ca_state#70\
-                      \ IN (CO,IL,MN) OR ca_state#70 IN (OH,MT,NM)) OR ca_state#70\
-                      \ IN (TX,MO,MI)))"
+                      \ IN (GA,CA,TX) OR ca_state#70 IN (VA,UT,IL)) OR ca_state#70\
+                      \ IN (WV,WA,OK)))"
                     operator: "filter"
                     inputs:
                     - title: "customer_address.parquet"
@@ -109,9 +109,9 @@ inputs:
           operator: "projection"
           inputs:
           - title: "Filter: (isnotnull(cd_demo_sk#222) AND ((((cd_marital_status#224\
-              \ = D) AND (cd_education_status#225 = 2 yr Degree)) OR ((cd_marital_status#224\
-              \ = S) AND (cd_education_status#225 = Secondary))) OR ((cd_marital_status#224\
-              \ = W) AND (cd_education_status#225 = Advanced Degree))))"
+              \ = D) AND (cd_education_status#225 = Secondary)) OR ((cd_marital_status#224\
+              \ = W) AND (cd_education_status#225 = Primary))) OR ((cd_marital_status#224\
+              \ = S) AND (cd_education_status#225 = 4 yr Degree))))"
             operator: "filter"
             inputs:
             - title: "customer_demographics.parquet"

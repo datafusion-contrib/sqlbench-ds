@@ -8,9 +8,9 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Filter: ((isnotnull(inv_before#5729L) AND isnotnull(inv_after#5730L))\
-        \ AND (((inv_before#5729L > 0) AND ((cast(inv_after#5730L as double) / cast(inv_before#5729L\
-        \ as double)) >= 0.666667)) AND ((cast(inv_after#5730L as double) / cast(inv_before#5729L\
+    - title: "Filter: ((isnotnull(inv_before#7217L) AND isnotnull(inv_after#7218L))\
+        \ AND (((inv_before#7217L > 0) AND ((cast(inv_after#7218L as double) / cast(inv_before#7217L\
+        \ as double)) >= 0.666667)) AND ((cast(inv_after#7218L as double) / cast(inv_before#7217L\
         \ as double)) <= 1.5)))"
       operator: "filter"
       inputs:
@@ -67,8 +67,8 @@ inputs:
             - title: "Projection: d_date_sk#612, d_date#614"
               operator: "projection"
               inputs:
-              - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 1998-03-09)\
-                  \ AND (d_date#614 <= 1998-05-08))) AND isnotnull(d_date_sk#612))"
+              - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2000-04-19)\
+                  \ AND (d_date#614 <= 2000-06-18))) AND isnotnull(d_date_sk#612))"
                 operator: "filter"
                 inputs:
                 - title: "date_dim.parquet"

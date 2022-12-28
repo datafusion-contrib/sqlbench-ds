@@ -5,14 +5,14 @@ inputs:
 - title: "LocalLimit (unknown)"
   operator: "LocalLimit"
   inputs:
-  - title: "Projection: customer_id#18564, customername#18565"
+  - title: "Projection: customer_id#21137, customername#21138"
     operator: "projection"
     inputs:
     - title: "Sort (unknown)"
       operator: "Sort"
       inputs:
-      - title: "Projection: c_customer_id#401 AS customer_id#18564, concat(coalesce(c_last_name#409,\
-          \ ), , , coalesce(c_first_name#408, )) AS customername#18565, c_customer_id#401"
+      - title: "Projection: c_customer_id#401 AS customer_id#21137, concat(coalesce(c_last_name#409,\
+          \ ), , , coalesce(c_first_name#408, )) AS customername#21138, c_customer_id#401"
         operator: "projection"
         inputs:
         - title: "Inner Join: Some((sr_cdemo_sk#140 = cd_demo_sk#222))"
@@ -62,7 +62,7 @@ inputs:
                             operator: "projection"
                             inputs:
                             - title: "Filter: ((isnotnull(ca_city#68) AND (ca_city#68\
-                                \ = Hopewell)) AND isnotnull(ca_address_sk#62))"
+                                \ = Oak Hill)) AND isnotnull(ca_address_sk#62))"
                               operator: "filter"
                               inputs:
                               - title: "customer_address.parquet"
@@ -90,8 +90,8 @@ inputs:
                 operator: "projection"
                 inputs:
                 - title: "Filter: (((isnotnull(ib_lower_bound#241) AND isnotnull(ib_upper_bound#242))\
-                    \ AND ((ib_lower_bound#241 >= 32287) AND (ib_upper_bound#242 <=\
-                    \ 82287))) AND isnotnull(ib_income_band_sk#240))"
+                    \ AND ((ib_lower_bound#241 >= 47241) AND (ib_upper_bound#242 <=\
+                    \ 97241))) AND isnotnull(ib_income_band_sk#240))"
                   operator: "filter"
                   inputs:
                   - title: "income_band.parquet"

@@ -8,24 +8,24 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Filter: ((isnotnull(web_cumulative#10170) AND isnotnull(store_cumulative#10171))\
-        \ AND (web_cumulative#10170 > store_cumulative#10171))"
+    - title: "Filter: ((isnotnull(web_cumulative#12383) AND isnotnull(store_cumulative#12384))\
+        \ AND (web_cumulative#12383 > store_cumulative#12384))"
       operator: "filter"
       inputs:
       - title: "Window (unknown)"
         operator: "Window"
         inputs:
-        - title: "Projection: CASE WHEN isnotnull(item_sk#10172) THEN item_sk#10172\
-            \ ELSE item_sk#10174 END AS item_sk#10166, CASE WHEN isnotnull(d_date#614)\
-            \ THEN d_date#614 ELSE d_date#10178 END AS d_date#10167, cume_sales#10173\
-            \ AS web_sales#10168, cume_sales#10175 AS store_sales#10169"
+        - title: "Projection: CASE WHEN isnotnull(item_sk#12385) THEN item_sk#12385\
+            \ ELSE item_sk#12387 END AS item_sk#12379, CASE WHEN isnotnull(d_date#614)\
+            \ THEN d_date#614 ELSE d_date#12391 END AS d_date#12380, cume_sales#12386\
+            \ AS web_sales#12381, cume_sales#12388 AS store_sales#12382"
           operator: "projection"
           inputs:
-          - title: "FullOuter Join: Some(((item_sk#10172 = item_sk#10174) AND (d_date#614\
-              \ = d_date#10178)))"
+          - title: "FullOuter Join: Some(((item_sk#12385 = item_sk#12387) AND (d_date#614\
+              \ = d_date#12391)))"
             operator: "join"
             inputs:
-            - title: "Projection: item_sk#10172, d_date#614, cume_sales#10173"
+            - title: "Projection: item_sk#12385, d_date#614, cume_sales#12386"
               operator: "projection"
               inputs:
               - title: "Window (unknown)"
@@ -59,7 +59,7 @@ inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-            - title: "Projection: item_sk#10174, d_date#10178, cume_sales#10175"
+            - title: "Projection: item_sk#12387, d_date#12391, cume_sales#12388"
               operator: "projection"
               inputs:
               - title: "Window (unknown)"
@@ -68,10 +68,10 @@ inputs:
                 - title: "Aggregate (unknown)"
                   operator: "Aggregate"
                   inputs:
-                  - title: "Projection: ss_item_sk#254, ss_sales_price#265, d_date#10178"
+                  - title: "Projection: ss_item_sk#254, ss_sales_price#265, d_date#12391"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#10176))"
+                    - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#12389))"
                       operator: "join"
                       inputs:
                       - title: "Projection: ss_sold_date_sk#252, ss_item_sk#254, ss_sales_price#265"
@@ -83,11 +83,11 @@ inputs:
                           - title: "store_sales.parquet"
                             operator: "scan"
                             inputs: []
-                      - title: "Projection: d_date_sk#10176, d_date#10178"
+                      - title: "Projection: d_date_sk#12389, d_date#12391"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: ((isnotnull(d_month_seq#10179) AND ((d_month_seq#10179\
-                            \ >= 1212) AND (d_month_seq#10179 <= 1223))) AND isnotnull(d_date_sk#10176))"
+                        - title: "Filter: ((isnotnull(d_month_seq#12392) AND ((d_month_seq#12392\
+                            \ >= 1212) AND (d_month_seq#12392 <= 1223))) AND isnotnull(d_date_sk#12389))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"

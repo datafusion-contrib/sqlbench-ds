@@ -4,27 +4,27 @@ AdaptiveSparkPlan isFinalPlan=true
    +- *(39) HashAggregate(keys=[channel#2865, id#2866, spark_grouping_id#2864L], functions=[sum(sales#2721), sum(returns#2723), sum(profit#2699)], output=[channel#2865, id#2866, sales#2706, returns#2707, profit#2708])
       +- AQEShuffleRead coalesced
          +- ShuffleQueryStage 19
-            +- Exchange hashpartitioning(channel#2865, id#2866, spark_grouping_id#2864L, 200), ENSURE_REQUIREMENTS, [id=#12445]
+            +- Exchange hashpartitioning(channel#2865, id#2866, spark_grouping_id#2864L, 200), ENSURE_REQUIREMENTS, [id=#13334]
                +- *(38) HashAggregate(keys=[channel#2865, id#2866, spark_grouping_id#2864L], functions=[partial_sum(sales#2721), partial_sum(returns#2723), partial_sum(profit#2699)], output=[channel#2865, id#2866, spark_grouping_id#2864L, sum#2882, isEmpty#2883, sum#2884, isEmpty#2885, sum#2886, isEmpty#2887])
                   +- *(38) Expand [[sales#2721, returns#2723, profit#2699, channel#2862, id#2863, 0], [sales#2721, returns#2723, profit#2699, channel#2862, null, 1], [sales#2721, returns#2723, profit#2699, null, null, 3]], [sales#2721, returns#2723, profit#2699, channel#2865, id#2866, spark_grouping_id#2864L]
                      +- Union
                         :- *(35) HashAggregate(keys=[s_store_id#713], functions=[sum(UnscaledValue(sales_price#2711)), sum(UnscaledValue(return_amt#2713)), sum(UnscaledValue(profit#2712)), sum(UnscaledValue(net_loss#2714))], output=[sales#2721, returns#2723, profit#2699, channel#2862, id#2863])
                         :  +- AQEShuffleRead coalesced
                         :     +- ShuffleQueryStage 15
-                        :        +- Exchange hashpartitioning(s_store_id#713, 200), ENSURE_REQUIREMENTS, [id=#11871]
+                        :        +- Exchange hashpartitioning(s_store_id#713, 200), ENSURE_REQUIREMENTS, [id=#12760]
                         :           +- *(25) HashAggregate(keys=[s_store_id#713], functions=[partial_sum(UnscaledValue(sales_price#2711)), partial_sum(UnscaledValue(return_amt#2713)), partial_sum(UnscaledValue(profit#2712)), partial_sum(UnscaledValue(net_loss#2714))], output=[s_store_id#713, sum#2892L, sum#2893L, sum#2894L, sum#2895L])
                         :              +- *(25) Project [sales_price#2711, profit#2712, return_amt#2713, net_loss#2714, s_store_id#713]
                         :                 +- *(25) SortMergeJoin [store_sk#2709], [s_store_sk#712], Inner
                         :                    :- *(23) Sort [store_sk#2709 ASC NULLS FIRST], false, 0
                         :                    :  +- AQEShuffleRead coalesced
                         :                    :     +- ShuffleQueryStage 12
-                        :                    :        +- Exchange hashpartitioning(store_sk#2709, 200), ENSURE_REQUIREMENTS, [id=#10851]
+                        :                    :        +- Exchange hashpartitioning(store_sk#2709, 200), ENSURE_REQUIREMENTS, [id=#11595]
                         :                    :           +- *(15) Project [store_sk#2709, sales_price#2711, profit#2712, return_amt#2713, net_loss#2714]
                         :                    :              +- *(15) SortMergeJoin [date_sk#2710], [d_date_sk#612], Inner
                         :                    :                 :- *(13) Sort [date_sk#2710 ASC NULLS FIRST], false, 0
                         :                    :                 :  +- AQEShuffleRead coalesced
                         :                    :                 :     +- ShuffleQueryStage 0
-                        :                    :                 :        +- Exchange hashpartitioning(date_sk#2710, 200), ENSURE_REQUIREMENTS, [id=#10014]
+                        :                    :                 :        +- Exchange hashpartitioning(date_sk#2710, 200), ENSURE_REQUIREMENTS, [id=#10758]
                         :                    :                 :           +- Union
                         :                    :                 :              :- *(1) Project [ss_store_sk#259 AS store_sk#2709, ss_sold_date_sk#252 AS date_sk#2710, ss_ext_sales_price#267 AS sales_price#2711, ss_net_profit#274 AS profit#2712, 0.00 AS return_amt#2713, 0.00 AS net_loss#2714]
                         :                    :                 :              :  +- *(1) Filter (isnotnull(ss_sold_date_sk#252) AND isnotnull(ss_store_sk#259))
@@ -37,7 +37,7 @@ AdaptiveSparkPlan isFinalPlan=true
                         :                    :                 +- *(14) Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
                         :                    :                    +- AQEShuffleRead coalesced
                         :                    :                       +- ShuffleQueryStage 1
-                        :                    :                          +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#10043]
+                        :                    :                          +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#10787]
                         :                    :                             +- *(3) Project [d_date_sk#612]
                         :                    :                                +- *(3) Filter (((isnotnull(d_date#614) AND (d_date#614 >= 1998-08-04)) AND (d_date#614 <= 1998-08-18)) AND isnotnull(d_date_sk#612))
                         :                    :                                   +- *(3) ColumnarToRow
@@ -45,27 +45,27 @@ AdaptiveSparkPlan isFinalPlan=true
                         :                    +- *(24) Sort [s_store_sk#712 ASC NULLS FIRST], false, 0
                         :                       +- AQEShuffleRead coalesced
                         :                          +- ShuffleQueryStage 2
-                        :                             +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#10066]
+                        :                             +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#10810]
                         :                                +- *(4) Filter isnotnull(s_store_sk#712)
                         :                                   +- *(4) ColumnarToRow
                         :                                      +- FileScan parquet [s_store_sk#712,s_store_id#713] Batched: true, DataFilters: [isnotnull(s_store_sk#712)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_id:string>
                         :- *(36) HashAggregate(keys=[cp_catalog_page_id#205], functions=[sum(UnscaledValue(sales_price#2727)), sum(UnscaledValue(return_amt#2729)), sum(UnscaledValue(profit#2728)), sum(UnscaledValue(net_loss#2730))], output=[sales#2737, returns#2739, profit#2702, channel#2872, id#2873])
                         :  +- AQEShuffleRead coalesced
                         :     +- ShuffleQueryStage 16
-                        :        +- Exchange hashpartitioning(cp_catalog_page_id#205, 200), ENSURE_REQUIREMENTS, [id=#12014]
+                        :        +- Exchange hashpartitioning(cp_catalog_page_id#205, 200), ENSURE_REQUIREMENTS, [id=#12903]
                         :           +- *(28) HashAggregate(keys=[cp_catalog_page_id#205], functions=[partial_sum(UnscaledValue(sales_price#2727)), partial_sum(UnscaledValue(return_amt#2729)), partial_sum(UnscaledValue(profit#2728)), partial_sum(UnscaledValue(net_loss#2730))], output=[cp_catalog_page_id#205, sum#2900L, sum#2901L, sum#2902L, sum#2903L])
                         :              +- *(28) Project [sales_price#2727, profit#2728, return_amt#2729, net_loss#2730, cp_catalog_page_id#205]
                         :                 +- *(28) SortMergeJoin [page_sk#2725], [cp_catalog_page_sk#204], Inner
                         :                    :- *(26) Sort [page_sk#2725 ASC NULLS FIRST], false, 0
                         :                    :  +- AQEShuffleRead coalesced
                         :                    :     +- ShuffleQueryStage 13
-                        :                    :        +- Exchange hashpartitioning(page_sk#2725, 200), ENSURE_REQUIREMENTS, [id=#11211]
+                        :                    :        +- Exchange hashpartitioning(page_sk#2725, 200), ENSURE_REQUIREMENTS, [id=#12100]
                         :                    :           +- *(18) Project [page_sk#2725, sales_price#2727, profit#2728, return_amt#2729, net_loss#2730]
                         :                    :              +- *(18) SortMergeJoin [date_sk#2726], [d_date_sk#2757], Inner
                         :                    :                 :- *(16) Sort [date_sk#2726 ASC NULLS FIRST], false, 0
                         :                    :                 :  +- AQEShuffleRead coalesced
                         :                    :                 :     +- ShuffleQueryStage 3
-                        :                    :                 :        +- Exchange hashpartitioning(date_sk#2726, 200), ENSURE_REQUIREMENTS, [id=#10100]
+                        :                    :                 :        +- Exchange hashpartitioning(date_sk#2726, 200), ENSURE_REQUIREMENTS, [id=#10844]
                         :                    :                 :           +- Union
                         :                    :                 :              :- *(5) Project [cs_catalog_page_sk#556 AS page_sk#2725, cs_sold_date_sk#544 AS date_sk#2726, cs_ext_sales_price#567 AS sales_price#2727, cs_net_profit#577 AS profit#2728, 0.00 AS return_amt#2729, 0.00 AS net_loss#2730]
                         :                    :                 :              :  +- *(5) Filter (isnotnull(cs_sold_date_sk#544) AND isnotnull(cs_catalog_page_sk#556))
@@ -78,31 +78,31 @@ AdaptiveSparkPlan isFinalPlan=true
                         :                    :                 +- *(17) Sort [d_date_sk#2757 ASC NULLS FIRST], false, 0
                         :                    :                    +- AQEShuffleRead coalesced
                         :                    :                       +- ShuffleQueryStage 5
-                        :                    :                          +- ReusedExchange [d_date_sk#2757], Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#10043]
+                        :                    :                          +- ReusedExchange [d_date_sk#2757], Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#10787]
                         :                    +- *(27) Sort [cp_catalog_page_sk#204 ASC NULLS FIRST], false, 0
                         :                       +- AQEShuffleRead coalesced
                         :                          +- ShuffleQueryStage 6
-                        :                             +- Exchange hashpartitioning(cp_catalog_page_sk#204, 200), ENSURE_REQUIREMENTS, [id=#10154]
+                        :                             +- Exchange hashpartitioning(cp_catalog_page_sk#204, 200), ENSURE_REQUIREMENTS, [id=#10898]
                         :                                +- *(8) Filter isnotnull(cp_catalog_page_sk#204)
                         :                                   +- *(8) ColumnarToRow
                         :                                      +- FileScan parquet [cp_catalog_page_sk#204,cp_catalog_page_id#205] Batched: true, DataFilters: [isnotnull(cp_catalog_page_sk#204)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/catalog_page.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cp_catalog_page_sk)], ReadSchema: struct<cp_catalog_page_sk:int,cp_catalog_page_id:string>
                         +- *(37) HashAggregate(keys=[web_site_id#799], functions=[sum(UnscaledValue(sales_price#2743)), sum(UnscaledValue(return_amt#2745)), sum(UnscaledValue(profit#2744)), sum(UnscaledValue(net_loss#2746))], output=[sales#2753, returns#2755, profit#2705, channel#2874, id#2875])
                            +- AQEShuffleRead coalesced
                               +- ShuffleQueryStage 18
-                                 +- Exchange hashpartitioning(web_site_id#799, 200), ENSURE_REQUIREMENTS, [id=#12361]
+                                 +- Exchange hashpartitioning(web_site_id#799, 200), ENSURE_REQUIREMENTS, [id=#13250]
                                     +- *(34) HashAggregate(keys=[web_site_id#799], functions=[partial_sum(UnscaledValue(sales_price#2743)), partial_sum(UnscaledValue(return_amt#2745)), partial_sum(UnscaledValue(profit#2744)), partial_sum(UnscaledValue(net_loss#2746))], output=[web_site_id#799, sum#2908L, sum#2909L, sum#2910L, sum#2911L])
                                        +- *(34) Project [sales_price#2743, profit#2744, return_amt#2745, net_loss#2746, web_site_id#799]
                                           +- *(34) SortMergeJoin [wsr_web_site_sk#2741], [web_site_sk#798], Inner
                                              :- *(32) Sort [wsr_web_site_sk#2741 ASC NULLS FIRST], false, 0
                                              :  +- AQEShuffleRead coalesced
                                              :     +- ShuffleQueryStage 17
-                                             :        +- Exchange hashpartitioning(wsr_web_site_sk#2741, 200), ENSURE_REQUIREMENTS, [id=#12195]
+                                             :        +- Exchange hashpartitioning(wsr_web_site_sk#2741, 200), ENSURE_REQUIREMENTS, [id=#13084]
                                              :           +- *(31) Project [wsr_web_site_sk#2741, sales_price#2743, profit#2744, return_amt#2745, net_loss#2746]
                                              :              +- *(31) SortMergeJoin [date_sk#2742], [d_date_sk#2819], Inner
                                              :                 :- *(29) Sort [date_sk#2742 ASC NULLS FIRST], false, 0
                                              :                 :  +- AQEShuffleRead coalesced
                                              :                 :     +- ShuffleQueryStage 14
-                                             :                 :        +- Exchange hashpartitioning(date_sk#2742, 200), ENSURE_REQUIREMENTS, [id=#11675]
+                                             :                 :        +- Exchange hashpartitioning(date_sk#2742, 200), ENSURE_REQUIREMENTS, [id=#12564]
                                              :                 :           +- Union
                                              :                 :              :- *(19) Project [ws_web_site_sk#489 AS wsr_web_site_sk#2741, ws_sold_date_sk#476 AS date_sk#2742, ws_ext_sales_price#499 AS sales_price#2743, ws_net_profit#509 AS profit#2744, 0.00 AS return_amt#2745, 0.00 AS net_loss#2746]
                                              :                 :              :  +- *(19) Filter (isnotnull(ws_sold_date_sk#476) AND isnotnull(ws_web_site_sk#489))
@@ -112,45 +112,45 @@ AdaptiveSparkPlan isFinalPlan=true
                                              :                 :                 +- *(22) SortMergeJoin [wr_item_sk#300, wr_order_number#311L], [ws_item_sk#2788, ws_order_number#2802L], Inner
                                              :                 :                    :- *(20) Sort [wr_item_sk#300 ASC NULLS FIRST, wr_order_number#311L ASC NULLS FIRST], false, 0
                                              :                 :                    :  +- ShuffleQueryStage 7
-                                             :                 :                    :     +- Exchange hashpartitioning(wr_item_sk#300, wr_order_number#311L, 200), ENSURE_REQUIREMENTS, [id=#10176]
+                                             :                 :                    :     +- Exchange hashpartitioning(wr_item_sk#300, wr_order_number#311L, 200), ENSURE_REQUIREMENTS, [id=#10920]
                                              :                 :                    :        +- *(9) Filter isnotnull(wr_returned_date_sk#298)
                                              :                 :                    :           +- *(9) ColumnarToRow
                                              :                 :                    :              +- FileScan parquet [wr_returned_date_sk#298,wr_item_sk#300,wr_order_number#311L,wr_return_amt#313,wr_net_loss#321] Batched: true, DataFilters: [isnotnull(wr_returned_date_sk#298)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(wr_returned_date_sk)], ReadSchema: struct<wr_returned_date_sk:int,wr_item_sk:int,wr_order_number:bigint,wr_return_amt:decimal(7,2),w...
                                              :                 :                    +- *(21) Sort [ws_item_sk#2788 ASC NULLS FIRST, ws_order_number#2802L ASC NULLS FIRST], false, 0
                                              :                 :                       +- ShuffleQueryStage 8
-                                             :                 :                          +- Exchange hashpartitioning(ws_item_sk#2788, ws_order_number#2802L, 200), ENSURE_REQUIREMENTS, [id=#10193]
+                                             :                 :                          +- Exchange hashpartitioning(ws_item_sk#2788, ws_order_number#2802L, 200), ENSURE_REQUIREMENTS, [id=#10937]
                                              :                 :                             +- *(10) Filter ((isnotnull(ws_item_sk#2788) AND isnotnull(ws_order_number#2802L)) AND isnotnull(ws_web_site_sk#2798))
                                              :                 :                                +- *(10) ColumnarToRow
                                              :                 :                                   +- FileScan parquet [ws_item_sk#2788,ws_web_site_sk#2798,ws_order_number#2802L] Batched: true, DataFilters: [isnotnull(ws_item_sk#2788), isnotnull(ws_order_number#2802L), isnotnull(ws_web_site_sk#2798)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_item_sk), IsNotNull(ws_order_number), IsNotNull(ws_web_site_sk)], ReadSchema: struct<ws_item_sk:int,ws_web_site_sk:int,ws_order_number:bigint>
                                              :                 +- *(30) Sort [d_date_sk#2819 ASC NULLS FIRST], false, 0
                                              :                    +- AQEShuffleRead coalesced
                                              :                       +- ShuffleQueryStage 10
-                                             :                          +- ReusedExchange [d_date_sk#2819], Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#10043]
+                                             :                          +- ReusedExchange [d_date_sk#2819], Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#10787]
                                              +- *(33) Sort [web_site_sk#798 ASC NULLS FIRST], false, 0
                                                 +- AQEShuffleRead coalesced
                                                    +- ShuffleQueryStage 11
-                                                      +- Exchange hashpartitioning(web_site_sk#798, 200), ENSURE_REQUIREMENTS, [id=#10242]
+                                                      +- Exchange hashpartitioning(web_site_sk#798, 200), ENSURE_REQUIREMENTS, [id=#10986]
                                                          +- *(12) Filter isnotnull(web_site_sk#798)
                                                             +- *(12) ColumnarToRow
                                                                +- FileScan parquet [web_site_sk#798,web_site_id#799] Batched: true, DataFilters: [isnotnull(web_site_sk#798)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_site.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(web_site_sk)], ReadSchema: struct<web_site_sk:int,web_site_id:string>
 +- == Initial Plan ==
    TakeOrderedAndProject(limit=100, orderBy=[channel#2865 ASC NULLS FIRST,id#2866 ASC NULLS FIRST], output=[channel#2865,id#2866,sales#2706,returns#2707,profit#2708])
    +- HashAggregate(keys=[channel#2865, id#2866, spark_grouping_id#2864L], functions=[sum(sales#2721), sum(returns#2723), sum(profit#2699)], output=[channel#2865, id#2866, sales#2706, returns#2707, profit#2708])
-      +- Exchange hashpartitioning(channel#2865, id#2866, spark_grouping_id#2864L, 200), ENSURE_REQUIREMENTS, [id=#9825]
+      +- Exchange hashpartitioning(channel#2865, id#2866, spark_grouping_id#2864L, 200), ENSURE_REQUIREMENTS, [id=#10569]
          +- HashAggregate(keys=[channel#2865, id#2866, spark_grouping_id#2864L], functions=[partial_sum(sales#2721), partial_sum(returns#2723), partial_sum(profit#2699)], output=[channel#2865, id#2866, spark_grouping_id#2864L, sum#2882, isEmpty#2883, sum#2884, isEmpty#2885, sum#2886, isEmpty#2887])
             +- Expand [[sales#2721, returns#2723, profit#2699, channel#2862, id#2863, 0], [sales#2721, returns#2723, profit#2699, channel#2862, null, 1], [sales#2721, returns#2723, profit#2699, null, null, 3]], [sales#2721, returns#2723, profit#2699, channel#2865, id#2866, spark_grouping_id#2864L]
                +- Union
                   :- HashAggregate(keys=[s_store_id#713], functions=[sum(UnscaledValue(sales_price#2711)), sum(UnscaledValue(return_amt#2713)), sum(UnscaledValue(profit#2712)), sum(UnscaledValue(net_loss#2714))], output=[sales#2721, returns#2723, profit#2699, channel#2862, id#2863])
-                  :  +- Exchange hashpartitioning(s_store_id#713, 200), ENSURE_REQUIREMENTS, [id=#9772]
+                  :  +- Exchange hashpartitioning(s_store_id#713, 200), ENSURE_REQUIREMENTS, [id=#10516]
                   :     +- HashAggregate(keys=[s_store_id#713], functions=[partial_sum(UnscaledValue(sales_price#2711)), partial_sum(UnscaledValue(return_amt#2713)), partial_sum(UnscaledValue(profit#2712)), partial_sum(UnscaledValue(net_loss#2714))], output=[s_store_id#713, sum#2892L, sum#2893L, sum#2894L, sum#2895L])
                   :        +- Project [sales_price#2711, profit#2712, return_amt#2713, net_loss#2714, s_store_id#713]
                   :           +- SortMergeJoin [store_sk#2709], [s_store_sk#712], Inner
                   :              :- Sort [store_sk#2709 ASC NULLS FIRST], false, 0
-                  :              :  +- Exchange hashpartitioning(store_sk#2709, 200), ENSURE_REQUIREMENTS, [id=#9764]
+                  :              :  +- Exchange hashpartitioning(store_sk#2709, 200), ENSURE_REQUIREMENTS, [id=#10508]
                   :              :     +- Project [store_sk#2709, sales_price#2711, profit#2712, return_amt#2713, net_loss#2714]
                   :              :        +- SortMergeJoin [date_sk#2710], [d_date_sk#612], Inner
                   :              :           :- Sort [date_sk#2710 ASC NULLS FIRST], false, 0
-                  :              :           :  +- Exchange hashpartitioning(date_sk#2710, 200), ENSURE_REQUIREMENTS, [id=#9756]
+                  :              :           :  +- Exchange hashpartitioning(date_sk#2710, 200), ENSURE_REQUIREMENTS, [id=#10500]
                   :              :           :     +- Union
                   :              :           :        :- Project [ss_store_sk#259 AS store_sk#2709, ss_sold_date_sk#252 AS date_sk#2710, ss_ext_sales_price#267 AS sales_price#2711, ss_net_profit#274 AS profit#2712, 0.00 AS return_amt#2713, 0.00 AS net_loss#2714]
                   :              :           :        :  +- Filter (isnotnull(ss_sold_date_sk#252) AND isnotnull(ss_store_sk#259))
@@ -159,25 +159,25 @@ AdaptiveSparkPlan isFinalPlan=true
                   :              :           :           +- Filter (isnotnull(sr_returned_date_sk#136) AND isnotnull(sr_store_sk#143))
                   :              :           :              +- FileScan parquet [sr_returned_date_sk#136,sr_store_sk#143,sr_return_amt#147,sr_net_loss#155] Batched: true, DataFilters: [isnotnull(sr_returned_date_sk#136), isnotnull(sr_store_sk#143)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(sr_returned_date_sk), IsNotNull(sr_store_sk)], ReadSchema: struct<sr_returned_date_sk:int,sr_store_sk:int,sr_return_amt:decimal(7,2),sr_net_loss:decimal(7,2)>
                   :              :           +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
-                  :              :              +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#9757]
+                  :              :              +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#10501]
                   :              :                 +- Project [d_date_sk#612]
                   :              :                    +- Filter (((isnotnull(d_date#614) AND (d_date#614 >= 1998-08-04)) AND (d_date#614 <= 1998-08-18)) AND isnotnull(d_date_sk#612))
                   :              :                       +- FileScan parquet [d_date_sk#612,d_date#614] Batched: true, DataFilters: [isnotnull(d_date#614), (d_date#614 >= 1998-08-04), (d_date#614 <= 1998-08-18), isnotnull(d_date_..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_date), GreaterThanOrEqual(d_date,1998-08-04), LessThanOrEqual(d_date,1998-08-18), Is..., ReadSchema: struct<d_date_sk:int,d_date:date>
                   :              +- Sort [s_store_sk#712 ASC NULLS FIRST], false, 0
-                  :                 +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#9765]
+                  :                 +- Exchange hashpartitioning(s_store_sk#712, 200), ENSURE_REQUIREMENTS, [id=#10509]
                   :                    +- Filter isnotnull(s_store_sk#712)
                   :                       +- FileScan parquet [s_store_sk#712,s_store_id#713] Batched: true, DataFilters: [isnotnull(s_store_sk#712)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(s_store_sk)], ReadSchema: struct<s_store_sk:int,s_store_id:string>
                   :- HashAggregate(keys=[cp_catalog_page_id#205], functions=[sum(UnscaledValue(sales_price#2727)), sum(UnscaledValue(return_amt#2729)), sum(UnscaledValue(profit#2728)), sum(UnscaledValue(net_loss#2730))], output=[sales#2737, returns#2739, profit#2702, channel#2872, id#2873])
-                  :  +- Exchange hashpartitioning(cp_catalog_page_id#205, 200), ENSURE_REQUIREMENTS, [id=#9791]
+                  :  +- Exchange hashpartitioning(cp_catalog_page_id#205, 200), ENSURE_REQUIREMENTS, [id=#10535]
                   :     +- HashAggregate(keys=[cp_catalog_page_id#205], functions=[partial_sum(UnscaledValue(sales_price#2727)), partial_sum(UnscaledValue(return_amt#2729)), partial_sum(UnscaledValue(profit#2728)), partial_sum(UnscaledValue(net_loss#2730))], output=[cp_catalog_page_id#205, sum#2900L, sum#2901L, sum#2902L, sum#2903L])
                   :        +- Project [sales_price#2727, profit#2728, return_amt#2729, net_loss#2730, cp_catalog_page_id#205]
                   :           +- SortMergeJoin [page_sk#2725], [cp_catalog_page_sk#204], Inner
                   :              :- Sort [page_sk#2725 ASC NULLS FIRST], false, 0
-                  :              :  +- Exchange hashpartitioning(page_sk#2725, 200), ENSURE_REQUIREMENTS, [id=#9783]
+                  :              :  +- Exchange hashpartitioning(page_sk#2725, 200), ENSURE_REQUIREMENTS, [id=#10527]
                   :              :     +- Project [page_sk#2725, sales_price#2727, profit#2728, return_amt#2729, net_loss#2730]
                   :              :        +- SortMergeJoin [date_sk#2726], [d_date_sk#2757], Inner
                   :              :           :- Sort [date_sk#2726 ASC NULLS FIRST], false, 0
-                  :              :           :  +- Exchange hashpartitioning(date_sk#2726, 200), ENSURE_REQUIREMENTS, [id=#9775]
+                  :              :           :  +- Exchange hashpartitioning(date_sk#2726, 200), ENSURE_REQUIREMENTS, [id=#10519]
                   :              :           :     +- Union
                   :              :           :        :- Project [cs_catalog_page_sk#556 AS page_sk#2725, cs_sold_date_sk#544 AS date_sk#2726, cs_ext_sales_price#567 AS sales_price#2727, cs_net_profit#577 AS profit#2728, 0.00 AS return_amt#2729, 0.00 AS net_loss#2730]
                   :              :           :        :  +- Filter (isnotnull(cs_sold_date_sk#544) AND isnotnull(cs_catalog_page_sk#556))
@@ -186,25 +186,25 @@ AdaptiveSparkPlan isFinalPlan=true
                   :              :           :           +- Filter (isnotnull(cr_returned_date_sk#346) AND isnotnull(cr_catalog_page_sk#358))
                   :              :           :              +- FileScan parquet [cr_returned_date_sk#346,cr_catalog_page_sk#358,cr_return_amount#364,cr_net_loss#372] Batched: true, DataFilters: [isnotnull(cr_returned_date_sk#346), isnotnull(cr_catalog_page_sk#358)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/catalog_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cr_returned_date_sk), IsNotNull(cr_catalog_page_sk)], ReadSchema: struct<cr_returned_date_sk:int,cr_catalog_page_sk:int,cr_return_amount:decimal(7,2),cr_net_loss:d...
                   :              :           +- Sort [d_date_sk#2757 ASC NULLS FIRST], false, 0
-                  :              :              +- Exchange hashpartitioning(d_date_sk#2757, 200), ENSURE_REQUIREMENTS, [id=#9776]
+                  :              :              +- Exchange hashpartitioning(d_date_sk#2757, 200), ENSURE_REQUIREMENTS, [id=#10520]
                   :              :                 +- Project [d_date_sk#2757]
                   :              :                    +- Filter (((isnotnull(d_date#2759) AND (d_date#2759 >= 1998-08-04)) AND (d_date#2759 <= 1998-08-18)) AND isnotnull(d_date_sk#2757))
                   :              :                       +- FileScan parquet [d_date_sk#2757,d_date#2759] Batched: true, DataFilters: [isnotnull(d_date#2759), (d_date#2759 >= 1998-08-04), (d_date#2759 <= 1998-08-18), isnotnull(d_da..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_date), GreaterThanOrEqual(d_date,1998-08-04), LessThanOrEqual(d_date,1998-08-18), Is..., ReadSchema: struct<d_date_sk:int,d_date:date>
                   :              +- Sort [cp_catalog_page_sk#204 ASC NULLS FIRST], false, 0
-                  :                 +- Exchange hashpartitioning(cp_catalog_page_sk#204, 200), ENSURE_REQUIREMENTS, [id=#9784]
+                  :                 +- Exchange hashpartitioning(cp_catalog_page_sk#204, 200), ENSURE_REQUIREMENTS, [id=#10528]
                   :                    +- Filter isnotnull(cp_catalog_page_sk#204)
                   :                       +- FileScan parquet [cp_catalog_page_sk#204,cp_catalog_page_id#205] Batched: true, DataFilters: [isnotnull(cp_catalog_page_sk#204)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/catalog_page.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cp_catalog_page_sk)], ReadSchema: struct<cp_catalog_page_sk:int,cp_catalog_page_id:string>
                   +- HashAggregate(keys=[web_site_id#799], functions=[sum(UnscaledValue(sales_price#2743)), sum(UnscaledValue(return_amt#2745)), sum(UnscaledValue(profit#2744)), sum(UnscaledValue(net_loss#2746))], output=[sales#2753, returns#2755, profit#2705, channel#2874, id#2875])
-                     +- Exchange hashpartitioning(web_site_id#799, 200), ENSURE_REQUIREMENTS, [id=#9819]
+                     +- Exchange hashpartitioning(web_site_id#799, 200), ENSURE_REQUIREMENTS, [id=#10563]
                         +- HashAggregate(keys=[web_site_id#799], functions=[partial_sum(UnscaledValue(sales_price#2743)), partial_sum(UnscaledValue(return_amt#2745)), partial_sum(UnscaledValue(profit#2744)), partial_sum(UnscaledValue(net_loss#2746))], output=[web_site_id#799, sum#2908L, sum#2909L, sum#2910L, sum#2911L])
                            +- Project [sales_price#2743, profit#2744, return_amt#2745, net_loss#2746, web_site_id#799]
                               +- SortMergeJoin [wsr_web_site_sk#2741], [web_site_sk#798], Inner
                                  :- Sort [wsr_web_site_sk#2741 ASC NULLS FIRST], false, 0
-                                 :  +- Exchange hashpartitioning(wsr_web_site_sk#2741, 200), ENSURE_REQUIREMENTS, [id=#9811]
+                                 :  +- Exchange hashpartitioning(wsr_web_site_sk#2741, 200), ENSURE_REQUIREMENTS, [id=#10555]
                                  :     +- Project [wsr_web_site_sk#2741, sales_price#2743, profit#2744, return_amt#2745, net_loss#2746]
                                  :        +- SortMergeJoin [date_sk#2742], [d_date_sk#2819], Inner
                                  :           :- Sort [date_sk#2742 ASC NULLS FIRST], false, 0
-                                 :           :  +- Exchange hashpartitioning(date_sk#2742, 200), ENSURE_REQUIREMENTS, [id=#9803]
+                                 :           :  +- Exchange hashpartitioning(date_sk#2742, 200), ENSURE_REQUIREMENTS, [id=#10547]
                                  :           :     +- Union
                                  :           :        :- Project [ws_web_site_sk#489 AS wsr_web_site_sk#2741, ws_sold_date_sk#476 AS date_sk#2742, ws_ext_sales_price#499 AS sales_price#2743, ws_net_profit#509 AS profit#2744, 0.00 AS return_amt#2745, 0.00 AS net_loss#2746]
                                  :           :        :  +- Filter (isnotnull(ws_sold_date_sk#476) AND isnotnull(ws_web_site_sk#489))
@@ -212,19 +212,19 @@ AdaptiveSparkPlan isFinalPlan=true
                                  :           :        +- Project [ws_web_site_sk#2798 AS wsr_web_site_sk#2747, wr_returned_date_sk#298 AS date_sk#2748, 0.00 AS sales_price#2749, 0.00 AS profit#2750, wr_return_amt#313 AS return_amt#2751, wr_net_loss#321 AS net_loss#2752]
                                  :           :           +- SortMergeJoin [wr_item_sk#300, wr_order_number#311L], [ws_item_sk#2788, ws_order_number#2802L], Inner
                                  :           :              :- Sort [wr_item_sk#300 ASC NULLS FIRST, wr_order_number#311L ASC NULLS FIRST], false, 0
-                                 :           :              :  +- Exchange hashpartitioning(wr_item_sk#300, wr_order_number#311L, 200), ENSURE_REQUIREMENTS, [id=#9794]
+                                 :           :              :  +- Exchange hashpartitioning(wr_item_sk#300, wr_order_number#311L, 200), ENSURE_REQUIREMENTS, [id=#10538]
                                  :           :              :     +- Filter isnotnull(wr_returned_date_sk#298)
                                  :           :              :        +- FileScan parquet [wr_returned_date_sk#298,wr_item_sk#300,wr_order_number#311L,wr_return_amt#313,wr_net_loss#321] Batched: true, DataFilters: [isnotnull(wr_returned_date_sk#298)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(wr_returned_date_sk)], ReadSchema: struct<wr_returned_date_sk:int,wr_item_sk:int,wr_order_number:bigint,wr_return_amt:decimal(7,2),w...
                                  :           :              +- Sort [ws_item_sk#2788 ASC NULLS FIRST, ws_order_number#2802L ASC NULLS FIRST], false, 0
-                                 :           :                 +- Exchange hashpartitioning(ws_item_sk#2788, ws_order_number#2802L, 200), ENSURE_REQUIREMENTS, [id=#9795]
+                                 :           :                 +- Exchange hashpartitioning(ws_item_sk#2788, ws_order_number#2802L, 200), ENSURE_REQUIREMENTS, [id=#10539]
                                  :           :                    +- Filter ((isnotnull(ws_item_sk#2788) AND isnotnull(ws_order_number#2802L)) AND isnotnull(ws_web_site_sk#2798))
                                  :           :                       +- FileScan parquet [ws_item_sk#2788,ws_web_site_sk#2798,ws_order_number#2802L] Batched: true, DataFilters: [isnotnull(ws_item_sk#2788), isnotnull(ws_order_number#2802L), isnotnull(ws_web_site_sk#2798)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_sales.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ws_item_sk), IsNotNull(ws_order_number), IsNotNull(ws_web_site_sk)], ReadSchema: struct<ws_item_sk:int,ws_web_site_sk:int,ws_order_number:bigint>
                                  :           +- Sort [d_date_sk#2819 ASC NULLS FIRST], false, 0
-                                 :              +- Exchange hashpartitioning(d_date_sk#2819, 200), ENSURE_REQUIREMENTS, [id=#9804]
+                                 :              +- Exchange hashpartitioning(d_date_sk#2819, 200), ENSURE_REQUIREMENTS, [id=#10548]
                                  :                 +- Project [d_date_sk#2819]
                                  :                    +- Filter (((isnotnull(d_date#2821) AND (d_date#2821 >= 1998-08-04)) AND (d_date#2821 <= 1998-08-18)) AND isnotnull(d_date_sk#2819))
                                  :                       +- FileScan parquet [d_date_sk#2819,d_date#2821] Batched: true, DataFilters: [isnotnull(d_date#2821), (d_date#2821 >= 1998-08-04), (d_date#2821 <= 1998-08-18), isnotnull(d_da..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_date), GreaterThanOrEqual(d_date,1998-08-04), LessThanOrEqual(d_date,1998-08-18), Is..., ReadSchema: struct<d_date_sk:int,d_date:date>
                                  +- Sort [web_site_sk#798 ASC NULLS FIRST], false, 0
-                                    +- Exchange hashpartitioning(web_site_sk#798, 200), ENSURE_REQUIREMENTS, [id=#9812]
+                                    +- Exchange hashpartitioning(web_site_sk#798, 200), ENSURE_REQUIREMENTS, [id=#10556]
                                        +- Filter isnotnull(web_site_sk#798)
                                           +- FileScan parquet [web_site_sk#798,web_site_id#799] Batched: true, DataFilters: [isnotnull(web_site_sk#798)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/web_site.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(web_site_sk)], ReadSchema: struct<web_site_sk:int,web_site_id:string>

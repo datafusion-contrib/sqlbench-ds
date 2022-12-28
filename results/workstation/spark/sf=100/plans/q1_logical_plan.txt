@@ -8,28 +8,28 @@ GlobalLimit 100
             :     :- Project [ctr_customer_sk#851, ctr_store_sk#852]
             :     :  +- Join Inner, ((cast(ctr_total_return#853 as decimal(24,7)) > (avg(ctr_total_return) * 1.2)#856) AND (ctr_store_sk#852 = ctr_store_sk#852#858))
             :     :     :- Filter isnotnull(ctr_total_return#853)
-            :     :     :  +- Aggregate [sr_customer_sk#139, sr_store_sk#143], [sr_customer_sk#139 AS ctr_customer_sk#851, sr_store_sk#143 AS ctr_store_sk#852, MakeDecimal(sum(UnscaledValue(SR_FEE#150)),17,2) AS ctr_total_return#853]
-            :     :     :     +- Project [sr_customer_sk#139, sr_store_sk#143, sr_fee#150]
+            :     :     :  +- Aggregate [sr_customer_sk#139, sr_store_sk#143], [sr_customer_sk#139 AS ctr_customer_sk#851, sr_store_sk#143 AS ctr_store_sk#852, MakeDecimal(sum(UnscaledValue(SR_RETURN_AMT_INC_TAX#149)),17,2) AS ctr_total_return#853]
+            :     :     :     +- Project [sr_customer_sk#139, sr_store_sk#143, sr_return_amt_inc_tax#149]
             :     :     :        +- Join Inner, (sr_returned_date_sk#136 = d_date_sk#612)
-            :     :     :           :- Project [sr_returned_date_sk#136, sr_customer_sk#139, sr_store_sk#143, sr_fee#150]
+            :     :     :           :- Project [sr_returned_date_sk#136, sr_customer_sk#139, sr_store_sk#143, sr_return_amt_inc_tax#149]
             :     :     :           :  +- Filter (isnotnull(sr_returned_date_sk#136) AND (isnotnull(sr_store_sk#143) AND isnotnull(sr_customer_sk#139)))
             :     :     :           :     +- Relation [sr_returned_date_sk#136,sr_return_time_sk#137,sr_item_sk#138,sr_customer_sk#139,sr_cdemo_sk#140,sr_hdemo_sk#141,sr_addr_sk#142,sr_store_sk#143,sr_reason_sk#144,sr_ticket_number#145L,sr_return_quantity#146,sr_return_amt#147,sr_return_tax#148,sr_return_amt_inc_tax#149,sr_fee#150,sr_return_ship_cost#151,sr_refunded_cash#152,sr_reversed_charge#153,sr_store_credit#154,sr_net_loss#155] parquet
             :     :     :           +- Project [d_date_sk#612]
-            :     :     :              +- Filter ((isnotnull(d_year#618) AND (d_year#618 = 2000)) AND isnotnull(d_date_sk#612))
+            :     :     :              +- Filter ((isnotnull(d_year#618) AND (d_year#618 = 1999)) AND isnotnull(d_date_sk#612))
             :     :     :                 +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
             :     :     +- Filter isnotnull((avg(ctr_total_return) * 1.2)#856)
             :     :        +- Aggregate [ctr_store_sk#852], [CheckOverflow((promote_precision(avg(ctr_total_return#853)) * 1.200000), DecimalType(24,7), true) AS (avg(ctr_total_return) * 1.2)#856, ctr_store_sk#852 AS ctr_store_sk#852#858]
-            :     :           +- Aggregate [sr_customer_sk#139, sr_store_sk#143], [sr_store_sk#143 AS ctr_store_sk#852, MakeDecimal(sum(UnscaledValue(SR_FEE#150)),17,2) AS ctr_total_return#853]
-            :     :              +- Project [sr_customer_sk#139, sr_store_sk#143, sr_fee#150]
+            :     :           +- Aggregate [sr_customer_sk#139, sr_store_sk#143], [sr_store_sk#143 AS ctr_store_sk#852, MakeDecimal(sum(UnscaledValue(SR_RETURN_AMT_INC_TAX#149)),17,2) AS ctr_total_return#853]
+            :     :              +- Project [sr_customer_sk#139, sr_store_sk#143, sr_return_amt_inc_tax#149]
             :     :                 +- Join Inner, (sr_returned_date_sk#136 = d_date_sk#612)
-            :     :                    :- Project [sr_returned_date_sk#136, sr_customer_sk#139, sr_store_sk#143, sr_fee#150]
+            :     :                    :- Project [sr_returned_date_sk#136, sr_customer_sk#139, sr_store_sk#143, sr_return_amt_inc_tax#149]
             :     :                    :  +- Filter (isnotnull(sr_returned_date_sk#136) AND isnotnull(sr_store_sk#143))
             :     :                    :     +- Relation [sr_returned_date_sk#136,sr_return_time_sk#137,sr_item_sk#138,sr_customer_sk#139,sr_cdemo_sk#140,sr_hdemo_sk#141,sr_addr_sk#142,sr_store_sk#143,sr_reason_sk#144,sr_ticket_number#145L,sr_return_quantity#146,sr_return_amt#147,sr_return_tax#148,sr_return_amt_inc_tax#149,sr_fee#150,sr_return_ship_cost#151,sr_refunded_cash#152,sr_reversed_charge#153,sr_store_credit#154,sr_net_loss#155] parquet
             :     :                    +- Project [d_date_sk#612]
-            :     :                       +- Filter ((isnotnull(d_year#618) AND (d_year#618 = 2000)) AND isnotnull(d_date_sk#612))
+            :     :                       +- Filter ((isnotnull(d_year#618) AND (d_year#618 = 1999)) AND isnotnull(d_date_sk#612))
             :     :                          +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
             :     +- Project [s_store_sk#712]
-            :        +- Filter ((isnotnull(s_state#736) AND (s_state#736 = SD)) AND isnotnull(s_store_sk#712))
+            :        +- Filter ((isnotnull(s_state#736) AND (s_state#736 = OH)) AND isnotnull(s_store_sk#712))
             :           +- Relation [s_store_sk#712,s_store_id#713,s_rec_start_date#714,s_rec_end_date#715,s_closed_date_sk#716,s_store_name#717,s_number_employees#718,s_floor_space#719,s_hours#720,s_manager#721,s_market_id#722,s_geography_class#723,s_market_desc#724,s_market_manager#725,s_division_id#726,s_division_name#727,s_company_id#728,s_company_name#729,s_street_number#730,s_street_name#731,s_street_type#732,s_suite_number#733,s_city#734,s_county#735,... 5 more fields] parquet
             +- Project [c_customer_sk#400, c_customer_id#401]
                +- Filter isnotnull(c_customer_sk#400)

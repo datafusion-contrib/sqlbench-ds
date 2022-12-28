@@ -5,44 +5,43 @@ inputs:
 - title: "LocalLimit (unknown)"
   operator: "LocalLimit"
   inputs:
-  - title: "Projection: ss_sold_year#17486, ss_item_sk#254, ss_customer_sk#255, ratio#17469,\
-      \ store_qty#17470L, store_wholesale_cost#17471, store_sales_price#17472, other_chan_qty#17473L,\
-      \ other_chan_wholesale_cost#17474, other_chan_sales_price#17475"
+  - title: "Projection: ss_customer_sk#255, ratio#20046, store_qty#20047L, store_wholesale_cost#20048,\
+      \ store_sales_price#20049, other_chan_qty#20050L, other_chan_wholesale_cost#20051,\
+      \ other_chan_sales_price#20052"
     operator: "projection"
     inputs:
     - title: "Sort (unknown)"
       operator: "Sort"
       inputs:
-      - title: "Projection: ss_sold_year#17486, ss_item_sk#254, ss_customer_sk#255,\
-          \ round((cast(ss_qty#17487L as double) / cast((coalesce(ws_qty#17478L, 0)\
-          \ + coalesce(cs_qty#17483L, 0)) as double)), 2) AS ratio#17469, ss_qty#17487L\
-          \ AS store_qty#17470L, ss_wc#17488 AS store_wholesale_cost#17471, ss_sp#17489\
-          \ AS store_sales_price#17472, (coalesce(ws_qty#17478L, 0) + coalesce(cs_qty#17483L,\
-          \ 0)) AS other_chan_qty#17473L, CheckOverflow((promote_precision(cast(coalesce(ws_wc#17479,\
-          \ 0.00) as decimal(18,2))) + promote_precision(cast(coalesce(cs_wc#17484,\
-          \ 0.00) as decimal(18,2)))), DecimalType(18,2), true) AS other_chan_wholesale_cost#17474,\
-          \ CheckOverflow((promote_precision(cast(coalesce(ws_sp#17480, 0.00) as decimal(18,2)))\
-          \ + promote_precision(cast(coalesce(cs_sp#17485, 0.00) as decimal(18,2)))),\
-          \ DecimalType(18,2), true) AS other_chan_sales_price#17475, ss_qty#17487L,\
-          \ ss_wc#17488, ss_sp#17489"
+      - title: "Projection: ss_customer_sk#255, round((cast(ss_qty#20064L as double)\
+          \ / cast((coalesce(ws_qty#20055L, 0) + coalesce(cs_qty#20060L, 0)) as double)),\
+          \ 2) AS ratio#20046, ss_qty#20064L AS store_qty#20047L, ss_wc#20065 AS store_wholesale_cost#20048,\
+          \ ss_sp#20066 AS store_sales_price#20049, (coalesce(ws_qty#20055L, 0) +\
+          \ coalesce(cs_qty#20060L, 0)) AS other_chan_qty#20050L, CheckOverflow((promote_precision(cast(coalesce(ws_wc#20056,\
+          \ 0.00) as decimal(18,2))) + promote_precision(cast(coalesce(cs_wc#20061,\
+          \ 0.00) as decimal(18,2)))), DecimalType(18,2), true) AS other_chan_wholesale_cost#20051,\
+          \ CheckOverflow((promote_precision(cast(coalesce(ws_sp#20057, 0.00) as decimal(18,2)))\
+          \ + promote_precision(cast(coalesce(cs_sp#20062, 0.00) as decimal(18,2)))),\
+          \ DecimalType(18,2), true) AS other_chan_sales_price#20052, ss_qty#20064L,\
+          \ ss_wc#20065, ss_sp#20066"
         operator: "projection"
         inputs:
-        - title: "Filter: ((coalesce(ws_qty#17478L, 0) > 0) OR (coalesce(cs_qty#17483L,\
+        - title: "Filter: ((coalesce(ws_qty#20055L, 0) > 0) OR (coalesce(cs_qty#20060L,\
             \ 0) > 0))"
           operator: "filter"
           inputs:
-          - title: "LeftOuter Join: Some((((cs_sold_year#17481 = ss_sold_year#17486)\
-              \ AND (cs_item_sk#559 = ss_item_sk#254)) AND (cs_customer_sk#17482 =\
+          - title: "LeftOuter Join: Some((((cs_sold_year#20058 = ss_sold_year#20063)\
+              \ AND (cs_item_sk#559 = ss_item_sk#254)) AND (cs_customer_sk#20059 =\
               \ ss_customer_sk#255)))"
             operator: "join"
             inputs:
-            - title: "Projection: ss_sold_year#17486, ss_item_sk#254, ss_customer_sk#255,\
-                \ ss_qty#17487L, ss_wc#17488, ss_sp#17489, ws_qty#17478L, ws_wc#17479,\
-                \ ws_sp#17480"
+            - title: "Projection: ss_sold_year#20063, ss_item_sk#254, ss_customer_sk#255,\
+                \ ss_qty#20064L, ss_wc#20065, ss_sp#20066, ws_qty#20055L, ws_wc#20056,\
+                \ ws_sp#20057"
               operator: "projection"
               inputs:
-              - title: "LeftOuter Join: Some((((ws_sold_year#17476 = ss_sold_year#17486)\
-                  \ AND (ws_item_sk#479 = ss_item_sk#254)) AND (ws_customer_sk#17477\
+              - title: "LeftOuter Join: Some((((ws_sold_year#20053 = ss_sold_year#20063)\
+                  \ AND (ws_item_sk#479 = ss_item_sk#254)) AND (ws_customer_sk#20054\
                   \ = ss_customer_sk#255)))"
                 operator: "join"
                 inputs:
@@ -50,10 +49,10 @@ inputs:
                   operator: "Aggregate"
                   inputs:
                   - title: "Projection: ss_item_sk#254, ss_customer_sk#255, ss_quantity#262,\
-                      \ ss_wholesale_cost#263, ss_sales_price#265, d_year#17524"
+                      \ ss_wholesale_cost#263, ss_sales_price#265, d_year#20101"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#17518))"
+                    - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#20095))"
                       operator: "join"
                       inputs:
                       - title: "Projection: ss_sold_date_sk#252, ss_item_sk#254, ss_customer_sk#255,\
@@ -88,11 +87,11 @@ inputs:
                                 - title: "store_returns.parquet"
                                   operator: "scan"
                                   inputs: []
-                      - title: "Projection: d_date_sk#17518, d_year#17524"
+                      - title: "Projection: d_date_sk#20095, d_year#20101"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: ((isnotnull(d_year#17524) AND (d_year#17524\
-                            \ = 2000)) AND isnotnull(d_date_sk#17518))"
+                        - title: "Filter: ((isnotnull(d_year#20101) AND (d_year#20101\
+                            \ = 2001)) AND isnotnull(d_date_sk#20095))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
@@ -145,7 +144,7 @@ inputs:
                         operator: "projection"
                         inputs:
                         - title: "Filter: (isnotnull(d_date_sk#612) AND ((d_year#618\
-                            \ = 2000) AND isnotnull(d_year#618)))"
+                            \ = 2001) AND isnotnull(d_year#618)))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
@@ -155,10 +154,10 @@ inputs:
               operator: "Aggregate"
               inputs:
               - title: "Projection: cs_bill_customer_sk#547, cs_item_sk#559, cs_quantity#562,\
-                  \ cs_wholesale_cost#563, cs_sales_price#565, d_year#17496"
+                  \ cs_wholesale_cost#563, cs_sales_price#565, d_year#20073"
                 operator: "projection"
                 inputs:
-                - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#17490))"
+                - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#20067))"
                   operator: "join"
                   inputs:
                   - title: "Projection: cs_sold_date_sk#544, cs_bill_customer_sk#547,\
@@ -193,11 +192,11 @@ inputs:
                             - title: "catalog_returns.parquet"
                               operator: "scan"
                               inputs: []
-                  - title: "Projection: d_date_sk#17490, d_year#17496"
+                  - title: "Projection: d_date_sk#20067, d_year#20073"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: (isnotnull(d_date_sk#17490) AND ((d_year#17496\
-                        \ = 2000) AND isnotnull(d_year#17496)))"
+                    - title: "Filter: (isnotnull(d_date_sk#20067) AND ((d_year#20073\
+                        \ = 2001) AND isnotnull(d_year#20073)))"
                       operator: "filter"
                       inputs:
                       - title: "date_dim.parquet"

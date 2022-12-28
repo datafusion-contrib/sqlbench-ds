@@ -8,62 +8,62 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: item_id#11175, ss_item_rev#11176, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(ss_item_rev#11176\
-        \ as decimal(23,6))) / promote_precision(CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#11176\
-        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#11180 as decimal(18,2)))),\
-        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#11184\
+    - title: "Projection: item_id#13386, ss_item_rev#13387, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(ss_item_rev#13387\
+        \ as decimal(23,6))) / promote_precision(CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#13387\
+        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#13391 as decimal(18,2)))),\
+        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#13395\
         \ as decimal(19,2)))), DecimalType(19,2), true)) / 3.00), DecimalType(23,6),\
         \ true))), DecimalType(38,17), true)) * 100.00000000000000000), DecimalType(38,13),\
-        \ true) AS ss_dev#11171, cs_item_rev#11180, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(cs_item_rev#11180\
-        \ as decimal(23,6))) / promote_precision(CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#11176\
-        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#11180 as decimal(18,2)))),\
-        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#11184\
+        \ true) AS ss_dev#13382, cs_item_rev#13391, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(cs_item_rev#13391\
+        \ as decimal(23,6))) / promote_precision(CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#13387\
+        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#13391 as decimal(18,2)))),\
+        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#13395\
         \ as decimal(19,2)))), DecimalType(19,2), true)) / 3.00), DecimalType(23,6),\
         \ true))), DecimalType(38,17), true)) * 100.00000000000000000), DecimalType(38,13),\
-        \ true) AS cs_dev#11172, ws_item_rev#11184, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(ws_item_rev#11184\
-        \ as decimal(23,6))) / promote_precision(CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#11176\
-        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#11180 as decimal(18,2)))),\
-        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#11184\
+        \ true) AS cs_dev#13383, ws_item_rev#13395, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(ws_item_rev#13395\
+        \ as decimal(23,6))) / promote_precision(CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#13387\
+        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#13391 as decimal(18,2)))),\
+        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#13395\
         \ as decimal(19,2)))), DecimalType(19,2), true)) / 3.00), DecimalType(23,6),\
         \ true))), DecimalType(38,17), true)) * 100.00000000000000000), DecimalType(38,13),\
-        \ true) AS ws_dev#11173, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#11176\
-        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#11180 as decimal(18,2)))),\
-        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#11184\
+        \ true) AS ws_dev#13384, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(CheckOverflow((promote_precision(cast(ss_item_rev#13387\
+        \ as decimal(18,2))) + promote_precision(cast(cs_item_rev#13391 as decimal(18,2)))),\
+        \ DecimalType(18,2), true) as decimal(19,2))) + promote_precision(cast(ws_item_rev#13395\
         \ as decimal(19,2)))), DecimalType(19,2), true)) / 3.00), DecimalType(23,6),\
-        \ true) AS average#11174"
+        \ true) AS average#13385"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some((((((((((item_id#11175 = item_id#11183) AND (cast(ss_item_rev#11176\
-          \ as decimal(19,3)) >= CheckOverflow((0.90 * promote_precision(ws_item_rev#11184)),\
-          \ DecimalType(19,3), true))) AND (cast(ss_item_rev#11176 as decimal(20,3))\
-          \ <= CheckOverflow((1.10 * promote_precision(ws_item_rev#11184)), DecimalType(20,3),\
-          \ true))) AND (cast(cs_item_rev#11180 as decimal(19,3)) >= CheckOverflow((0.90\
-          \ * promote_precision(ws_item_rev#11184)), DecimalType(19,3), true))) AND\
-          \ (cast(cs_item_rev#11180 as decimal(20,3)) <= CheckOverflow((1.10 * promote_precision(ws_item_rev#11184)),\
-          \ DecimalType(20,3), true))) AND (cast(ws_item_rev#11184 as decimal(19,3))\
-          \ >= CheckOverflow((0.90 * promote_precision(ss_item_rev#11176)), DecimalType(19,3),\
-          \ true))) AND (cast(ws_item_rev#11184 as decimal(20,3)) <= CheckOverflow((1.10\
-          \ * promote_precision(ss_item_rev#11176)), DecimalType(20,3), true))) AND\
-          \ (cast(ws_item_rev#11184 as decimal(19,3)) >= CheckOverflow((0.90 * promote_precision(cs_item_rev#11180)),\
-          \ DecimalType(19,3), true))) AND (cast(ws_item_rev#11184 as decimal(20,3))\
-          \ <= CheckOverflow((1.10 * promote_precision(cs_item_rev#11180)), DecimalType(20,3),\
+      - title: "Inner Join: Some((((((((((item_id#13386 = item_id#13394) AND (cast(ss_item_rev#13387\
+          \ as decimal(19,3)) >= CheckOverflow((0.90 * promote_precision(ws_item_rev#13395)),\
+          \ DecimalType(19,3), true))) AND (cast(ss_item_rev#13387 as decimal(20,3))\
+          \ <= CheckOverflow((1.10 * promote_precision(ws_item_rev#13395)), DecimalType(20,3),\
+          \ true))) AND (cast(cs_item_rev#13391 as decimal(19,3)) >= CheckOverflow((0.90\
+          \ * promote_precision(ws_item_rev#13395)), DecimalType(19,3), true))) AND\
+          \ (cast(cs_item_rev#13391 as decimal(20,3)) <= CheckOverflow((1.10 * promote_precision(ws_item_rev#13395)),\
+          \ DecimalType(20,3), true))) AND (cast(ws_item_rev#13395 as decimal(19,3))\
+          \ >= CheckOverflow((0.90 * promote_precision(ss_item_rev#13387)), DecimalType(19,3),\
+          \ true))) AND (cast(ws_item_rev#13395 as decimal(20,3)) <= CheckOverflow((1.10\
+          \ * promote_precision(ss_item_rev#13387)), DecimalType(20,3), true))) AND\
+          \ (cast(ws_item_rev#13395 as decimal(19,3)) >= CheckOverflow((0.90 * promote_precision(cs_item_rev#13391)),\
+          \ DecimalType(19,3), true))) AND (cast(ws_item_rev#13395 as decimal(20,3))\
+          \ <= CheckOverflow((1.10 * promote_precision(cs_item_rev#13391)), DecimalType(20,3),\
           \ true))))"
         operator: "join"
         inputs:
-        - title: "Projection: item_id#11175, ss_item_rev#11176, cs_item_rev#11180"
+        - title: "Projection: item_id#13386, ss_item_rev#13387, cs_item_rev#13391"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((((((item_id#11175 = item_id#11179) AND (cast(ss_item_rev#11176\
-              \ as decimal(19,3)) >= CheckOverflow((0.90 * promote_precision(cs_item_rev#11180)),\
-              \ DecimalType(19,3), true))) AND (cast(ss_item_rev#11176 as decimal(20,3))\
-              \ <= CheckOverflow((1.10 * promote_precision(cs_item_rev#11180)), DecimalType(20,3),\
-              \ true))) AND (cast(cs_item_rev#11180 as decimal(19,3)) >= CheckOverflow((0.90\
-              \ * promote_precision(ss_item_rev#11176)), DecimalType(19,3), true)))\
-              \ AND (cast(cs_item_rev#11180 as decimal(20,3)) <= CheckOverflow((1.10\
-              \ * promote_precision(ss_item_rev#11176)), DecimalType(20,3), true))))"
+          - title: "Inner Join: Some((((((item_id#13386 = item_id#13390) AND (cast(ss_item_rev#13387\
+              \ as decimal(19,3)) >= CheckOverflow((0.90 * promote_precision(cs_item_rev#13391)),\
+              \ DecimalType(19,3), true))) AND (cast(ss_item_rev#13387 as decimal(20,3))\
+              \ <= CheckOverflow((1.10 * promote_precision(cs_item_rev#13391)), DecimalType(20,3),\
+              \ true))) AND (cast(cs_item_rev#13391 as decimal(19,3)) >= CheckOverflow((0.90\
+              \ * promote_precision(ss_item_rev#13387)), DecimalType(19,3), true)))\
+              \ AND (cast(cs_item_rev#13391 as decimal(20,3)) <= CheckOverflow((1.10\
+              \ * promote_precision(ss_item_rev#13387)), DecimalType(20,3), true))))"
             operator: "join"
             inputs:
-            - title: "Filter: isnotnull(ss_item_rev#11176)"
+            - title: "Filter: isnotnull(ss_item_rev#13387)"
               operator: "filter"
               inputs:
               - title: "Aggregate (unknown)"
@@ -104,7 +104,7 @@ inputs:
                     - title: "Projection: d_date_sk#612"
                       operator: "projection"
                       inputs:
-                      - title: "LeftSemi Join: Some((d_date#614 = d_date#11373))"
+                      - title: "LeftSemi Join: Some((d_date#614 = d_date#13584))"
                         operator: "join"
                         inputs:
                         - title: "Projection: d_date_sk#612, d_date#614"
@@ -116,33 +116,33 @@ inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date#11373"
+                        - title: "Projection: d_date#13584"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: (isnotnull(d_week_seq#11375) AND (d_week_seq#11375\
-                              \ = scalar-subquery#11177 []))"
+                          - title: "Filter: (isnotnull(d_week_seq#13586) AND (d_week_seq#13586\
+                              \ = scalar-subquery#13388 []))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-            - title: "Filter: isnotnull(cs_item_rev#11180)"
+            - title: "Filter: isnotnull(cs_item_rev#13391)"
               operator: "filter"
               inputs:
               - title: "Aggregate (unknown)"
                 operator: "Aggregate"
                 inputs:
-                - title: "Projection: cs_ext_sales_price#567, i_item_id#11188"
+                - title: "Projection: cs_ext_sales_price#567, i_item_id#13399"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#11209))"
+                  - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#13420))"
                     operator: "join"
                     inputs:
                     - title: "Projection: cs_sold_date_sk#544, cs_ext_sales_price#567,\
-                        \ i_item_id#11188"
+                        \ i_item_id#13399"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#11187))"
+                      - title: "Inner Join: Some((cs_item_sk#559 = i_item_sk#13398))"
                         operator: "join"
                         inputs:
                         - title: "Projection: cs_sold_date_sk#544, cs_item_sk#559,\
@@ -155,57 +155,57 @@ inputs:
                             - title: "catalog_sales.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: i_item_sk#11187, i_item_id#11188"
+                        - title: "Projection: i_item_sk#13398, i_item_id#13399"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: (isnotnull(i_item_sk#11187) AND isnotnull(i_item_id#11188))"
+                          - title: "Filter: (isnotnull(i_item_sk#13398) AND isnotnull(i_item_id#13399))"
                             operator: "filter"
                             inputs:
                             - title: "item.parquet"
                               operator: "scan"
                               inputs: []
-                    - title: "Projection: d_date_sk#11209"
+                    - title: "Projection: d_date_sk#13420"
                       operator: "projection"
                       inputs:
-                      - title: "LeftSemi Join: Some((d_date#11211 = d_date#11401))"
+                      - title: "LeftSemi Join: Some((d_date#13422 = d_date#13612))"
                         operator: "join"
                         inputs:
-                        - title: "Projection: d_date_sk#11209, d_date#11211"
+                        - title: "Projection: d_date_sk#13420, d_date#13422"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: isnotnull(d_date_sk#11209)"
+                          - title: "Filter: isnotnull(d_date_sk#13420)"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date#11401"
+                        - title: "Projection: d_date#13612"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: (isnotnull(d_week_seq#11403) AND (d_week_seq#11403\
-                              \ = scalar-subquery#11181 []))"
+                          - title: "Filter: (isnotnull(d_week_seq#13614) AND (d_week_seq#13614\
+                              \ = scalar-subquery#13392 []))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
                               operator: "scan"
                               inputs: []
-        - title: "Filter: isnotnull(ws_item_rev#11184)"
+        - title: "Filter: isnotnull(ws_item_rev#13395)"
           operator: "filter"
           inputs:
           - title: "Aggregate (unknown)"
             operator: "Aggregate"
             inputs:
-            - title: "Projection: ws_ext_sales_price#499, i_item_id#11238"
+            - title: "Projection: ws_ext_sales_price#499, i_item_id#13449"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#11259))"
+              - title: "Inner Join: Some((ws_sold_date_sk#476 = d_date_sk#13470))"
                 operator: "join"
                 inputs:
                 - title: "Projection: ws_sold_date_sk#476, ws_ext_sales_price#499,\
-                    \ i_item_id#11238"
+                    \ i_item_id#13449"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#11237))"
+                  - title: "Inner Join: Some((ws_item_sk#479 = i_item_sk#13448))"
                     operator: "join"
                     inputs:
                     - title: "Projection: ws_sold_date_sk#476, ws_item_sk#479, ws_ext_sales_price#499"
@@ -217,35 +217,35 @@ inputs:
                         - title: "web_sales.parquet"
                           operator: "scan"
                           inputs: []
-                    - title: "Projection: i_item_sk#11237, i_item_id#11238"
+                    - title: "Projection: i_item_sk#13448, i_item_id#13449"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: (isnotnull(i_item_sk#11237) AND isnotnull(i_item_id#11238))"
+                      - title: "Filter: (isnotnull(i_item_sk#13448) AND isnotnull(i_item_id#13449))"
                         operator: "filter"
                         inputs:
                         - title: "item.parquet"
                           operator: "scan"
                           inputs: []
-                - title: "Projection: d_date_sk#11259"
+                - title: "Projection: d_date_sk#13470"
                   operator: "projection"
                   inputs:
-                  - title: "LeftSemi Join: Some((d_date#11261 = d_date#11429))"
+                  - title: "LeftSemi Join: Some((d_date#13472 = d_date#13640))"
                     operator: "join"
                     inputs:
-                    - title: "Projection: d_date_sk#11259, d_date#11261"
+                    - title: "Projection: d_date_sk#13470, d_date#13472"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: isnotnull(d_date_sk#11259)"
+                      - title: "Filter: isnotnull(d_date_sk#13470)"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"
                           operator: "scan"
                           inputs: []
-                    - title: "Projection: d_date#11429"
+                    - title: "Projection: d_date#13640"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: (isnotnull(d_week_seq#11431) AND (d_week_seq#11431\
-                          \ = scalar-subquery#11185 []))"
+                      - title: "Filter: (isnotnull(d_week_seq#13642) AND (d_week_seq#13642\
+                          \ = scalar-subquery#13396 []))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"

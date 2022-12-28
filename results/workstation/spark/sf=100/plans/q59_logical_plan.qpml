@@ -8,41 +8,41 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: s_store_name1#11496, s_store_id1#11498, d_week_seq1#11497,\
-        \ CheckOverflow((promote_precision(sun_sales1#11499) / promote_precision(sun_sales2#11509)),\
-        \ DecimalType(37,20), true) AS (sun_sales1 / sun_sales2)#11615, CheckOverflow((promote_precision(mon_sales1#11500)\
-        \ / promote_precision(mon_sales2#11510)), DecimalType(37,20), true) AS (mon_sales1\
-        \ / mon_sales2)#11616, CheckOverflow((promote_precision(tue_sales1#11501)\
-        \ / promote_precision(tue_sales2#11511)), DecimalType(37,20), true) AS (tue_sales1\
-        \ / tue_sales2)#11617, CheckOverflow((promote_precision(wed_sales1#11502)\
-        \ / promote_precision(wed_sales2#11512)), DecimalType(37,20), true) AS (wed_sales1\
-        \ / wed_sales2)#11618, CheckOverflow((promote_precision(thu_sales1#11503)\
-        \ / promote_precision(thu_sales2#11513)), DecimalType(37,20), true) AS (thu_sales1\
-        \ / thu_sales2)#11619, CheckOverflow((promote_precision(fri_sales1#11504)\
-        \ / promote_precision(fri_sales2#11514)), DecimalType(37,20), true) AS (fri_sales1\
-        \ / fri_sales2)#11620, CheckOverflow((promote_precision(sat_sales1#11505)\
-        \ / promote_precision(sat_sales2#11515)), DecimalType(37,20), true) AS (sat_sales1\
-        \ / sat_sales2)#11621"
+    - title: "Projection: s_store_name1#13707, s_store_id1#13709, d_week_seq1#13708,\
+        \ CheckOverflow((promote_precision(sun_sales1#13710) / promote_precision(sun_sales2#13720)),\
+        \ DecimalType(37,20), true) AS (sun_sales1 / sun_sales2)#13826, CheckOverflow((promote_precision(mon_sales1#13711)\
+        \ / promote_precision(mon_sales2#13721)), DecimalType(37,20), true) AS (mon_sales1\
+        \ / mon_sales2)#13827, CheckOverflow((promote_precision(tue_sales1#13712)\
+        \ / promote_precision(tue_sales2#13722)), DecimalType(37,20), true) AS (tue_sales1\
+        \ / tue_sales2)#13828, CheckOverflow((promote_precision(wed_sales1#13713)\
+        \ / promote_precision(wed_sales2#13723)), DecimalType(37,20), true) AS (wed_sales1\
+        \ / wed_sales2)#13829, CheckOverflow((promote_precision(thu_sales1#13714)\
+        \ / promote_precision(thu_sales2#13724)), DecimalType(37,20), true) AS (thu_sales1\
+        \ / thu_sales2)#13830, CheckOverflow((promote_precision(fri_sales1#13715)\
+        \ / promote_precision(fri_sales2#13725)), DecimalType(37,20), true) AS (fri_sales1\
+        \ / fri_sales2)#13831, CheckOverflow((promote_precision(sat_sales1#13716)\
+        \ / promote_precision(sat_sales2#13726)), DecimalType(37,20), true) AS (sat_sales1\
+        \ / sat_sales2)#13832"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some(((s_store_id1#11498 = s_store_id2#11508) AND (d_week_seq1#11497\
-          \ = (d_week_seq2#11507 - 52))))"
+      - title: "Inner Join: Some(((s_store_id1#13709 = s_store_id2#13719) AND (d_week_seq1#13708\
+          \ = (d_week_seq2#13718 - 52))))"
         operator: "join"
         inputs:
-        - title: "Projection: s_store_name#717 AS s_store_name1#11496, d_week_seq#616\
-            \ AS d_week_seq1#11497, s_store_id#713 AS s_store_id1#11498, sun_sales#11516\
-            \ AS sun_sales1#11499, mon_sales#11517 AS mon_sales1#11500, tue_sales#11518\
-            \ AS tue_sales1#11501, wed_sales#11519 AS wed_sales1#11502, thu_sales#11520\
-            \ AS thu_sales1#11503, fri_sales#11521 AS fri_sales1#11504, sat_sales#11522\
-            \ AS sat_sales1#11505"
+        - title: "Projection: s_store_name#717 AS s_store_name1#13707, d_week_seq#616\
+            \ AS d_week_seq1#13708, s_store_id#713 AS s_store_id1#13709, sun_sales#13727\
+            \ AS sun_sales1#13710, mon_sales#13728 AS mon_sales1#13711, tue_sales#13729\
+            \ AS tue_sales1#13712, wed_sales#13730 AS wed_sales1#13713, thu_sales#13731\
+            \ AS thu_sales1#13714, fri_sales#13732 AS fri_sales1#13715, sat_sales#13733\
+            \ AS sat_sales1#13716"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((d_week_seq#11527 = d_week_seq#616))"
+          - title: "Inner Join: Some((d_week_seq#13738 = d_week_seq#616))"
             operator: "join"
             inputs:
-            - title: "Projection: d_week_seq#616, sun_sales#11516, mon_sales#11517,\
-                \ tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521,\
-                \ sat_sales#11522, s_store_id#713, s_store_name#717"
+            - title: "Projection: d_week_seq#616, sun_sales#13727, mon_sales#13728,\
+                \ tue_sales#13729, wed_sales#13730, thu_sales#13731, fri_sales#13732,\
+                \ sat_sales#13733, s_store_id#713, s_store_name#717"
               operator: "projection"
               inputs:
               - title: "Inner Join: Some((ss_store_sk#259 = s_store_sk#712))"
@@ -86,32 +86,32 @@ inputs:
                     - title: "store.parquet"
                       operator: "scan"
                       inputs: []
-            - title: "Projection: d_week_seq#11527"
+            - title: "Projection: d_week_seq#13738"
               operator: "projection"
               inputs:
-              - title: "Filter: ((isnotnull(d_month_seq#11526) AND ((d_month_seq#11526\
-                  \ >= 1185) AND (d_month_seq#11526 <= 1196))) AND isnotnull(d_week_seq#11527))"
+              - title: "Filter: ((isnotnull(d_month_seq#13737) AND ((d_month_seq#13737\
+                  \ >= 1183) AND (d_month_seq#13737 <= 1194))) AND isnotnull(d_week_seq#13738))"
                 operator: "filter"
                 inputs:
                 - title: "date_dim.parquet"
                   operator: "scan"
                   inputs: []
-        - title: "Projection: d_week_seq#616 AS d_week_seq2#11507, s_store_id#11552\
-            \ AS s_store_id2#11508, sun_sales#11516 AS sun_sales2#11509, mon_sales#11517\
-            \ AS mon_sales2#11510, tue_sales#11518 AS tue_sales2#11511, wed_sales#11519\
-            \ AS wed_sales2#11512, thu_sales#11520 AS thu_sales2#11513, fri_sales#11521\
-            \ AS fri_sales2#11514, sat_sales#11522 AS sat_sales2#11515"
+        - title: "Projection: d_week_seq#616 AS d_week_seq2#13718, s_store_id#13763\
+            \ AS s_store_id2#13719, sun_sales#13727 AS sun_sales2#13720, mon_sales#13728\
+            \ AS mon_sales2#13721, tue_sales#13729 AS tue_sales2#13722, wed_sales#13730\
+            \ AS wed_sales2#13723, thu_sales#13731 AS thu_sales2#13724, fri_sales#13732\
+            \ AS fri_sales2#13725, sat_sales#13733 AS sat_sales2#13726"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((d_week_seq#11584 = d_week_seq#616))"
+          - title: "Inner Join: Some((d_week_seq#13795 = d_week_seq#616))"
             operator: "join"
             inputs:
-            - title: "Projection: d_week_seq#616, sun_sales#11516, mon_sales#11517,\
-                \ tue_sales#11518, wed_sales#11519, thu_sales#11520, fri_sales#11521,\
-                \ sat_sales#11522, s_store_id#11552"
+            - title: "Projection: d_week_seq#616, sun_sales#13727, mon_sales#13728,\
+                \ tue_sales#13729, wed_sales#13730, thu_sales#13731, fri_sales#13732,\
+                \ sat_sales#13733, s_store_id#13763"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some((ss_store_sk#259 = s_store_sk#11551))"
+              - title: "Inner Join: Some((ss_store_sk#259 = s_store_sk#13762))"
                 operator: "join"
                 inputs:
                 - title: "Aggregate (unknown)"
@@ -143,20 +143,20 @@ inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-                - title: "Projection: s_store_sk#11551, s_store_id#11552"
+                - title: "Projection: s_store_sk#13762, s_store_id#13763"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: (isnotnull(s_store_sk#11551) AND isnotnull(s_store_id#11552))"
+                  - title: "Filter: (isnotnull(s_store_sk#13762) AND isnotnull(s_store_id#13763))"
                     operator: "filter"
                     inputs:
                     - title: "store.parquet"
                       operator: "scan"
                       inputs: []
-            - title: "Projection: d_week_seq#11584"
+            - title: "Projection: d_week_seq#13795"
               operator: "projection"
               inputs:
-              - title: "Filter: ((isnotnull(d_month_seq#11583) AND ((d_month_seq#11583\
-                  \ >= 1197) AND (d_month_seq#11583 <= 1208))) AND isnotnull(d_week_seq#11584))"
+              - title: "Filter: ((isnotnull(d_month_seq#13794) AND ((d_month_seq#13794\
+                  \ >= 1195) AND (d_month_seq#13794 <= 1206))) AND isnotnull(d_week_seq#13795))"
                 operator: "filter"
                 inputs:
                 - title: "date_dim.parquet"

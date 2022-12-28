@@ -11,8 +11,8 @@ class Conf(args: Array[String]) extends ScallopConf(args) {
   val inputPath = opt[String](required = true)
   val queryPath = opt[String](required = true)
   val query = opt[String](required = false)
-  val iterations = opt[Int](required = false, default = Some(1))
   val keepAlive = opt[Boolean](required = false)
+  val skipQuery72 = opt[Boolean](required = false)
   verify()
 }
 
@@ -44,24 +44,27 @@ object Main {
       val df = spark.read.parquet(path)
       df.createTempView(table)
       val duration = System.currentTimeMillis() - start
-      w.write(s"Register $table,$duration\n")
-      w.flush()
     }
     val duration = System.currentTimeMillis() - start
-    w.write(s"Register All Tables,$duration\n")
+    w.write(s"Register Tables,$duration\n")
     w.flush()
 
     if (conf.query.isSupplied) {
       execute(spark, conf.queryPath(), conf.query().toInt, w)
     } else {
       for (query <- 1 to 99) {
-        try {
-          execute(spark, conf.queryPath(), query, w)
-        } catch {
-          case e: Exception =>
-            // don't stop on errors
-            println(s"Query $query FAILED:")
-            e.printStackTrace()
+        if (query == 72 && conf.skipQuery72()) {
+          // skip q72 on most runs because it takes forever without join reordering enabled
+          println("Skipping query 72")
+        } else {
+          try {
+            execute(spark, conf.queryPath(), query, w)
+          } catch {
+            case e: Exception =>
+              // don't stop on errors
+              println(s"Query $query FAILED:")
+              e.printStackTrace()
+          }
         }
       }
     }
@@ -75,7 +78,7 @@ object Main {
   }
 
   private def execute(spark: SparkSession, path: String, query: Int, w: BufferedWriter) {
-    val sqlFile = s"$path/$query.sql"
+    val sqlFile = s"$path/q$query.sql"
     println(s"Executing query $query from $sqlFile")
 
     val source = Source.fromFile(sqlFile)

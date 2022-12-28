@@ -8,16 +8,16 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: c_last_name#409, c_first_name#408, ca_city#15367, bought_city#15357,\
-        \ ss_ticket_number#261L, extended_price#15358, extended_tax#15360, list_price#15359"
+    - title: "Projection: c_last_name#409, c_first_name#408, ca_city#17520, bought_city#17510,\
+        \ ss_ticket_number#261L, extended_price#17511, extended_tax#17513, list_price#17512"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some(((c_current_addr_sk#404 = ca_address_sk#15361) AND\
-          \ NOT (ca_city#15367 = bought_city#15357)))"
+      - title: "Inner Join: Some(((c_current_addr_sk#404 = ca_address_sk#17514) AND\
+          \ NOT (ca_city#17520 = bought_city#17510)))"
         operator: "join"
         inputs:
-        - title: "Projection: ss_ticket_number#261L, bought_city#15357, extended_price#15358,\
-            \ list_price#15359, extended_tax#15360, c_current_addr_sk#404, c_first_name#408,\
+        - title: "Projection: ss_ticket_number#261L, bought_city#17510, extended_price#17511,\
+            \ list_price#17512, extended_tax#17513, c_current_addr_sk#404, c_first_name#408,\
             \ c_last_name#409"
           operator: "projection"
           inputs:
@@ -77,7 +77,7 @@ inputs:
                                 inputs:
                                 - title: "Filter: ((isnotnull(d_dom#621) AND (((d_dom#621\
                                     \ >= 1) AND (d_dom#621 <= 2)) AND d_year#618 IN\
-                                    \ (1999,2000,2001))) AND isnotnull(d_date_sk#612))"
+                                    \ (1998,1999,2000))) AND isnotnull(d_date_sk#612))"
                                   operator: "filter"
                                   inputs:
                                   - title: "date_dim.parquet"
@@ -86,8 +86,8 @@ inputs:
                           - title: "Projection: s_store_sk#712"
                             operator: "projection"
                             inputs:
-                            - title: "Filter: (s_city#734 IN (Oakland,Riverside) AND\
-                                \ isnotnull(s_store_sk#712))"
+                            - title: "Filter: (s_city#734 IN (Five Points,Pleasant\
+                                \ Hill) AND isnotnull(s_store_sk#712))"
                               operator: "filter"
                               inputs:
                               - title: "store.parquet"
@@ -96,8 +96,8 @@ inputs:
                       - title: "Projection: hd_demo_sk#88"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (((hd_dep_count#91 = 6) OR (hd_vehicle_count#92\
-                            \ = 3)) AND isnotnull(hd_demo_sk#88))"
+                        - title: "Filter: (((hd_dep_count#91 = 5) OR (hd_vehicle_count#92\
+                            \ = 0)) AND isnotnull(hd_demo_sk#88))"
                           operator: "filter"
                           inputs:
                           - title: "household_demographics.parquet"
@@ -122,10 +122,10 @@ inputs:
                 - title: "customer.parquet"
                   operator: "scan"
                   inputs: []
-        - title: "Projection: ca_address_sk#15361, ca_city#15367"
+        - title: "Projection: ca_address_sk#17514, ca_city#17520"
           operator: "projection"
           inputs:
-          - title: "Filter: (isnotnull(ca_address_sk#15361) AND isnotnull(ca_city#15367))"
+          - title: "Filter: (isnotnull(ca_address_sk#17514) AND isnotnull(ca_city#17520))"
             operator: "filter"
             inputs:
             - title: "customer_address.parquet"

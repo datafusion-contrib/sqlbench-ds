@@ -8,7 +8,7 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Filter: (rk#15291 <= 100)"
+    - title: "Filter: (rk#17444 <= 100)"
       operator: "filter"
       inputs:
       - title: "Window (unknown)"
@@ -58,7 +58,7 @@ inputs:
                           operator: "projection"
                           inputs:
                           - title: "Filter: ((isnotnull(d_month_seq#615) AND ((d_month_seq#615\
-                              \ >= 1212) AND (d_month_seq#615 <= 1223))) AND isnotnull(d_date_sk#612))"
+                              \ >= 1208) AND (d_month_seq#615 <= 1219))) AND isnotnull(d_date_sk#612))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"

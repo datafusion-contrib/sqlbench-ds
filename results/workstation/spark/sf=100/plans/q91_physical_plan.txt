@@ -1,154 +1,154 @@
 AdaptiveSparkPlan isFinalPlan=true
 +- == Final Plan ==
-   *(27) Sort [Returns_Loss#19444 DESC NULLS LAST], true, 0
+   *(27) Sort [Returns_Loss#22017 DESC NULLS LAST], true, 0
    +- AQEShuffleRead coalesced
       +- ShuffleQueryStage 13
-         +- Exchange rangepartitioning(Returns_Loss#19444 DESC NULLS LAST, 200), ENSURE_REQUIREMENTS, [id=#205651]
-            +- *(26) HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[sum(UnscaledValue(cr_net_loss#372))], output=[Call_Center#19441, Call_Center_Name#19442, Manager#19443, Returns_Loss#19444])
+         +- Exchange rangepartitioning(Returns_Loss#22017 DESC NULLS LAST, 200), ENSURE_REQUIREMENTS, [id=#278726]
+            +- *(26) HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[sum(UnscaledValue(cr_net_loss#372))], output=[Call_Center#22014, Call_Center_Name#22015, Manager#22016, Returns_Loss#22017])
                +- AQEShuffleRead coalesced
                   +- ShuffleQueryStage 12
-                     +- Exchange hashpartitioning(cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, 200), ENSURE_REQUIREMENTS, [id=#205609]
-                        +- *(25) HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[partial_sum(UnscaledValue(cr_net_loss#372))], output=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, sum#19452L])
+                     +- Exchange hashpartitioning(cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, 200), ENSURE_REQUIREMENTS, [id=#278684]
+                        +- *(25) HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[partial_sum(UnscaledValue(cr_net_loss#372))], output=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, sum#22025L])
                            +- *(25) Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, cd_marital_status#224, cd_education_status#225]
                               +- *(25) SortMergeJoin [c_current_hdemo_sk#403], [hd_demo_sk#88], Inner
                                  :- *(23) Sort [c_current_hdemo_sk#403 ASC NULLS FIRST], false, 0
                                  :  +- AQEShuffleRead coalesced
                                  :     +- ShuffleQueryStage 11
-                                 :        +- Exchange hashpartitioning(c_current_hdemo_sk#403, 200), ENSURE_REQUIREMENTS, [id=#205517]
+                                 :        +- Exchange hashpartitioning(c_current_hdemo_sk#403, 200), ENSURE_REQUIREMENTS, [id=#278592]
                                  :           +- *(22) Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, c_current_hdemo_sk#403, cd_marital_status#224, cd_education_status#225]
                                  :              +- *(22) SortMergeJoin [c_current_cdemo_sk#402], [cd_demo_sk#222], Inner
                                  :                 :- *(20) Sort [c_current_cdemo_sk#402 ASC NULLS FIRST], false, 0
                                  :                 :  +- AQEShuffleRead coalesced
                                  :                 :     +- ShuffleQueryStage 10
-                                 :                 :        +- Exchange hashpartitioning(c_current_cdemo_sk#402, 200), ENSURE_REQUIREMENTS, [id=#205400]
+                                 :                 :        +- Exchange hashpartitioning(c_current_cdemo_sk#402, 200), ENSURE_REQUIREMENTS, [id=#278475]
                                  :                 :           +- *(19) Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, c_current_cdemo_sk#402, c_current_hdemo_sk#403]
                                  :                 :              +- *(19) SortMergeJoin [c_current_addr_sk#404], [ca_address_sk#62], Inner
                                  :                 :                 :- *(17) Sort [c_current_addr_sk#404 ASC NULLS FIRST], false, 0
                                  :                 :                 :  +- AQEShuffleRead coalesced
                                  :                 :                 :     +- ShuffleQueryStage 9
-                                 :                 :                 :        +- Exchange hashpartitioning(c_current_addr_sk#404, 200), ENSURE_REQUIREMENTS, [id=#205256]
+                                 :                 :                 :        +- Exchange hashpartitioning(c_current_addr_sk#404, 200), ENSURE_REQUIREMENTS, [id=#278331]
                                  :                 :                 :           +- *(16) Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, c_current_cdemo_sk#402, c_current_hdemo_sk#403, c_current_addr_sk#404]
                                  :                 :                 :              +- *(16) SortMergeJoin [cr_returning_customer_sk#353], [c_customer_sk#400], Inner
                                  :                 :                 :                 :- *(14) Sort [cr_returning_customer_sk#353 ASC NULLS FIRST], false, 0
                                  :                 :                 :                 :  +- AQEShuffleRead coalesced
                                  :                 :                 :                 :     +- ShuffleQueryStage 8
-                                 :                 :                 :                 :        +- Exchange hashpartitioning(cr_returning_customer_sk#353, 200), ENSURE_REQUIREMENTS, [id=#205085]
+                                 :                 :                 :                 :        +- Exchange hashpartitioning(cr_returning_customer_sk#353, 200), ENSURE_REQUIREMENTS, [id=#278160]
                                  :                 :                 :                 :           +- *(13) Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_returning_customer_sk#353, cr_net_loss#372]
                                  :                 :                 :                 :              +- *(13) SortMergeJoin [cr_returned_date_sk#346], [d_date_sk#612], Inner
                                  :                 :                 :                 :                 :- *(11) Sort [cr_returned_date_sk#346 ASC NULLS FIRST], false, 0
                                  :                 :                 :                 :                 :  +- AQEShuffleRead coalesced
                                  :                 :                 :                 :                 :     +- ShuffleQueryStage 7
-                                 :                 :                 :                 :                 :        +- Exchange hashpartitioning(cr_returned_date_sk#346, 200), ENSURE_REQUIREMENTS, [id=#204531]
+                                 :                 :                 :                 :                 :        +- Exchange hashpartitioning(cr_returned_date_sk#346, 200), ENSURE_REQUIREMENTS, [id=#277606]
                                  :                 :                 :                 :                 :           +- *(10) Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_returned_date_sk#346, cr_returning_customer_sk#353, cr_net_loss#372]
                                  :                 :                 :                 :                 :              +- *(10) SortMergeJoin [cc_call_center_sk#0], [cr_call_center_sk#357], Inner
                                  :                 :                 :                 :                 :                 :- *(8) Sort [cc_call_center_sk#0 ASC NULLS FIRST], false, 0
                                  :                 :                 :                 :                 :                 :  +- AQEShuffleRead coalesced
                                  :                 :                 :                 :                 :                 :     +- ShuffleQueryStage 0
-                                 :                 :                 :                 :                 :                 :        +- Exchange hashpartitioning(cc_call_center_sk#0, 200), ENSURE_REQUIREMENTS, [id=#203984]
+                                 :                 :                 :                 :                 :                 :        +- Exchange hashpartitioning(cc_call_center_sk#0, 200), ENSURE_REQUIREMENTS, [id=#277059]
                                  :                 :                 :                 :                 :                 :           +- *(1) Filter isnotnull(cc_call_center_sk#0)
                                  :                 :                 :                 :                 :                 :              +- *(1) ColumnarToRow
                                  :                 :                 :                 :                 :                 :                 +- FileScan parquet [cc_call_center_sk#0,cc_call_center_id#1,cc_name#6,cc_manager#11] Batched: true, DataFilters: [isnotnull(cc_call_center_sk#0)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/call_center.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cc_call_center_sk)], ReadSchema: struct<cc_call_center_sk:int,cc_call_center_id:string,cc_name:string,cc_manager:string>
                                  :                 :                 :                 :                 :                 +- *(9) Sort [cr_call_center_sk#357 ASC NULLS FIRST], false, 0
                                  :                 :                 :                 :                 :                    +- AQEShuffleRead coalesced
                                  :                 :                 :                 :                 :                       +- ShuffleQueryStage 1
-                                 :                 :                 :                 :                 :                          +- Exchange hashpartitioning(cr_call_center_sk#357, 200), ENSURE_REQUIREMENTS, [id=#204001]
+                                 :                 :                 :                 :                 :                          +- Exchange hashpartitioning(cr_call_center_sk#357, 200), ENSURE_REQUIREMENTS, [id=#277076]
                                  :                 :                 :                 :                 :                             +- *(2) Filter ((isnotnull(cr_call_center_sk#357) AND isnotnull(cr_returned_date_sk#346)) AND isnotnull(cr_returning_customer_sk#353))
                                  :                 :                 :                 :                 :                                +- *(2) ColumnarToRow
                                  :                 :                 :                 :                 :                                   +- FileScan parquet [cr_returned_date_sk#346,cr_returning_customer_sk#353,cr_call_center_sk#357,cr_net_loss#372] Batched: true, DataFilters: [isnotnull(cr_call_center_sk#357), isnotnull(cr_returned_date_sk#346), isnotnull(cr_returning_cus..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/catalog_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cr_call_center_sk), IsNotNull(cr_returned_date_sk), IsNotNull(cr_returning_customer_sk)], ReadSchema: struct<cr_returned_date_sk:int,cr_returning_customer_sk:int,cr_call_center_sk:int,cr_net_loss:dec...
                                  :                 :                 :                 :                 +- *(12) Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
                                  :                 :                 :                 :                    +- AQEShuffleRead coalesced
                                  :                 :                 :                 :                       +- ShuffleQueryStage 2
-                                 :                 :                 :                 :                          +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#204024]
+                                 :                 :                 :                 :                          +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#277099]
                                  :                 :                 :                 :                             +- *(3) Project [d_date_sk#612]
-                                 :                 :                 :                 :                                +- *(3) Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 1999)) AND (d_moy#620 = 11)) AND isnotnull(d_date_sk#612))
+                                 :                 :                 :                 :                                +- *(3) Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 2002)) AND (d_moy#620 = 11)) AND isnotnull(d_date_sk#612))
                                  :                 :                 :                 :                                   +- *(3) ColumnarToRow
-                                 :                 :                 :                 :                                      +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 1999), (d_moy#620 = 11), isnotnull(d_..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,11), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+                                 :                 :                 :                 :                                      +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 2002), (d_moy#620 = 11), isnotnull(d_..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,2002), EqualTo(d_moy,11), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
                                  :                 :                 :                 +- *(15) Sort [c_customer_sk#400 ASC NULLS FIRST], false, 0
                                  :                 :                 :                    +- AQEShuffleRead coalesced
                                  :                 :                 :                       +- ShuffleQueryStage 3
-                                 :                 :                 :                          +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#204047]
+                                 :                 :                 :                          +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#277122]
                                  :                 :                 :                             +- *(4) Filter (((isnotnull(c_customer_sk#400) AND isnotnull(c_current_addr_sk#404)) AND isnotnull(c_current_cdemo_sk#402)) AND isnotnull(c_current_hdemo_sk#403))
                                  :                 :                 :                                +- *(4) ColumnarToRow
                                  :                 :                 :                                   +- FileScan parquet [c_customer_sk#400,c_current_cdemo_sk#402,c_current_hdemo_sk#403,c_current_addr_sk#404] Batched: true, DataFilters: [isnotnull(c_customer_sk#400), isnotnull(c_current_addr_sk#404), isnotnull(c_current_cdemo_sk#402..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(c_customer_sk), IsNotNull(c_current_addr_sk), IsNotNull(c_current_cdemo_sk), IsNotNull..., ReadSchema: struct<c_customer_sk:int,c_current_cdemo_sk:int,c_current_hdemo_sk:int,c_current_addr_sk:int>
                                  :                 :                 +- *(18) Sort [ca_address_sk#62 ASC NULLS FIRST], false, 0
                                  :                 :                    +- AQEShuffleRead coalesced
                                  :                 :                       +- ShuffleQueryStage 4
-                                 :                 :                          +- Exchange hashpartitioning(ca_address_sk#62, 200), ENSURE_REQUIREMENTS, [id=#204070]
+                                 :                 :                          +- Exchange hashpartitioning(ca_address_sk#62, 200), ENSURE_REQUIREMENTS, [id=#277145]
                                  :                 :                             +- *(5) Project [ca_address_sk#62]
-                                 :                 :                                +- *(5) Filter ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73 = -7.00)) AND isnotnull(ca_address_sk#62))
+                                 :                 :                                +- *(5) Filter ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73 = -6.00)) AND isnotnull(ca_address_sk#62))
                                  :                 :                                   +- *(5) ColumnarToRow
-                                 :                 :                                      +- FileScan parquet [ca_address_sk#62,ca_gmt_offset#73] Batched: true, DataFilters: [isnotnull(ca_gmt_offset#73), (ca_gmt_offset#73 = -7.00), isnotnull(ca_address_sk#62)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_address.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ca_gmt_offset), EqualTo(ca_gmt_offset,-7.00), IsNotNull(ca_address_sk)], ReadSchema: struct<ca_address_sk:int,ca_gmt_offset:decimal(5,2)>
+                                 :                 :                                      +- FileScan parquet [ca_address_sk#62,ca_gmt_offset#73] Batched: true, DataFilters: [isnotnull(ca_gmt_offset#73), (ca_gmt_offset#73 = -6.00), isnotnull(ca_address_sk#62)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_address.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ca_gmt_offset), EqualTo(ca_gmt_offset,-6.00), IsNotNull(ca_address_sk)], ReadSchema: struct<ca_address_sk:int,ca_gmt_offset:decimal(5,2)>
                                  :                 +- *(21) Sort [cd_demo_sk#222 ASC NULLS FIRST], false, 0
                                  :                    +- AQEShuffleRead coalesced
                                  :                       +- ShuffleQueryStage 5
-                                 :                          +- Exchange hashpartitioning(cd_demo_sk#222, 200), ENSURE_REQUIREMENTS, [id=#204093]
+                                 :                          +- Exchange hashpartitioning(cd_demo_sk#222, 200), ENSURE_REQUIREMENTS, [id=#277168]
                                  :                             +- *(6) Filter ((((cd_marital_status#224 = M) AND (cd_education_status#225 = Unknown)) OR ((cd_marital_status#224 = W) AND (cd_education_status#225 = Advanced Degree))) AND isnotnull(cd_demo_sk#222))
                                  :                                +- *(6) ColumnarToRow
                                  :                                   +- FileScan parquet [cd_demo_sk#222,cd_marital_status#224,cd_education_status#225] Batched: true, DataFilters: [(((cd_marital_status#224 = M) AND (cd_education_status#225 = Unknown)) OR ((cd_marital_status#22..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(And(EqualTo(cd_marital_status,M),EqualTo(cd_education_status,Unknown)),And(EqualTo(cd_marital..., ReadSchema: struct<cd_demo_sk:int,cd_marital_status:string,cd_education_status:string>
                                  +- *(24) Sort [hd_demo_sk#88 ASC NULLS FIRST], false, 0
                                     +- AQEShuffleRead coalesced
                                        +- ShuffleQueryStage 6
-                                          +- Exchange hashpartitioning(hd_demo_sk#88, 200), ENSURE_REQUIREMENTS, [id=#204116]
+                                          +- Exchange hashpartitioning(hd_demo_sk#88, 200), ENSURE_REQUIREMENTS, [id=#277191]
                                              +- *(7) Project [hd_demo_sk#88]
-                                                +- *(7) Filter ((isnotnull(hd_buy_potential#90) AND StartsWith(hd_buy_potential#90, 0-500)) AND isnotnull(hd_demo_sk#88))
+                                                +- *(7) Filter ((isnotnull(hd_buy_potential#90) AND StartsWith(hd_buy_potential#90, Unknown)) AND isnotnull(hd_demo_sk#88))
                                                    +- *(7) ColumnarToRow
-                                                      +- FileScan parquet [hd_demo_sk#88,hd_buy_potential#90] Batched: true, DataFilters: [isnotnull(hd_buy_potential#90), StartsWith(hd_buy_potential#90, 0-500), isnotnull(hd_demo_sk#88)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(hd_buy_potential), StringStartsWith(hd_buy_potential,0-500), IsNotNull(hd_demo_sk)], ReadSchema: struct<hd_demo_sk:int,hd_buy_potential:string>
+                                                      +- FileScan parquet [hd_demo_sk#88,hd_buy_potential#90] Batched: true, DataFilters: [isnotnull(hd_buy_potential#90), StartsWith(hd_buy_potential#90, Unknown), isnotnull(hd_demo_sk#88)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(hd_buy_potential), StringStartsWith(hd_buy_potential,Unknown), IsNotNull(hd_demo_sk)], ReadSchema: struct<hd_demo_sk:int,hd_buy_potential:string>
 +- == Initial Plan ==
-   Sort [Returns_Loss#19444 DESC NULLS LAST], true, 0
-   +- Exchange rangepartitioning(Returns_Loss#19444 DESC NULLS LAST, 200), ENSURE_REQUIREMENTS, [id=#203868]
-      +- HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[sum(UnscaledValue(cr_net_loss#372))], output=[Call_Center#19441, Call_Center_Name#19442, Manager#19443, Returns_Loss#19444])
-         +- Exchange hashpartitioning(cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, 200), ENSURE_REQUIREMENTS, [id=#203865]
-            +- HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[partial_sum(UnscaledValue(cr_net_loss#372))], output=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, sum#19452L])
+   Sort [Returns_Loss#22017 DESC NULLS LAST], true, 0
+   +- Exchange rangepartitioning(Returns_Loss#22017 DESC NULLS LAST, 200), ENSURE_REQUIREMENTS, [id=#276943]
+      +- HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[sum(UnscaledValue(cr_net_loss#372))], output=[Call_Center#22014, Call_Center_Name#22015, Manager#22016, Returns_Loss#22017])
+         +- Exchange hashpartitioning(cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, 200), ENSURE_REQUIREMENTS, [id=#276940]
+            +- HashAggregate(keys=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225], functions=[partial_sum(UnscaledValue(cr_net_loss#372))], output=[cc_call_center_id#1, cc_name#6, cc_manager#11, cd_marital_status#224, cd_education_status#225, sum#22025L])
                +- Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, cd_marital_status#224, cd_education_status#225]
                   +- SortMergeJoin [c_current_hdemo_sk#403], [hd_demo_sk#88], Inner
                      :- Sort [c_current_hdemo_sk#403 ASC NULLS FIRST], false, 0
-                     :  +- Exchange hashpartitioning(c_current_hdemo_sk#403, 200), ENSURE_REQUIREMENTS, [id=#203857]
+                     :  +- Exchange hashpartitioning(c_current_hdemo_sk#403, 200), ENSURE_REQUIREMENTS, [id=#276932]
                      :     +- Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, c_current_hdemo_sk#403, cd_marital_status#224, cd_education_status#225]
                      :        +- SortMergeJoin [c_current_cdemo_sk#402], [cd_demo_sk#222], Inner
                      :           :- Sort [c_current_cdemo_sk#402 ASC NULLS FIRST], false, 0
-                     :           :  +- Exchange hashpartitioning(c_current_cdemo_sk#402, 200), ENSURE_REQUIREMENTS, [id=#203849]
+                     :           :  +- Exchange hashpartitioning(c_current_cdemo_sk#402, 200), ENSURE_REQUIREMENTS, [id=#276924]
                      :           :     +- Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, c_current_cdemo_sk#402, c_current_hdemo_sk#403]
                      :           :        +- SortMergeJoin [c_current_addr_sk#404], [ca_address_sk#62], Inner
                      :           :           :- Sort [c_current_addr_sk#404 ASC NULLS FIRST], false, 0
-                     :           :           :  +- Exchange hashpartitioning(c_current_addr_sk#404, 200), ENSURE_REQUIREMENTS, [id=#203841]
+                     :           :           :  +- Exchange hashpartitioning(c_current_addr_sk#404, 200), ENSURE_REQUIREMENTS, [id=#276916]
                      :           :           :     +- Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_net_loss#372, c_current_cdemo_sk#402, c_current_hdemo_sk#403, c_current_addr_sk#404]
                      :           :           :        +- SortMergeJoin [cr_returning_customer_sk#353], [c_customer_sk#400], Inner
                      :           :           :           :- Sort [cr_returning_customer_sk#353 ASC NULLS FIRST], false, 0
-                     :           :           :           :  +- Exchange hashpartitioning(cr_returning_customer_sk#353, 200), ENSURE_REQUIREMENTS, [id=#203833]
+                     :           :           :           :  +- Exchange hashpartitioning(cr_returning_customer_sk#353, 200), ENSURE_REQUIREMENTS, [id=#276908]
                      :           :           :           :     +- Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_returning_customer_sk#353, cr_net_loss#372]
                      :           :           :           :        +- SortMergeJoin [cr_returned_date_sk#346], [d_date_sk#612], Inner
                      :           :           :           :           :- Sort [cr_returned_date_sk#346 ASC NULLS FIRST], false, 0
-                     :           :           :           :           :  +- Exchange hashpartitioning(cr_returned_date_sk#346, 200), ENSURE_REQUIREMENTS, [id=#203825]
+                     :           :           :           :           :  +- Exchange hashpartitioning(cr_returned_date_sk#346, 200), ENSURE_REQUIREMENTS, [id=#276900]
                      :           :           :           :           :     +- Project [cc_call_center_id#1, cc_name#6, cc_manager#11, cr_returned_date_sk#346, cr_returning_customer_sk#353, cr_net_loss#372]
                      :           :           :           :           :        +- SortMergeJoin [cc_call_center_sk#0], [cr_call_center_sk#357], Inner
                      :           :           :           :           :           :- Sort [cc_call_center_sk#0 ASC NULLS FIRST], false, 0
-                     :           :           :           :           :           :  +- Exchange hashpartitioning(cc_call_center_sk#0, 200), ENSURE_REQUIREMENTS, [id=#203817]
+                     :           :           :           :           :           :  +- Exchange hashpartitioning(cc_call_center_sk#0, 200), ENSURE_REQUIREMENTS, [id=#276892]
                      :           :           :           :           :           :     +- Filter isnotnull(cc_call_center_sk#0)
                      :           :           :           :           :           :        +- FileScan parquet [cc_call_center_sk#0,cc_call_center_id#1,cc_name#6,cc_manager#11] Batched: true, DataFilters: [isnotnull(cc_call_center_sk#0)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/call_center.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cc_call_center_sk)], ReadSchema: struct<cc_call_center_sk:int,cc_call_center_id:string,cc_name:string,cc_manager:string>
                      :           :           :           :           :           +- Sort [cr_call_center_sk#357 ASC NULLS FIRST], false, 0
-                     :           :           :           :           :              +- Exchange hashpartitioning(cr_call_center_sk#357, 200), ENSURE_REQUIREMENTS, [id=#203818]
+                     :           :           :           :           :              +- Exchange hashpartitioning(cr_call_center_sk#357, 200), ENSURE_REQUIREMENTS, [id=#276893]
                      :           :           :           :           :                 +- Filter ((isnotnull(cr_call_center_sk#357) AND isnotnull(cr_returned_date_sk#346)) AND isnotnull(cr_returning_customer_sk#353))
                      :           :           :           :           :                    +- FileScan parquet [cr_returned_date_sk#346,cr_returning_customer_sk#353,cr_call_center_sk#357,cr_net_loss#372] Batched: true, DataFilters: [isnotnull(cr_call_center_sk#357), isnotnull(cr_returned_date_sk#346), isnotnull(cr_returning_cus..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/catalog_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(cr_call_center_sk), IsNotNull(cr_returned_date_sk), IsNotNull(cr_returning_customer_sk)], ReadSchema: struct<cr_returned_date_sk:int,cr_returning_customer_sk:int,cr_call_center_sk:int,cr_net_loss:dec...
                      :           :           :           :           +- Sort [d_date_sk#612 ASC NULLS FIRST], false, 0
-                     :           :           :           :              +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#203826]
+                     :           :           :           :              +- Exchange hashpartitioning(d_date_sk#612, 200), ENSURE_REQUIREMENTS, [id=#276901]
                      :           :           :           :                 +- Project [d_date_sk#612]
-                     :           :           :           :                    +- Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 1999)) AND (d_moy#620 = 11)) AND isnotnull(d_date_sk#612))
-                     :           :           :           :                       +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 1999), (d_moy#620 = 11), isnotnull(d_..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,1999), EqualTo(d_moy,11), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
+                     :           :           :           :                    +- Filter ((((isnotnull(d_year#618) AND isnotnull(d_moy#620)) AND (d_year#618 = 2002)) AND (d_moy#620 = 11)) AND isnotnull(d_date_sk#612))
+                     :           :           :           :                       +- FileScan parquet [d_date_sk#612,d_year#618,d_moy#620] Batched: true, DataFilters: [isnotnull(d_year#618), isnotnull(d_moy#620), (d_year#618 = 2002), (d_moy#620 = 11), isnotnull(d_..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/date_dim.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(d_year), IsNotNull(d_moy), EqualTo(d_year,2002), EqualTo(d_moy,11), IsNotNull(d_date_sk)], ReadSchema: struct<d_date_sk:int,d_year:int,d_moy:int>
                      :           :           :           +- Sort [c_customer_sk#400 ASC NULLS FIRST], false, 0
-                     :           :           :              +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#203834]
+                     :           :           :              +- Exchange hashpartitioning(c_customer_sk#400, 200), ENSURE_REQUIREMENTS, [id=#276909]
                      :           :           :                 +- Filter (((isnotnull(c_customer_sk#400) AND isnotnull(c_current_addr_sk#404)) AND isnotnull(c_current_cdemo_sk#402)) AND isnotnull(c_current_hdemo_sk#403))
                      :           :           :                    +- FileScan parquet [c_customer_sk#400,c_current_cdemo_sk#402,c_current_hdemo_sk#403,c_current_addr_sk#404] Batched: true, DataFilters: [isnotnull(c_customer_sk#400), isnotnull(c_current_addr_sk#404), isnotnull(c_current_cdemo_sk#402..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(c_customer_sk), IsNotNull(c_current_addr_sk), IsNotNull(c_current_cdemo_sk), IsNotNull..., ReadSchema: struct<c_customer_sk:int,c_current_cdemo_sk:int,c_current_hdemo_sk:int,c_current_addr_sk:int>
                      :           :           +- Sort [ca_address_sk#62 ASC NULLS FIRST], false, 0
-                     :           :              +- Exchange hashpartitioning(ca_address_sk#62, 200), ENSURE_REQUIREMENTS, [id=#203842]
+                     :           :              +- Exchange hashpartitioning(ca_address_sk#62, 200), ENSURE_REQUIREMENTS, [id=#276917]
                      :           :                 +- Project [ca_address_sk#62]
-                     :           :                    +- Filter ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73 = -7.00)) AND isnotnull(ca_address_sk#62))
-                     :           :                       +- FileScan parquet [ca_address_sk#62,ca_gmt_offset#73] Batched: true, DataFilters: [isnotnull(ca_gmt_offset#73), (ca_gmt_offset#73 = -7.00), isnotnull(ca_address_sk#62)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_address.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ca_gmt_offset), EqualTo(ca_gmt_offset,-7.00), IsNotNull(ca_address_sk)], ReadSchema: struct<ca_address_sk:int,ca_gmt_offset:decimal(5,2)>
+                     :           :                    +- Filter ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73 = -6.00)) AND isnotnull(ca_address_sk#62))
+                     :           :                       +- FileScan parquet [ca_address_sk#62,ca_gmt_offset#73] Batched: true, DataFilters: [isnotnull(ca_gmt_offset#73), (ca_gmt_offset#73 = -6.00), isnotnull(ca_address_sk#62)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_address.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(ca_gmt_offset), EqualTo(ca_gmt_offset,-6.00), IsNotNull(ca_address_sk)], ReadSchema: struct<ca_address_sk:int,ca_gmt_offset:decimal(5,2)>
                      :           +- Sort [cd_demo_sk#222 ASC NULLS FIRST], false, 0
-                     :              +- Exchange hashpartitioning(cd_demo_sk#222, 200), ENSURE_REQUIREMENTS, [id=#203850]
+                     :              +- Exchange hashpartitioning(cd_demo_sk#222, 200), ENSURE_REQUIREMENTS, [id=#276925]
                      :                 +- Filter ((((cd_marital_status#224 = M) AND (cd_education_status#225 = Unknown)) OR ((cd_marital_status#224 = W) AND (cd_education_status#225 = Advanced Degree))) AND isnotnull(cd_demo_sk#222))
                      :                    +- FileScan parquet [cd_demo_sk#222,cd_marital_status#224,cd_education_status#225] Batched: true, DataFilters: [(((cd_marital_status#224 = M) AND (cd_education_status#225 = Unknown)) OR ((cd_marital_status#22..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/customer_demographics.parquet], PartitionFilters: [], PushedFilters: [Or(And(EqualTo(cd_marital_status,M),EqualTo(cd_education_status,Unknown)),And(EqualTo(cd_marital..., ReadSchema: struct<cd_demo_sk:int,cd_marital_status:string,cd_education_status:string>
                      +- Sort [hd_demo_sk#88 ASC NULLS FIRST], false, 0
-                        +- Exchange hashpartitioning(hd_demo_sk#88, 200), ENSURE_REQUIREMENTS, [id=#203858]
+                        +- Exchange hashpartitioning(hd_demo_sk#88, 200), ENSURE_REQUIREMENTS, [id=#276933]
                            +- Project [hd_demo_sk#88]
-                              +- Filter ((isnotnull(hd_buy_potential#90) AND StartsWith(hd_buy_potential#90, 0-500)) AND isnotnull(hd_demo_sk#88))
-                                 +- FileScan parquet [hd_demo_sk#88,hd_buy_potential#90] Batched: true, DataFilters: [isnotnull(hd_buy_potential#90), StartsWith(hd_buy_potential#90, 0-500), isnotnull(hd_demo_sk#88)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(hd_buy_potential), StringStartsWith(hd_buy_potential,0-500), IsNotNull(hd_demo_sk)], ReadSchema: struct<hd_demo_sk:int,hd_buy_potential:string>
+                              +- Filter ((isnotnull(hd_buy_potential#90) AND StartsWith(hd_buy_potential#90, Unknown)) AND isnotnull(hd_demo_sk#88))
+                                 +- FileScan parquet [hd_demo_sk#88,hd_buy_potential#90] Batched: true, DataFilters: [isnotnull(hd_buy_potential#90), StartsWith(hd_buy_potential#90, Unknown), isnotnull(hd_demo_sk#88)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/household_demographics.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(hd_buy_potential), StringStartsWith(hd_buy_potential,Unknown), IsNotNull(hd_demo_sk)], ReadSchema: struct<hd_demo_sk:int,hd_buy_potential:string>

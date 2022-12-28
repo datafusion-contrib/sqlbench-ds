@@ -8,8 +8,8 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: gross_margin#7724, i_category#7736, i_class#7737, lochierarchy#7725,\
-        \ rank_within_parent#7726"
+    - title: "Projection: gross_margin#9937, i_category#9949, i_class#9950, lochierarchy#9938,\
+        \ rank_within_parent#9939"
       operator: "projection"
       inputs:
       - title: "Window (unknown)"
@@ -57,7 +57,7 @@ inputs:
                           operator: "projection"
                           inputs:
                           - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618\
-                              \ = 2000)) AND isnotnull(d_date_sk#612))"
+                              \ = 1998)) AND isnotnull(d_date_sk#612))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
@@ -75,7 +75,7 @@ inputs:
                 - title: "Projection: s_store_sk#712"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: (s_state#736 IN (MO,LA,GA,MI,SC,OH,SD,AL) AND\
+                  - title: "Filter: (s_state#736 IN (MO,OH,LA,SC,TN,SD,MI,AL) AND\
                       \ isnotnull(s_store_sk#712))"
                     operator: "filter"
                     inputs:

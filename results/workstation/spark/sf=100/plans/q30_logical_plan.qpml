@@ -11,29 +11,29 @@ inputs:
     - title: "Projection: c_customer_id#401, c_salutation#407, c_first_name#408, c_last_name#409,\
         \ c_preferred_cust_flag#410, c_birth_day#411, c_birth_month#412, c_birth_year#413,\
         \ c_birth_country#414, c_login#415, c_email_address#416, c_last_review_date_sk#417,\
-        \ ctr_total_return#6708"
+        \ ctr_total_return#8983"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some((ca_address_sk#6709 = c_current_addr_sk#404))"
+      - title: "Inner Join: Some((ca_address_sk#8984 = c_current_addr_sk#404))"
         operator: "join"
         inputs:
-        - title: "Projection: ctr_total_return#6708, c_customer_id#401, c_current_addr_sk#404,\
+        - title: "Projection: ctr_total_return#8983, c_customer_id#401, c_current_addr_sk#404,\
             \ c_salutation#407, c_first_name#408, c_last_name#409, c_preferred_cust_flag#410,\
             \ c_birth_day#411, c_birth_month#412, c_birth_year#413, c_birth_country#414,\
             \ c_login#415, c_email_address#416, c_last_review_date_sk#417"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((ctr_customer_sk#6706 = c_customer_sk#400))"
+          - title: "Inner Join: Some((ctr_customer_sk#8981 = c_customer_sk#400))"
             operator: "join"
             inputs:
-            - title: "Projection: ctr_customer_sk#6706, ctr_total_return#6708"
+            - title: "Projection: ctr_customer_sk#8981, ctr_total_return#8983"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some(((cast(ctr_total_return#6708 as decimal(24,7))\
-                  \ > (avg(ctr_total_return) * 1.2)#6724) AND (ctr_state#6707 = ctr_state#6707#6738)))"
+              - title: "Inner Join: Some(((cast(ctr_total_return#8983 as decimal(24,7))\
+                  \ > (avg(ctr_total_return) * 1.2)#8999) AND (ctr_state#8982 = ctr_state#8982#9013)))"
                 operator: "join"
                 inputs:
-                - title: "Filter: isnotnull(ctr_total_return#6708)"
+                - title: "Filter: isnotnull(ctr_total_return#8983)"
                   operator: "filter"
                   inputs:
                   - title: "Aggregate (unknown)"
@@ -83,7 +83,7 @@ inputs:
                             - title: "customer_address.parquet"
                               operator: "scan"
                               inputs: []
-                - title: "Filter: isnotnull((avg(ctr_total_return) * 1.2)#6724)"
+                - title: "Filter: isnotnull((avg(ctr_total_return) * 1.2)#8999)"
                   operator: "filter"
                   inputs:
                   - title: "Aggregate (unknown)"
@@ -149,11 +149,11 @@ inputs:
                 - title: "customer.parquet"
                   operator: "scan"
                   inputs: []
-        - title: "Projection: ca_address_sk#6709"
+        - title: "Projection: ca_address_sk#8984"
           operator: "projection"
           inputs:
-          - title: "Filter: ((isnotnull(ca_state#6717) AND (ca_state#6717 = IL)) AND\
-              \ isnotnull(ca_address_sk#6709))"
+          - title: "Filter: ((isnotnull(ca_state#8992) AND (ca_state#8992 = NM)) AND\
+              \ isnotnull(ca_address_sk#8984))"
             operator: "filter"
             inputs:
             - title: "customer_address.parquet"

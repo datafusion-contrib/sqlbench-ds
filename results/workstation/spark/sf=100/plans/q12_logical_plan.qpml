@@ -47,7 +47,7 @@ inputs:
                       \ i_current_price#673, i_class#678, i_category#680"
                     operator: "projection"
                     inputs:
-                    - title: "Filter: (i_category#680 IN (Jewelry,Sports,Books) AND\
+                    - title: "Filter: (i_category#680 IN (Home,Children,Shoes) AND\
                         \ isnotnull(i_item_sk#668))"
                       operator: "filter"
                       inputs:
@@ -57,8 +57,8 @@ inputs:
               - title: "Projection: d_date_sk#612"
                 operator: "projection"
                 inputs:
-                - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2001-01-12)\
-                    \ AND (d_date#614 <= 2001-02-11))) AND isnotnull(d_date_sk#612))"
+                - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2000-03-01)\
+                    \ AND (d_date#614 <= 2000-03-31))) AND isnotnull(d_date_sk#612))"
                   operator: "filter"
                   inputs:
                   - title: "date_dim.parquet"

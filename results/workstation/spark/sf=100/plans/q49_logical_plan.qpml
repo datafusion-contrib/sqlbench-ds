@@ -14,11 +14,12 @@ inputs:
       - title: "Union (unknown)"
         operator: "Union"
         inputs:
-        - title: "Projection: web AS channel#9630, item#9625, return_ratio#9626, return_rank#9628,\
-            \ currency_rank#9629"
+        - title: "Projection: web AS channel#11843, item#11838, return_ratio#11839,\
+            \ return_rank#11841, currency_rank#11842"
           operator: "projection"
           inputs:
-          - title: "Filter: ((return_rank#9628 <= 10) OR (currency_rank#9629 <= 10))"
+          - title: "Filter: ((return_rank#11841 <= 10) OR (currency_rank#11842 <=\
+              \ 10))"
             operator: "filter"
             inputs:
             - title: "Window (unknown)"
@@ -75,18 +76,19 @@ inputs:
                         operator: "projection"
                         inputs:
                         - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_moy#620))\
-                            \ AND ((d_year#618 = 2000) AND (d_moy#620 = 12))) AND\
+                            \ AND ((d_year#618 = 2000) AND (d_moy#620 = 11))) AND\
                             \ isnotnull(d_date_sk#612))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-        - title: "Projection: catalog AS channel#9636, item#9631, return_ratio#9632,\
-            \ return_rank#9634, currency_rank#9635"
+        - title: "Projection: catalog AS channel#11849, item#11844, return_ratio#11845,\
+            \ return_rank#11847, currency_rank#11848"
           operator: "projection"
           inputs:
-          - title: "Filter: ((return_rank#9634 <= 10) OR (currency_rank#9635 <= 10))"
+          - title: "Filter: ((return_rank#11847 <= 10) OR (currency_rank#11848 <=\
+              \ 10))"
             operator: "filter"
             inputs:
             - title: "Window (unknown)"
@@ -102,7 +104,7 @@ inputs:
                       \ cr_return_quantity#363, cr_return_amount#364"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#9643))"
+                    - title: "Inner Join: Some((cs_sold_date_sk#544 = d_date_sk#11856))"
                       operator: "join"
                       inputs:
                       - title: "Projection: cs_sold_date_sk#544, cs_item_sk#559, cs_quantity#562,\
@@ -139,22 +141,23 @@ inputs:
                               - title: "catalog_returns.parquet"
                                 operator: "scan"
                                 inputs: []
-                      - title: "Projection: d_date_sk#9643"
+                      - title: "Projection: d_date_sk#11856"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (((isnotnull(d_year#9649) AND isnotnull(d_moy#9651))\
-                            \ AND ((d_year#9649 = 2000) AND (d_moy#9651 = 12))) AND\
-                            \ isnotnull(d_date_sk#9643))"
+                        - title: "Filter: (((isnotnull(d_year#11862) AND isnotnull(d_moy#11864))\
+                            \ AND ((d_year#11862 = 2000) AND (d_moy#11864 = 11)))\
+                            \ AND isnotnull(d_date_sk#11856))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"
                             operator: "scan"
                             inputs: []
-        - title: "Projection: store AS channel#9642, item#9637, return_ratio#9638,\
-            \ return_rank#9640, currency_rank#9641"
+        - title: "Projection: store AS channel#11855, item#11850, return_ratio#11851,\
+            \ return_rank#11853, currency_rank#11854"
           operator: "projection"
           inputs:
-          - title: "Filter: ((return_rank#9640 <= 10) OR (currency_rank#9641 <= 10))"
+          - title: "Filter: ((return_rank#11853 <= 10) OR (currency_rank#11854 <=\
+              \ 10))"
             operator: "filter"
             inputs:
             - title: "Window (unknown)"
@@ -170,7 +173,7 @@ inputs:
                       \ sr_return_quantity#146, sr_return_amt#147"
                     operator: "projection"
                     inputs:
-                    - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#9671))"
+                    - title: "Inner Join: Some((ss_sold_date_sk#252 = d_date_sk#11884))"
                       operator: "join"
                       inputs:
                       - title: "Projection: ss_sold_date_sk#252, ss_item_sk#254, ss_quantity#262,\
@@ -207,12 +210,12 @@ inputs:
                               - title: "store_returns.parquet"
                                 operator: "scan"
                                 inputs: []
-                      - title: "Projection: d_date_sk#9671"
+                      - title: "Projection: d_date_sk#11884"
                         operator: "projection"
                         inputs:
-                        - title: "Filter: (((isnotnull(d_year#9677) AND isnotnull(d_moy#9679))\
-                            \ AND ((d_year#9677 = 2000) AND (d_moy#9679 = 12))) AND\
-                            \ isnotnull(d_date_sk#9671))"
+                        - title: "Filter: (((isnotnull(d_year#11890) AND isnotnull(d_moy#11892))\
+                            \ AND ((d_year#11890 = 2000) AND (d_moy#11892 = 11)))\
+                            \ AND isnotnull(d_date_sk#11884))"
                           operator: "filter"
                           inputs:
                           - title: "date_dim.parquet"

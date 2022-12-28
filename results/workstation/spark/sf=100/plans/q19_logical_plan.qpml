@@ -75,7 +75,7 @@ inputs:
                         operator: "projection"
                         inputs:
                         - title: "Filter: ((isnotnull(i_manager_id#688) AND (i_manager_id#688\
-                            \ = 7)) AND isnotnull(i_item_sk#668))"
+                            \ = 8)) AND isnotnull(i_item_sk#668))"
                           operator: "filter"
                           inputs:
                           - title: "item.parquet"

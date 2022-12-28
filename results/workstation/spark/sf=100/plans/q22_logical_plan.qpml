@@ -40,7 +40,7 @@ inputs:
                   operator: "projection"
                   inputs:
                   - title: "Filter: ((isnotnull(d_month_seq#615) AND ((d_month_seq#615\
-                      \ >= 1212) AND (d_month_seq#615 <= 1223))) AND isnotnull(d_date_sk#612))"
+                      \ >= 1204) AND (d_month_seq#615 <= 1215))) AND isnotnull(d_date_sk#612))"
                     operator: "filter"
                     inputs:
                     - title: "date_dim.parquet"

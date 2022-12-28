@@ -17,7 +17,7 @@ Sort [d_week_seq1#891 ASC NULLS FIRST], true
       :     :           +- Filter (isnotnull(d_date_sk#612) AND isnotnull(d_week_seq#616))
       :     :              +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
       :     +- Project [d_week_seq#922]
-      :        +- Filter ((isnotnull(d_year#924) AND (d_year#924 = 2001)) AND isnotnull(d_week_seq#922))
+      :        +- Filter ((isnotnull(d_year#924) AND (d_year#924 = 1999)) AND isnotnull(d_week_seq#922))
       :           +- Relation [d_date_sk#918,d_date_id#919,d_date#920,d_month_seq#921,d_week_seq#922,d_quarter_seq#923,d_year#924,d_dow#925,d_moy#926,d_dom#927,d_qoy#928,d_fy_year#929,d_fy_quarter_seq#930,d_fy_week_seq#931,d_day_name#932,d_quarter_name#933,d_holiday#934,d_weekend#935,d_following_holiday#936,d_first_dom#937,d_last_dom#938,d_same_day_ly#939,d_same_day_lq#940,d_current_day#941,... 4 more fields] parquet
       +- Project [d_week_seq#616 AS d_week_seq2#899, sun_sales#911 AS sun_sales2#900, mon_sales#912 AS mon_sales2#901, tue_sales#913 AS tue_sales2#902, wed_sales#914 AS wed_sales2#903, thu_sales#915 AS thu_sales2#904, fri_sales#916 AS fri_sales2#905, sat_sales#917 AS sat_sales2#906]
          +- Join Inner, (d_week_seq#950 = d_week_seq#616)
@@ -35,5 +35,5 @@ Sort [d_week_seq1#891 ASC NULLS FIRST], true
             :           +- Filter (isnotnull(d_date_sk#612) AND isnotnull(d_week_seq#616))
             :              +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
             +- Project [d_week_seq#950]
-               +- Filter ((isnotnull(d_year#952) AND (d_year#952 = 2002)) AND isnotnull(d_week_seq#950))
+               +- Filter ((isnotnull(d_year#952) AND (d_year#952 = 2000)) AND isnotnull(d_week_seq#950))
                   +- Relation [d_date_sk#946,d_date_id#947,d_date#948,d_month_seq#949,d_week_seq#950,d_quarter_seq#951,d_year#952,d_dow#953,d_moy#954,d_dom#955,d_qoy#956,d_fy_year#957,d_fy_quarter_seq#958,d_fy_week_seq#959,d_day_name#960,d_quarter_name#961,d_holiday#962,d_weekend#963,d_following_holiday#964,d_first_dom#965,d_last_dom#966,d_same_day_ly#967,d_same_day_lq#968,d_current_day#969,... 4 more fields] parquet

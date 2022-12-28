@@ -1,13 +1,13 @@
 GlobalLimit 100
 +- LocalLimit 100
-   +- Sort [sum(ss_ext_sales_price)#8728 DESC NULLS LAST, d_year#618 ASC NULLS FIRST, i_category_id#679 ASC NULLS FIRST, i_category#680 ASC NULLS FIRST], true
-      +- Aggregate [d_year#618, i_category_id#679, i_category#680], [d_year#618, i_category_id#679, i_category#680, MakeDecimal(sum(UnscaledValue(ss_ext_sales_price#267)),17,2) AS sum(ss_ext_sales_price)#8728]
+   +- Sort [sum(ss_ext_sales_price)#10941 DESC NULLS LAST, d_year#618 ASC NULLS FIRST, i_category_id#679 ASC NULLS FIRST, i_category#680 ASC NULLS FIRST], true
+      +- Aggregate [d_year#618, i_category_id#679, i_category#680], [d_year#618, i_category_id#679, i_category#680, MakeDecimal(sum(UnscaledValue(ss_ext_sales_price#267)),17,2) AS sum(ss_ext_sales_price)#10941]
          +- Project [d_year#618, ss_ext_sales_price#267, i_category_id#679, i_category#680]
             +- Join Inner, (ss_item_sk#254 = i_item_sk#668)
                :- Project [d_year#618, ss_item_sk#254, ss_ext_sales_price#267]
                :  +- Join Inner, (d_date_sk#612 = ss_sold_date_sk#252)
                :     :- Project [d_date_sk#612, d_year#618]
-               :     :  +- Filter (((isnotnull(d_moy#620) AND isnotnull(d_year#618)) AND ((d_moy#620 = 12) AND (d_year#618 = 1998))) AND isnotnull(d_date_sk#612))
+               :     :  +- Filter (((isnotnull(d_moy#620) AND isnotnull(d_year#618)) AND ((d_moy#620 = 11) AND (d_year#618 = 2001))) AND isnotnull(d_date_sk#612))
                :     :     +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
                :     +- Project [ss_sold_date_sk#252, ss_item_sk#254, ss_ext_sales_price#267]
                :        +- Filter (isnotnull(ss_sold_date_sk#252) AND isnotnull(ss_item_sk#254))

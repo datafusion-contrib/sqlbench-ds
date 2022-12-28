@@ -1,0 +1,26 @@
+Aggregate [count(distinct ws_order_number#493L) AS order count#850L, MakeDecimal(sum(UnscaledValue(ws_ext_ship_cost#504)),17,2) AS total shipping cost#851, MakeDecimal(sum(UnscaledValue(ws_net_profit#509)),17,2) AS total net profit#852]
++- Project [ws_order_number#493L, ws_ext_ship_cost#504, ws_net_profit#509]
+   +- Join Inner, (ws_web_site_sk#489 = web_site_sk#798)
+      :- Project [ws_web_site_sk#489, ws_order_number#493L, ws_ext_ship_cost#504, ws_net_profit#509]
+      :  +- Join Inner, (ws_ship_addr_sk#487 = ca_address_sk#62)
+      :     :- Project [ws_ship_addr_sk#487, ws_web_site_sk#489, ws_order_number#493L, ws_ext_ship_cost#504, ws_net_profit#509]
+      :     :  +- Join Inner, (ws_ship_date_sk#478 = d_date_sk#612)
+      :     :     :- Join LeftAnti, (ws_order_number#493L = wr_order_number#311L)
+      :     :     :  :- Project [ws_ship_date_sk#478, ws_ship_addr_sk#487, ws_web_site_sk#489, ws_order_number#493L, ws_ext_ship_cost#504, ws_net_profit#509]
+      :     :     :  :  +- Join LeftSemi, ((ws_order_number#493L = ws_order_number#872L) AND NOT (ws_warehouse_sk#491 = ws_warehouse_sk#870))
+      :     :     :  :     :- Project [ws_ship_date_sk#478, ws_ship_addr_sk#487, ws_web_site_sk#489, ws_warehouse_sk#491, ws_order_number#493L, ws_ext_ship_cost#504, ws_net_profit#509]
+      :     :     :  :     :  +- Filter ((isnotnull(ws_ship_date_sk#478) AND isnotnull(ws_ship_addr_sk#487)) AND isnotnull(ws_web_site_sk#489))
+      :     :     :  :     :     +- Relation [ws_sold_date_sk#476,ws_sold_time_sk#477,ws_ship_date_sk#478,ws_item_sk#479,ws_bill_customer_sk#480,ws_bill_cdemo_sk#481,ws_bill_hdemo_sk#482,ws_bill_addr_sk#483,ws_ship_customer_sk#484,ws_ship_cdemo_sk#485,ws_ship_hdemo_sk#486,ws_ship_addr_sk#487,ws_web_page_sk#488,ws_web_site_sk#489,ws_ship_mode_sk#490,ws_warehouse_sk#491,ws_promo_sk#492,ws_order_number#493L,ws_quantity#494,ws_wholesale_cost#495,ws_list_price#496,ws_sales_price#497,ws_ext_discount_amt#498,ws_ext_sales_price#499,... 10 more fields] parquet
+      :     :     :  :     +- Project [ws_warehouse_sk#870, ws_order_number#872L]
+      :     :     :  :        +- Relation [ws_sold_date_sk#855,ws_sold_time_sk#856,ws_ship_date_sk#857,ws_item_sk#858,ws_bill_customer_sk#859,ws_bill_cdemo_sk#860,ws_bill_hdemo_sk#861,ws_bill_addr_sk#862,ws_ship_customer_sk#863,ws_ship_cdemo_sk#864,ws_ship_hdemo_sk#865,ws_ship_addr_sk#866,ws_web_page_sk#867,ws_web_site_sk#868,ws_ship_mode_sk#869,ws_warehouse_sk#870,ws_promo_sk#871,ws_order_number#872L,ws_quantity#873,ws_wholesale_cost#874,ws_list_price#875,ws_sales_price#876,ws_ext_discount_amt#877,ws_ext_sales_price#878,... 10 more fields] parquet
+      :     :     :  +- Project [wr_order_number#311L]
+      :     :     :     +- Relation [wr_returned_date_sk#298,wr_returned_time_sk#299,wr_item_sk#300,wr_refunded_customer_sk#301,wr_refunded_cdemo_sk#302,wr_refunded_hdemo_sk#303,wr_refunded_addr_sk#304,wr_returning_customer_sk#305,wr_returning_cdemo_sk#306,wr_returning_hdemo_sk#307,wr_returning_addr_sk#308,wr_web_page_sk#309,wr_reason_sk#310,wr_order_number#311L,wr_return_quantity#312,wr_return_amt#313,wr_return_tax#314,wr_return_amt_inc_tax#315,wr_fee#316,wr_return_ship_cost#317,wr_refunded_cash#318,wr_reversed_charge#319,wr_account_credit#320,wr_net_loss#321] parquet
+      :     :     +- Project [d_date_sk#612]
+      :     :        +- Filter ((isnotnull(d_date#614) AND ((d_date#614 >= 2000-04-01) AND (d_date#614 <= 2000-05-31))) AND isnotnull(d_date_sk#612))
+      :     :           +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
+      :     +- Project [ca_address_sk#62]
+      :        +- Filter ((isnotnull(ca_state#70) AND (ca_state#70 = LA)) AND isnotnull(ca_address_sk#62))
+      :           +- Relation [ca_address_sk#62,ca_address_id#63,ca_street_number#64,ca_street_name#65,ca_street_type#66,ca_suite_number#67,ca_city#68,ca_county#69,ca_state#70,ca_zip#71,ca_country#72,ca_gmt_offset#73,ca_location_type#74] parquet
+      +- Project [web_site_sk#798]
+         +- Filter ((isnotnull(web_company_name#812) AND (web_company_name#812 = pri)) AND isnotnull(web_site_sk#798))
+            +- Relation [web_site_sk#798,web_site_id#799,web_rec_start_date#800,web_rec_end_date#801,web_name#802,web_open_date_sk#803,web_close_date_sk#804,web_class#805,web_manager#806,web_mkt_id#807,web_mkt_class#808,web_mkt_desc#809,web_market_manager#810,web_company_id#811,web_company_name#812,web_street_number#813,web_street_name#814,web_street_type#815,web_suite_number#816,web_city#817,web_county#818,web_state#819,web_zip#820,web_country#821,... 2 more fields] parquet

@@ -1,8 +1,8 @@
 ---
-title: "Projection: promotions#12009, total#12010, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(promotions#12009\
-  \ as decimal(15,4))) / promote_precision(cast(total#12010 as decimal(15,4)))), DecimalType(35,20),\
+title: "Projection: promotions#14220, total#14221, CheckOverflow((promote_precision(CheckOverflow((promote_precision(cast(promotions#14220\
+  \ as decimal(15,4))) / promote_precision(cast(total#14221 as decimal(15,4)))), DecimalType(35,20),\
   \ true)) * 100.00000000000000000000), DecimalType(38,19), true) AS ((CAST(promotions\
-  \ AS DECIMAL(15,4)) / CAST(total AS DECIMAL(15,4))) * 100)#12146"
+  \ AS DECIMAL(15,4)) / CAST(total AS DECIMAL(15,4))) * 100)#14357"
 operator: "projection"
 inputs:
 - title: "Inner Join: None"
@@ -66,7 +66,7 @@ inputs:
                               operator: "projection"
                               inputs:
                               - title: "Filter: ((isnotnull(s_gmt_offset#739) AND\
-                                  \ (s_gmt_offset#739 = -7.00)) AND isnotnull(s_store_sk#712))"
+                                  \ (s_gmt_offset#739 = -6.00)) AND isnotnull(s_store_sk#712))"
                                 operator: "filter"
                                 inputs:
                                 - title: "store.parquet"
@@ -86,7 +86,7 @@ inputs:
                       operator: "projection"
                       inputs:
                       - title: "Filter: (((isnotnull(d_year#618) AND isnotnull(d_moy#620))\
-                          \ AND ((d_year#618 = 1999) AND (d_moy#620 = 11))) AND isnotnull(d_date_sk#612))"
+                          \ AND ((d_year#618 = 2001) AND (d_moy#620 = 12))) AND isnotnull(d_date_sk#612))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"
@@ -105,7 +105,7 @@ inputs:
               operator: "projection"
               inputs:
               - title: "Filter: ((isnotnull(ca_gmt_offset#73) AND (ca_gmt_offset#73\
-                  \ = -7.00)) AND isnotnull(ca_address_sk#62))"
+                  \ = -6.00)) AND isnotnull(ca_address_sk#62))"
                 operator: "filter"
                 inputs:
                 - title: "customer_address.parquet"
@@ -114,7 +114,7 @@ inputs:
         - title: "Projection: i_item_sk#668"
           operator: "projection"
           inputs:
-          - title: "Filter: ((isnotnull(i_category#680) AND (i_category#680 = Books))\
+          - title: "Filter: ((isnotnull(i_category#680) AND (i_category#680 = Jewelry))\
               \ AND isnotnull(i_item_sk#668))"
             operator: "filter"
             inputs:
@@ -124,93 +124,93 @@ inputs:
   - title: "Aggregate (unknown)"
     operator: "Aggregate"
     inputs:
-    - title: "Projection: ss_ext_sales_price#12026"
+    - title: "Projection: ss_ext_sales_price#14237"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some((ss_item_sk#12013 = i_item_sk#12122))"
+      - title: "Inner Join: Some((ss_item_sk#14224 = i_item_sk#14333))"
         operator: "join"
         inputs:
-        - title: "Projection: ss_item_sk#12013, ss_ext_sales_price#12026"
+        - title: "Projection: ss_item_sk#14224, ss_ext_sales_price#14237"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((ca_address_sk#12109 = c_current_addr_sk#12095))"
+          - title: "Inner Join: Some((ca_address_sk#14320 = c_current_addr_sk#14306))"
             operator: "join"
             inputs:
-            - title: "Projection: ss_item_sk#12013, ss_ext_sales_price#12026, c_current_addr_sk#12095"
+            - title: "Projection: ss_item_sk#14224, ss_ext_sales_price#14237, c_current_addr_sk#14306"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some((ss_customer_sk#12014 = c_customer_sk#12091))"
+              - title: "Inner Join: Some((ss_customer_sk#14225 = c_customer_sk#14302))"
                 operator: "join"
                 inputs:
-                - title: "Projection: ss_item_sk#12013, ss_customer_sk#12014, ss_ext_sales_price#12026"
+                - title: "Projection: ss_item_sk#14224, ss_customer_sk#14225, ss_ext_sales_price#14237"
                   operator: "projection"
                   inputs:
-                  - title: "Inner Join: Some((ss_sold_date_sk#12011 = d_date_sk#12063))"
+                  - title: "Inner Join: Some((ss_sold_date_sk#14222 = d_date_sk#14274))"
                     operator: "join"
                     inputs:
-                    - title: "Projection: ss_sold_date_sk#12011, ss_item_sk#12013,\
-                        \ ss_customer_sk#12014, ss_ext_sales_price#12026"
+                    - title: "Projection: ss_sold_date_sk#14222, ss_item_sk#14224,\
+                        \ ss_customer_sk#14225, ss_ext_sales_price#14237"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((ss_store_sk#12018 = s_store_sk#12034))"
+                      - title: "Inner Join: Some((ss_store_sk#14229 = s_store_sk#14245))"
                         operator: "join"
                         inputs:
-                        - title: "Projection: ss_sold_date_sk#12011, ss_item_sk#12013,\
-                            \ ss_customer_sk#12014, ss_store_sk#12018, ss_ext_sales_price#12026"
+                        - title: "Projection: ss_sold_date_sk#14222, ss_item_sk#14224,\
+                            \ ss_customer_sk#14225, ss_store_sk#14229, ss_ext_sales_price#14237"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: (isnotnull(ss_store_sk#12018) AND ((isnotnull(ss_sold_date_sk#12011)\
-                              \ AND isnotnull(ss_customer_sk#12014)) AND isnotnull(ss_item_sk#12013)))"
+                          - title: "Filter: (isnotnull(ss_store_sk#14229) AND ((isnotnull(ss_sold_date_sk#14222)\
+                              \ AND isnotnull(ss_customer_sk#14225)) AND isnotnull(ss_item_sk#14224)))"
                             operator: "filter"
                             inputs:
                             - title: "store_sales.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: s_store_sk#12034"
+                        - title: "Projection: s_store_sk#14245"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: ((isnotnull(s_gmt_offset#12061) AND (s_gmt_offset#12061\
-                              \ = -7.00)) AND isnotnull(s_store_sk#12034))"
+                          - title: "Filter: ((isnotnull(s_gmt_offset#14272) AND (s_gmt_offset#14272\
+                              \ = -6.00)) AND isnotnull(s_store_sk#14245))"
                             operator: "filter"
                             inputs:
                             - title: "store.parquet"
                               operator: "scan"
                               inputs: []
-                    - title: "Projection: d_date_sk#12063"
+                    - title: "Projection: d_date_sk#14274"
                       operator: "projection"
                       inputs:
-                      - title: "Filter: (((isnotnull(d_year#12069) AND isnotnull(d_moy#12071))\
-                          \ AND ((d_year#12069 = 1999) AND (d_moy#12071 = 11))) AND\
-                          \ isnotnull(d_date_sk#12063))"
+                      - title: "Filter: (((isnotnull(d_year#14280) AND isnotnull(d_moy#14282))\
+                          \ AND ((d_year#14280 = 2001) AND (d_moy#14282 = 12))) AND\
+                          \ isnotnull(d_date_sk#14274))"
                         operator: "filter"
                         inputs:
                         - title: "date_dim.parquet"
                           operator: "scan"
                           inputs: []
-                - title: "Projection: c_customer_sk#12091, c_current_addr_sk#12095"
+                - title: "Projection: c_customer_sk#14302, c_current_addr_sk#14306"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: (isnotnull(c_customer_sk#12091) AND isnotnull(c_current_addr_sk#12095))"
+                  - title: "Filter: (isnotnull(c_customer_sk#14302) AND isnotnull(c_current_addr_sk#14306))"
                     operator: "filter"
                     inputs:
                     - title: "customer.parquet"
                       operator: "scan"
                       inputs: []
-            - title: "Projection: ca_address_sk#12109"
+            - title: "Projection: ca_address_sk#14320"
               operator: "projection"
               inputs:
-              - title: "Filter: ((isnotnull(ca_gmt_offset#12120) AND (ca_gmt_offset#12120\
-                  \ = -7.00)) AND isnotnull(ca_address_sk#12109))"
+              - title: "Filter: ((isnotnull(ca_gmt_offset#14331) AND (ca_gmt_offset#14331\
+                  \ = -6.00)) AND isnotnull(ca_address_sk#14320))"
                 operator: "filter"
                 inputs:
                 - title: "customer_address.parquet"
                   operator: "scan"
                   inputs: []
-        - title: "Projection: i_item_sk#12122"
+        - title: "Projection: i_item_sk#14333"
           operator: "projection"
           inputs:
-          - title: "Filter: ((isnotnull(i_category#12134) AND (i_category#12134 =\
-              \ Books)) AND isnotnull(i_item_sk#12122))"
+          - title: "Filter: ((isnotnull(i_category#14345) AND (i_category#14345 =\
+              \ Jewelry)) AND isnotnull(i_item_sk#14333))"
             operator: "filter"
             inputs:
             - title: "item.parquet"

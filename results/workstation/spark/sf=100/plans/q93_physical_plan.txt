@@ -1,58 +1,58 @@
 AdaptiveSparkPlan isFinalPlan=true
 +- == Final Plan ==
-   TakeOrderedAndProject(limit=100, orderBy=[sumsales#19469 ASC NULLS FIRST,ss_customer_sk#255 ASC NULLS FIRST], output=[ss_customer_sk#255,sumsales#19469])
-   +- *(10) HashAggregate(keys=[ss_customer_sk#255], functions=[sum(act_sales#19468)], output=[ss_customer_sk#255, sumsales#19469])
+   TakeOrderedAndProject(limit=100, orderBy=[sumsales#22042 ASC NULLS FIRST,ss_customer_sk#255 ASC NULLS FIRST], output=[ss_customer_sk#255,sumsales#22042])
+   +- *(10) HashAggregate(keys=[ss_customer_sk#255], functions=[sum(act_sales#22041)], output=[ss_customer_sk#255, sumsales#22042])
       +- AQEShuffleRead coalesced
          +- ShuffleQueryStage 4
-            +- Exchange hashpartitioning(ss_customer_sk#255, 200), ENSURE_REQUIREMENTS, [id=#206079]
-               +- *(9) HashAggregate(keys=[ss_customer_sk#255], functions=[partial_sum(act_sales#19468)], output=[ss_customer_sk#255, sum#19475, isEmpty#19476])
-                  +- *(9) Project [ss_customer_sk#255, CASE WHEN isnotnull(sr_return_quantity#146) THEN CheckOverflow((promote_precision(cast(cast((ss_quantity#262 - sr_return_quantity#146) as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) ELSE CheckOverflow((promote_precision(cast(cast(ss_quantity#262 as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) END AS act_sales#19468]
+            +- Exchange hashpartitioning(ss_customer_sk#255, 200), ENSURE_REQUIREMENTS, [id=#279154]
+               +- *(9) HashAggregate(keys=[ss_customer_sk#255], functions=[partial_sum(act_sales#22041)], output=[ss_customer_sk#255, sum#22048, isEmpty#22049])
+                  +- *(9) Project [ss_customer_sk#255, CASE WHEN isnotnull(sr_return_quantity#146) THEN CheckOverflow((promote_precision(cast(cast((ss_quantity#262 - sr_return_quantity#146) as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) ELSE CheckOverflow((promote_precision(cast(cast(ss_quantity#262 as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) END AS act_sales#22041]
                      +- *(9) SortMergeJoin [sr_reason_sk#144], [r_reason_sk#246], Inner
                         :- *(7) Sort [sr_reason_sk#144 ASC NULLS FIRST], false, 0
                         :  +- AQEShuffleRead coalesced
                         :     +- ShuffleQueryStage 3
-                        :        +- Exchange hashpartitioning(sr_reason_sk#144, 200), ENSURE_REQUIREMENTS, [id=#205997]
+                        :        +- Exchange hashpartitioning(sr_reason_sk#144, 200), ENSURE_REQUIREMENTS, [id=#279072]
                         :           +- *(6) Project [ss_customer_sk#255, ss_quantity#262, ss_sales_price#265, sr_reason_sk#144, sr_return_quantity#146]
                         :              +- *(6) SortMergeJoin [ss_item_sk#254, ss_ticket_number#261L], [sr_item_sk#138, sr_ticket_number#145L], Inner
                         :                 :- *(4) Sort [ss_item_sk#254 ASC NULLS FIRST, ss_ticket_number#261L ASC NULLS FIRST], false, 0
                         :                 :  +- ShuffleQueryStage 0
-                        :                 :     +- Exchange hashpartitioning(ss_item_sk#254, ss_ticket_number#261L, 200), ENSURE_REQUIREMENTS, [id=#205785]
+                        :                 :     +- Exchange hashpartitioning(ss_item_sk#254, ss_ticket_number#261L, 200), ENSURE_REQUIREMENTS, [id=#278860]
                         :                 :        +- *(1) ColumnarToRow
                         :                 :           +- FileScan parquet [ss_item_sk#254,ss_customer_sk#255,ss_ticket_number#261L,ss_quantity#262,ss_sales_price#265] Batched: true, DataFilters: [], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<ss_item_sk:int,ss_customer_sk:int,ss_ticket_number:bigint,ss_quantity:int,ss_sales_price:d...
                         :                 +- *(5) Sort [sr_item_sk#138 ASC NULLS FIRST, sr_ticket_number#145L ASC NULLS FIRST], false, 0
                         :                    +- ShuffleQueryStage 1
-                        :                       +- Exchange hashpartitioning(sr_item_sk#138, sr_ticket_number#145L, 200), ENSURE_REQUIREMENTS, [id=#205800]
+                        :                       +- Exchange hashpartitioning(sr_item_sk#138, sr_ticket_number#145L, 200), ENSURE_REQUIREMENTS, [id=#278875]
                         :                          +- *(2) Filter ((isnotnull(sr_item_sk#138) AND isnotnull(sr_ticket_number#145L)) AND isnotnull(sr_reason_sk#144))
                         :                             +- *(2) ColumnarToRow
                         :                                +- FileScan parquet [sr_item_sk#138,sr_reason_sk#144,sr_ticket_number#145L,sr_return_quantity#146] Batched: true, DataFilters: [isnotnull(sr_item_sk#138), isnotnull(sr_ticket_number#145L), isnotnull(sr_reason_sk#144)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(sr_item_sk), IsNotNull(sr_ticket_number), IsNotNull(sr_reason_sk)], ReadSchema: struct<sr_item_sk:int,sr_reason_sk:int,sr_ticket_number:bigint,sr_return_quantity:int>
                         +- *(8) Sort [r_reason_sk#246 ASC NULLS FIRST], false, 0
                            +- AQEShuffleRead coalesced
                               +- ShuffleQueryStage 2
-                                 +- Exchange hashpartitioning(r_reason_sk#246, 200), ENSURE_REQUIREMENTS, [id=#205823]
+                                 +- Exchange hashpartitioning(r_reason_sk#246, 200), ENSURE_REQUIREMENTS, [id=#278898]
                                     +- *(3) Project [r_reason_sk#246]
-                                       +- *(3) Filter ((isnotnull(r_reason_desc#248) AND (r_reason_desc#248 = Did not like the warranty)) AND isnotnull(r_reason_sk#246))
+                                       +- *(3) Filter ((isnotnull(r_reason_desc#248) AND (r_reason_desc#248 = reason 49)) AND isnotnull(r_reason_sk#246))
                                           +- *(3) ColumnarToRow
-                                             +- FileScan parquet [r_reason_sk#246,r_reason_desc#248] Batched: true, DataFilters: [isnotnull(r_reason_desc#248), (r_reason_desc#248 = Did not like the warranty), isnotnull(r_reaso..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/reason.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(r_reason_desc), EqualTo(r_reason_desc,Did not like the warranty), IsNotNull(r_reason_sk)], ReadSchema: struct<r_reason_sk:int,r_reason_desc:string>
+                                             +- FileScan parquet [r_reason_sk#246,r_reason_desc#248] Batched: true, DataFilters: [isnotnull(r_reason_desc#248), (r_reason_desc#248 = reason 49), isnotnull(r_reason_sk#246)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/reason.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(r_reason_desc), EqualTo(r_reason_desc,reason 49), IsNotNull(r_reason_sk)], ReadSchema: struct<r_reason_sk:int,r_reason_desc:string>
 +- == Initial Plan ==
-   TakeOrderedAndProject(limit=100, orderBy=[sumsales#19469 ASC NULLS FIRST,ss_customer_sk#255 ASC NULLS FIRST], output=[ss_customer_sk#255,sumsales#19469])
-   +- HashAggregate(keys=[ss_customer_sk#255], functions=[sum(act_sales#19468)], output=[ss_customer_sk#255, sumsales#19469])
-      +- Exchange hashpartitioning(ss_customer_sk#255, 200), ENSURE_REQUIREMENTS, [id=#205740]
-         +- HashAggregate(keys=[ss_customer_sk#255], functions=[partial_sum(act_sales#19468)], output=[ss_customer_sk#255, sum#19475, isEmpty#19476])
-            +- Project [ss_customer_sk#255, CASE WHEN isnotnull(sr_return_quantity#146) THEN CheckOverflow((promote_precision(cast(cast((ss_quantity#262 - sr_return_quantity#146) as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) ELSE CheckOverflow((promote_precision(cast(cast(ss_quantity#262 as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) END AS act_sales#19468]
+   TakeOrderedAndProject(limit=100, orderBy=[sumsales#22042 ASC NULLS FIRST,ss_customer_sk#255 ASC NULLS FIRST], output=[ss_customer_sk#255,sumsales#22042])
+   +- HashAggregate(keys=[ss_customer_sk#255], functions=[sum(act_sales#22041)], output=[ss_customer_sk#255, sumsales#22042])
+      +- Exchange hashpartitioning(ss_customer_sk#255, 200), ENSURE_REQUIREMENTS, [id=#278815]
+         +- HashAggregate(keys=[ss_customer_sk#255], functions=[partial_sum(act_sales#22041)], output=[ss_customer_sk#255, sum#22048, isEmpty#22049])
+            +- Project [ss_customer_sk#255, CASE WHEN isnotnull(sr_return_quantity#146) THEN CheckOverflow((promote_precision(cast(cast((ss_quantity#262 - sr_return_quantity#146) as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) ELSE CheckOverflow((promote_precision(cast(cast(ss_quantity#262 as decimal(10,0)) as decimal(12,2))) * promote_precision(cast(ss_sales_price#265 as decimal(12,2)))), DecimalType(18,2), true) END AS act_sales#22041]
                +- SortMergeJoin [sr_reason_sk#144], [r_reason_sk#246], Inner
                   :- Sort [sr_reason_sk#144 ASC NULLS FIRST], false, 0
-                  :  +- Exchange hashpartitioning(sr_reason_sk#144, 200), ENSURE_REQUIREMENTS, [id=#205732]
+                  :  +- Exchange hashpartitioning(sr_reason_sk#144, 200), ENSURE_REQUIREMENTS, [id=#278807]
                   :     +- Project [ss_customer_sk#255, ss_quantity#262, ss_sales_price#265, sr_reason_sk#144, sr_return_quantity#146]
                   :        +- SortMergeJoin [ss_item_sk#254, ss_ticket_number#261L], [sr_item_sk#138, sr_ticket_number#145L], Inner
                   :           :- Sort [ss_item_sk#254 ASC NULLS FIRST, ss_ticket_number#261L ASC NULLS FIRST], false, 0
-                  :           :  +- Exchange hashpartitioning(ss_item_sk#254, ss_ticket_number#261L, 200), ENSURE_REQUIREMENTS, [id=#205724]
+                  :           :  +- Exchange hashpartitioning(ss_item_sk#254, ss_ticket_number#261L, 200), ENSURE_REQUIREMENTS, [id=#278799]
                   :           :     +- FileScan parquet [ss_item_sk#254,ss_customer_sk#255,ss_ticket_number#261L,ss_quantity#262,ss_sales_price#265] Batched: true, DataFilters: [], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_sales.parquet], PartitionFilters: [], PushedFilters: [], ReadSchema: struct<ss_item_sk:int,ss_customer_sk:int,ss_ticket_number:bigint,ss_quantity:int,ss_sales_price:d...
                   :           +- Sort [sr_item_sk#138 ASC NULLS FIRST, sr_ticket_number#145L ASC NULLS FIRST], false, 0
-                  :              +- Exchange hashpartitioning(sr_item_sk#138, sr_ticket_number#145L, 200), ENSURE_REQUIREMENTS, [id=#205725]
+                  :              +- Exchange hashpartitioning(sr_item_sk#138, sr_ticket_number#145L, 200), ENSURE_REQUIREMENTS, [id=#278800]
                   :                 +- Filter ((isnotnull(sr_item_sk#138) AND isnotnull(sr_ticket_number#145L)) AND isnotnull(sr_reason_sk#144))
                   :                    +- FileScan parquet [sr_item_sk#138,sr_reason_sk#144,sr_ticket_number#145L,sr_return_quantity#146] Batched: true, DataFilters: [isnotnull(sr_item_sk#138), isnotnull(sr_ticket_number#145L), isnotnull(sr_reason_sk#144)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/store_returns.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(sr_item_sk), IsNotNull(sr_ticket_number), IsNotNull(sr_reason_sk)], ReadSchema: struct<sr_item_sk:int,sr_reason_sk:int,sr_ticket_number:bigint,sr_return_quantity:int>
                   +- Sort [r_reason_sk#246 ASC NULLS FIRST], false, 0
-                     +- Exchange hashpartitioning(r_reason_sk#246, 200), ENSURE_REQUIREMENTS, [id=#205733]
+                     +- Exchange hashpartitioning(r_reason_sk#246, 200), ENSURE_REQUIREMENTS, [id=#278808]
                         +- Project [r_reason_sk#246]
-                           +- Filter ((isnotnull(r_reason_desc#248) AND (r_reason_desc#248 = Did not like the warranty)) AND isnotnull(r_reason_sk#246))
-                              +- FileScan parquet [r_reason_sk#246,r_reason_desc#248] Batched: true, DataFilters: [isnotnull(r_reason_desc#248), (r_reason_desc#248 = Did not like the warranty), isnotnull(r_reaso..., Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/reason.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(r_reason_desc), EqualTo(r_reason_desc,Did not like the warranty), IsNotNull(r_reason_sk)], ReadSchema: struct<r_reason_sk:int,r_reason_desc:string>
+                           +- Filter ((isnotnull(r_reason_desc#248) AND (r_reason_desc#248 = reason 49)) AND isnotnull(r_reason_sk#246))
+                              +- FileScan parquet [r_reason_sk#246,r_reason_desc#248] Batched: true, DataFilters: [isnotnull(r_reason_desc#248), (r_reason_desc#248 = reason 49), isnotnull(r_reason_sk#246)], Format: Parquet, Location: InMemoryFileIndex(1 paths)[file:/mnt/bigdata/tpcds/sf100-parquet/reason.parquet], PartitionFilters: [], PushedFilters: [IsNotNull(r_reason_desc), EqualTo(r_reason_desc,reason 49), IsNotNull(r_reason_sk)], ReadSchema: struct<r_reason_sk:int,r_reason_desc:string>

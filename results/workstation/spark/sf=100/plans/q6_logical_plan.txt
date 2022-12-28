@@ -25,7 +25,7 @@ GlobalLimit 100
                      :        +- Filter ((isnotnull(d_month_seq#615) AND (d_month_seq#615 = scalar-subquery#3056 [])) AND isnotnull(d_date_sk#612))
                      :           :  +- Aggregate [d_month_seq#3065], [d_month_seq#3065]
                      :           :     +- Project [d_month_seq#3065]
-                     :           :        +- Filter ((isnotnull(d_year#3068) AND isnotnull(d_moy#3070)) AND ((d_year#3068 = 2000) AND (d_moy#3070 = 2)))
+                     :           :        +- Filter ((isnotnull(d_year#3068) AND isnotnull(d_moy#3070)) AND ((d_year#3068 = 2001) AND (d_moy#3070 = 3)))
                      :           :           +- Relation [d_date_sk#3062,d_date_id#3063,d_date#3064,d_month_seq#3065,d_week_seq#3066,d_quarter_seq#3067,d_year#3068,d_dow#3069,d_moy#3070,d_dom#3071,d_qoy#3072,d_fy_year#3073,d_fy_quarter_seq#3074,d_fy_week_seq#3075,d_day_name#3076,d_quarter_name#3077,d_holiday#3078,d_weekend#3079,d_following_holiday#3080,d_first_dom#3081,d_last_dom#3082,d_same_day_ly#3083,d_same_day_lq#3084,d_current_day#3085,... 4 more fields] parquet
                      :           +- Relation [d_date_sk#612,d_date_id#613,d_date#614,d_month_seq#615,d_week_seq#616,d_quarter_seq#617,d_year#618,d_dow#619,d_moy#620,d_dom#621,d_qoy#622,d_fy_year#623,d_fy_quarter_seq#624,d_fy_week_seq#625,d_day_name#626,d_quarter_name#627,d_holiday#628,d_weekend#629,d_following_holiday#630,d_first_dom#631,d_last_dom#632,d_same_day_ly#633,d_same_day_lq#634,d_current_day#635,... 4 more fields] parquet
                      +- Project [i_item_sk#668]

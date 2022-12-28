@@ -8,36 +8,36 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: rnk#8824, i_product_name#689 AS best_performing#8830, i_product_name#8876\
-        \ AS worst_performing#8831"
+    - title: "Projection: rnk#11037, i_product_name#689 AS best_performing#11043,\
+        \ i_product_name#11089 AS worst_performing#11044"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some((i_item_sk#8855 = item_sk#8825))"
+      - title: "Inner Join: Some((i_item_sk#11068 = item_sk#11038))"
         operator: "join"
         inputs:
-        - title: "Projection: rnk#8824, item_sk#8825, i_product_name#689"
+        - title: "Projection: rnk#11037, item_sk#11038, i_product_name#689"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((i_item_sk#668 = item_sk#8820))"
+          - title: "Inner Join: Some((i_item_sk#668 = item_sk#11033))"
             operator: "join"
             inputs:
-            - title: "Projection: item_sk#8820, rnk#8824, item_sk#8825"
+            - title: "Projection: item_sk#11033, rnk#11037, item_sk#11038"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some((rnk#8824 = rnk#8829))"
+              - title: "Inner Join: Some((rnk#11037 = rnk#11042))"
                 operator: "join"
                 inputs:
-                - title: "Projection: item_sk#8820, rnk#8824"
+                - title: "Projection: item_sk#11033, rnk#11037"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: ((rnk#8824 < 11) AND isnotnull(item_sk#8820))"
+                  - title: "Filter: ((rnk#11037 < 11) AND isnotnull(item_sk#11033))"
                     operator: "filter"
                     inputs:
                     - title: "Window (unknown)"
                       operator: "Window"
                       inputs:
-                      - title: "Filter: (isnotnull(rank_col#8821) AND (cast(rank_col#8821\
-                          \ as decimal(13,7)) > CheckOverflow((0.900000 * promote_precision(scalar-subquery#8823\
+                      - title: "Filter: (isnotnull(rank_col#11034) AND (cast(rank_col#11034\
+                          \ as decimal(13,7)) > CheckOverflow((0.900000 * promote_precision(scalar-subquery#11036\
                           \ [])), DecimalType(13,7), true)))"
                         operator: "filter"
                         inputs:
@@ -48,34 +48,34 @@ inputs:
                             operator: "projection"
                             inputs:
                             - title: "Filter: (isnotnull(ss_store_sk#259) AND (ss_store_sk#259\
-                                \ = 50))"
+                                \ = 21))"
                               operator: "filter"
                               inputs:
                               - title: "store_sales.parquet"
                                 operator: "scan"
                                 inputs: []
-                - title: "Projection: item_sk#8825, rnk#8829"
+                - title: "Projection: item_sk#11038, rnk#11042"
                   operator: "projection"
                   inputs:
-                  - title: "Filter: ((rnk#8829 < 11) AND isnotnull(item_sk#8825))"
+                  - title: "Filter: ((rnk#11042 < 11) AND isnotnull(item_sk#11038))"
                     operator: "filter"
                     inputs:
                     - title: "Window (unknown)"
                       operator: "Window"
                       inputs:
-                      - title: "Filter: (isnotnull(rank_col#8826) AND (cast(rank_col#8826\
-                          \ as decimal(13,7)) > CheckOverflow((0.900000 * promote_precision(scalar-subquery#8828\
+                      - title: "Filter: (isnotnull(rank_col#11039) AND (cast(rank_col#11039\
+                          \ as decimal(13,7)) > CheckOverflow((0.900000 * promote_precision(scalar-subquery#11041\
                           \ [])), DecimalType(13,7), true)))"
                         operator: "filter"
                         inputs:
                         - title: "Aggregate (unknown)"
                           operator: "Aggregate"
                           inputs:
-                          - title: "Projection: ss_item_sk#8834, ss_net_profit#8854"
+                          - title: "Projection: ss_item_sk#11047, ss_net_profit#11067"
                             operator: "projection"
                             inputs:
-                            - title: "Filter: (isnotnull(ss_store_sk#8839) AND (ss_store_sk#8839\
-                                \ = 50))"
+                            - title: "Filter: (isnotnull(ss_store_sk#11052) AND (ss_store_sk#11052\
+                                \ = 21))"
                               operator: "filter"
                               inputs:
                               - title: "store_sales.parquet"
@@ -90,10 +90,10 @@ inputs:
                 - title: "item.parquet"
                   operator: "scan"
                   inputs: []
-        - title: "Projection: i_item_sk#8855, i_product_name#8876"
+        - title: "Projection: i_item_sk#11068, i_product_name#11089"
           operator: "projection"
           inputs:
-          - title: "Filter: isnotnull(i_item_sk#8855)"
+          - title: "Filter: isnotnull(i_item_sk#11068)"
             operator: "filter"
             inputs:
             - title: "item.parquet"

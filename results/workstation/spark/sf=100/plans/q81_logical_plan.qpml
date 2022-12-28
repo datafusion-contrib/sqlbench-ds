@@ -9,30 +9,30 @@ inputs:
     operator: "Sort"
     inputs:
     - title: "Projection: c_customer_id#401, c_salutation#407, c_first_name#408, c_last_name#409,\
-        \ ca_street_number#18147, ca_street_name#18148, ca_street_type#18149, ca_suite_number#18150,\
-        \ ca_city#18151, ca_county#18152, ca_state#18153, ca_zip#18154, ca_country#18155,\
-        \ ca_gmt_offset#18156, ca_location_type#18157, ctr_total_return#18144"
+        \ ca_street_number#20720, ca_street_name#20721, ca_street_type#20722, ca_suite_number#20723,\
+        \ ca_city#20724, ca_county#20725, ca_state#20726, ca_zip#20727, ca_country#20728,\
+        \ ca_gmt_offset#20729, ca_location_type#20730, ctr_total_return#20717"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some((ca_address_sk#18145 = c_current_addr_sk#404))"
+      - title: "Inner Join: Some((ca_address_sk#20718 = c_current_addr_sk#404))"
         operator: "join"
         inputs:
-        - title: "Projection: ctr_total_return#18144, c_customer_id#401, c_current_addr_sk#404,\
+        - title: "Projection: ctr_total_return#20717, c_customer_id#401, c_current_addr_sk#404,\
             \ c_salutation#407, c_first_name#408, c_last_name#409"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((ctr_customer_sk#18142 = c_customer_sk#400))"
+          - title: "Inner Join: Some((ctr_customer_sk#20715 = c_customer_sk#400))"
             operator: "join"
             inputs:
-            - title: "Projection: ctr_customer_sk#18142, ctr_total_return#18144"
+            - title: "Projection: ctr_customer_sk#20715, ctr_total_return#20717"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some(((cast(ctr_total_return#18144 as decimal(24,7))\
-                  \ > (avg(ctr_total_return) * 1.2)#18160) AND (ctr_state#18143 =\
-                  \ ctr_state#18143#18177)))"
+              - title: "Inner Join: Some(((cast(ctr_total_return#20717 as decimal(24,7))\
+                  \ > (avg(ctr_total_return) * 1.2)#20733) AND (ctr_state#20716 =\
+                  \ ctr_state#20716#20750)))"
                 operator: "join"
                 inputs:
-                - title: "Filter: isnotnull(ctr_total_return#18144)"
+                - title: "Filter: isnotnull(ctr_total_return#20717)"
                   operator: "filter"
                   inputs:
                   - title: "Aggregate (unknown)"
@@ -67,7 +67,7 @@ inputs:
                               operator: "projection"
                               inputs:
                               - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618\
-                                  \ = 1998)) AND isnotnull(d_date_sk#612))"
+                                  \ = 2001)) AND isnotnull(d_date_sk#612))"
                                 operator: "filter"
                                 inputs:
                                 - title: "date_dim.parquet"
@@ -82,7 +82,7 @@ inputs:
                             - title: "customer_address.parquet"
                               operator: "scan"
                               inputs: []
-                - title: "Filter: isnotnull((avg(ctr_total_return) * 1.2)#18160)"
+                - title: "Filter: isnotnull((avg(ctr_total_return) * 1.2)#20733)"
                   operator: "filter"
                   inputs:
                   - title: "Aggregate (unknown)"
@@ -121,7 +121,7 @@ inputs:
                                 operator: "projection"
                                 inputs:
                                 - title: "Filter: ((isnotnull(d_year#618) AND (d_year#618\
-                                    \ = 1998)) AND isnotnull(d_date_sk#612))"
+                                    \ = 2001)) AND isnotnull(d_date_sk#612))"
                                   operator: "filter"
                                   inputs:
                                   - title: "date_dim.parquet"
@@ -146,14 +146,14 @@ inputs:
                 - title: "customer.parquet"
                   operator: "scan"
                   inputs: []
-        - title: "Projection: ca_address_sk#18145, ca_street_number#18147, ca_street_name#18148,\
-            \ ca_street_type#18149, ca_suite_number#18150, ca_city#18151, ca_county#18152,\
-            \ ca_state#18153, ca_zip#18154, ca_country#18155, ca_gmt_offset#18156,\
-            \ ca_location_type#18157"
+        - title: "Projection: ca_address_sk#20718, ca_street_number#20720, ca_street_name#20721,\
+            \ ca_street_type#20722, ca_suite_number#20723, ca_city#20724, ca_county#20725,\
+            \ ca_state#20726, ca_zip#20727, ca_country#20728, ca_gmt_offset#20729,\
+            \ ca_location_type#20730"
           operator: "projection"
           inputs:
-          - title: "Filter: ((isnotnull(ca_state#18153) AND (ca_state#18153 = IL))\
-              \ AND isnotnull(ca_address_sk#18145))"
+          - title: "Filter: ((isnotnull(ca_state#20726) AND (ca_state#20726 = IA))\
+              \ AND isnotnull(ca_address_sk#20718))"
             operator: "filter"
             inputs:
             - title: "customer_address.parquet"

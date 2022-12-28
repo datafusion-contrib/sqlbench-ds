@@ -8,27 +8,27 @@ inputs:
   - title: "Sort (unknown)"
     operator: "Sort"
     inputs:
-    - title: "Projection: s_store_name#717, i_item_desc#672, revenue#12981, i_current_price#673,\
+    - title: "Projection: s_store_name#717, i_item_desc#672, revenue#15134, i_current_price#673,\
         \ i_wholesale_cost#674, i_brand#676"
       operator: "projection"
       inputs:
-      - title: "Inner Join: Some(((ss_store_sk#259 = ss_store_sk#12989) AND (cast(revenue#12981\
-          \ as decimal(23,7)) <= CheckOverflow((0.100000 * promote_precision(ave#12980)),\
+      - title: "Inner Join: Some(((ss_store_sk#259 = ss_store_sk#15142) AND (cast(revenue#15134\
+          \ as decimal(23,7)) <= CheckOverflow((0.100000 * promote_precision(ave#15133)),\
           \ DecimalType(23,7), true))))"
         operator: "join"
         inputs:
-        - title: "Projection: s_store_name#717, ss_store_sk#12989, revenue#12981,\
+        - title: "Projection: s_store_name#717, ss_store_sk#15142, revenue#15134,\
             \ i_item_desc#672, i_current_price#673, i_wholesale_cost#674, i_brand#676"
           operator: "projection"
           inputs:
-          - title: "Inner Join: Some((i_item_sk#668 = ss_item_sk#12984))"
+          - title: "Inner Join: Some((i_item_sk#668 = ss_item_sk#15137))"
             operator: "join"
             inputs:
-            - title: "Projection: s_store_name#717, ss_store_sk#12989, ss_item_sk#12984,\
-                \ revenue#12981"
+            - title: "Projection: s_store_name#717, ss_store_sk#15142, ss_item_sk#15137,\
+                \ revenue#15134"
               operator: "projection"
               inputs:
-              - title: "Inner Join: Some((s_store_sk#712 = ss_store_sk#12989))"
+              - title: "Inner Join: Some((s_store_sk#712 = ss_store_sk#15142))"
                 operator: "join"
                 inputs:
                 - title: "Projection: s_store_sk#712, s_store_name#717"
@@ -40,34 +40,34 @@ inputs:
                     - title: "store.parquet"
                       operator: "scan"
                       inputs: []
-                - title: "Filter: isnotnull(revenue#12981)"
+                - title: "Filter: isnotnull(revenue#15134)"
                   operator: "filter"
                   inputs:
                   - title: "Aggregate (unknown)"
                     operator: "Aggregate"
                     inputs:
-                    - title: "Projection: ss_item_sk#12984, ss_store_sk#12989, ss_sales_price#12995"
+                    - title: "Projection: ss_item_sk#15137, ss_store_sk#15142, ss_sales_price#15148"
                       operator: "projection"
                       inputs:
-                      - title: "Inner Join: Some((ss_sold_date_sk#12982 = d_date_sk#13005))"
+                      - title: "Inner Join: Some((ss_sold_date_sk#15135 = d_date_sk#15158))"
                         operator: "join"
                         inputs:
-                        - title: "Projection: ss_sold_date_sk#12982, ss_item_sk#12984,\
-                            \ ss_store_sk#12989, ss_sales_price#12995"
+                        - title: "Projection: ss_sold_date_sk#15135, ss_item_sk#15137,\
+                            \ ss_store_sk#15142, ss_sales_price#15148"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: ((isnotnull(ss_sold_date_sk#12982) AND\
-                              \ isnotnull(ss_store_sk#12989)) AND isnotnull(ss_item_sk#12984))"
+                          - title: "Filter: ((isnotnull(ss_sold_date_sk#15135) AND\
+                              \ isnotnull(ss_store_sk#15142)) AND isnotnull(ss_item_sk#15137))"
                             operator: "filter"
                             inputs:
                             - title: "store_sales.parquet"
                               operator: "scan"
                               inputs: []
-                        - title: "Projection: d_date_sk#13005"
+                        - title: "Projection: d_date_sk#15158"
                           operator: "projection"
                           inputs:
-                          - title: "Filter: ((isnotnull(d_month_seq#13008) AND ((d_month_seq#13008\
-                              \ >= 1212) AND (d_month_seq#13008 <= 1223))) AND isnotnull(d_date_sk#13005))"
+                          - title: "Filter: ((isnotnull(d_month_seq#15161) AND ((d_month_seq#15161\
+                              \ >= 1191) AND (d_month_seq#15161 <= 1202))) AND isnotnull(d_date_sk#15158))"
                             operator: "filter"
                             inputs:
                             - title: "date_dim.parquet"
@@ -109,7 +109,7 @@ inputs:
                   operator: "projection"
                   inputs:
                   - title: "Filter: ((isnotnull(d_month_seq#615) AND ((d_month_seq#615\
-                      \ >= 1212) AND (d_month_seq#615 <= 1223))) AND isnotnull(d_date_sk#612))"
+                      \ >= 1191) AND (d_month_seq#615 <= 1202))) AND isnotnull(d_date_sk#612))"
                     operator: "filter"
                     inputs:
                     - title: "date_dim.parquet"

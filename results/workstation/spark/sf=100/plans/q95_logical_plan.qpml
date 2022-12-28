@@ -1,0 +1,135 @@
+---
+title: "Aggregate (unknown)"
+operator: "Aggregate"
+inputs:
+- title: "Projection: ws_order_number#908L, ws_ext_ship_cost#919, ws_net_profit#924"
+  operator: "projection"
+  inputs:
+  - title: "Inner Join: Some((ws_web_site_sk#904 = web_site_sk#798))"
+    operator: "join"
+    inputs:
+    - title: "Projection: ws_web_site_sk#904, ws_order_number#908L, ws_ext_ship_cost#919,\
+        \ ws_net_profit#924"
+      operator: "projection"
+      inputs:
+      - title: "Inner Join: Some((ws_ship_addr_sk#902 = ca_address_sk#62))"
+        operator: "join"
+        inputs:
+        - title: "Projection: ws_ship_addr_sk#902, ws_web_site_sk#904, ws_order_number#908L,\
+            \ ws_ext_ship_cost#919, ws_net_profit#924"
+          operator: "projection"
+          inputs:
+          - title: "Inner Join: Some((ws_ship_date_sk#893 = d_date_sk#612))"
+            operator: "join"
+            inputs:
+            - title: "LeftSemi Join: Some((ws_order_number#908L = wr_order_number#311L))"
+              operator: "join"
+              inputs:
+              - title: "LeftSemi Join: Some((ws_order_number#908L = ws_order_number#493L))"
+                operator: "join"
+                inputs:
+                - title: "Projection: ws_ship_date_sk#893, ws_ship_addr_sk#902, ws_web_site_sk#904,\
+                    \ ws_order_number#908L, ws_ext_ship_cost#919, ws_net_profit#924"
+                  operator: "projection"
+                  inputs:
+                  - title: "Filter: ((isnotnull(ws_ship_date_sk#893) AND isnotnull(ws_ship_addr_sk#902))\
+                      \ AND isnotnull(ws_web_site_sk#904))"
+                    operator: "filter"
+                    inputs:
+                    - title: "web_sales.parquet"
+                      operator: "scan"
+                      inputs: []
+                - title: "Projection: ws_order_number#493L"
+                  operator: "projection"
+                  inputs:
+                  - title: "Inner Join: Some(((ws_order_number#493L = ws_order_number#874L)\
+                      \ AND NOT (ws_warehouse_sk#491 = ws_warehouse_sk#872)))"
+                    operator: "join"
+                    inputs:
+                    - title: "Projection: ws_warehouse_sk#491, ws_order_number#493L"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: (isnotnull(ws_order_number#493L) AND isnotnull(ws_warehouse_sk#491))"
+                        operator: "filter"
+                        inputs:
+                        - title: "web_sales.parquet"
+                          operator: "scan"
+                          inputs: []
+                    - title: "Projection: ws_warehouse_sk#872, ws_order_number#874L"
+                      operator: "projection"
+                      inputs:
+                      - title: "Filter: (isnotnull(ws_order_number#874L) AND isnotnull(ws_warehouse_sk#872))"
+                        operator: "filter"
+                        inputs:
+                        - title: "web_sales.parquet"
+                          operator: "scan"
+                          inputs: []
+              - title: "Projection: wr_order_number#311L"
+                operator: "projection"
+                inputs:
+                - title: "Inner Join: Some((wr_order_number#311L = ws_order_number#493L))"
+                  operator: "join"
+                  inputs:
+                  - title: "Projection: wr_order_number#311L"
+                    operator: "projection"
+                    inputs:
+                    - title: "Filter: isnotnull(wr_order_number#311L)"
+                      operator: "filter"
+                      inputs:
+                      - title: "web_returns.parquet"
+                        operator: "scan"
+                        inputs: []
+                  - title: "Projection: ws_order_number#493L"
+                    operator: "projection"
+                    inputs:
+                    - title: "Inner Join: Some(((ws_order_number#493L = ws_order_number#874L)\
+                        \ AND NOT (ws_warehouse_sk#491 = ws_warehouse_sk#872)))"
+                      operator: "join"
+                      inputs:
+                      - title: "Projection: ws_warehouse_sk#491, ws_order_number#493L"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (isnotnull(ws_order_number#493L) AND isnotnull(ws_warehouse_sk#491))"
+                          operator: "filter"
+                          inputs:
+                          - title: "web_sales.parquet"
+                            operator: "scan"
+                            inputs: []
+                      - title: "Projection: ws_warehouse_sk#872, ws_order_number#874L"
+                        operator: "projection"
+                        inputs:
+                        - title: "Filter: (isnotnull(ws_order_number#874L) AND isnotnull(ws_warehouse_sk#872))"
+                          operator: "filter"
+                          inputs:
+                          - title: "web_sales.parquet"
+                            operator: "scan"
+                            inputs: []
+            - title: "Projection: d_date_sk#612"
+              operator: "projection"
+              inputs:
+              - title: "Filter: ((isnotnull(d_date#614) AND ((d_date#614 >= 2002-04-01)\
+                  \ AND (d_date#614 <= 2002-05-31))) AND isnotnull(d_date_sk#612))"
+                operator: "filter"
+                inputs:
+                - title: "date_dim.parquet"
+                  operator: "scan"
+                  inputs: []
+        - title: "Projection: ca_address_sk#62"
+          operator: "projection"
+          inputs:
+          - title: "Filter: ((isnotnull(ca_state#70) AND (ca_state#70 = MS)) AND isnotnull(ca_address_sk#62))"
+            operator: "filter"
+            inputs:
+            - title: "customer_address.parquet"
+              operator: "scan"
+              inputs: []
+    - title: "Projection: web_site_sk#798"
+      operator: "projection"
+      inputs:
+      - title: "Filter: ((isnotnull(web_company_name#812) AND (web_company_name#812\
+          \ = pri)) AND isnotnull(web_site_sk#798))"
+        operator: "filter"
+        inputs:
+        - title: "web_site.parquet"
+          operator: "scan"
+          inputs: []
