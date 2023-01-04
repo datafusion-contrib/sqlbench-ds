@@ -31,7 +31,7 @@ object Main {
     val w = new BufferedWriter(new FileWriter(new File("results.csv")))
 
     val spark: SparkSession = SparkSession.builder
-      .appName("Spark TPC-DS Benchmarks")
+      .appName("SQLBench-DS Benchmarks")
       .config(SQLConf.AUTO_BROADCASTJOIN_THRESHOLD.key, "-1")
       .getOrCreate()
 
@@ -95,8 +95,6 @@ object Main {
       val results = resultDf.collect()
       val duration = System.currentTimeMillis() - start
       println(s"Query $query took $duration ms")
-
-
 
       var prefix = s"q$query"
       if (queries.length > 1) {

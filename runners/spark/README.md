@@ -33,7 +33,7 @@ $SPARK_HOME/bin/spark-submit --master spark://ripper:7077 \
     --conf spark.executor.cores=24 \
     target/sqlbench-ds-0.1.0-SNAPSHOT-jar-with-dependencies.jar \
     --input-path /mnt/bigdata/tpcds/sf100-parquet/ \
-    --query-path ~/git/sql-benchmarks/sqlbench-ds-private/queries-spark/sf\=100/ \
+    --query-path ../../queries-spark/sf\=100/ \
     --query 1
 ```
 
@@ -47,7 +47,7 @@ $SPARK_HOME/bin/spark-submit --master spark://ripper:7077 \
     --conf spark.executor.cores=24 \
     target/sqlbench-ds-0.1.0-SNAPSHOT-jar-with-dependencies.jar \
     --input-path /mnt/bigdata/tpcds/sf100-parquet/ \
-    --query-path ~/git/sql-benchmarks/sqlbench-ds-private/queries-spark/sf\=100/ \
+    --query-path ../../queries-spark/sf\=100/ \
     --skip-query72
 ```
 
