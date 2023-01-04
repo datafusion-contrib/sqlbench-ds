@@ -78,7 +78,7 @@ pub async fn main() -> Result<()> {
     let config = SessionConfig::from_env().with_target_partitions(opt.concurrency as usize);
     let ctx = SessionContext::with_config(config);
 
-    let f = File::create("results.csv")?;
+    let f = File::create(&format!("{}/timings.csv", output_path))?;
     let mut w = BufWriter::new(f);
 
     // register tables

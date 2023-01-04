@@ -7,6 +7,8 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import org.apache.spark.sql.catalyst.plans.logical.{Filter, Join, LogicalPlan, Project}
 import org.apache.spark.sql.execution.datasources.{HadoopFsRelation, LogicalRelation}
 
+case class Document(@JsonProperty("diagram") diagram: Node)
+
 case class Node(@JsonProperty("title") title: String,
                 @JsonProperty("operator") operator: String,
                 @JsonProperty("inputs") inputs: java.util.List[Node])
@@ -39,7 +41,10 @@ object Qpml {
 
     val mapper = new ObjectMapper(new YAMLFactory())
     mapper.registerModule(DefaultScalaModule)
-    mapper.writeValueAsString(_fromLogicalPlan(plan))
+
+    val query = _fromLogicalPlan(plan)
+    val doc = Document(query)
+    mapper.writeValueAsString(doc)
   }
 
 }
