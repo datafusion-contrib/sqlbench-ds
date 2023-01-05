@@ -1,3 +1,6 @@
+-- SQLBench-DS query 41 derived from TPC-DS query 41 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 select  distinct(i_product_name)
  from item i1
  where i_manufact_id between 959 and 959+40 

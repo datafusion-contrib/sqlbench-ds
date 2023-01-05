@@ -1,3 +1,6 @@
+-- SQLBench-DS query 16 derived from TPC-DS query 16 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1.
 select  
    count(distinct cs_order_number) as `order count`
   ,sum(cs_ext_ship_cost) as `total shipping cost`

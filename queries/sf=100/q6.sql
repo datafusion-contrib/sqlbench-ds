@@ -1,3 +1,6 @@
+-- SQLBench-DS query 6 derived from TPC-DS query 6 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select  a.ca_state state, count(*) cnt
  from customer_address a
      ,customer c

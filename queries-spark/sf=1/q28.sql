@@ -1,3 +1,6 @@
+-- SQLBench-DS query 28 derived from TPC-DS query 28 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1.
 select  *
 from (select avg(ss_list_price) B1_LP
             ,count(ss_list_price) B1_CNT

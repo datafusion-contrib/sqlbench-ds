@@ -1,3 +1,6 @@
+-- SQLBench-DS query 22 derived from TPC-DS query 22 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 3000.
 select  i_product_name
              ,i_brand
              ,i_class

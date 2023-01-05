@@ -1,3 +1,6 @@
+-- SQLBench-DS query 59 derived from TPC-DS query 59 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 3000.
 with wss as 
  (select d_week_seq,
         ss_store_sk,

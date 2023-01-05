@@ -1,3 +1,6 @@
+-- SQLBench-DS query 10 derived from TPC-DS query 10 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select  
   cd_gender,
   cd_marital_status,

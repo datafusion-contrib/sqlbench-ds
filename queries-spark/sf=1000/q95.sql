@@ -1,3 +1,6 @@
+-- SQLBench-DS query 95 derived from TPC-DS query 95 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 with ws_wh as
 (select ws1.ws_order_number,ws1.ws_warehouse_sk wh1,ws2.ws_warehouse_sk wh2
  from web_sales ws1,web_sales ws2

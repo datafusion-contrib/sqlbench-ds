@@ -1,3 +1,6 @@
+-- SQLBench-DS query 31 derived from TPC-DS query 31 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 with ss as
  (select ca_county,d_qoy, d_year,sum(ss_ext_sales_price) as store_sales
  from store_sales,date_dim,customer_address

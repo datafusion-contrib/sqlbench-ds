@@ -1,3 +1,6 @@
+-- SQLBench-DS query 51 derived from TPC-DS query 51 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 WITH web_v1 as (
 select
   ws_item_sk item_sk, d_date,

@@ -1,3 +1,6 @@
+-- SQLBench-DS query 57 derived from TPC-DS query 57 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 with v1 as(
  select i_category, i_brand,
         cc_name,

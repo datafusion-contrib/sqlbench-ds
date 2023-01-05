@@ -1,3 +1,6 @@
+-- SQLBench-DS query 43 derived from TPC-DS query 43 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 select  s_store_name, s_store_id,
         sum(case when (d_day_name='Sunday') then ss_sales_price else null end) sun_sales,
         sum(case when (d_day_name='Monday') then ss_sales_price else null end) mon_sales,
