@@ -1,3 +1,6 @@
+-- SQLBench-DS query 88 derived from TPC-DS query 88 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 select  *
 from
  (select count(*) h8_30_to_9

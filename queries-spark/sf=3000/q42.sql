@@ -1,3 +1,6 @@
+-- SQLBench-DS query 42 derived from TPC-DS query 42 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 3000.
 select  dt.d_year
  	,item.i_category_id
  	,item.i_category

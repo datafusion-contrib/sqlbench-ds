@@ -1,3 +1,6 @@
+-- SQLBench-DS query 97 derived from TPC-DS query 97 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 with ssci as (
 select ss_customer_sk customer_sk
       ,ss_item_sk item_sk

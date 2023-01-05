@@ -1,3 +1,6 @@
+-- SQLBench-DS query 3 derived from TPC-DS query 3 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select  dt.d_year 
        ,item.i_brand_id brand_id 
        ,item.i_brand brand

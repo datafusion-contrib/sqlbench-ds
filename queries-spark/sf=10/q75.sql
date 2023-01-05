@@ -1,3 +1,6 @@
+-- SQLBench-DS query 75 derived from TPC-DS query 75 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 WITH all_sales AS (
  SELECT d_year
        ,i_brand_id

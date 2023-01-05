@@ -1,3 +1,6 @@
+-- SQLBench-DS query 45 derived from TPC-DS query 45 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 select  ca_zip, ca_county, sum(ws_sales_price)
  from web_sales, customer, customer_address, date_dim, item
  where ws_bill_customer_sk = c_customer_sk

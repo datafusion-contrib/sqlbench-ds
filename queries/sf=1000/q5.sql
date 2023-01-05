@@ -1,3 +1,6 @@
+-- SQLBench-DS query 5 derived from TPC-DS query 5 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 with ssr as
  (select s_store_id,
         sum(sales_price) as sales,

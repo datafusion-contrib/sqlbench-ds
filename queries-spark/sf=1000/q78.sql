@@ -1,3 +1,6 @@
+-- SQLBench-DS query 78 derived from TPC-DS query 78 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 with ws as
   (select d_year AS ws_sold_year, ws_item_sk,
     ws_bill_customer_sk ws_customer_sk,

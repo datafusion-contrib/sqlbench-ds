@@ -1,3 +1,6 @@
+-- SQLBench-DS query 83 derived from TPC-DS query 83 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 with sr_items as
  (select i_item_id item_id,
         sum(sr_return_quantity) sr_item_qty

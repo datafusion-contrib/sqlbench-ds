@@ -1,3 +1,6 @@
+-- SQLBench-DS query 70 derived from TPC-DS query 70 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 select  
     sum(ss_net_profit) as total_sum
    ,s_state

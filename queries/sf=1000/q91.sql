@@ -1,3 +1,6 @@
+-- SQLBench-DS query 91 derived from TPC-DS query 91 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 select  
         cc_call_center_id Call_Center,
         cc_name Call_Center_Name,

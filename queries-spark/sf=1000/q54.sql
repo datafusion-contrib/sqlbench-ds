@@ -1,3 +1,6 @@
+-- SQLBench-DS query 54 derived from TPC-DS query 54 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 with my_customers as (
  select distinct c_customer_sk
         , c_current_addr_sk

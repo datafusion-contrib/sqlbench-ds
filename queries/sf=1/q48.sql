@@ -1,3 +1,6 @@
+-- SQLBench-DS query 48 derived from TPC-DS query 48 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1.
 select sum (ss_quantity)
  from store_sales, store, customer_demographics, customer_address, date_dim
  where s_store_sk = ss_store_sk

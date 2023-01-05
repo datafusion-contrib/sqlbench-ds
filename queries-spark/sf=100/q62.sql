@@ -1,3 +1,6 @@
+-- SQLBench-DS query 62 derived from TPC-DS query 62 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select  
    substr(w_warehouse_name,1,20)
   ,sm_type

@@ -1,3 +1,6 @@
+-- SQLBench-DS query 30 derived from TPC-DS query 30 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 3000.
 with customer_total_return as
  (select wr_returning_customer_sk as ctr_customer_sk
         ,ca_state as ctr_state, 

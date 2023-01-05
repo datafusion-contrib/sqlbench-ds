@@ -1,3 +1,6 @@
+-- SQLBench-DS query 65 derived from TPC-DS query 65 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select 
 	s_store_name,
 	i_item_desc,

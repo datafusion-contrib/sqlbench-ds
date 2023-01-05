@@ -1,3 +1,6 @@
+-- SQLBench-DS query 53 derived from TPC-DS query 53 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select  * from 
 (select i_manufact_id,
 sum(ss_sales_price) sum_sales,

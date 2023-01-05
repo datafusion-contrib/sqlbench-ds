@@ -1,3 +1,6 @@
+-- SQLBench-DS query 66 derived from TPC-DS query 66 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 3000.
 select   
          w_warehouse_name
  	,w_warehouse_sq_ft

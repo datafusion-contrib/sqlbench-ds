@@ -1,3 +1,6 @@
+-- SQLBench-DS query 71 derived from TPC-DS query 71 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 1000.
 select i_brand_id brand_id, i_brand brand,t_hour,t_minute,
  	sum(ext_price) ext_price
  from item, (select ws_ext_sales_price as ext_price, 

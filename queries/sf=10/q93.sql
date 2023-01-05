@@ -1,3 +1,6 @@
+-- SQLBench-DS query 93 derived from TPC-DS query 93 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 10.
 select  ss_customer_sk
             ,sum(act_sales) sumsales
       from (select ss_item_sk

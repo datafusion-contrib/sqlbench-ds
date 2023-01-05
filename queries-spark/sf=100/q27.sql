@@ -1,3 +1,6 @@
+-- SQLBench-DS query 27 derived from TPC-DS query 27 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select  i_item_id,
         s_state, grouping(s_state) g_state,
         avg(ss_quantity) agg1,

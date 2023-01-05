@@ -1,3 +1,6 @@
+-- SQLBench-DS query 26 derived from TPC-DS query 26 under the terms of the TPC Fair Use Policy.
+-- TPC-DS queries are Copyright 2021 Transaction Processing Performance Council.
+-- This query was generated at scale factor 100.
 select  i_item_id, 
         avg(cs_quantity) agg1,
         avg(cs_list_price) agg2,
